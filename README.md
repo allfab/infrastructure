@@ -20,6 +20,7 @@
   <a href="#pré-requis">Pré-requis</a> •
   <a href="#instructions-de-déploiement">Instructions de déploiement</a> •
   <a href="#coffre-fort-ansible">Coffre-fort Ansible</a> •
+  <a href="#crédits">Crédits</a> •
   <a href="#license">License</a>
 </p>
 
@@ -98,6 +99,12 @@ Dans ce projet, j'ai combiné l'utilisation de plusieurs outils pour ma gestion 
 - le script `ansible-vault-helper.sh` qui va me permettre de crypter et/ou de décryper les fichiers `vault.yml` présents dans le projet.
 
 [**➕ En savoir +**](docs/ansible/ansible-vault-strategy.md)
+
+# Crédits
+
+Ce dépôt n'existerait pas sans le partage des infrastructures d'[IronicBadger/AlexKTZ](https://github.com/ironicbadger/infra) et de [FuzzyMistborn](https://github.com/FuzzyMistborn/infra). J'ai beaucoup appris en fouillant dans ces dépôts et certaines choses sont copiées directement à partir de ces sources et je les en remercie pour le partage de leur savoir-faire et expérimentation.
+
+Pour finir, un clin d'oeil à [@GuiPoM](https://www.youtube.com/@GuiPoM) sans qui je n'aurais jamais sauté le pas pour construie mon NAS, notamment grâce à sa playlist [G. installé un NAS](https://www.youtube.com/playlist?list=PLMYMkXlcQmZA2TTeyT13eykkc-aM8kU3t).
 
 # Licence
 
