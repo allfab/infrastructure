@@ -8,7 +8,7 @@
   <br>
 </h1>
 
-<h4 align="center">Home Assistant Local Assist Pipeline with <a href="https://docs.docker.com/compose/">Docker Compose</a>.</h4>
+<h4 align="center">Ce référentiel contient le code utilisé pour déployer et gérer mes différents conteneurs LXC sur Proxmox.<br />Ansible est le principal outil avec lequel je déploie cette infrastructure.</h4>
 
 <p align="center">
   <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a>
@@ -98,3 +98,7 @@ Dans ce projet, j'ai combiné l'utilisation de plusieurs outils pour ma gestion 
 - le script `ansible-vault-helper.sh` qui va me permettre de crypter et/ou de décryper les fichiers `vault.yml` présents dans le projet.
 
 [**➕ En savoir +**](docs/ansible/ansible-vault-strategy.md)
+
+# Licence
+
+À définir
