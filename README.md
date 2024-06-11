@@ -1,3 +1,28 @@
+<h1 align="center">
+  <br>
+  <a href="https://perfecthomelab.allfabox.fr/"><img src="https://github.com/allfab/docker-homeassistant-assist-stack/assets/1840185/a83bea0c-37be-4520-af3a-33a71da2deb2" alt="Perfect Homelab" width="200px"></a>
+  <br>
+  Infrastructure As Code
+  <br>
+  Ansible
+  <br>
+</h1>
+
+<h4 align="center">Home Assistant Local Assist Pipeline with <a href="https://docs.docker.com/compose/">Docker Compose</a>.</h4>
+
+<p align="center">
+  <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a>
+  <a href="https://www.ansible.com/" target="_blank"><img src="https://img.shields.io/badge/ansible-000000?style=for-the-badge&logo=ansible&logoColor=white" /></a>
+</p>
+
+<p align="center">
+  <a href="#pourquoi-ce-dépôt-">Pourquoi ce dépôt ?</a> •
+  <a href="#pré-requis">Pré-requis</a> •
+  <a href="#instructions-de-déploiement">Instructions de déploiement</a> •
+  <a href="#coffre-fort-ansible">Coffre-fort Ansible</a> •
+  <a href="#license">License</a>
+</p>
+
 # Pourquoi ce dépôt ?
 
 Ce dépôt contient le code que j'utilise pour déployer et gérer les serveurs de mon homelab :
