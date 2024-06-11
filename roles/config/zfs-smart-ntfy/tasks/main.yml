@@ -1,0 +1,66 @@
+---
+# https://rair.dev/zfs-smart-ntfy/
+- name: VÉRIFICATION DE LA VERSION DE ZFS
+  command: zfs --version
+
+- name: INSTALLATION DES PAQUETS 'zfsutils-linux' ET 'smartmontools'
+  package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - zfs-test
+    - zfsutils-linux
+    - smartmontools
+
+- name: MODIFICATION DU FICHIER /etc/zfs/zed.d/zed.rc
+  lineinfile:
+    dest: /etc/zfs/zed.d/zed.rc
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  with_items:
+    - regexp: '^#ZED_NTFY_TOPIC=""'
+      line: 'ZED_NTFY_TOPIC="morpheus-zfs-zed"'
+    - regexp: '^#ZED_NTFY_URL="https://ntfy.sh"'
+      line: 'ZED_NTFY_URL="https://ntfy.allfabox.fr"'
+
+- name: REDÉMARRAGE DU SERVICE zed
+  service:
+    name: zed
+    daemon_reload: true
+    state: restarted
+
+- name: MISE EN PLACE DES NOTIFICATIONS 'smart'
+  lineinfile:
+    dest: /etc/smartd.conf
+    regexp: "^DEVICESCAN -d removable -n standby -m root -M exec /usr/share/smartmontools/smartd-runner"
+    line: "DEVICESCAN -a -s (S/../.././03|L/../01/./04) -m <nomailer> -M exec /usr/local/sbin/smartd-ntfy"
+    # line: "DEVICESCAN -a -s (S/../.././03|L/../01/./04) -m <nomailer> -M exec /usr/local/sbin/smartd-ntfy -M test"
+    state: present
+
+- name: CRÉATION DU SCRIPT 'smartd-ntfy'
+  template:
+    src: smartd-ntfy.j2
+    dest: /usr/local/sbin/smartd-ntfy
+    mode: 0750
+
+- name: REDÉMARRAGE DU SERVICE 'smartd'
+  service:
+    name: smartd
+    state: restarted
+
+# smartmontool
+# smartctl --smart=on /dev/sda
+# vi /etc/smartd.conf
+# DEVICESCAN -d removable -n standby -m root -M exec /usr/share/smartmontools/smart-runner
+# DEVICESCAN -a -s (S/../.././03|L/../01/./04) -m <nomailer> -M exec /usr/local/sbin/smartd-ntfy -M test
+
+#!/bin/bash
+
+# curl -Ls -H "Title: $SMARTD_SUBJECT" -d "$SMARTD_FAILTYPE Device: $SMARTD_DEVICE Time: $SMARTD_TFIRST Message: $SMARTD_FULLMESSAGE" http://192.168.10.20:5000/zfs-morpheus
+
+# Le -a signifie que nous voulons surveiller TOUTES les propriétés SMART (c'est la valeur par défaut, mais ajoutée pour la postérité)
+# La section -s (S/../.././03|L/../01/./04) met en place 2 autotests - au format (MM/DD/d/HH).
+# Le S définit un test court quotidiennement à 3 heures du matin et le L définit un test long le premier de chaque mois à 4 heures du matin.
+# Les -m et -M sont expliqués ci-dessus. Mais notez le chemin après l'exécution
+# J'ai ajouté l'indicateur -M une deuxième fois avec la directive test. Cela nous enverra une notification de test au démarrage de smartd. Après notre premier test, nous reviendrons et le supprimerons.

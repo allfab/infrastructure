@@ -1,0 +1,3 @@
+#!/bin/bash
+
+curl -Ls -H "Title: $SMARTD_SUBJECT" -d "$SMARTD_FAILTYPE Device: $SMARTD_DEVICE Time: $SMARTD_TFIRST Message: $SMARTD_FULLMESSAGE" https://ntfy.allfabox.fr/morpheus-smartd
