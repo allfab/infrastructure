@@ -1,0 +1,13 @@
+http:
+  routers:
+    freebox:
+      entryPoints:
+        - websecure
+      rule: 'Host(`freebox.allfabox.fr`)'
+      service: freebox
+  
+  services:
+    freebox:
+      loadBalancer:
+        servers:
+          - url: "https://{{ freebox.ip }}:8143"

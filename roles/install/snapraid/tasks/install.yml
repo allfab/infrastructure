@@ -1,0 +1,72 @@
+---
+- name: VÉRIFICATION DE LA PRÉSENCE DE snapraid SUR LE SYSTÈME
+  shell: "dpkg-query -W '{{ snapraid_apt_package_name }}'"
+  ignore_errors: True
+  register: is_installed
+  changed_when: "is_installed.rc != 0"
+
+- name: snapraid EST-IL INSTALLÉ ?
+  set_fact:
+    force_install: "{{ snapraid_force_install == true or is_installed.failed == true }}"
+    snapraid_is_installed: "{{ is_installed.failed == false }}"
+
+- name: INSTALLATION DES LIBRAIRIES DE COMPILATION
+  package:
+    name: build-essential
+    state: present
+  when: snapraid_is_installed == True
+
+- name: VÉRIFICATION DE LA VERSION DE snapraid INSTALLÉ
+  shell: "{{ snapraid_bin_path }} --version | head -n1 | cut -c 10-16"
+  changed_when: false
+  register: snapraid_installed_version_registered
+  when: snapraid_is_installed == True
+
+- name: OBTENTION DE LA DERNIÈRE VERSION
+  uri:
+    url: https://api.github.com/repos/amadvance/snapraid/releases/latest
+    url_username: "{{ secret.github.api.user | default (omit) }}"
+    url_password: "{{ secret.github.api.token | default (omit) }}"
+    return_content: true
+    force_basic_auth: "{{ secret.github.api.auth | default (omit) }}"
+  register: snapraid_latest_release
+  when: snapraid_version is undefined and force_install == True
+
+- name: DÉFINITION DE LA VERSION SI CE N'EST PAS LE CAS
+  set_fact: 
+    snapraid_version: "{{ snapraid_latest_release.json.tag_name }}"
+  when: snapraid_version is undefined and force_install == True
+
+- name: TÉLÉCHARGEMENT DE LA VERSION SOUHAITÉE
+  get_url:
+    url: https://github.com/amadvance/snapraid/releases/download/{{ snapraid_version }}/snapraid-{{ snapraid_version | regex_replace('v') }}.tar.gz
+    dest: /tmp
+  when: force_install == True
+
+- name: DÉFINITION DU NOM DU FICHIER
+  set_fact:
+    file_name: "snapraid-{{ snapraid_version | regex_replace('v') }}.tar.gz"
+  when: force_install == True
+
+- name: UNTAR "{{ file_name }}"
+  ansible.builtin.unarchive:
+    src: "/tmp/{{ file_name }}"
+    dest: /tmp
+    remote_src: yes
+
+- name: BUILD DE snapraid | ON REND LE SCRIPT DE BUILD EXÉCUTABLE
+  file:
+    path: "/tmp/snapraid-{{ snapraid_version | regex_replace('v') }}/configure"
+    mode: 0775
+
+- name: BUILD DE snapraid | CONFIGURATION DE LA COMPILATION 2/4
+  shell: "cd /tmp/snapraid-{{ snapraid_version | regex_replace('v') }} && ./configure"
+
+- name: BUILD DE snapraid | make 2/4
+  shell: "cd /tmp/snapraid-{{ snapraid_version | regex_replace('v') }} && make"
+
+- name: BUILD DE snapraid | make check 3/4
+  shell: "cd /tmp/snapraid-{{ snapraid_version | regex_replace('v') }} && make check"
+
+- name: BUILD DE snapraid | make force_install 4/4
+  shell: "cd /tmp/snapraid-{{ snapraid_version | regex_replace('v') }} && make install"

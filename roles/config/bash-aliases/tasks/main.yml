@@ -1,0 +1,11 @@
+---
+- name: CONFIGURATION DES ALIAS Bash
+  lineinfile:
+    dest: "{{ secret.users.me.home }}/.bash_aliases"
+    create: yes
+    group: "{{ secret.users.me.name }}"
+    line: 'alias {{ item.alias }}="{{ item.command }}"'
+    mode: 0644
+    owner: "{{ secret.users.me.name }}"
+    regexp: "^alias {{ item.alias }}="
+  with_items: "{{ bash_aliases }}"

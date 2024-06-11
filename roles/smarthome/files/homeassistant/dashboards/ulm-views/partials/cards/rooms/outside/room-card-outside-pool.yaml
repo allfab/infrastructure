@@ -1,0 +1,21 @@
+---
+type: "custom:button-card"
+template:
+  - "card_room"
+  - "blue_no_state"
+name: "Piscine"
+entity: "sensor.owon_temperature_sensor_swimmingpool_temperature"
+icon: "mdi:pool"
+label: '[[[ return states["sensor.owon_temperature_sensor_swimmingpool_temperature"].state + " °C" ]]]'
+tap_action:
+  action: "navigate"
+  navigation_path: "/lovelace/room-pool"
+variables:
+  label_use_temperature: true
+  label_use_brightness: false
+  entity_4:
+    entity_id: "sensor.owon_temperature_sensor_swimmingpool_temperature"
+    templates:
+      - "blue_on"
+    tap_action:
+      action: "more-info"

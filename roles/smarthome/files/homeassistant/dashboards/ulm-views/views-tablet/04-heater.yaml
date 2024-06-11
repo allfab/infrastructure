@@ -1,0 +1,173 @@
+---
+- title: "Heater"
+  path: "heater"
+  icon: "mdi:heating-coil"
+  type: "custom:grid-layout"
+  layout:
+    grid-template-columns: 4% repeat(3, 31%) 3%
+    grid-template-rows: 1em 
+    grid-gap: 0.7em
+    grid-template-areas: |
+      ". . . . ."
+      "back livingroom . . ."
+      ". . . . ."
+
+  cards:
+    ############
+    #   Back   #
+    ############
+    - type: "custom:button-card"
+      view_layout:
+        grid-area: "back"
+      template: "chip_back"
+      variables:
+        ulm_chip_back_path: "/lovelace-tablet"
+    
+    ###########
+    # Émilie  #
+    ###########
+    - type: "vertical-stack"
+      view_layout:
+        grid-area: "livingroom"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Séjour"
+          #label: "Têtes thermostatiques E1"
+        #################### RADIATOR THERMOSTAT E1 ######################
+        - type: "vertical-stack"
+          cards:
+            - type: "horizontal-stack"
+              cards:
+                - type: "custom:button-card"
+                  color_type: "blank-card"
+                - type: "custom:button-card"
+                  template: "card_title"
+                  label: "Radiateur || Escaliers"
+                - type: "custom:button-card"
+                  color_type: "blank-card"
+            # - type: "custom:better-thermostat-ui-card"
+            #   entity: "climate.xiaomi_aqara_thermostat_e1_livingroom_stairs"
+            #   name: "Escaliers"
+            #   eco_temperature: 19
+            #   disable_summer: false
+            # - type: "thermostat"
+            #   entity: "climate.xiaomi_aqara_thermostat_e1_livingroom_stairs"
+            # - type: "tile"
+            #   entity: "climate.xiaomi_aqara_thermostat_e1_livingroom_stairs"
+            #   name: "Configuration"
+            #   color: "deep-orange"
+            #   icon: "mdi:cog"
+            #   show_entity_picture: false
+            #   vertical: false
+            #   features:
+            #     # - type: "climate-hvac-modes"
+            #     #   hvac_modes:
+            #     #     - "off"
+            #     #     - "heat"
+            #     - type: "climate-preset-modes"
+            #       style: "dropdown"
+            #       preset_modes:
+            #         - "none"
+            #         - "manual"
+            #         - "away"
+            #         - "auto"
+            #     - type: "target-temperature"
+            - type: "thermostat"
+              entity: "climate.xiaomi_aqara_thermostat_e1_livingroom_stairs"
+              name: "Radiateur || Escaliers"
+              features:
+                - type: "climate-preset-modes"
+                  style: "dropdown"
+                  preset_modes:
+                    - "none"
+                    - "manual"
+                    - "away"
+                    - "auto"
+                - type: "climate-hvac-modes"
+                  hvac_modes:
+                    - 'off'
+                    - "heat"
+            - type: "custom:button-card"
+              template: card_title
+              label: "Configuration"
+            - type: "grid"
+              columns: 2
+              square: false
+              cards:
+                - type: "custom:button-card"
+                  template: "card_input_boolean"
+                  entity: "switch.xiaomi_aqara_thermostat_e1_livingroom_stairs_valve_detection"
+                  variables:
+                    ulm_card_input_boolean_name: "État de la valve"
+                    ulm_card_input_boolean_icon: |
+                      [[[   
+                        if (entity.state == "on") {
+                          return "mdi:valve";
+                        } else {
+                          return "mdi:valve-closed";
+                        }
+                      ]]]
+                - type: "tile"
+                  entity: "select.xiaomi_aqara_thermostat_e1_livingroom_stairs_sensor"
+                  name: "Capteur °C associé"
+                  icon: "mdi:thermometer"
+                  color: "light-blue"
+                - type: "tile"
+                  entity: "switch.xiaomi_aqara_thermostat_e1_livingroom_stairs_window_detection"
+                  name : "Détection de l'ouverture des fenêtres"
+                  color: "light-blue"
+                  show_entity_picture: false
+                  vertical: false
+                  tap_action:
+                    action: "toggle"
+                  icon_tap_action:
+                    action: "toggle"
+                - type: "tile"
+                  entity: "lock.xiaomi_aqara_thermostat_e1_livingroom_stairs_child_lock"
+                  name: "Interface verrouillée"
+                  color: "red"
+                - type: "entities"
+                  entities:
+                    - type: "custom:slider-entity-row"
+                      entity: "number.xiaomi_aqara_thermostat_e1_livingroom_stairs_away_preset_temperature"
+                      name: "°C d'absence pré-définie"
+                      unit: "C°"
+                      min: 5
+                      max: 30
+                      step: 1         
+                - type: "grid"
+                  columns: 2
+                  square: false
+                  cards:
+                    - type: "custom:button-card"
+                      template:
+                        - "card_binary_sensor_alert"
+                        - "allfab_battery_info"
+                      entity: "binary_sensor.xiaomi_aqara_doorwindow_sensor_livingroom_stairs_contact"
+                      variables:
+                        ulm_card_binary_sensor_alert_name: "Fenêtre"
+                        ulm_card_binary_sensor_alert_icon: |
+                          [[[   
+                            if (entity.state == "on") {
+                              return "mdi:window-open-variant";
+                            } else {
+                              return "mdi:window-closed-variant";
+                            }
+                          ]]]
+                        ulm_card_binary_sensor_alert: true
+                        ulm_show_last_changed: true
+                        ulm_battery_entity: "sensor.xiaomi_aqara_doorwindow_sensor_livingroom_stairs_battery"
+                    - type: "custom:button-card"
+                      template: "card_script"
+                      variables:
+                        ulm_card_script_title: "Historique (6h)"
+                        ulm_card_script_icon: "mdi:chart-areaspline"
+                      tap_action:
+                        action: "call-service"
+                        service: "script.popup_heater_history_graph_bedroom_baby"
+                        service_data:
+                          entity_id: "script.popup_heater_history_graph_bedroom_baby"
+                          title: "Historique (6h)"
+                          size: "normal"
+        #################### RADIATOR THERMOSTAT E1 ######################

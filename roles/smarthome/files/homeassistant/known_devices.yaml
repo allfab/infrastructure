@@ -1,0 +1,14 @@
+---
+oneplus_5:
+  name: oneplus_5
+  mac:
+  icon:
+  picture:
+  track: true
+
+oneplus_nord2t:
+  name: oneplus_nord2t
+  mac:
+  icon:
+  picture:
+  track: true

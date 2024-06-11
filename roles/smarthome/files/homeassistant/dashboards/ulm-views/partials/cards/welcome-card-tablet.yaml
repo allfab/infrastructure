@@ -1,0 +1,81 @@
+---
+type: "custom:button-card"
+template: "allfab_card_welcome_popup"
+styles:
+  card:
+    - height: "100%"
+#triggers_update: "input_boolean.welcome_scenes_collapse"
+variables:
+  #ulm_card_allfab_welcome_collapse: "input_boolean.welcome_scenes_collapse"
+  ulm_weather: "weather.forecast_home"
+  entity_1:
+    nav: "tv"
+    script: "script.scene_tv"
+    icon: "mdi:television"
+    name: "TV"
+    color: "blue"
+    popup_size: "wide"
+  entity_2:
+    nav: "active_home"
+    script: "script.scene_active_home"
+    icon: "mdi:lamps"
+    name: "Actif"
+    color: "yellow"
+    popup_size: "wide"
+  entity_3:
+    nav: "reception"
+    script: "script.scene_reception"
+    icon: "mdi:account-group"
+    name: "Réception"
+    color: "red"
+    popup_size: "normal"
+  entity_4:
+    nav: "dodo"
+    script: "script.scene_dodo"
+    icon: "mdi:weather-night"
+    name: "Dodo"
+    color: "yellow"
+    popup_size: "normal"
+  entity_5:
+    nav: "dodo"
+    script: "script.scene_dodo_incognito"
+    icon: "mdi:incognito"
+    name: "Dodo"
+    color: "purple"
+    popup_size: "normal"
+
+type: "custom:button-card"
+template: "card_scenes"
+variables:
+  entity_1:
+    entity_id: "script.scene_morning"
+    icon: "mdi:floor-lamp-torchiere"
+    icon_color: "blue"
+    name: "Matin"
+    bg_color: "blue"
+    popup_size: "normal"
+  entity_2:
+    entity_id: "script.scene_cocooning_home"
+    icon: "mdi:rabbit-variant"
+    icon_color: "yellow"
+    name: "Cocooning"
+    bg_color: "yellow"
+  entity_3:
+    entity_id: "script.scene_baby"
+    icon: "mdi:baby-bottle"
+    icon_color: "red"
+    name: "Bébé"
+    bg_color: "red"
+  entity_4:
+    entity_id: "script.scene_puzzle"
+    icon: "mdi:puzzle"
+    icon_color: "yellow"
+    name: "Puzzle"
+    bg_color: "yellow"
+  entity_5:
+    entity_id: "script.scene_chickencoop"
+    icon: "mdi:food-drumstick"
+    icon_color: "green"
+    name: "Poulailler"
+    bg_color: "green"
+    popup_size: "normal"

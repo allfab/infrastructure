@@ -1,0 +1,23 @@
+allfab_widget_text:
+  tap_action:
+    action: "toggle"
+  template:
+    - "ulm_translation_engine"
+  show_icon: false
+  show_label: true
+  show_name: false
+  label: "[[[ return states[entity.entity_id].state ]]]"
+  styles:
+    grid:
+      - grid-template-areas: "'l'"
+    card:
+      - box-shadow: "none"
+      - padding: "0px"
+      - background-color: "rgba(var(--color-theme),0.05)"
+      - border-radius: "14px"
+      - place-self: "center"
+      - height: "42px"
+    state:
+      - color: "rgba(var(--color-theme),0.9)"
+  size: "20px"
+  color: "var(--google-grey)"

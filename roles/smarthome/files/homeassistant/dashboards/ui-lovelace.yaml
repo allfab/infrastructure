@@ -1,0 +1,10 @@
+---
+button_card_templates: !include_dir_merge_named "dashboards/resources"
+kiosk_mode:
+  admin_settings:
+    hide_header: true
+    hide_sidebar: false
+  non_admin_settings:
+    hide_header: true
+    hide_sidebar: true
+views: !include_dir_merge_list "dashboards/ulm-views/views-default/"

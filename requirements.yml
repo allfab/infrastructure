@@ -1,0 +1,11 @@
+---
+roles:
+  - src: grog.package
+  - src: geerlingguy.docker
+  - src: ironicbadger.docker_compose_generator
+
+collections:
+  - name: community.general 
+    version: 8.6.0
+  - name: community.postgresql
+    version: 3.4.0

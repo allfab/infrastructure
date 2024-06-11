@@ -1,0 +1,94 @@
+permit_join: true
+mqtt:
+  server: {{ mqtt.server }}
+  user: {{ mqtt.user }}
+  password: {{ mqtt.password }}
+serial:
+  port: /dev/ttyUSB0
+frontend:
+  port: 8080
+device_options:
+  legacy: false
+devices:
+  '0x00158d0007e201f4':
+    friendly_name: xiaomi_aqara_tph_sensor_terrasse
+    temperature_precision: 2
+  '0x00124b002518f998':
+    friendly_name: sonoff_th_sensor_bathroom
+  '0x00158d0001de7479':
+    friendly_name: xiaomi_aqara_doorwindow_sensor_garage
+  '0x5c0272fffe043beb':
+    friendly_name: loratap_bulb_socket_lamp_adapter_garage
+  '0x00158d0008090f50':
+    friendly_name: xiaomi_aqara_wireless_switch_garage
+  '0x00158d0007b09ac8':
+    friendly_name: xiaomi_aqara_smartledbulb_toilet
+  '0x003c84fffe316bad':
+    friendly_name: ikea_tradfri_bulb_krosby_livingroom
+  '0x84ba20fffe6371a3':
+    friendly_name: ikea_tradfri_bulb_chickencoop
+  '0x00158d0008329f4c':
+    friendly_name: xiaomi_aqara_doorwindow_sensor_portal
+  '0x54ef4410004dd9fb':
+    friendly_name: xiaomi_aqara_smartplug_livingroom_tv
+  '0x70ac08fffea7f79d':
+    friendly_name: ikea_tradfri_bulb_krosby_landingroom
+  '0x84ba20fffe636e84':
+    friendly_name: ikea_tradfri_bulb_krosby_south_bedroom
+  '0x00124b00257afa6a':
+    friendly_name: sonoff_smart_switch_module_garage
+  '0x00124b0025452827':
+    friendly_name: sonoff_motion_sensor_mailbox
+  '0x90395efffecdbdaf':
+    friendly_name: ikea_tradfri_bulb_krosby_library_window
+  '0xb43522fffe71ba30':
+    friendly_name: ikea_tradfri_styrbar_remote_control
+    simulated_brightness:
+      delta: 20
+      interval: 500
+    legacy: false
+  '0x3c6a2cfffed35c2d':
+    friendly_name: owon_temperature_sensor_swimmingpool
+  '0x00158d0008ab0f11':
+    friendly_name: xiaomi_aqara_tph_sensor_livingroom_tv
+  '0x54ef4410005bd07d':
+    friendly_name: xiaomi_aqara_thermostat_e1_livingroom_stairs
+    thermostat_unit: celsius
+  '0x00158d000837fbe5':
+    friendly_name: xiaomi_aqara_doorwindow_sensor_livingroom_stairs
+  '0x70ac08fffe729998':
+    friendly_name: ikea_tradfri_shortcut_remote_control
+  '0xf4b3b1fffe195f7a':
+    friendly_name: nodon_roller_shutter_switch_sin4rs20_landing_room
+  '0xf4b3b1fffe0f0b52':
+    friendly_name: nodon_roller_shutter_switch_sin4rs20_bedroom_south
+  '0xf4b3b1fffe195f90':
+    friendly_name: nodon_roller_shutter_switch_sin4rs20_bedroom_north
+  '0x54ef44100096bbd2':
+    friendly_name: xiaomi_aqara_ceiling_light_hallway
+  '0x54ef44100096c712':
+    friendly_name: xiaomi_aqara_ceiling_light_livingroom
+  '0x0ceff6fffe172764':
+    friendly_name: sonoff_human_presence_occupancy_toilet_groundfloor
+    no_occupancy_since:
+      - undefined: 10
+  '0x0ceff6fffe1726a6':
+    friendly_name: sonoff_human_presence_occupancy_toilet_firstfloor
+    no_occupancy_since:
+      - undefined: 10
+  '0x54ef441000712088':
+    friendly_name: xiaomi_aqara_cube_t1_pro
+  '0x00158d0001b9811d':
+    friendly_name: xiaomi_aqara_tph_sensor_firstfloor_landingroom
+    homeassistant:
+      name: xiaomi_aqara_tph_sensor_firstfloor_landingroom
+    legacy: false
+    optimistic: true
+homeassistant:
+  legacy_entity_attributes: false
+  legacy_triggers: true
+ota:
+  ikea_ota_use_test_url: false
+  zigbee_ota_override_index_location: https://github.com/Koenkk/zigbee-OTA/blob/master/index.json
+advanced:
+  log_level: info

@@ -1,0 +1,7 @@
+---
+# {{ ansible_managed }}
+
+{% for card in homeassistant.lovelace.cards|sort(attribute='name') %}
+- type: {{ card.type }}
+  url: /local/resources/js/{{ card.name }}.js
+{% endfor %}

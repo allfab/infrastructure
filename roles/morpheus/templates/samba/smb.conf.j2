@@ -1,0 +1,39 @@
+[global]
+  workgroup = WORKGROUP
+  server string = morpheus
+  security = user
+  guest ok = yes
+  map to guest = Bad Password
+
+  log file = /var/log/samba/%m.log
+  max log size = 50
+  printcap name = /dev/null
+  load printers = no
+
+
+[MORPHEUS - ISOs]
+  path = /mnt/iso
+  browseable = yes
+  read only = no
+  guest ok = no
+
+[MORPHEUS - Stockage]
+  comment = Stockage sur Morpheus
+  path = /mnt/storage
+  browseable = yes
+  read only = no
+  guest ok = yes
+
+[MORPHEUS - Docker Appdata]
+  comment = Docker Appdata
+  path = /opt/docker
+  browseable = yes
+  read only = no
+  guest ok = yes
+
+# [MORPHEUS - Disk1]
+#   comment = Disque de données 1
+#   path = /mnt/disk1
+#   browseable = yes
+#   read only = no
+#   guest ok = yes

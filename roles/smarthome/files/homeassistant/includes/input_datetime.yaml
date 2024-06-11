@@ -1,0 +1,51 @@
+current_datetime:
+  name: "Current datetime"
+  has_date: true
+  has_time: true
+current_date:
+  name: "Current date"
+  has_date: true
+  has_time: false
+current_time:
+  name: "Current time"
+  has_date: false
+  has_time: true
+
+bedroom_awake_sunrise_simulation_starttime:
+  name: "Heure de la simulation de l'aube (Chambre)"
+  #icon: "mdi:"
+  has_date: false
+  has_time: true
+  initial: 07:05
+bedroom_awake_sunrise_simulation_endtime:
+  name: "Fin de la simulation (Chambre)"
+  #icon: "mdi:"
+  has_date: false
+  has_time: true
+  initial: 07:25
+
+hallway_awake_sunrise_simulation_starttime:
+  name: "Heure de la simulation de l'aube (Hall)"
+  #icon: "mdi:"
+  has_date: false
+  has_time: true
+  initial: 07:15
+hallway_awake_sunrise_simulation_endtime:
+  name: "Fin de la simulation (Hall)"
+  #icon: "mdi:"
+  has_date: false
+  has_time: true
+  initial: 07:40
+
+bedroom_awake_tts_morning_meteo:
+  name: "Heure de l'annonce météo"
+  #icon: "mdi:"
+  has_date: false
+  has_time: true
+  initial: 07:16
+
+mailbox_datetime:
+  name: "Mailbox datetime"
+  has_date: true
+  has_time: true
+  icon: "mdi:mailbox"

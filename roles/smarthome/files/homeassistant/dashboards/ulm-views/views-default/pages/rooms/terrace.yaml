@@ -1,0 +1,109 @@
+- title: "Terrasse"
+  path: "room-terrace"
+  icon: "mdi:flower"
+  cards:
+    - type: "custom:button-card"
+      template: "chip_back"
+      variables:
+        ulm_chip_back_path: "/lovelace"
+    - type: "vertical-stack"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Terrasse 🌼"
+          label: ""
+        - type: "picture"
+          image: "/local/images/lovelace/rooms/room-chickencoop.jpg"
+          style: |
+            ha-card {
+              height: 100px !important;
+            }
+        ############ TEMPERATURE - HUMIDITÉ #############
+        - type: "custom:button-card"
+          template: "card_title"
+          label: "Température, humidité & pression atmosphérique"
+        - type: "custom:swipe-card"
+          parameters:
+            spaceBetween: 8
+            pagination:
+              type: "bullets"
+          cards:
+            #TEMPERATURE
+            - type: "vertical-stack"
+              cards:
+                - type: "custom:mini-graph-card"
+                  entities:
+                    - "sensor.xiaomi_aqara_tph_sensor_terrasse_temperature"
+                  name: "Température (C°)"
+                  line_color: "var(--google-green)"   
+                  line_width: 8
+                  font_size: 75
+                  align_icon: "left"
+                  align_state: "center"
+                  hours_to_show: 48
+                  show:
+                    fill: true
+                - type: "custom:mini-graph-card"
+                  name: "Statistiques (24h)"
+                  icon: "mdi:thermometer-lines"
+                  entities:
+                    - entity: "sensor.xiaomi_aqara_tph_sensor_terrasse_temperature"
+                  show:
+                    extrema: true
+                    average: true
+                    graph: false
+                  hour24: true
+                  hours_to_show: 24
+            #HUMIDITY
+            - type: "vertical-stack"
+              cards:
+                - type: "custom:mini-graph-card"
+                  entities:
+                    - "sensor.xiaomi_aqara_tph_sensor_terrasse_humidity"
+                  name: "Humidité (%)"
+                  line_color: "var(--google-blue)"   
+                  line_width: 8
+                  font_size: 75
+                  align_icon: "left"
+                  align_state: "center"
+                  hours_to_show: 48
+                  show:
+                    fill: true
+                - type: "custom:mini-graph-card"
+                  name: "Statistiques (24h)"
+                  icon: "mdi:water-percent"
+                  entities:
+                    - entity: "sensor.xiaomi_aqara_tph_sensor_terrasse_humidity"
+                  show:
+                    extrema: true
+                    average: true
+                    graph: false
+                  hour24: true
+                  hours_to_show: 24
+            #PRESSION
+            - type: "vertical-stack"
+              cards:
+                - type: "custom:mini-graph-card"
+                  entities:
+                    - "sensor.xiaomi_aqara_tph_sensor_terrasse_pressure"
+                  name: "Pression atmosphérique (hPA)"
+                  line_color: "var(--google-violet)"   
+                  line_width: 4
+                  font_size: 75
+                  align_icon: "left"
+                  align_state: "center"
+                  hours_to_show: 48
+                  show:
+                    fill: true
+                - type: "custom:mini-graph-card"
+                  name: "Statistiques (24h)"
+                  icon: "mdi:gauge"
+                  entities:
+                    - entity: "sensor.xiaomi_aqara_tph_sensor_terrasse_pressure"
+                  show:
+                    extrema: true
+                    average: true
+                    graph: false
+                  hour24: true
+                  hours_to_show: 24
+        ############ TEMPERATURE - HUMIDITÉ #############

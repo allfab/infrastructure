@@ -1,0 +1,22 @@
+http:
+  routers:
+    morpheus:
+      entryPoints:
+        - websecure
+      rule: 'Host(`morpheus.allfabox.fr`)'
+      service: morpheus
+    neo:
+      entryPoints:
+        - websecure
+      rule: 'Host(`neo.allfabox.fr`)'
+      service: neo
+  
+  services:
+    morpheus:
+      loadBalancer:
+        servers:
+          - url: https://192.168.10.5:8006
+    neo:
+      loadBalancer:
+        servers:
+          - url: https://192.168.10.6:8006

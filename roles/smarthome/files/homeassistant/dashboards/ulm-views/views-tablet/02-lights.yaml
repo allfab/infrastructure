@@ -1,0 +1,188 @@
+---
+- title: "Lights"
+  path: "lights"
+  icon: "mdi:lightbulb-group"
+  type: "custom:grid-layout"
+  layout:
+    grid-template-columns: 4% repeat(4, 23.25%) 3%
+    grid-template-rows: 1em 
+    grid-gap: 0.7em
+    grid-template-areas: |
+      ". . . . . ."
+      "back rdc_lights rdc_lights first_floor_lights first_floor_lights ."
+      ". lights_bedroom lights_bedroom lights_hallway lights_hallway ."
+      ". lights_laundry_toilet lights_laundry_toilet lights_outdoor lights_outdoor ."
+      ". . . . . ."
+  cards:
+    ############
+    #   Back   #
+    ############
+    - type: "custom:button-card"
+      view_layout:
+        grid-area: "back"
+      template: "chip_back"
+      variables:
+        ulm_chip_back_path: "/lovelace-tablet"
+
+    #############
+    #   Lights  #
+    #############
+    - type: "vertical-stack"
+      view_layout:
+        grid-area: "rdc_lights"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Rez de chaussée"
+        - type: "custom:button-card"
+          template: "card_title"
+          label: "Pièces de vie"
+        - type: "grid"
+          columns: 3
+          square: false
+          cards:                
+            - type: "tile"
+              entity: "light.lifx_hallway_krosby"
+              color: "amber"
+              vertical: false
+              name: "Krosby - Porte d'entrée"
+              features:
+                - type: "light-brightness"
+                - type: "light-color-temp"
+            - type: "tile"
+              entity: "light.ikea_tradfri_bulb_krosby_livingroom"
+              color: "amber"
+              vertical: false
+              name: "Krosby - Salon"
+              features:
+                - type: "light-brightness"
+                - type: "light-color-temp"                
+            - type: "tile"
+              entity: "light.lifx_livingroom_krosby"
+              color: "amber"
+              vertical: false
+              name: "Krosby - Côté poêle"
+              features:
+                - type: "light-brightness"
+                - type: "light-color-temp"
+    - type: "vertical-stack"
+      view_layout:
+        grid-area: "first_floor_lights"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "1er étage"
+        - type: "custom:button-card"
+          template: "card_title"
+          label: "Pièces palière/bureau"
+        - type: "grid"
+          columns: 2
+          square: false
+          cards:                
+            - type: "tile"
+              entity: "light.ikea_tradfri_bulb_krosby_landingroom"
+              color: "amber"
+              vertical: false
+              name: "Krosby - Pièce palière"
+              features:
+                - type: "light-brightness"
+                - type: "light-color-temp"
+            - type: "tile"
+              entity: "light.ikea_tradfri_bulb_krosby_south_bedroom"
+              color: "amber"
+              vertical: false
+              name: "Krosby - Bureau"
+              features:
+                - type: "light-brightness"
+                - type: "light-color-temp"
+    - type: "vertical-stack"
+      view_layout:
+        grid-area: "lights_bedroom"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          label: "Chambres" 
+        - type: "grid"
+          columns: 1
+          square: false
+          cards:            
+            - type: "tile"
+              entity: "light.lifx_bedroom_right_nightstand"
+              color: "amber"
+              vertical: false
+              name: "Parentale - Chevet droit"
+              features:
+                - type: "light-brightness"
+                - type: "light-color-temp"
+    - type: "vertical-stack"
+      view_layout:
+        grid-area: "lights_hallway"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          label: "Couloir" 
+        - type: "grid"
+          columns: 2
+          square: false
+          cards:
+            - type: "tile"
+              entity: "light.xiaomi_aqara_ceiling_light_hallway"
+              color: "amber"
+              vertical: false
+              name: "Couloir des chambres"
+              features:
+                - type: "light-brightness"
+                - type: "light-color-temp"
+            - type: "tile"
+              entity: "light.xiaomi_aqara_ceiling_light_livingroom"
+              color: "amber"
+              vertical: false
+              name: "Porte d'entrée"
+              features:
+                - type: "light-brightness"
+                - type: "light-color-temp"
+    - type: "vertical-stack"
+      view_layout:
+        grid-area: "lights_laundry_toilet"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          label: "WC/Buanderie" 
+        - type: "grid"
+          columns: 2
+          square: false
+          cards:            
+            - type: "tile"
+              entity: "light.xiaomi_aqara_smartledbulb_toilet"
+              color: "amber"
+              vertical: false
+              name: "Suspension WC"
+              features:
+                - type: "light-brightness"
+                - type: "light-color-temp"  
+            - type: "tile"
+              entity: "switch.loratap_bulb_socket_lamp_adapter_garage"
+              color: "amber"
+              vertical: false
+              name: "Suspension buanderie"
+    - type: "vertical-stack"
+      view_layout:
+        grid-area: "lights_outdoor"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          label: "Extérieur" 
+        - type: "grid"
+          columns: 2
+          square: false
+          cards:
+            - type: "tile"
+              entity: "switch.sonoff_smart_switch_module_garage"
+              color: "amber"
+              vertical: false
+              name: "Éclairage extérieur"
+            - type: "tile"
+              entity: "light.ikea_tradfri_bulb_chickencoop"
+              color: "amber"
+              vertical: false
+              name: "Poulailler 🐔"

@@ -1,0 +1,139 @@
+---
+- title: "Roller-shade"
+  path: "roller-shade"
+  icon: "mdi:roller-shade"
+  type: "custom:grid-layout"
+  layout:
+    grid-template-columns: 4% repeat(4, 23.25%) 3%
+    grid-template-rows: 1em 
+    grid-gap: 0.7em
+    grid-template-areas: |
+      ". . . . . ."
+      "back rdc_roller rdc_roller rdc_roller rdc_roller ."
+      ". rdc_roller rdc_roller rdc_roller rdc_roller ."
+      ". firstfloor_roller firstfloor_roller firstfloor_roller firstfloor_roller ."
+      ". . . . . ."
+  cards:
+    ############
+    #   Back   #
+    ############
+    - type: "custom:button-card"
+      view_layout:
+        grid-area: "back"
+      template: "chip_back"
+      variables:
+        ulm_chip_back_path: "/lovelace-tablet"
+
+    #############
+    #   Roller  #
+    #############
+    - type: "vertical-stack"
+      view_layout:
+        grid-area: "rdc_roller"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Rez de chaussée"
+        - type: "grid"
+          columns: 3
+          square: false
+          cards:                
+            - type: "tile"
+              entity: "cover.nodon_roller_shutter_switch_sin4rs20_landing_room"
+              name: "Salon TV"
+              icon: "mdi:roller-shade"
+              color: "deep-purple"
+              show_entity_picture: false
+              vertical: false
+              hide_state: false
+              features:
+                - type: "cover-open-close"
+                - type: "cover-position"
+            - type: "tile"
+              entity: "cover.nodon_roller_shutter_switch_sin4rs20_bedroom_south"
+              name: "Salon Côté Escalier"
+              icon: "mdi:roller-shade"
+              color: "deep-purple"
+              show_entity_picture: false
+              vertical: false
+              hide_state: false
+              features:
+                - type: "cover-open-close"
+                - type: "cover-position"
+            - type: "tile"
+              entity: "cover.nodon_roller_shutter_switch_sin4rs20_bedroom_north"
+              name: "Chambre d'Émilie"
+              icon: "mdi:roller-shade"
+              color: "deep-purple"
+              show_entity_picture: false
+              vertical: false
+              hide_state: false
+              features:
+                - type: "cover-open-close"
+                - type: "cover-position"
+            - type: "tile"
+              entity: "cover.nodon_roller_shutter_switch_sin4rs20_bedroom_north"
+              name: "Chambre Parentale"
+              icon: "mdi:roller-shade"
+              color: "deep-purple"
+              show_entity_picture: false
+              vertical: false
+              hide_state: false
+              features:
+                - type: "cover-open-close"
+                - type: "cover-position"
+            - type: "tile"
+              entity: "cover.nodon_roller_shutter_switch_sin4rs20_bedroom_north"
+              name: "Garage"
+              icon: "mdi:roller-shade"
+              color: "deep-purple"
+              show_entity_picture: false
+              vertical: false
+              hide_state: false
+              features:
+                - type: "cover-open-close"
+                - type: "cover-position"
+    - type: "vertical-stack"
+      view_layout:
+        grid-area: "firstfloor_roller"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "1er étage"
+        - type: "grid"
+          columns: 3
+          square: false
+          cards:                
+            - type: "tile"
+              entity: "cover.nodon_roller_shutter_switch_sin4rs20_landing_room"
+              name: "Pièce palière"
+              icon: "mdi:roller-shade"
+              color: "deep-purple"
+              show_entity_picture: false
+              vertical: false
+              hide_state: false
+              features:
+                - type: "cover-open-close"
+                - type: "cover-position"
+            - type: "tile"
+              entity: "cover.nodon_roller_shutter_switch_sin4rs20_bedroom_south"
+              name: "Bureau"
+              icon: "mdi:roller-shade"
+              color: "deep-purple"
+              show_entity_picture: false
+              vertical: false
+              hide_state: false
+              features:
+                - type: "cover-open-close"
+                - type: "cover-position"
+            - type: "tile"
+              entity: "cover.nodon_roller_shutter_switch_sin4rs20_bedroom_north"
+              name: "Chambre de Léonie"
+              icon: "mdi:roller-shade"
+              color: "deep-purple"
+              show_entity_picture: false
+              vertical: false
+              hide_state: false
+              features:
+                - type: "cover-open-close"
+                - type: "cover-position"

@@ -1,0 +1,69 @@
+action: "fire-dom-event"
+browser_mod:
+  service: "browser_mod.popup"
+  data:
+    title: "Gestion de l'éclairage"
+    size: "normal"
+    style:
+      .: |
+        :host .content {
+          width: 800px;
+        }
+    content:
+      type: "vertical-stack"
+      style:
+        card:
+          - padding: "15px"
+          - margin: "15px"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Lampes/Ampoules connectées"
+        - type: "custom:button-card"
+          template: "card_light_slider_horizontal"
+          entity: "light.lifx_hall_krosby"
+          variables:
+            ulm_card_light_name: "Lampadaire Krosby<br />Hall d'entrée"
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_enable_popup: true
+        - type: "custom:button-card"
+          template: "card_light_slider_horizontal"
+          entity: "light.lifx_livingroom_krosby"
+          variables:
+            ulm_card_light_name: "Lampadaire Krosby<br />Salon"
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_enable_popup: true
+        - type: "custom:button-card"
+          template: "card_light_slider_horizontal"
+          entity: "light.ikea_tradfri_bulb_window_diningroom"
+          variables:
+            ulm_card_light_name: "Lampadaire Krosby<br />Salle à manger"
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: false
+            ulm_card_light_enable_popup: true
+        - type: "custom:button-card"
+          template: "card_light_slider_horizontal"
+          entity: "light.ikea_tradfri_bulb_wall_diningroom"
+          variables:
+            ulm_card_light_name: "Lampadaire Krosby<br />Salle à manger"
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: false
+            ulm_card_light_enable_popup: true
+        - type: "custom:button-card"
+          template: "card_light_slider_horizontal"
+          entity: "light.lifx_bedroom_right_nightstand"
+          variables:
+            ulm_card_light_name: "Lampe de chevet<br />Chambre parentale"
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: true
+            ulm_card_light_enable_popup: true
+        - type: "custom:button-card"
+          template: "card_light_slider_horizontal"
+          entity: "light.light.xiaomi_aqara_smartledbulb_toilet"
+          variables:
+            ulm_card_light_name: "Ampoule<br />Toilette"
+            ulm_card_light_enable_slider: true
+            ulm_card_light_enable_color: false
+            ulm_card_light_enable_popup: true

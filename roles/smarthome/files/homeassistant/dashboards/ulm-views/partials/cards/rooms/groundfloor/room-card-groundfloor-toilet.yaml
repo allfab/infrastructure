@@ -1,0 +1,27 @@
+---
+type: "custom:button-card"
+template:
+  - "card_room"
+  - "blue_no_state"
+name: "WC"
+#entity: "sensor.sonoff_th_sensor_chickencoop_temperature"
+icon: "mdi:paper-roll"
+label: ""
+tap_action:
+  action: "navigate"
+  navigation_path: "/lovelace/room-toilet"
+variables:
+  label_use_temperature: true
+  label_use_brightness: false
+  entity_4:
+    entity_id: "light.xiaomi_aqara_smartledbulb_toilet"
+    templates:
+      - "yellow_on"
+    tap_action:
+      action: "toggle"
+  # entity_2:
+  #   entity_id: "binary_sensor.mmwave_wc_occupancy_sensor"
+  #   templates:
+  #     - "blue_on"
+  #   tap_action:
+  #     action: "more-info"

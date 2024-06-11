@@ -1,0 +1,21 @@
+---
+# handlers file for roles/postgresql
+- name: start postgresql
+  service:
+    name: postgresql
+    state: started
+
+- name: restart postgresql
+  service:
+    name: postgresql
+    state: restarted
+
+- name: reload postgresql
+  service:
+    name: postgresql
+    state: reloaded
+
+- name: stop postgresql
+  service:
+    name: postgresql
+    state: stopped

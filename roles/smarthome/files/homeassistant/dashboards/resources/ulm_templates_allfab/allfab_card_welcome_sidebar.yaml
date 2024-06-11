@@ -1,0 +1,184 @@
+---
+allfab_card_welcome_sidebar:
+  variables:
+    ulm_weather: "[[[ return variables.ulm_weather]]]"
+    ulm_language: "[[[return window.navigator.language ]]]"
+  template:
+    - "ulm_translation_engine"
+  type: "custom:button-card"
+  show_name: "true"
+  show_label: "true"
+  show_icon: "false"
+  show_entity_picture: "false"
+  #tap_action:
+    #action: "none"
+  styles:
+    grid:
+      - grid-template-areas: "'hello hello weather weather weather weather datetime datetime' 'nav1 nav2 nav3 nav4 nav5 nav6 nav7 nav8'"
+      - grid-template-columns: "1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr"
+      - grid-template-rows: "1fr"
+      - grid-row-gap: "2rem"
+  custom_fields:
+    hello:
+      card:
+        type: "custom:button-card"
+        name: |
+          [[[
+            var today = new Date();
+            var time = today.getHours()
+            let welcome = '';
+            if (time >= '18'){
+              welcome = variables.ulm_evening;
+            } else if (time >= '12'){
+              welcome = variables.ulm_afternoon;
+            } else if (time >= '5'){
+              welcome = variables.ulm_morning;
+            } else {
+              welcome = variables.ulm_hello;
+            }
+            return welcome + ' 👋';
+          ]]]
+        styles:
+          card:
+            - border-radius: "none"
+            - box-shadow: "none"
+            - padding: "4px"
+          name:
+            - font-weight: "bold"
+            - text-align: "left"
+            - justify-self: "start"
+            - padding-left: "15px"
+    weather:
+      card:
+        type: "custom:button-card"
+        template: chip_temperature
+        tap_action:
+          action: "none"
+        variables:
+          ulm_chip_temperature_inside: sensor.xiaomi_aqara_tph_sensor_livingroom_temperature
+          ulm_chip_temperature_outside: sensor.xiaomi_aqara_tph_sensor_terrasse_temperature
+          ulm_chip_temperature_weather: weather.maison
+        styles:
+          card:
+            - border-radius: "none"
+            - box-shadow: "none"
+            - padding: "4px"
+          name:
+            - text-align: "center"
+    datetime:
+      card:
+        type: "custom:button-card"
+        name: |
+          [[[        
+            let date = new Date();
+            let time_row = date.toLocaleTimeString('fr-FR', {hour: '2-digit', minute: '2-digit'});
+            let date_row = date.toLocaleDateString('fr-FR', {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'});
+            return time_row + '<br />' + date_row;
+          ]]]
+        styles:
+          card:
+            - border-radius: "none"
+            - box-shadow: "none"
+            - padding: "4px"
+          name:
+            - font-weight: "bold"
+            - text-align: "right"
+            - justify-self: "end"
+            - padding-right: "15px"
+            - padding-top: "15px"
+    nav1:
+      card:
+        type: "custom:button-card"
+        name: "Accueil"
+        tap_action:
+          action: "navigate"
+          navigation_path: "/lovelace-tablet/home"
+        styles:
+          card:
+            - border-radius: "none"
+            - box-shadow: "none"
+            - margin: "4px 4px 16px 4px"
+    nav2:
+      card:
+        type: "custom:button-card"
+        name: "Hall"
+        tap_action:
+          action: "navigate"
+          navigation_path: "/lovelace-tablet/hallway"
+        styles:
+          card:
+            - border-radius: "none"
+            - box-shadow: "none"
+            - margin: "4px 4px 16px 4px"
+    nav3:
+      card:
+        type: "custom:button-card"
+        name: "Salon"
+        tap_action:
+          action: "navigate"
+          navigation_path: "/lovelace-tablet/livingroom"
+        styles:
+          card:
+            - border-radius: "none"
+            - box-shadow: "none"
+            - margin: "4px 4px 16px 4px"
+    nav4:
+      card:
+        type: "custom:button-card"
+        name: "Salle à manger"
+        tap_action:
+          action: "navigate"
+          navigation_path: "/lovelace-tablet/dininggroom"
+        styles:
+          card:
+            - border-radius: "none"
+            - box-shadow: "none"
+            - margin: "4px 4px 16px 4px"
+    nav5:
+      card:
+        type: "custom:button-card"
+        name: "Cuisine"
+        tap_action:
+          action: "navigate"
+          navigation_path: "/lovelace-tablet/kitchen"
+        styles:
+          card:
+            - border-radius: "none"
+            - box-shadow: "none"
+            - margin: "4px 4px 16px 4px"
+    nav6:
+      card:
+        type: "custom:button-card"
+        name: "Chambre"
+        tap_action:
+          action: "navigate"
+          navigation_path: "/lovelace-tablet/bedroom"
+        styles:
+          card:
+            - border-radius: "none"
+            - box-shadow: "none"
+            - margin: "4px 4px 16px 4px"
+    nav7:
+      card:
+        type: "custom:button-card"
+        name: "Garage"
+        tap_action:
+          action: "navigate"
+          navigation_path: "/lovelace-tablet/garage"
+        styles:
+          card:
+            - border-radius: "none"
+            - box-shadow: "none"
+            - margin: "4px 4px 16px 4px"
+    nav8:
+      card:
+        type: "custom:button-card"
+        name: "Terrasse"
+        tap_action:
+          action: "navigate"
+          navigation_path: "/lovelace-tablet/terrasse"
+        styles:
+          card:
+            - border-radius: "none"
+            - box-shadow: "none"
+            - margin: "4px 4px 16px 4px"

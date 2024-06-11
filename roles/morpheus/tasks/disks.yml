@@ -1,0 +1,50 @@
+---
+- name: DÉMONTAGE DE TOUS LES DISQUES
+  mount:
+    path: "{{ item.path }}"
+    state: unmounted
+  loop: "{{ data_disks + parity_disks + freebox_mount }}"
+
+- name: CRÉATION DES POINTS DE MONTAGE /mnt
+  file:
+    dest: "{{ item.path }}"
+    state: directory
+    owner: nobody
+    group: nogroup
+    mode: 0777
+  loop: "{{ mergerfs_mount + data_disks + parity_disks + freebox_mount }}"
+
+- name: AJOUT DES POINTS DE MONTAGE parity, disk* SUR /etc/fstab
+  mount:
+    path: "{{ item.path }}"
+    src: "{{ item.source }}"
+    fstype: "{{ item.fs }}"
+    opts: "{{ item.opts }}"
+    state: mounted
+  loop: "{{ data_disks + parity_disks }}"
+
+- name: AJOUT DU POINT DE MONTAGE DU TABLEAU mergerfs SUR /etc/fstab
+  mount:
+    path: "{{ item.mountpoint }}"
+    src: "{{ item.source }}"
+    opts: "{{ item.opts }}"
+    fstype: "{{ item.fs }}"
+    state: mounted
+  loop: "{{ fstab_mergerfs }}"
+  
+- name: INSTALLATION DU FICHIER DE SECRETS freebox
+  template:
+    src: freebox/.freebox-credentials.j2
+    dest: "{{ secret.users.me.home }}/.freebox-credentials"
+    owner: root
+    group: root
+    mode: 0600
+
+- name: AJOUT DU POINT DE MONTAGE freebox SUR /etc/fstab
+  mount:
+    path: "{{ item.path }}"
+    src: "{{ item.source }}"
+    fstype: "{{ item.fs }}"
+    opts: "{{ item.opts }}"
+    state: mounted
+  loop: "{{ freebox_mount }}"

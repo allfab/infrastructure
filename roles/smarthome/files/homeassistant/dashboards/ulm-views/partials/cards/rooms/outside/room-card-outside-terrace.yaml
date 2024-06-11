@@ -1,0 +1,33 @@
+---
+type: "custom:button-card"
+template:
+  - "card_room"
+  - "green_no_state"
+name: "Terrasse"
+entity: "sensor.xiaomi_aqara_tph_sensor_terrasse_temperature"
+icon: "mdi:flower"
+label: '[[[ return states["sensor.xiaomi_aqara_tph_sensor_terrasse_temperature"].state + " °C / " + states["sensor.xiaomi_aqara_tph_sensor_terrasse_humidity"].state + " %" ]]]'
+tap_action:
+  action: "navigate"
+  navigation_path: "/lovelace/room-terrace"
+variables:
+  label_use_temperature: true
+  label_use_brightness: false
+  entity_2:
+    entity_id: "sensor.xiaomi_aqara_tph_sensor_terrasse_temperature"
+    templates:
+      - "green_on"
+    tap_action:
+      action: "more-info"
+  entity_3:
+    entity_id: "sensor.xiaomi_aqara_tph_sensor_terrasse_humidity"
+    templates:
+      - "blue_on"
+    tap_action:
+      action: "more-info"
+  entity_4:
+    entity_id: "sensor.xiaomi_aqara_tph_sensor_terrasse_pressure"
+    templates:
+      - "blue_on"
+    tap_action:
+      action: "more-info"

@@ -1,0 +1,333 @@
+---
+- title: "Home"
+  path: "home"
+  icon: "mdi:home-variant"
+  cards:
+    ###################{##### CHIPS HEADERS ###########################
+    #- !include ./partials/chips/first-row.yaml
+    #- !include ./partials/chips/second-row.yaml
+    #- !include ./partials/chips/third-row.yaml
+    ###################{##### CHIPS HEADERS ###########################
+    ######################## VERTICAL STACK ##########################
+    - type: "vertical-stack"
+      cards:
+        ########################## WELCOME ###########################
+        - type: "custom:stack-in-card"
+          mode: "vertical"
+          cards:
+            - !include /config/dashboards/ulm-views/partials/cards/welcome-card-mobile.yaml
+        ########################## WELCOME ###########################
+        ######################## OCCUPATION ##########################
+        - type: "custom:stack-in-card"
+          card_mod:
+            style: |
+              ha-card {
+                font-weight: bold;
+                height: 100% !important;
+              } 
+          cards:
+            - type: "grid"
+              columns: 2
+              square: false
+              cards:
+                - type: "custom:button-card"
+                  template: "allfab_card_person"
+                  entity: "person.fabien_allamanche"
+                  icon: "mdi:face-man"
+                  variables:
+                    ulm_card_person_entity: "person.fabien_allamanche"
+                    ulm_card_person_use_entity_picture: true
+                    ulm_card_person_zone1: "zone.home"
+                    ulm_card_person_zone2: "zone.work"
+                - type: "custom:button-card"
+                  template: "allfab_card_person"
+                  entity: "person.blandine_vincent"
+                  icon: "mdi:face-woman"
+                  variables:
+                    ulm_card_person_entity: "person.blandine_vincent"
+                    ulm_card_person_use_entity_picture: true
+                    ulm_card_person_zone1: "zone.home"
+        ######################## OCCUPATION ##########################
+        ######################### CAPTEURS ###########################
+        - type: "custom:stack-in-card"
+          card_mod:
+            style: |
+              ha-card {
+                font-weight: bold;
+                height: 100% !important;
+              } 
+          cards:
+            - type: "grid"
+              columns: 2
+              square: false
+              cards:
+                - type: "custom:button-card"
+                  template:
+                    - "card_binary_sensor_alert"
+                    - "allfab_battery_info"
+                  entity: "binary_sensor.xiaomi_aqara_doorwindow_sensor_portal_contact"
+                  variables:
+                    ulm_card_binary_sensor_alert_name: "Portail"
+                    ulm_card_binary_sensor_alert_icon: |
+                      [[[   
+                        if (entity.state == "on") {
+                          return "mdi:gate-alert";
+                        } else {
+                          return "mdi:gate";
+                        }
+                      ]]]
+                    ulm_card_binary_sensor_alert: true
+                    ulm_show_last_changed: true
+                    ulm_battery_entity: "sensor.xiaomi_aqara_doorwindow_sensor_portal_battery"
+                - type: "custom:button-card"
+                  template:
+                    - "card_binary_sensor_alert"
+                    - "allfab_battery_info"
+                  entity: "binary_sensor.xiaomi_aqara_doorwindow_sensor_garage_contact"
+                  variables:
+                    ulm_card_binary_sensor_alert_name: "Garage"
+                    ulm_card_binary_sensor_alert_icon: |
+                      [[[   
+                        if (entity.state == "on") {
+                          return "mdi:garage-open-variant";
+                        } else {
+                          return "mdi:garage-variant-lock";
+                        }
+                      ]]]
+                    ulm_card_binary_sensor_alert: true
+                    ulm_show_last_changed: true
+                    ulm_battery_entity: "sensor.xiaomi_aqara_doorwindow_sensor_garage_battery"       
+
+        ######################### CAPTEURS ###########################
+        ##################### VOLETS ROULANTS ########################
+        - type: "custom:stack-in-card"
+          card_mod:
+            style: |
+              ha-card {
+                font-weight: bold;
+                height: 100% !important;
+              } 
+          cards:
+            - type: "grid"
+              columns: 1
+              square: false
+              cards:
+                - type: "tile"
+                  entity: "cover.nodon_roller_shutter_switch_sin4rs20_etage"
+                  name: "Rez de chaussée"
+                  icon: "mdi:roller-shade"
+                  color: "deep-purple"
+                  show_entity_picture: false
+                  vertical: false
+                  hide_state: false
+                  features:
+                    - type: "cover-open-close"
+                    - type: "cover-position" 
+                - type: "tile"
+                  entity: "cover.nodon_roller_shutter_switch_sin4rs20_etage"
+                  name: "1er étage"
+                  icon: "mdi:roller-shade"
+                  color: "deep-purple"
+                  show_entity_picture: false
+                  vertical: false
+                  hide_state: false
+                  features:
+                    - type: "cover-open-close"
+                    - type: "cover-position"
+        ##################### VOLETS ROULANTS ########################
+        ########################## ENERGIE ###########################
+        - type: "custom:stack-in-card"
+          card_mod:
+            style: |
+              ha-card {
+                font-weight: bold;
+                height: 100% !important;
+              } 
+          cards:
+            - type: "vertical-stack"
+              cards:
+                - type: "custom:button-card"
+                  template: "card_title"
+                  name: "Mon Tempo ⚡"
+                - type: "grid"
+                  columns: 2
+                  square: false
+                  cards:
+                    - type: "tile"
+                      entity: "sensor.rte_tempo_couleur_actuelle_visuel"
+                      name: "Aujourd'hui"
+                      icon: "mdi:calendar-today"
+                      card_mod:
+                        style: |
+                          .tile {
+                            {% if states.sensor['rte_tempo_couleur_actuelle'].state == 'Bleu' %}
+                              --tile-color: var(--blue-color);
+                            {% elif states.sensor['rte_tempo_couleur_actuelle'].state == 'Blanc' %}
+                              --tile-color: var(--white-color);
+                            {% elif states.sensor['rte_tempo_couleur_actuelle'].state == 'Rouge' %}  
+                              --tile-color: var(--red-color);;
+                            {% else %}  
+                              --tile-color: var(--disabled-color);;
+                            {% endif %}
+                          }
+                      tap_action:
+                        action: "call-service"
+                        service: "script.popup_myelectricaldata"
+                        service_data:
+                          title: "MyElectricalData"
+                          size: "normal"
+                      icon_tap_action:
+                        action: "call-service"
+                        service: "script.popup_myelectricaldata"
+                        service_data:
+                          title: "MyElectricalData"
+                          size: "normal"
+                    - type: "tile"
+                      entity: "sensor.rte_tempo_prochaine_couleur_visuel"
+                      name: "Demain"
+                      icon: "mdi:calendar-today-outline"
+                      card_mod:
+                        style: |
+                          .tile {
+                            {% if states.sensor['rte_tempo_prochaine_couleur'].state == 'Bleu' %}
+                              --tile-color: var(--blue-color);
+                            {% elif states.sensor['rte_tempo_prochaine_couleur'].state == 'Blanc' %}
+                              --tile-color: var(--white-color);
+                            {% elif states.sensor['rte_tempo_prochaine_couleur'].state == 'Rouge' %}  
+                              --tile-color: var(--red-color);;
+                            {% else %}  
+                              --tile-color: var(--disabled-color);;
+                            {% endif %}
+                          }
+                      tap_action:
+                        action: "call-service"
+                        service: "script.popup_myelectricaldata"
+                        service_data:
+                          title: "MyElectricalData"
+                          size: "normal"
+                      icon_tap_action:
+                        action: "call-service"
+                        service: "script.popup_myelectricaldata"
+                        service_data:
+                          title: "MyElectricalData"
+                          size: "normal"
+        ########################## ENERGIE ###########################
+        ####################### MEDIA CENTER #########################
+        - type: "custom:button-card"
+          template: "card_title"
+          label: "Media Center"
+        - type: "grid"
+          columns: 1
+          square: false
+          cards:
+            - type: "custom:button-card"
+              template: "card_navigate"
+              variables:
+                ulm_card_navigate_path: "/lovelace/sonos-music-assistant"
+                ulm_card_navigate_title: "Sonos"
+                ulm_card_navigate_icon: "mdi:music-box"
+        ####################### MEDIA CENTER #########################
+        ########################### ROOMS ############################
+        - type: "custom:swipe-card"
+          parameters:
+            spaceBetween: 8
+            pagination:
+              type: "bullets"
+          card_mod:
+            style: |
+              .swiper-pagination-bullets {
+                position: relative !important;
+                margin-top: 5px !important;
+              }
+          cards:
+            ### RDC ###
+            - type: "vertical-stack"
+              cards:
+                - type: "custom:button-card"
+                  template: "card_title"
+                  name: "Rez de chaussée"
+                - type: "grid"
+                  columns: 2
+                  square: false
+                  cards:
+                    ### HALL D'ENTREE ###
+                    - !include /config/dashboards/ulm-views/partials/cards/rooms/groundfloor/room-card-groundfloor-hallway.yaml
+                    ### HALL D'ENTREE ###
+                    ### SALON TV ###
+                    - !include /config/dashboards/ulm-views/partials/cards/rooms/groundfloor/room-card-groundfloor-livingroom.yaml
+                    ### SALON TV ###
+                    ### SALLE À MANGER ###
+                    - !include /config/dashboards/ulm-views/partials/cards/rooms/groundfloor/room-card-groundfloor-diningroom.yaml
+                    ### SALLE À MANGER ###
+                    ### GARAGE ###
+                    - !include /config/dashboards/ulm-views/partials/cards/rooms/groundfloor/room-card-groundfloor-garage.yaml             
+                    ### GARAGE ###
+                    ### CHAMBRE PARENTALE ###
+                    - !include /config/dashboards/ulm-views/partials/cards/rooms/groundfloor/room-card-groundfloor-bedroom-master.yaml
+                    ### CHAMBRE PARENTALE ###
+                    ### CHAMBRE ÉMILIE ###
+                    - !include /config/dashboards/ulm-views/partials/cards/rooms/groundfloor/room-card-groundfloor-bedroom-emilie.yaml
+                    ### CHAMBRE ÉMILIE ###
+
+                ### SALLE D'EAU ###
+                - type: "grid"
+                  columns: 2
+                  square: false
+                  cards:            
+                    ### SALLE DE BAINS ###
+                    - !include /config/dashboards/ulm-views/partials/cards/rooms/groundfloor/room-card-groundfloor-bathroom.yaml
+                    ### SALLE DE BAINS ###
+                    ### WC ###
+                    - !include /config/dashboards/ulm-views/partials/cards/rooms/groundfloor/room-card-groundfloor-toilet.yaml
+                    ### WC ###
+            
+            ### 1er ETAGE ###
+            - type: "vertical-stack"
+              cards:
+                - type: "custom:button-card"
+                  template: "card_title"
+                  name: "1er étage"
+                - type: "grid"
+                  columns: 2
+                  square: false
+                  cards:
+                    ### ESCALIER ###
+                    - !include /config/dashboards/ulm-views/partials/cards/rooms/firstfloor/room-card-firstfloor-stairs.yaml
+                    ### ESCALIER ###
+                    ### PALIER ###
+                    - !include /config/dashboards/ulm-views/partials/cards/rooms/firstfloor/room-card-firstfloor-landing.yaml
+                    ### PALIER ###
+                    ### CHAMBRE LÉONIE ###
+                    - !include /config/dashboards/ulm-views/partials/cards/rooms/firstfloor/room-card-firstfloor-bedroom-leonie.yaml
+                    ### CHAMBRE LÉONIE ###
+                    #### BUREAU ###
+                    - !include /config/dashboards/ulm-views/partials/cards/rooms/firstfloor/room-card-firstfloor-office.yaml
+                    ### BUREAU ###
+                    ### SALLE DE BAINS ###
+                    - !include /config/dashboards/ulm-views/partials/cards/rooms/firstfloor/room-card-firstfloor-bathroom.yaml
+                    ### SALLE DE BAINS ###
+                    ### WC ###
+                    - !include /config/dashboards/ulm-views/partials/cards/rooms/firstfloor/room-card-firstfloor-toilet.yaml
+                    ### WC ###        
+
+        ### EXTERIEUR ###
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Extérieur"
+        - type: "grid"
+          columns: 2
+          square: false
+          cards:
+            ### TERRASSE ###
+            - !include /config/dashboards/ulm-views/partials/cards/rooms/outside/room-card-outside-terrace.yaml
+            ### TERRASSE ###
+            ### PISCINE ###
+            - !include /config/dashboards/ulm-views/partials/cards/rooms/outside/room-card-outside-pool.yaml
+            ### PISCINE ###
+            ### COUR ###
+            - !include /config/dashboards/ulm-views/partials/cards/rooms/outside/room-card-outside-courtyard.yaml
+            ### COUR ###
+            ### POULAILLER ###
+            - !include /config/dashboards/ulm-views/partials/cards/rooms/outside/room-card-outside-chickencoop.yaml
+            ### POULAILLER ###
+        ########################### ROOMS ############################

@@ -1,0 +1,49 @@
+- title: "Hall d'entrée"
+  path: "room-hallway"
+  icon: "mdi:room-service"
+  cards:
+    - type: "custom:button-card"
+      template: "chip_back"
+      variables:
+        ulm_chip_back_path: "/lovelace"
+    - type: "vertical-stack"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Entrée"
+          label: ""
+        - type: "picture"
+          image: "/local/images/lovelace/rooms/room-hallway.jpg"
+          style: |
+            ha-card {
+              height: 100px !important;
+            }
+        - type: "grid"
+          columns: 2
+          square: false
+          cards:
+            - type: "custom:mini-graph-card"
+              entities:
+                - "sensor.xiaomi_aqara_tph_sensor_livingroom_tv_temperature"
+              name: "Température (C°)"
+              line_color: "var(--google-green)"   
+              line_width: 8
+              font_size: 75
+              align_icon: "left"
+              align_state: "center"
+              hours_to_show: 48
+              show:
+                fill: true
+            - type: "custom:mini-graph-card"
+              entities:
+                - "sensor.xiaomi_aqara_tph_sensor_livingroom_tv_humidity"
+              name: "Humidité (%)"
+              line_color: "var(--google-blue)"   
+              line_width: 8
+              font_size: 75
+              align_icon: "left"
+              align_state: "center"
+              hours_to_show: 48
+              show:
+                fill: true
+        

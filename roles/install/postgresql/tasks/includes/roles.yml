@@ -1,0 +1,25 @@
+---
+# tasks file for roles/postgresql/includes/roles.yml
+- name: CRÉATION DU/DES RÔLE(S) PostgreSQL
+  postgresql_user:
+    name: "{{ item.name }}"
+    password: "{{ item.password | default(omit) }}"
+    encrypted: "{{ item.encrypted | default(omit) }}"
+    priv: "{{ item.priv | default(omit) }}"
+    role_attr_flags: "{{ item.role_attr_flags | default(omit) }}"
+    db: "{{ item.db | default(omit) }}"
+    login_host: "{{ item.login_host | default('localhost') }}"
+    login_password: "{{ item.login_password | default(omit) }}"
+    login_user: "{{ item.login_user | default(postgresql.user.name) }}"
+    login_unix_socket: "{{ item.login_unix_socket | default(postgresql.unix.socket.directories[0]) }}"
+    port: "{{ item.port | default(omit) }}"
+    state: "{{ item.state | default('present') }}"
+  with_items: "{{ postgresql.roles }}"
+  no_log: false
+  become: true
+  become_user: "{{ postgresql.user.name }}"
+  # See: https://github.com/ansible/ansible/issues/16048#issuecomment-229012509
+  vars:
+    ansible_ssh_pipelining: true
+  environment:
+    PGOPTIONS: "{{ (postgresql.auth.method == 'scram-sha-256') | ternary('-c password_encryption=scram-sha-256', '') }}"

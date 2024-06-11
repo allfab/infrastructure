@@ -1,0 +1,13 @@
+http:
+  routers:
+    homer:
+      entryPoints:
+        - websecure
+      rule: 'Host(`allfabox.fr`,`www.allfabox.fr`)'
+      service: homer
+  
+  services:
+    homer:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.50:8080

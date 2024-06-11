@@ -1,0 +1,26 @@
+http:
+  routers:
+    unifi:
+      entryPoints:
+        - websecure
+      rule: 'Host(`unifi.allfabox.fr`)'
+      service: unifi
+      tls: true
+      middlewares:
+        - httpsRedirect
+    hotspot:
+      entryPoints:
+        - websecure
+      rule: 'Host(`hotspot.allfabox.fr`)'
+      service: hotspot
+  
+  services:
+    unifi:
+      loadBalancer:
+        servers:
+          - url: https://192.168.1.1
+        passhostheader: true
+    hotspot:
+      loadBalancer:
+        servers:
+          - url: http://192.168.1.1:8843

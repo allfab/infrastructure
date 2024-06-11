@@ -1,0 +1,21 @@
+---
+type: "custom:button-card"
+template:
+  - "card_room"
+  - "grey_no_state"
+name: "Escalier"
+entity: "sensor.xiaomi_aqara_tph_sensor_livingroom_tv_temperature"
+icon: "mdi:stairs"
+label: '[[[ return states["sensor.xiaomi_aqara_tph_sensor_livingroom_tv_temperature"].state + " °C / " + states["sensor.xiaomi_aqara_tph_sensor_livingroom_tv_humidity"].state + " %" ]]]'
+# tap_action:
+#   action: "navigate"
+#   navigation_path: "/lovelace/room-hallway"
+variables:
+  label_use_temperature: true
+  label_use_brightness: false
+  entity_4:
+    entity_id: "light.lifx_hallway_krosby"
+    templates:
+      - "yellow_on"
+    tap_action:
+      action: "toggle"

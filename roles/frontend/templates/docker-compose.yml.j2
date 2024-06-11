@@ -1,0 +1,125 @@
+---
+services:
+  socket-proxy:
+    container_name: socket-proxy
+    image: lscr.io/linuxserver/socket-proxy:latest
+    restart: unless-stopped
+    # ports:
+    #   - 2375:2375
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    read_only: true
+    tmpfs:
+      - /run
+    environment:
+      - INFO=1
+      - POST=1
+      - CONTAINERS=1
+      - IMAGES=1
+      - NETWORKS=1
+      - SERVICES=1
+      - TASKS=1
+      - VOLUMES=1
+    networks:
+      - socket-proxy
+
+  authelia:
+    container_name: authelia
+    image: authelia/authelia:latest
+    user: 1000:1000
+    restart: always
+    ports:
+      - 9091:9091
+    volumes:
+      - ./authelia:/config
+    security_opt:
+      - no-new-privileges:true    
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.authelia.entrypoints=websecure
+      - traefik.http.routers.authelia.rule=Host(`identity.allfabox.fr`)
+      - traefik.http.routers.authelia.tls=true
+      - traefik.http.routers.authelia.tls.certresolver=letsencrypt
+    environment:
+      - TZ=Europe/Paris
+    networks:
+      - frontend
+
+  traefik:
+    container_name: traefik
+    image: traefik:v3.0.0
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+    depends_on: 
+       - socket-proxy
+       - authelia
+    volumes:
+      - ./traefik:/etc/traefik
+      - ./traefik/logs:/var/log/traefik
+    labels:
+      - traefik.enable=true      
+      - traefik.http.routers.traefik.entrypoints=websecure
+      - traefik.http.routers.traefik.rule=Host(`traefik.allfabox.fr`)
+      - traefik.http.routers.traefik.tls=true
+      - traefik.http.routers.traefik.tls.certresolver=letsencrypt
+      - traefik.http.services.traefik.loadbalancer.server.port=8080
+      - traefik.http.middlewares.authelia.forwardAuth.address=http://authelia:9091/api/verify?rd=https://identity.allfabox.fr/
+      - traefik.http.middlewares.authelia.forwardAuth.trustForwardHeader=true
+      - traefik.http.middlewares.authelia.forwardAuth.authResponseHeaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email
+      - traefik.http.routers.traefik.middlewares=authelia@docker
+    environment:
+      - OVH_ENDPOINT=${OVH_ENDPOINT}
+      - OVH_APPLICATION_KEY=${OVH_APPLICATION_KEY}
+      - OVH_APPLICATION_SECRET=${OVH_APPLICATION_SECRET}
+      - OVH_CONSUMER_KEY=${OVH_CONSUMER_KEY}
+      - TZ=Europe/Paris
+    networks:
+      - frontend
+      - socket-proxy
+
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ee:latest
+    restart: always
+    ports:
+      - 9443:9443
+    depends_on: 
+       - socket-proxy
+    command: -H tcp://socket-proxy:2375
+    volumes:
+      - ./portainer:/data    
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - AGENT_SECRET="{{ portainer.agent.secret.key }}"
+    security_opt:
+      - no-new-privileges:true
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.portainer.entrypoints=websecure
+      - traefik.http.routers.portainer.rule=Host(`portainer.allfabox.fr`)
+      - traefik.http.routers.portainer.tls=true
+      - traefik.http.routers.portainer.tls.certresolver=letsencrypt
+      - traefik.http.services.portainer.loadbalancer.server.port=9443
+    networks:
+      - frontend
+      - socket-proxy
+
+# docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 frontend
+networks:
+  frontend:
+    name: frontend
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "172.18.0.0/16"
+          gateway: "172.18.0.1"
+  socket-proxy:
+    name: socket-proxy
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "172.19.0.0/16"
+          gateway: "172.19.0.1"

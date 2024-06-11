@@ -1,0 +1,26 @@
+# PostgreSQL Client Authentication Configuration File
+# ===================================================
+
+# Database administrative login by Unix domain socket
+local   all             postgres                                peer
+
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+
+# "local" is for Unix domain socket connections only
+local   all             all                                     peer
+# IPv4 local connections:
+host    all             all             127.0.0.1/32            scram-sha-256
+# IPv6 local connections:
+host    all             all             ::1/128                 scram-sha-256
+# Allow replication connections from localhost, by a user with the
+# replication privilege.
+local   replication     all                                     peer
+host    replication     all             127.0.0.1/32            scram-sha-256
+host    replication     all             ::1/128                 scram-sha-256
+
+
+{{ ansible_managed | comment }}
+
+{% for client in postgresql.hba.entries %}
+{{ client.type }}    {{ client.database }}             {{ client.user }}          {{ client.address|default('') }} {{ client.ip_address|default('') }} {{ client.ip_mask|default('') }}       {{ client.auth_method }}            {{ client.auth_options|default("") }}    
+{% endfor %}

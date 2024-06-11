@@ -1,0 +1,39 @@
+---
+type: "custom:button-card"
+template:
+  - "card_room"
+  - "grey_no_state"
+name: "Salon TV"
+entity: "sensor.xiaomi_aqara_tph_sensor_livingroom_tv_temperature"
+icon: "mdi:sofa"
+label: '[[[ return states["sensor.xiaomi_aqara_tph_sensor_livingroom_tv_temperature"].state + " °C / " + states["sensor.xiaomi_aqara_tph_sensor_livingroom_tv_humidity"].state + " %" ]]]'
+tap_action:
+  action: "navigate"
+  navigation_path: "/lovelace/room-livingroom-tv"
+variables:
+  label_use_temperature: true
+  label_use_brightness: false
+  entity_1:
+    entity_id: "light.ikea_tradfri_bulb_wall_diningroom"
+    templates:
+      - "yellow_on"
+    tap_action:
+      action: "toggle"
+  entity_2:
+    entity_id: "light.ikea_tradfri_bulb_window_diningroom"
+    templates:
+      - "yellow_on"
+    tap_action:
+      action: "toggle"
+  entity_3:
+    entity_id: "light.ikea_tradfri_bulb_krosby_livingroom"
+    templates:
+      - "yellow_on"
+    tap_action:
+      action: "toggle"
+  entity_4:
+    entity_id: "switch.xiaomi_aqara_smartplug_livingroom_tv"
+    templates:
+      - "red_on"
+    tap_action:
+      action: "toggle"

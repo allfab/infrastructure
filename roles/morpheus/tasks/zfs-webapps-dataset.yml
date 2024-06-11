@@ -1,0 +1,44 @@
+---
+- name: WEBAPPS - CRÉATION DU DATASET ZFS parent
+  community.general.zfs:
+    name: "{{ zfs.dataset.webapps.parent.name }}"
+    state: present
+    extra_zfs_properties:
+      mountpoint: "{{ zfs.dataset.webapps.parent.extra.mountpoint }}"
+      compression: "{{ zfs.dataset.webapps.parent.extra.compression }}"
+      atime: "{{ zfs.dataset.webapps.parent.extra.atime }}"
+      xattr: "{{ zfs.dataset.webapps.parent.extra.xattr }}"
+      recordsize: "{{ zfs.dataset.webapps.parent.extra.recordsize }}"
+      quota: "{{ zfs.dataset.webapps.parent.extra.quota }}"
+  when: zfs.dataset.webapps.parent.create == true
+
+- name: WEBAPPS - CRÉATION DU DATASET ZFS enfant - POINT DE MONTAGE HOST<->LXC
+  community.general.zfs:
+    name: "{{ zfs.dataset.webapps.child.name }}"
+    state: present
+    extra_zfs_properties:
+      mountpoint: "{{ zfs.dataset.webapps.child.mountpoint.host }}"
+  when: zfs.dataset.webapps.child.create == true
+
+- name: WEBAPPS - CONFIGURATION DU POINT DE MONTAGE HOST<->LXC
+  command: pct set 150 -mp0 "{{ zfs.dataset.webapps.child.mountpoint.host }}",mp="{{ zfs.dataset.webapps.child.mountpoint.lxc }}"
+  when: zfs.dataset.webapps.child.create
+  
+- name: WEBAPPS - CHANGEMENT DES DROITS UTILISATEUR SUR LE POINT DE MONTAGE
+  file:
+    dest: "{{ zfs.dataset.webapps.child.mountpoint.host }}"
+    owner: 101000
+    group: 101000
+    recurse: true
+
+- name: WEBAPPS - REDÉMARRAGE DU CONTENEUR LXC
+  community.general.proxmox:
+    node: morpheus
+    api_host: 192.168.10.5
+    api_user: root@pam
+    api_password: "{{ secret.proxmox.morpheus.api.password }}"
+    api_token_id: "{{ secret.proxmox.morpheus.api.token_id }}"
+    api_token_secret: "{{ secret.proxmox.morpheus.api.token_secret }}"
+    vmid: 150
+    state: "restarted"
+    timeout: 90

@@ -1,0 +1,20 @@
+---
+zfs:
+  elephant:
+    parent:
+      create: true
+      name: rpool/postgresql
+      extra:
+        mountpoint: /var/lib/postgresql
+        compression: lz4
+        atime: off
+        xattr: sa
+        recordsize: 128k
+        quota: 100G
+    child:
+      create: false
+      name: rpool/postgresql/data
+      mountpoint:
+        host: /var/lib/postgresql/16/main
+        lxc: /var/lib/postgresql/16/main
+      mount: true

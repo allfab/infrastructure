@@ -1,0 +1,29 @@
+---
+- name: AUTORISER LA CONNEXION root VIA SSH DANS LE CONTENEUR AFIN DE POUSSER LA CONFIGURATION
+  ansible.builtin.command: lxc-attach "{{ item.lxc }}" -- /bin/bash -c "sed -i -e '{{ item.sed }}' /etc/ssh/sshd_config"
+  loop:
+    - {"lxc":"110", "sed":"s\/#PermitRootLogin prohibit-password\/PermitRootLogin yes\/"}
+    - {"lxc":"110", "sed":"s\/#PasswordAuthentication yes\/PasswordAuthentication yes\/"}
+    - {"lxc":"120", "sed":"s\/#PermitRootLogin prohibit-password\/PermitRootLogin yes\/"}
+    - {"lxc":"120", "sed":"s\/#PasswordAuthentication yes\/PasswordAuthentication yes\/"}
+    - {"lxc":"130", "sed":"s\/#PermitRootLogin prohibit-password\/PermitRootLogin yes\/"}
+    - {"lxc":"130", "sed":"s\/#PasswordAuthentication yes\/PasswordAuthentication yes\/"}
+    - {"lxc":"140", "sed":"s\/#PermitRootLogin prohibit-password\/PermitRootLogin yes\/"}
+    - {"lxc":"140", "sed":"s\/#PasswordAuthentication yes\/PasswordAuthentication yes\/"}
+    - {"lxc":"141", "sed":"s\/#PermitRootLogin prohibit-password\/PermitRootLogin yes\/"}
+    - {"lxc":"141", "sed":"s\/#PasswordAuthentication yes\/PasswordAuthentication yes\/"}
+    - {"lxc":"150", "sed":"s\/#PermitRootLogin prohibit-password\/PermitRootLogin yes\/"}
+    - {"lxc":"150", "sed":"s\/#PasswordAuthentication yes\/PasswordAuthentication yes\/"}
+    - {"lxc":"160", "sed":"s\/#PermitRootLogin prohibit-password\/PermitRootLogin yes\/"}
+    - {"lxc":"160", "sed":"s\/#PasswordAuthentication yes\/PasswordAuthentication yes\/"}
+
+- name: REDÉMARRAGE DU SERVICE ssh SUR LES CONTENEURS
+  ansible.builtin.command: lxc-attach "{{ item.lxc }}" -- /bin/bash -c "systemctl restart ssh.service"
+  loop:
+    - {"lxc":"110"}
+    - {"lxc":"120"}
+    - {"lxc":"130"}
+    - {"lxc":"140"}
+    - {"lxc":"141"}
+    - {"lxc":"150"}
+    - {"lxc":"160"}

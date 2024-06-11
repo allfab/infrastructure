@@ -1,0 +1,239 @@
+---
+- name: CHARGEMENT DES VARIABLES PAR DÉFAUT
+  include_vars: defaults/main.yml
+
+- name: HOMEASSISTANT - CRÉATION DU RÉPERTOIRE D'INSTALLATION/CONFIGURATION
+  file:
+    path: /opt/docker/smarthome-stack/homeassistant
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+
+- name: HOMEASSISTANT - CRÉATION DU RÉPERTOIRE DES FICHIERS DE CONFIGURATIONS ADDITIONNELS
+  file:
+    path: /opt/docker/smarthome-stack/homeassistant/extra
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+
+- name: HOMEASSISTANT - INSTALLATION DU FICHIER DE CONFIGURATION PRINCIPAL
+  template:
+    src: homeassistant/configuration.yaml.j2
+    dest: /opt/docker/smarthome-stack/homeassistant/configuration.yaml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+    lstrip_blocks: true
+    trim_blocks: true
+
+- name: HOMEASSISTANT - INSTALLATION DU FICHIER DES SECRETS
+  template:
+    src: homeassistant/secrets.yaml.j2
+    dest: /opt/docker/smarthome-stack/homeassistant/secrets.yaml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+    lstrip_blocks: true
+    trim_blocks: true
+
+- name: HOMEASSISTANT - LOVELACE DASHBOARDS - INSTALLATION DES DIFFÉRENTS FICHIERS DE CONFIGURATION DANS LE RÉPERTOIRE includes
+  copy:
+    src: homeassistant/includes/
+    dest: /opt/docker/smarthome-stack/homeassistant/includes/
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+
+- name: HOMEASSISTANT - INSTALLATION DU FICHIER local-resources.yaml
+  template:
+    src: homeassistant/local-resources.yaml.j2
+    dest: /opt/docker/smarthome-stack/homeassistant/local-resources.yaml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+    lstrip_blocks: true
+    trim_blocks: true
+
+- name: HOMEASSISTANT - INSTALLATION DU FICHIER known_devices.yaml
+  copy:
+    src: homeassistant/known_devices.yaml
+    dest: /opt/docker/smarthome-stack/homeassistant/known_devices.yaml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+
+- name: HOMEASSISTANT - INSTALLATION DU FICHIER DE CONFIGURATION ADDITIONNEL POUR Google Assistant
+  template:
+    src: homeassistant/google-assistant.json.j2
+    dest: /opt/docker/smarthome-stack/homeassistant/extra/google-assistant.json
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+    lstrip_blocks: true
+    trim_blocks: true
+
+- name: HOMEASSISTANT - CRÉATION DU RÉPERTOIRE D'INSTALLATION DES COMPOSANTS PERSONNALISÉS
+  file:
+    path: /opt/docker/smarthome-stack/homeassistant/custom_components
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+
+- name: HOMEASSISTANT - COMPOSANTS PERSONNALISÉS - BROWSER_MOD - OBTENTION DE LA DERNIÈRE VERSION
+  ansible.builtin.git:
+    repo: https://github.com/thomasloven/hass-browser_mod.git
+    dest: /tmp/browser_mod
+
+- name: HOMEASSISTANT - COMPOSANTS PERSONNALISÉS - BROWSER_MOD - INSTALLATION
+  copy:
+    src: /tmp/browser_mod/custom_components/browser_mod
+    dest: /opt/docker/smarthome-stack/homeassistant/custom_components
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+    remote_src: true
+    directory_mode: true
+
+- name: HOMEASSISTANT - COMPOSANTS PERSONNALISÉS - HACS - VÉRIFICATION DE L'EXISTENCE DU RÉPERTOIRE D'INSTALLATION
+  file:
+    path: /opt/docker/smarthome-stack/homeassistant/custom_components/hacs
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+
+- name: HOMEASSISTANT - COMPOSANTS PERSONNALISÉS - HACS - OBTENTION DE LA DERNIÈRE VERSION & INSTALLATION
+  ansible.builtin.unarchive:
+    src: https://github.com/hacs/integration/releases/latest/download/hacs.zip
+    dest: /opt/docker/smarthome-stack/homeassistant/custom_components/hacs
+    remote_src: true
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+
+- name: HOMEASSISTANT - COMPOSANTS PERSONNALISÉS - NODE-RED - VÉRIFICATION DE L'EXISTENCE DU RÉPERTOIRE D'INSTALLATION
+  file:
+    path: /opt/docker/smarthome-stack/homeassistant/custom_components/nodered
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+
+- name: HOMEASSISTANT - COMPOSANTS PERSONNALISÉS - NODE-RED - OBTENTION DE LA DERNIÈRE VERSION & INSTALLATION
+  ansible.builtin.unarchive:
+    src: https://github.com/zachowj/hass-node-red/releases/download/v4.0.0/nodered.zip
+    dest: /opt/docker/smarthome-stack/homeassistant/custom_components/nodered
+    remote_src: true
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+
+- name: HOMEASSISTANT - LOVELACE CARDS - VÉRIFICATION DE L'EXISTENCE DES RÉPERTOIRES D'INSTALLATION
+  file:
+    path: /opt/docker/smarthome-stack/homeassistant/www/resources/js
+    state: directory
+    recurse: true
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+
+- name: HOMEASSISTANT - LOVELACE CARDS - TÉLÉCHARGEMENT & INSTALLATION
+  ansible.builtin.get_url:
+    url: "{{ item.url }}"
+    dest: /opt/docker/smarthome-stack/homeassistant/www/resources/js
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+  with_items: "{{ homeassistant.lovelace.cards | sort(attribute='name') }}"
+
+- name: HOMEASSISTANT - LOVELACE CARDS - DÉPLOIEMENT DANS LE FICHIER DE CONFIGURATION local-resources.yaml
+  template:
+    src: homeassistant/local-resources.yaml.j2
+    dest: /opt/docker/smarthome-stack/homeassistant/local-resources.yaml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+
+- name: HOMEASSISTANT - LOVELACE DASHBOARDS - VÉRIFICATION DE L'EXISTENCE DES RÉPERTOIRES D'INSTALLATION DES FICHIERS DE CONFIGURATION
+  file:
+    path: "{{ item }}"
+    state: directory
+    recurse: true
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+  loop:
+    - /opt/docker/smarthome-stack/homeassistant/dashboards/resources
+    - /opt/docker/smarthome-stack/homeassistant/dashboards/ulm-views
+    - /opt/docker/smarthome-stack/homeassistant/dashboards/ulm-views/views-default
+    - /opt/docker/smarthome-stack/homeassistant/dashboards/ulm-views/views-tablet
+    - /opt/docker/smarthome-stack/homeassistant/www/images/lovelace/rooms
+
+- name: HOMEASSISTANT - LOVELACE DASHBOARDS - INSTALLATION DES DIFFÉRENTS FICHIERS DE CONFIGURATION
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+  loop:
+    - {src: "homeassistant/dashboards/ui-lovelace.yaml", dest: "/opt/docker/smarthome-stack/homeassistant/ui-lovelace.yaml"}
+    - {src: "homeassistant/dashboards/ui-lovelace-tablet.yaml", dest: "/opt/docker/smarthome-stack/homeassistant/ui-lovelace-tablet.yaml"}
+
+- name: HOMEASSISTANT - LOVELACE DASHBOARDS - TÉLÉCHARGEMENT DE LA LIBRAIRIE UI-Lovelace-Minimalist
+  ansible.builtin.git:
+    repo: https://github.com/UI-Lovelace-Minimalist/UI.git
+    dest: /tmp/ui_minimalist_ui
+
+- name: HOMEASSISTANT - LOVELACE DASHBOARDS - INSTALLATION DE LA LIBRAIRIE UI-Lovelace-Minimalist
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+    remote_src: true
+  loop:
+    - {src: "/tmp/ui_minimalist_ui/custom_components/ui_lovelace_minimalist/lovelace/adaptive-dash/", dest: "/opt/docker/smarthome-stack/homeassistant/dashboards/resources/adaptive-dash/"}
+    - {src: "/tmp/ui_minimalist_ui/custom_cards/", dest: "/opt/docker/smarthome-stack/homeassistant/dashboards/resources/custom_cards/"}    
+    - {src: "/tmp/ui_minimalist_ui/custom_components/ui_lovelace_minimalist/lovelace/themefiles/", dest: "/opt/docker/smarthome-stack/homeassistant/dashboards/resources/themefiles/"}
+    - {src: "/tmp/ui_minimalist_ui/custom_components/ui_lovelace_minimalist/lovelace/ulm_templates/", dest: "/opt/docker/smarthome-stack/homeassistant/dashboards/resources/ulm_templates/"}
+
+- name: HOMEASSISTANT - LOVELACE DASHBOARDS - INSTALLATION DES MODÈLES DE CARTES PERSONNALISÉS
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+  loop:
+    - {src: "homeassistant/dashboards/resources/ulm_templates_allfab/", dest: "/opt/docker/smarthome-stack/homeassistant/dashboards/resources/ulm_templates_allfab/"}
+
+- name: HOMEASSISTANT - LOVELACE DASHBOARDS - INSTALLATION DES DIFFÉRENTS FICHIERS NÉCESSAIRES POUR LES TABLEAUX DE BORD
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+  loop:    
+    - {src: "homeassistant/dashboards/ulm-views/", dest: "/opt/docker/smarthome-stack/homeassistant/dashboards/ulm-views/"}
+    - {src: "homeassistant/dashboards/resources/ulm_templates/fr.yaml", dest: "/opt/docker/smarthome-stack/homeassistant/dashboards/resources/ulm_templates/fr.yaml"}
+    - {src: "homeassistant/dashboards/resources/ulm_templates/custom_actions.yaml", dest: "/opt/docker/smarthome-stack/homeassistant/dashboards/resources/ulm_templates/custom_actions.yaml"}
+    - {src: "homeassistant/www/images/room-chickencoop.jpg", dest: "/opt/docker/smarthome-stack/homeassistant/www/images/lovelace/rooms/room-chickencoop.jpg"}
+    - {src: "homeassistant/www/images/room-hallway.jpg", dest: "/opt/docker/smarthome-stack/homeassistant/www/images/lovelace/rooms/room-hallway.jpg"}
+    - {src: "homeassistant/www/images/room-livingroom.jpg", dest: "/opt/docker/smarthome-stack/homeassistant/www/images/lovelace/rooms/room-livingroom.jpg"}
+
+- name: HOMEASSISTANT - PURGE DES FICHIERS OBSOLÈTES APRÈS La MISE EN PLACE DE LA CONFIGURATION
+  file:
+    dest: "{{ item }}"
+    state: absent
+  loop:    
+    - /opt/docker/smarthome-stack/homeassistant/home-assistant_v2.db
+    - /opt/docker/smarthome-stack/homeassistant/automations.yaml
+    - /opt/docker/smarthome-stack/homeassistant/scenes.yaml
+    - /opt/docker/smarthome-stack/homeassistant/scripts.yaml
+    

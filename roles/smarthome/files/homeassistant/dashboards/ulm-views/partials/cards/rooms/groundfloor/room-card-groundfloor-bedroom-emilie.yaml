@@ -1,0 +1,47 @@
+---
+type: "custom:button-card"
+template:
+  - "card_room"
+  - "pink_no_state"
+name: "Émilie"
+entity: "sensor.xiaomi_aqara_tph_sensor_livingroom_tv_temperature"
+icon: "mdi:cradle"
+label: '[[[ return states["sensor.xiaomi_aqara_tph_sensor_livingroom_tv_temperature"].state + " °C / " + states["sensor.xiaomi_aqara_tph_sensor_livingroom_tv_humidity"].state + " %" ]]]'
+#tap_action:
+  #action: navigate
+  #navigation_path: '/lovelace/livingroom'
+variables:
+  label_use_temperature: true
+  label_use_brightness: false
+  # entity_1:
+  #   entity_id: "light.ikea_tradfri_bulb_bedroom_baby"
+  #   templates:
+  #     - "yellow_on"
+  #   tap_action:
+  #     action: "toggle"
+  entity_2:
+    entity_id: "sensor.xiaomi_aqara_tph_sensor_livingroom_tv_temperature"
+    templates:
+      - "green_on"
+    tap_action:
+      action: "more-info"
+  # entity_3:
+  #   entity_id: "binary_sensor.xiaomi_aqara_doorwindow_sensor_bedroom_baby_contact"
+  #   templates:
+  #     - "blue_on"
+  #   icon: |
+  #     [[[   
+  #       if (entity.state == "on") {
+  #         return "mdi:window-open-variant";
+  #       } else {
+  #         return "mdi:window-closed-variant";
+  #       }
+  #     ]]]
+  #   tap_action:
+  #     action: "none"
+  # entity_4:
+  #   entity_id: "climate.xiaomi_aqara_radiator_thermostat_e1_bedroom_baby"
+  #   templates:
+  #     - "red_on"
+  #   tap_action:
+  #     action: "more-info"

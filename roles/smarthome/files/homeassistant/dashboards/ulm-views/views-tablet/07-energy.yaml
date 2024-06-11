@@ -1,0 +1,89 @@
+---
+- title: "Énergie"
+  path: "energy"
+  icon: "mdi:lightning-bolt"
+  type: "custom:grid-layout"
+  layout:
+    grid-template-columns: 4% 66% 27% 3%
+    grid-template-rows: 1em
+    grid-gap: 0.7em
+    grid-template-areas: |
+      ". . . ."
+      "back energy_date_selection energy_date_selection ."
+      ". energy_usage_graph energy_distribution ."
+      ". . . ."
+  cards:
+    ############
+    #   Back   #
+    ############
+    - type: "custom:button-card"
+      view_layout:
+        grid-area: "back"
+      template: "chip_back"
+      variables:
+        ulm_chip_back_path: "/lovelace-tablet"
+    ############
+    #   DATE   #
+    ############
+    - type: "horizontal-stack"
+      view_layout:
+        grid-area: "energy_date_selection"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Énergie"
+        #- type: "custom:button-card"
+          #color_type: "blank-card"
+        - type: "energy-date-selection"
+
+    ################
+    # CONSOMMATION #
+    ################
+    - type: "vertical-stack"
+      view_layout:
+        grid-area: "energy_usage_graph"
+      cards:
+        - type: "energy-usage-graph"
+        - type: "energy-sources-table"
+
+    ###############
+    # USAGE GRAPH #
+    ###############
+    - type: "vertical-stack"
+      view_layout:
+        grid-area: "energy_distribution"
+      cards:
+        - type: "energy-distribution"
+          link_dashboard: true
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Suivi Conso."
+          label: "Prise Multimédia"
+        - type: "statistic"
+          entity: "sensor.xiaomi_aqara_smartplug_livingroom_tv_energy"
+          name: "Journalière"
+          period:
+            calendar:
+              period: "day"
+          stat_type: "change"
+        - type: "statistic"
+          entity: "sensor.xiaomi_aqara_smartplug_livingroom_tv_energy"
+          name: "Hebdomadaire"
+          period:
+            calendar:
+              period: "week"
+          stat_type: "change"
+        - type: "statistic"
+          entity: "sensor.xiaomi_aqara_smartplug_livingroom_tv_energy"
+          name: "Mensuelle"
+          period:
+            calendar:
+              period: "month"
+          stat_type: "change"
+        - type: "statistic"
+          entity: "sensor.xiaomi_aqara_smartplug_livingroom_tv_energy"
+          name: "Annuelle"
+          period:
+            calendar:
+              period: "year"
+          stat_type: "change"

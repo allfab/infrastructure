@@ -1,0 +1,46 @@
+http:
+  routers:
+    homeassistant:
+      entryPoints:
+        - websecure
+      rule: 'Host(`domotik.allfabox.fr`)'
+      service: homeassistant
+    nodered:
+      entryPoints:
+        - websecure
+      rule: 'Host(`nodered.allfabox.fr`)'
+      service: nodered
+      middlewares:
+        - authelia
+    zigbee2mqtt:
+      entryPoints:
+        - websecure
+      rule: 'Host(`zigbee2mqtt.allfabox.fr`)'
+      service: zigbee2mqtt
+      middlewares:
+        - authelia
+    esphome:
+      entryPoints:
+        - websecure
+      rule: 'Host(`esphome.allfabox.fr`)'
+      service: esphome
+      middlewares:
+        - authelia
+  
+  services:
+    homeassistant:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.30:8123
+    nodered:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.30:1880
+    zigbee2mqtt:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.30:1880
+    esphome:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.30:6052

@@ -1,0 +1,47 @@
+---
+# includes tasks file for roles/docker-frontend-stack/authelia
+- name: CRÉATION DU RÉPERTOIRE D'INSTALLATION/CONFIGURATION POUR 'authelia'
+  file:
+    path: /opt/docker/frontend-stack/authelia
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.name }}"
+
+- name: CRÉATION DU RÉPERTOIRE POUR LA BASE DE DONNÉES SQLITE 'authelia'
+  file:
+    path: /opt/docker/frontend-stack/authelia/db
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.name }}"
+
+- name: CRÉATION DU RÉPERTOIRE POUR LA GESTION UTLISATEUR 'authelia'
+  file:
+    path: /opt/docker/frontend-stack/authelia/users
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.name }}"
+
+- name: CRÉATION DU RÉPERTOIRE DE LOGS POUR 'authelia'
+  file:
+    path: /opt/docker/frontend-stack/authelia/log
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.name }}"
+
+- name: INSTALLATION DU FICHIER DE CONFIGURATION PRINCIPAL DE 'authelia'
+  template:
+    src: authelia/configuration.yml.j2
+    dest: /opt/docker/frontend-stack/authelia/configuration.yml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+    lstrip_blocks: true
+    trim_blocks: true
+
+- name: INSTALLATION DU FICHIER DE CONFIGURATION UTILISATEUR DE 'authelia'
+  template:
+    src: authelia/users.yml.j2
+    dest: /opt/docker/frontend-stack/authelia/users/users.yml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+    lstrip_blocks: true
+    trim_blocks: true

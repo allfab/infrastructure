@@ -1,0 +1,16 @@
+- platform: group
+  name: all_hass_members
+  services:
+    - service: mobile_app_oneplus_a5000
+    - service: mobile_app_cph2399
+
+# - platform: rest
+#   name: gotify_admin  
+#   resource: http://192.168.0.70:5858/message
+#   method: POST_JSON
+#   headers: 
+#     X-Gotify-Key: !secret gotify_token
+#   message_param_name: message
+#   title_param_name: title
+#   data:
+#     priority: 10

@@ -1,0 +1,49 @@
+---
+- name: VÉRIFICATION DE L'EXISTENCE DE L'INSTALLATION DU PAQUET
+  shell: "dpkg-query -W 'mergerfs'"
+  ignore_errors: true
+  register: is_installed
+  changed_when: "is_installed.rc != 0"
+
+- name: mergerfs EST-IL INSTALLÉ ?
+  set_fact:
+    force_install: "{{ mergerfs_force_install == true or is_installed.failed == true }}"
+    mergerfs_is_installed: "{{ is_installed.failed == false }}"
+
+- name: VÉRIFICATION DE LA VERSION DE mergerfs INSTALLÉ
+  shell: "/usr/bin/mergerfs --version | head -n1 | cut -c 10-16"
+  changed_when: false
+  register: mergerfs_installed_version_registered
+  when: mergerfs_is_installed == True
+
+- name: OBTENTION DE LA DERNIÈRE VERSION
+  uri:
+    url: https://api.github.com/repos/trapexit/mergerfs/releases/latest
+    url_username: "{{ secret.github.api.user | default (omit) }}"
+    url_password: "{{ secret.github.api.token | default (omit) }}"
+    return_content: true
+    force_basic_auth: "{{ secret.github.api.auth | default (omit) }}"
+  register: mergerfs_latest_release
+  when: mergerfs_version is undefined and force_install == True
+
+- name: DÉFINITION DE LA VERSION SI CE N'EST PAS LE CAS
+  set_fact: 
+    mergerfs_version: "{{ mergerfs_latest_release.json.tag_name }}"
+  when: mergerfs_version is undefined and force_install == True
+
+- name: TÉLÉCHARGEMENT DE LA VERSION SOUHAITÉE
+  get_url:
+    url: https://github.com/trapexit/mergerfs/releases/download/{{ mergerfs_version }}/mergerfs_{{ mergerfs_version | regex_replace('v') }}.debian-bookworm_amd64.deb
+    dest: /tmp
+  when: force_install == True
+
+- name: DÉFINITION DU NOM DU FICHIER
+  set_fact:
+    file_name: "mergerfs_{{ mergerfs_version | regex_replace('v') }}.debian-bookworm_amd64.deb"
+  when: force_install == True
+
+- name: INSTALLATION DU FICHIER .deb
+  apt:
+    deb: /tmp/{{ file_name }}
+    state: present
+  when: force_install == True

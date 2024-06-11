@@ -1,0 +1,13 @@
+http:
+  routers:
+    vaultwarden:
+      entryPoints:
+        - websecure
+      rule: 'Host(`vaultwarden.allfabox.fr`)'
+      service: vaultwarden
+  
+  services:
+    vaultwarden:
+      loadBalancer:
+        servers:
+          - url: https://192.168.10.50:8680

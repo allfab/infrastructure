@@ -1,0 +1,32 @@
+- platform: generic_thermostat
+  # Nom de notre thermostat
+  name: "Virtual Thermostat Bathroom"
+  # entité du chauffage
+  heater: switch.generic_thermostat_bathroom_switch
+  # entité du capteur de température
+  target_sensor: sensor.sonoff_th_sensor_bathroom_temperature
+  # il s'agit du mode dans lequel le thermostat démarre la première fois "off" / "heat" / "cool"
+  initial_hvac_mode: "heat"
+  # la température cible
+  target_temp: 21
+  # la température réglable minimum du thermostat
+  min_temp: 15
+  # la température réglable maximum du thermostat
+  max_temp: 25
+  # mode de fonctionnement du système "heater"
+  ac_mode: false
+  # il s'agit de la tolérance de température basse pour l'activation de la chauffe
+  cold_tolerance: 0
+  # tolérance de la température avant que la chauffe ne soit activer
+  hot_tolerance: 0.5
+  
+  # température en cas de mode absent
+  away_temp: 18
+  # Il s'agit de la précision pour le réglage de la température
+  precision: 0.5
+  # le temps minimum d'un cycle de fonctionnement
+  min_cycle_duration:
+    seconds: 5
+  # maintient en chauffe au moins 3 minutes si le thermostat ne reçoit pas de commande
+  #keep_alive:
+    #minutes: 3

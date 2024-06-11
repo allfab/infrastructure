@@ -1,0 +1,46 @@
+---
+- name: ESPHOME - CRÉATION DU RÉPERTOIRE D'INSTALLATION/CONFIGURATION
+  file:
+    path: /opt/docker/smarthome-stack/esphome
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+
+- name: ESPHOME - CRÉATION DU RÉPERTOIRE DE CACHE
+  file:
+    path: /opt/docker/smarthome-stack/esphome/cache
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+
+- name: ESPHOME - CLONER LE REPO DE LA GESTION DE LA CLIMATISATION
+  ansible.builtin.git:
+    repo: https://github.com/paveldn/haier-esphome
+    dest: /opt/docker/smarthome-stack/esphome/haier-esphome
+    version: master
+
+- name: ESPHOME - INSTALLATION DU FICHIER DE CONFIGURATION mmwave-wc-occupancy.yaml
+  template:
+    src: esphome/mmwave-wc-occupancy.yaml.j2
+    dest: /opt/docker/smarthome-stack/esphome/mmwave-wc-occupancy.yaml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+    group: "{{ secret.users.me.gid }}"
+
+- name: ESPHOME - INSTALLATION DU FICHIER DE CONFIGURATION thermor-ac-landing-room.yaml
+  template:
+    src: esphome/thermor-ac-landing-room.yaml.j2
+    dest: /opt/docker/smarthome-stack/esphome/thermor-ac-landing-room.yaml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+    group: "{{ secret.users.me.gid }}"
+
+- name: ESPHOME - INSTALLATION DU FICHIER DE CONFIGURATION secrets.yaml
+  template:
+    src: esphome/secrets.yaml.j2
+    dest: /opt/docker/smarthome-stack/esphome/secrets.yaml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+    group: "{{ secret.users.me.gid }}"

@@ -1,0 +1,142 @@
+---
+- title: "Freebox"
+  path: "freebox"
+  icon: "mdi:router-network"
+  type: "custom:grid-layout"
+  layout:
+    grid-template-columns: 4% repeat(3, 31%) 3%
+    grid-template-rows: 1em 
+    grid-gap: 0.7em
+    grid-template-areas: |
+      ". . . . ."
+      "back calls downloads devices ."
+      ". . . . ."
+
+  cards:
+    ############
+    #   Back   #
+    ############
+    - type: "custom:button-card"
+      view_layout:
+        grid-area: "back"
+      template: "chip_back"
+      variables:
+        ulm_chip_back_path: "/lovelace-tablet"
+    
+    ###########
+    #  Appels #
+    ###########
+    - type: "vertical-stack"
+      view_layout:
+        grid-area: "calls"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Freebox"
+          label: "Téléphonie"
+        - type: "grid"
+          columns: 1
+          square: false
+          cards:
+            - type: "custom:button-card"
+              template: "custom_card_bar_card"
+              variables:
+                ulm_custom_card_bar_card_entity: "sensor.freebox_missed_calls"
+                ulm_custom_card_bar_card_name: "Appels manqués"
+                ulm_custom_card_bar_card_value: true
+                ulm_custom_card_bar_card_indicator: true
+                ulm_custom_card_bar_card_color: "var(--google-red)"
+                ulm_custom_card_bar_card_min: 0
+                ulm_custom_card_bar_card_max: 20
+            - type: "markdown"
+              content: >
+                {% for attr in states.sensor.freebox_missed_calls.attributes %}
+                {% if not attr == "friendly_name"  and not attr == "icon"  %}
+                <ha-alert alert-type="info">
+                  Le {{states.sensor.freebox_missed_calls.attributes[attr]}} a appelé le {{as_timestamp(attr) | timestamp_custom('%d/%m/%Y')}} à {{as_timestamp(attr) |
+                timestamp_custom('%H:%M')}}
+                </ha-alert>                
+                {% endif %}
+                {% endfor %}        
+        
+
+    - type: "vertical-stack"
+      view_layout:
+          grid-area: "downloads"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Matériel"
+          label: "Espace disque"
+        - type: "grid"
+          columns: 1
+          square: false
+          cards:
+            - type: "custom:button-card"
+              template: "custom_card_bar_card"
+              variables:
+                ulm_custom_card_bar_card_entity: "sensor.disque_dur_free_space"
+                ulm_custom_card_bar_card_name: "Espace HHD libre"
+                ulm_custom_card_bar_card_value: true
+                ulm_custom_card_bar_card_indicator: true
+                ulm_custom_card_bar_card_color: "var(--google-blue)"
+                ulm_custom_card_bar_card_min: 0
+                ulm_custom_card_bar_card_max: 100                
+        - type: "custom:button-card"
+          template: "card_title"
+          label: "CPU - Températures"
+        - type: "grid"
+          columns: 2
+          square: false
+          cards:
+            - type: "custom:button-card"
+              template: "custom_card_bar_card"
+              variables:
+                ulm_custom_card_bar_card_entity: "sensor.freebox_temperature_cpu_a"
+                ulm_custom_card_bar_card_name: "CPU A"
+                ulm_custom_card_bar_card_value: true
+                ulm_custom_card_bar_card_indicator: true
+                ulm_custom_card_bar_card_color: "var(--google-green)"
+                ulm_custom_card_bar_card_min: 0
+                ulm_custom_card_bar_card_max: 100
+            - type: "custom:button-card"
+              template: "custom_card_bar_card"
+              variables:
+                ulm_custom_card_bar_card_entity: "sensor.freebox_temperature_cpu_b"
+                ulm_custom_card_bar_card_name: "CPU B"
+                ulm_custom_card_bar_card_value: true
+                ulm_custom_card_bar_card_indicator: true
+                ulm_custom_card_bar_card_color: "var(--google-green)"
+                ulm_custom_card_bar_card_min: 0
+                ulm_custom_card_bar_card_max: 100
+
+    - type: "vertical-stack"
+      view_layout:
+          grid-area: "devices"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Actions"
+          label: "Wifi & redémarrage serveur"
+        - type: "grid"
+          columns: 2
+          square: false
+          cards:
+            - type: "custom:button-card"
+              template: "card_vertical_button"
+              entity: "switch.freebox_wifi"
+              name: "Wifi"
+              icon: "mdi:restart"
+              show_last_changed: true
+              variables:
+                ulm_card_vertical_button_state: "Redémarrage"
+                ulm_card_vertical_button_color: "red"
+            - type: "custom:button-card"
+              template: "card_vertical_button"
+              entity: "button.reboot_freebox"
+              name: "Freebox Reboot"
+              icon: "mdi:restart"
+              show_last_changed: true
+              variables:
+                ulm_card_vertical_button_state: "Redémarrage"
+                ulm_card_vertical_button_color: "red"

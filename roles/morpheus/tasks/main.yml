@@ -1,0 +1,55 @@
+---
+- name: PRÉREQUIS - DÉPENDANCES
+  apt:
+    name:
+      - "python3-pip"
+      - "python3-proxmoxer>=1.1.0"
+    state: "present"
+
+- name: MISE À JOUR DE Proxmox VE Appliance Manager - pveam
+  command: pveam update
+
+- name: TÉLÉCHARGEMENT DES MODÈLES DE CONTENEUR LXC
+  command: pveam download iso {{ item }}
+  loop:
+    - debian-12-standard_12.2-1_amd64.tar.zst
+    - ubuntu-24.04-standard_24.04-2_amd64.tar.zst
+    - ubuntu-23.10-standard_23.10-1_amd64.tar.zst
+    - ubuntu-22.04-standard_22.04-1_amd64.tar.zst
+    - archlinux-base_20230608-1_amd64.tar.zst
+    - alpine-3.19-default_20240207_amd64.tar.xz
+
+### Gestions des disques
+- name: CONFIGURATION DES DISQUES DURS ET MONTAGES
+  include_tasks: disks.yml
+
+### Partage de fichier
+- name: CONFIGURATION DU PARTAGE DE FICHIER nfs/samba
+  include_tasks: file-sharing.yml
+
+### Infrastructure
+- name: CRÉATION DES CONTENEURS LXC
+  include_tasks: infrastructure.yml
+
+- name: AMORÇAGE DES CONTENEURS LXC
+  include_tasks: bootstrap.yml
+
+- name: CRÉATION DU DATASET ZFS POUR LE CONTENEUR LXC frontend
+  include_tasks: zfs-frontend-dataset.yml
+  when: zfs.dataset.frontend.parent.create == true
+
+- name: CRÉATION DU DATASET ZFS POUR LE CONTENEUR LXC elephant
+  include_tasks: zfs-elephant-dataset.yml
+  when: zfs.dataset.elephant.parent.create == true
+
+- name: CRÉATION DU DATASET ZFS POUR LE CONTENEUR LXC smarthome
+  include_tasks: zfs-smarthome-dataset.yml
+  when: zfs.dataset.smarthome.parent.create == true
+
+- name: CRÉATION DU DATASET ZFS POUR LE CONTENEUR LXC jellyfin
+  include_tasks: zfs-jellyfin-dataset.yml
+  when: zfs.dataset.jellyfin.parent.create == true
+
+- name: CRÉATION DU DATASET ZFS POUR LE CONTENEUR LXC webapps
+  include_tasks: zfs-webapps-dataset.yml
+  when: zfs.dataset.webapps.parent.create == true

@@ -1,0 +1,9 @@
+[Unit]
+Description=Enable Wake On Lan
+
+[Service]
+Type=oneshot
+ExecStart = /usr/sbin/ethtool --change {{ wol_network_interface_name }} wol g
+
+[Install]
+WantedBy=basic.target

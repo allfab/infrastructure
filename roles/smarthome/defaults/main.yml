@@ -1,0 +1,141 @@
+---
+docker:
+  compose:
+    file_mask: "664"
+    directory_mask: "775"
+
+freebox:
+  ip: "{{ secret.freebox.ip }}"
+  
+portainer:
+  agent:
+    secret:
+      key: "{{ secret.portainer.agent.secret.key }}"
+
+mqtt:
+  server: "{{ secret.mqtt.server }}"
+  ip: "{{ secret.mqtt.ip }}"
+  user: "{{ secret.mqtt.user }}"
+  password: "{{ secret.mqtt.password }}"
+  docker:
+    compose:
+      credentials: "{{ secret.mqtt.docker.compose.credentials }}"
+
+homeassistant:
+  google:
+    assistant:
+      project_id: "{{ secret.homeassistant.google.assistant.project_id }}"
+      private_key_id: "{{ secret.homeassistant.google.assistant.private_key_id }}"
+      private_key: "{{ secret.homeassistant.google.assistant.private_key }}"
+      client_email: "{{ secret.homeassistant.google.assistant.client_email }}"
+      client_id: "{{ secret.homeassistant.google.assistant.client_id }}"
+      client_x509_cert_url: "{{ secret.homeassistant.google.assistant.client_x509_cert_url }}"
+  lovelace:
+    cards:
+      - name: button-card
+        url: https://github.com/custom-cards/button-card/releases/download/v4.1.2/button-card.js
+        type: module
+      - name: mini-graph-card-bundle
+        url: https://github.com/kalkih/mini-graph-card/releases/download/v0.12.1/mini-graph-card-bundle.js
+        type: module
+      - name: mini-media-player-bundle
+        url: https://github.com/kalkih/mini-media-player/releases/download/v1.16.9/mini-media-player-bundle.js
+        type: module
+      - name: card-mod
+        url: https://raw.githubusercontent.com/thomasloven/lovelace-card-mod/master/card-mod.js
+        type: module
+      - name: swipe-card
+        url: https://raw.githubusercontent.com/bramkragten/swipe-card/master/dist/swipe-card.js
+        type: module
+      - name: my-cards
+        url: https://github.com/AnthonMS/my-cards/releases/download/v1.0.5/my-cards.js
+        type: module
+      - name: vertical-stack-in-card
+        url: https://raw.githubusercontent.com/ofekashery/vertical-stack-in-card/master/vertical-stack-in-card.js
+        type: module
+      - name: state-switch
+        url: https://raw.githubusercontent.com/thomasloven/lovelace-state-switch/master/state-switch.js
+        type: module
+      - name: auto-entities
+        url: https://raw.githubusercontent.com/thomasloven/lovelace-auto-entities/master/auto-entities.js
+        type: module
+      - name: simple-weather-card-bundle
+        url: https://github.com/kalkih/simple-weather-card/releases/download/v0.8.5/simple-weather-card-bundle.js
+        type: module
+      - name: light-entity-card
+        url: https://github.com/ljmerza/light-entity-card/releases/download/6.1.3/light-entity-card.js
+        type: module
+      - name: layout-card
+        url: https://raw.githubusercontent.com/thomasloven/lovelace-layout-card/master/layout-card.js
+        type: module
+      - name: home-assistant-sun-card
+        url: https://github.com/AitorDB/home-assistant-sun-card/releases/download/v0.1.4/home-assistant-sun-card.js
+        type: module
+      - name: bar-card
+        url: https://github.com/custom-cards/bar-card/releases/download/3.2.0/bar-card.js
+        type: module
+      - name: zigbee2mqtt-networkmap
+        url: https://github.com/azuwis/zigbee2mqtt-networkmap/releases/download/v0.9.0/zigbee2mqtt-networkmap.js
+        type: module
+      - name: custom-sonos-card
+        url: https://github.com/punxaphil/custom-sonos-card/releases/download/v7.11.0/custom-sonos-card.js
+        type: module
+      - name: fold-entity-row
+        url: https://raw.githubusercontent.com/thomasloven/lovelace-fold-entity-row/master/fold-entity-row.js
+        type: module
+      - name: multiple-entity-row
+        url: https://github.com/benct/lovelace-multiple-entity-row/releases/download/v4.5.1/multiple-entity-row.js
+        type: module
+      - name: template-entity-row
+        url: https://raw.githubusercontent.com/thomasloven/lovelace-template-entity-row/master/template-entity-row.js
+        type: module
+      - name: stack-in-card
+        url: https://github.com/custom-cards/stack-in-card/releases/download/0.2.0/stack-in-card.js
+        type: module
+      - name: vacuum-card
+        url: https://github.com/denysdovhan/vacuum-card/releases/download/v2.9.3/vacuum-card.js
+        type: module
+      - name: slider-entity-row
+        url: https://raw.githubusercontent.com/thomasloven/lovelace-slider-entity-row/master/slider-entity-row.js
+        type: module
+      - name: kiosk-mode
+        url: https://github.com/maykar/kiosk-mode/releases/download/1.7.2/kiosk-mode.js
+        type: module
+      - name: better-thermostat-ui-card
+        url: https://github.com/KartoffelToby/better-thermostat-ui-card/releases/download/2.2.0/better-thermostat-ui-card.js
+        type: module
+      - name: apexcharts-card
+        url: https://github.com/RomRider/apexcharts-card/releases/download/v2.0.4/apexcharts-card.js
+        type: module
+      - name: content-card-linky
+        url: https://raw.githubusercontent.com/MyElectricalData/content-card-linky/main/dist/content-card-linky.js
+        type: module
+
+esphome:
+  wifi:
+    ssid: "{{ secret.esphome.wifi.ssid }}"
+    password: "{{ secret.esphome.wifi.password }}"
+  mmwave_wc_occupancy:
+    api:
+      encryption_key: "{{ secret.esphome.mmwave_wc_occupancy.api.encryption_key }}"
+    ota:
+      password: "{{ secret.esphome.mmwave_wc_occupancy.ota.password }}"
+    ap:
+      ssid: "{{ secret.esphome.mmwave_wc_occupancy.ap.ssid }}"
+      password: "{{ secret.esphome.mmwave_wc_occupancy.ap.password }}"
+  thermor_ac_landing_room:
+    api:
+      encryption_key: "{{ secret.esphome.thermor_ac_landing_room.api.encryption_key }}"
+    ota:
+      password: "{{ secret.esphome.thermor_ac_landing_room.ota.password }}"
+    ap:
+      ssid: "{{ secret.esphome.thermor_ac_landing_room.ap.ssid }}"
+      password: "{{ secret.esphome.thermor_ac_landing_room.ap.password }}"
+
+myelectricaldata:
+  homeassistant:
+    server: "{{ secret.myelectricaldata.homeassistant.server }}"
+    token: "{{ secret.myelectricaldata.homeassistant.token }}"
+  pdl:
+    name: "{{ secret.myelectricaldata.pdl.name }}"
+    token: "{{ secret.myelectricaldata.pdl.token }}"

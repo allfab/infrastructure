@@ -1,0 +1,68 @@
+- name: VÉRIFICATION DE L'EXISTENCE DU GROUPE UTILISATEUR PRINCIPAL
+  group:
+    name: "{{ secret.users.me.name }}"
+    gid: "{{ secret.users.me.gid }}"
+    state: present
+
+- name: AJOUT DE L'UTILISATEUR PRINCIPAL
+  ansible.builtin.user:
+    name: "{{ secret.users.me.name }}"
+    password: "{{ secret.users.me.password | password_hash('sha512') }}"
+    uid: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+    groups: "{{ secret.users.me.groups }}"
+    create_home: "{{ secret.users.me.create_home }}"
+    home: "{{ secret.users.me.home }}"
+    shell: /bin/bash
+    system: "{{ secret.users.me.system }}"
+    comment: "{{ secret.users.me.comment }}"
+
+- name: "AJOUT DU FICHIER sudoers POUR L'UTILISATEUR PRINCIPAL"
+  template:
+    src: sudoer
+    dest: "/etc/sudoers.d/{{ secret.users.me.name }}"
+    owner: root
+    group: root
+    mode: 0440
+
+- name: INSTALLATION DES CLÉS SSH POUR L'UTILISATEUR PRINCIPAL
+  authorized_key:
+    user: "{{ secret.users.me.name }}"
+    key: "{{ secret.users.me.ssh.pubkey }}"
+    state: present
+
+- name: VÉRIFICATION DE L'EXISTENCE DU GROUPE UTILISATEUR postgres
+  ansible.builtin.group:
+    name: "{{ secret.users.postgresql.group }}"
+    gid: "{{ secret.users.postgresql.gid }}"
+    state: present
+
+- name: AJOUT DE L'UTILISATEUR postgres
+  ansible.builtin.user:
+    name: "{{ secret.users.postgresql.name }}"
+    uid: "{{ secret.users.postgresql.uid }}"
+    group: "{{ secret.users.postgresql.gid }}"
+    groups: "{{ secret.users.postgresql.group }}"
+    create_home: "{{ secret.users.postgresql.create_home }}"
+    home: "{{ secret.users.postgresql.home }}"
+    shell: /bin/bash
+    system: "{{ secret.users.postgresql.system }}"
+    comment: "{{ secret.users.postgresql.comment }}"
+
+- name: VÉRIFICATION DE L'EXISTENCE DU GROUPE UTILISATEUR jellyfin
+  ansible.builtin.group:
+    name: "{{ secret.users.jellyfin.group }}"
+    gid: "{{ secret.users.jellyfin.gid }}"
+    state: present
+
+- name: AJOUT DE L'UTILISATEUR jellyfin
+  ansible.builtin.user:
+    name: "{{ secret.users.jellyfin.name }}"
+    uid: "{{ secret.users.jellyfin.uid }}"
+    group: "{{ secret.users.jellyfin.gid }}"
+    groups: "{{ secret.users.jellyfin.group }}"
+    create_home: "{{ secret.users.jellyfin.create_home }}"
+    home: "{{ secret.users.jellyfin.home }}"
+    shell: /bin/bash
+    system: "{{ secret.users.jellyfin.system }}"
+    comment: "{{ secret.users.jellyfin.comment }}"

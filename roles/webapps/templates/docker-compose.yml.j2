@@ -1,0 +1,42 @@
+---
+services:
+  portainer-agent:
+    container_name: portainer-agent
+    image: portainer/agent:latest
+    restart: always
+    ports:
+      - 9001:9001
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes 
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - AGENT_SECRET="{{ portainer.agent.secret.key }}"
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - webapps
+
+  homer:
+    container_name: homer
+    image: b4bz/homer:latest
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    volumes:
+      - ./homer/walkxcode-theme:/www/assets
+    environment:
+      - TZ=Europe/Paris
+      - INIT_ASSETS=0
+    networks:
+      - webapps
+
+# docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 webapps
+networks:
+  webapps:
+    name: webapps
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "172.18.0.0/16"
+          gateway: "172.18.0.1"

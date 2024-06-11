@@ -1,0 +1,25 @@
+type: "custom:button-card"
+template:
+  - "card_room"
+  - "grey_no_state"
+name: "Garage"
+#entity: "sensor.xxxxxxxxxxx"
+icon: "mdi:garage-variant"
+label: ""
+tap_action:
+  action: "none"
+variables:
+  label_use_temperature: true
+  label_use_brightness: false
+  entity_3:
+    entity_id: "switch.loratap_bulb_socket_lamp_adapter_garage"
+    templates:
+      - "yellow_on"
+    tap_action:
+      action: "toggle"
+  entity_4:
+    entity_id: "binary_sensor.xiaomi_aqara_doorwindow_sensor_garage_contact"
+    templates:
+      - "blue_on"
+    tap_action:
+      action: "more-info"

@@ -1,0 +1,4 @@
+{{ ansible_managed }}
+{% for export in nfs_exports %}
+{{ export.local_path }}   {% for item in export.authorized_network %}{{ item.ip }}({{ item.options }}) {% endfor %}{{''}}{{''}}
+{% endfor %}

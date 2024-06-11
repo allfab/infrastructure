@@ -1,0 +1,23 @@
+---
+- name: VÉRIFICATION QUE LA CONFIGURATION EST VALIDE
+  block:
+    - fail:
+        msg: AUCUN DISQUE DE DONNÉES DÉFINI
+      when: snapraid_data_disks | length == 0
+    - fail:
+        msg: AUCUN DISQUE DE PARITÉ DÉFINI
+      when: snapraid_parity_disks | length == 0
+    - fail:
+        msg: AUCON FICHIER DE CONTENU DÉFINI
+      when:
+        - snapraid_content_files | length == 0
+        - snapraid_data_disks | selectattr('content') | length == 0
+        - snapraid_parity_disks | selectattr('content') | length == 0
+
+- name: INSTALLATION DU FICHIER DE CONFIGURATION DE snapraid
+  template:
+    src: snapraid.conf.j2
+    dest: /etc/snapraid.conf
+    owner: root
+    group: root
+    mode: 0775

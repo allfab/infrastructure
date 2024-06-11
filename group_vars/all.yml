@@ -1,0 +1,46 @@
+---
+timezone: Europe/Paris
+
+# grog.package
+package_list:
+  - name: bash-completion
+  - name: ca-certificates
+  - name: curl
+  - name: dnsutils
+  - name: duf
+  - name: git
+  - name: htop
+  - name: iftop
+  - name: inxi
+  - name: iotop
+  - name: lm-sensors
+  - name: mc
+  - name: molly-guard
+  - name: neofetch
+  - name: net-tools
+  - name: nmap
+  - name: openssh-client
+  - name: openssh-server
+  - name: python3
+  - name: rclone
+  - name: sudo
+  - name: tmux
+  - name: tree
+  - name: vim
+  - name: wget
+
+bash_aliases:
+  - { alias: "ls", command: "ls --color=auto" }
+  - { alias: "ll", command: "ls -hl --color=auto" }
+  - { alias: "la", command: "ls -hal --color=auto" }
+  - { alias: "c", command: "clear" }
+  - { alias: "grep", command: "grep --color=auto" }
+  - { alias: "mkdir", command: "mkdir -pv" }
+
+# geerlingguy.docker
+docker_edition: 'ce'
+docker_users:
+  - "{{ secret.users.me.name }}"
+docker_daemon_options:
+  log-opts:
+    max-size: "100m"

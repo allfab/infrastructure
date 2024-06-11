@@ -1,0 +1,123 @@
+---
+- title: "iRobot"
+  path: "vacuum"
+  icon: "mdi:robot-vacuum"
+  type: "custom:grid-layout"
+  layout:
+    grid-template-columns: 4% repeat(2, 46%) 3%
+    grid-template-rows: 1em 
+    grid-gap: 0.7em
+    grid-template-areas: |
+      ". . . ."
+      "back allfred jeffrey ."
+      ". . . ."
+
+  cards:
+    ############
+    #   Back   #
+    ############
+    - type: "custom:button-card"
+      view_layout:
+        grid-area: "back"
+      template: "chip_back"
+      variables:
+        ulm_chip_back_path: "/lovelace-tablet"
+    
+    ###########
+    #  Robots #
+    ###########
+    - type: "vertical-stack"
+      view_layout:
+        grid-area: "allfred"
+      cards:     
+        ######################## ALFRED ########################
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Aspirateur - iRobot Roomba J7"
+        - type: "custom:button-card"
+          template: "card_title"
+          label: "Alfred"
+        - type: 'custom:vacuum-card'
+          entity: "vacuum.alfred"
+          shortcuts:
+            - name: "Aspirer la maison"
+              service: "script.alfred_clean_wholehouse"
+              icon: "mdi:home-plus"
+            - name: "Aspirer le plus gros"
+              service: "script.alfred_clean_biggest"
+              icon: "mdi:home-minus"
+            - name: "Aspirer la cuisine"
+              service: "script.alfred_clean_kitchen"
+              icon: "mdi:silverware-fork-knife"
+            - name: "Aspirer le salon"
+              service: "script.alfred_clean_livingroom"
+              icon: "mdi:sofa"
+            - name: "Aspirer la salle à manger"
+              service: "script.alfred_clean_diningroom"
+              icon: "mdi:table-furniture"
+            - name: "Aspirer le hall d'entrée"
+              service: "script.alfred_clean_entrance_hall"
+              icon: "mdi:coat-rack"
+            - name: "Aspirer le couloir"
+              service: "script.alfred_clean_hallway"
+              icon: "mdi:door"
+            - name: "Aspirer les chambres"
+              service: "script.alfred_clean_bedrooms"
+              icon: "mdi:bed"
+
+        - type: "custom:button-card" 
+          template: "card_title"
+          label: "Statut"
+        - type: "grid"
+          columns: 2
+          square: false
+          cards:
+            - type: "custom:button-card"
+              template: "card_battery"
+              entity: "sensor.alfred_battery_level"
+              name: "État de la batterie"
+              variables:
+                  ulm_card_battery_charger_type_entity_id: "sensor.alfred_battery_level"
+                  ulm_card_battery_battery_level_danger: 15
+                  ulm_card_battery_battery_level_warning: 80              
+            - type: "custom:button-card"
+              template: "card_binary_sensor_alert"
+              entity: "binary_sensor.alfred_bin_full"
+              variables:
+                ulm_card_binary_sensor_alert_name: "Bac récupérateur"
+                ulm_card_binary_sensor_alert: true
+                ulm_show_last_changed: true
+        ######################## ALFRED ########################        
+        
+
+    - type: "vertical-stack"
+      view_layout:
+          grid-area: "jeffrey"
+      cards:
+        ####################### JEFFREY ########################
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Laveur de sol - Braava Jet M6"
+        - type: "custom:button-card"
+          template: "card_title"
+          label: "Jeffrey"
+
+        - type: 'custom:vacuum-card'
+          entity: "vacuum.jeffrey"
+
+        - type: "custom:button-card" 
+          template: "card_title"
+          label: "Statut"
+        - type: "grid"
+          columns: 1
+          square: false
+          cards:
+            - type: "custom:button-card"
+              template: "card_battery"
+              entity: "sensor.jeffrey_battery_level"
+              name: "État de la batterie"
+              variables:
+                  ulm_card_battery_charger_type_entity_id: "sensor.jeffrey_battery_level"
+                  ulm_card_battery_battery_level_danger: 15
+                  ulm_card_battery_battery_level_warning: 80
+        ####################### JEFFREY ########################

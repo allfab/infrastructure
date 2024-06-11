@@ -1,0 +1,121 @@
+---
+services:
+  portainer-agent:
+    container_name: portainer-agent
+    image: portainer/agent:latest
+    restart: always
+    ports:
+      - 9001:9001
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes 
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - AGENT_SECRET="{{ portainer.agent.secret.key }}"
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - smarthome
+
+  homeassistant:
+    container_name: homeassistant
+    image: homeassistant/home-assistant:latest
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+    # ports:
+      # - 8123:8123
+    volumes:
+      - ./homeassistant:/config
+      - /var/run/dbus/:/var/run/dbus/:z
+      - /etc/localtime:/etc/localtime:ro  
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+
+  mosquitto:
+    container_name: mosquitto
+    image: eclipse-mosquitto:latest
+    restart: unless-stopped
+    ports:
+      - 1883:1883
+    volumes:
+      - ./mosquitto:/mosquitto
+    networks:
+      - smarthome
+  
+  zigbee2mqtt:
+    container_name: zigbee2mqtt
+    image: koenkk/zigbee2mqtt:latest
+    restart: unless-stopped 
+    ports:
+      - 8080:8080
+    volumes:
+      - ./zigbee2mqtt:/app/data
+      - /run/udev:/run/udev:ro
+      - /etc/localtime:/etc/localtime:ro
+    #devices:
+      #ls -la /dev/serial/by-id/
+      #- /dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_a4513c84ba5fec11ad08305f25bfaa52-if00-port0:/dev/ttyUSB0
+      #- /dev/ttyUSB0:/dev/ttyUSB0
+    environment:
+      - TZ=Europe/Paris
+    networks:
+      - smarthome
+
+  nodered:
+    container_name: nodered
+    image: nodered/node-red:latest
+    restart: unless-stopped
+    network_mode: host
+    #ports:
+      #- 1880:1880
+    volumes:
+      - ./nodered:/data:rw
+    environment:
+      - TZ=Europe/Paris
+
+  esphome:
+    container_name: esphome
+    image: esphome/esphome:latest
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+    #ports:
+      #- 6052:6052
+    volumes:
+      - ./esphome:/config:rw
+      - ./esphome/cache:/cache:rw
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - ESPHOME_DASHBOARD_USE_PING=true
+      - TZ=Europe/Paris
+    #devices:
+      #ls -la /dev/serial/by-id/
+      #- /dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_a4513c84ba5fec11ad08305f25bfaa52-if00-port0:/dev/ttyUSB0
+      #- /dev/ttyUSB1:/dev/ttyUSB1
+
+  myelectricaldata:
+    container_name: myelectricaldata
+    image: m4dm4rtig4n/myelectricaldata:latest
+    restart: unless-stopped
+    ports:
+      - 5000:5000
+    volumes:
+      - ./myelectricaldata:/data
+      - ./myelectricaldata/log:/log
+    environment:
+      - TZ=Europe/Paris
+    networks:
+      - smarthome
+
+# docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 smarthome
+networks:
+  smarthome:
+    name: smarthome
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "172.18.0.0/16"
+          gateway: "172.18.0.1"

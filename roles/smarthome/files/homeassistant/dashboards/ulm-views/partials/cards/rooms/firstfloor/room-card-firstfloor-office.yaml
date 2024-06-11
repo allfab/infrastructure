@@ -1,0 +1,20 @@
+---
+type: "custom:button-card"
+template:
+  - "card_room"
+  - "grey_no_state"
+name: "Bureau"
+entity: "sensor.xiaomi_aqara_tph_sensor_firstfloor_landingroom_temperature"
+icon: "mdi:chair-rolling"
+label: '[[[ return states["sensor.xiaomi_aqara_tph_sensor_firstfloor_landingroom_temperature"].state + " °C / " + states["sensor.xiaomi_aqara_tph_sensor_firstfloor_landingroom_humidity"].state + " %" ]]]'
+tap_action:
+  action: "none"
+variables:
+  label_use_temperature: true
+  label_use_brightness: false
+  entity_4:
+    entity_id: "light.ikea_tradfri_bulb_krosby_south_bedroom"
+    templates:
+      - "yellow_on"
+    tap_action:
+      action: "toggle"

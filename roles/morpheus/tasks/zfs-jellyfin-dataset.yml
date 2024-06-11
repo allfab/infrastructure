@@ -1,0 +1,36 @@
+---
+- name: JELLYFIN - CRÉATION DU DATASET ZFS parent
+  community.general.zfs:
+    name: "{{ zfs.dataset.jellyfin.parent.name }}"
+    state: present
+    extra_zfs_properties:
+      mountpoint: "{{ zfs.dataset.jellyfin.parent.extra.mountpoint.host }}"
+      compression: "{{ zfs.dataset.jellyfin.parent.extra.compression }}"
+      atime: "{{ zfs.dataset.jellyfin.parent.extra.atime }}"
+      xattr: "{{ zfs.dataset.jellyfin.parent.extra.xattr }}"
+      recordsize: "{{ zfs.dataset.jellyfin.parent.extra.recordsize }}"
+      quota: "{{ zfs.dataset.jellyfin.parent.extra.quota }}"
+  when: zfs.dataset.jellyfin.parent.create == true
+
+- name: JELLYFIN - CONFIGURATION DU POINT DE MONTAGE HOST<->LXC
+  command: pct set 140 -mp1 "{{ zfs.dataset.jellyfin.parent.extra.mountpoint.host }}",mp="{{ zfs.dataset.jellyfin.parent.extra.mountpoint.lxc }}"
+  when: zfs.dataset.jellyfin.parent.mount == true
+  
+- name: JELLYFIN - CHANGEMENT DES DROITS UTILISATEUR SUR LE POINT DE MONTAGE
+  file:
+    dest: "{{ zfs.dataset.jellyfin.parent.extra.mountpoint.lxc }}"
+    owner: 100900
+    group: 100900
+    recurse: true
+
+- name: JELLYFIN - REDÉMARRAGE DU CONTENEUR LXC
+  community.general.proxmox:
+    node: morpheus
+    api_host: 192.168.10.5
+    api_user: root@pam
+    api_password: "{{ secret.proxmox.morpheus.api.password }}"
+    api_token_id: "{{ secret.proxmox.morpheus.api.token_id }}"
+    api_token_secret: "{{ secret.proxmox.morpheus.api.token_secret }}"
+    vmid: 140
+    state: "restarted"
+    timeout: 90

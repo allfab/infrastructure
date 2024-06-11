@@ -1,0 +1,233 @@
+esphome:
+  name: mmwave-wc-occupancy
+
+esp8266:
+  board: esp01_1m
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: !secret mmwave_wc_occupancy_api_encryption_key
+
+ota:
+  password: !secret mmwave_wc_occupancy_ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  
+  manual_ip:
+    static_ip: 192.168.99.6
+    subnet: 255.255.255.0
+    gateway: 192.168.99.1
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: !secret  mmwave_wc_occupancy_ap_ssid
+    password: !secret  mmwave_wc_occupancy_ap_password
+
+substitutions:
+  device_name: mmwave-wc-occupancy-sensor
+
+captive_portal:
+
+web_server:
+  port: 80
+  version: 2
+  include_internal: 'true'
+  ota: 'false'
+
+http_request:
+  useragent: esphome/$device_name
+  timeout: 2s
+
+switch:
+  - platform: safe_mode
+    internal: 'true'
+    name: use_safe_mode
+
+  - platform: template
+    name: "mmwave_sensor"
+    id: "mmwave_sensor"
+    optimistic: 'true'
+    restore_mode: 'ALWAYS_ON'
+    assumed_state: 'true'
+    turn_on_action:
+      - uart.write: "sensorStart"
+      - delay: 1s
+    turn_off_action:
+      - uart.write: "sensorStop"
+      - delay: 1s
+
+  - platform: template
+    name: "LED"
+    id: "led"
+    optimistic: 'true'
+    restore_mode: 'ALWAYS_ON'
+    assumed_state: 'true'
+    turn_on_action:
+      - switch.turn_off: mmwave_sensor
+      - delay: 1s
+      - uart.write: "setLedMode 1 0"
+      - delay: 1s 
+      - uart.write: "saveConfig"
+      - delay: 3s
+      - switch.turn_on: mmwave_sensor 
+    turn_off_action:
+      - switch.turn_off: mmwave_sensor
+      - delay: 1s
+      - uart.write: "setLedMode 1 1"
+      - delay: 1s      
+      - uart.write: "saveConfig"
+      - delay: 3s
+      - switch.turn_on: mmwave_sensor
+  
+  - platform: template
+    name: "uart_presence_output"
+    id: "uart_presence_output"
+    optimistic: 'true'
+    restore_mode: 'ALWAYS_ON'
+    assumed_state: 'true'
+    turn_on_action:
+      - switch.turn_off: mmwave_sensor
+      - delay: 1s
+      - uart.write: "setUartOutput 1 1"
+      - delay: 1s 
+      - uart.write: "saveConfig"
+      - delay: 3s
+      - switch.turn_on: mmwave_sensor 
+    turn_off_action:
+      - switch.turn_off: mmwave_sensor
+      - delay: 1s
+      - uart.write: "setUartOutput 1 0"
+      - delay: 1s      
+      - uart.write: "saveConfig"
+      - delay: 3s
+      - switch.turn_on: mmwave_sensor
+  
+  - platform: template
+    name: "uart_target_output"
+    id: "uart_target_output"
+    optimistic: 'true'
+    restore_mode: 'ALWAYS_ON'
+    assumed_state: 'false'
+    turn_on_action:
+      - switch.turn_off: mmwave_sensor
+      - delay: 1s
+      - uart.write: "setUartOutput 2 1 1 1"
+      - delay: 1s 
+      - uart.write: "saveConfig"
+      - delay: 3s
+      - switch.turn_on: mmwave_sensor 
+    turn_off_action:
+      - switch.turn_off: mmwave_sensor
+      - delay: 1s
+      - uart.write: "setUartOutput 2 0"
+      - delay: 1s      
+      - uart.write: "saveConfig"
+      - delay: 3s
+      - switch.turn_on: mmwave_sensor
+
+binary_sensor:
+  - platform: gpio
+    name: mmwave-wc-occupancy-sensor
+    pin:
+      number: GPIO16
+      mode: INPUT_PULLDOWN
+      
+uart:
+  id: uart_bus
+  tx_pin: GPIO4
+  rx_pin: GPIO5
+  baud_rate: 115200
+  debug:
+    direction: BOTH
+    dummy_receiver: 'true'
+    after:
+      delimiter: "\n"
+    sequence:
+      - lambda: UARTDebug::log_string(direction, bytes);
+
+number:
+  - platform: template
+    name: distance
+    id: distance
+    min_value: 0
+    max_value: 1350
+    initial_value: 315
+    optimistic: 'true'
+    step: 15
+    restore_value: 'true'
+    unit_of_measurement: cm
+    mode: box
+    set_action:
+      - switch.turn_off: mmwave_sensor
+      - delay: 1s
+      - uart.write: !lambda
+                      int cm = (int)ceil(x / 15.0);
+                      std::string cms = "detRangeCfg -1 0 " + to_string(cm);
+                      return std::vector<unsigned char>(cms.begin(), cms.end());
+      - delay: 1s
+      - uart.write: "saveCfg 0x45670123 0xCDEF89AB 0x956128C6 0xDF54AC89"
+      - delay: 1s
+      - switch.turn_on: mmwave_sensor  
+
+  - platform: template
+    name: latency
+    id: latency
+    min_value: 0
+    max_value: 65000
+    initial_value: 12500
+    optimistic: 'true'
+    step: 25
+    restore_value: 'true'
+    unit_of_measurement: ms
+    mode: box
+    set_action:
+      - switch.turn_off: mmwave_sensor
+      - delay: 1s
+      - uart.write: !lambda
+                      int ms = (int)ceil(x / 25.0);
+                      std::string mss = "outputLatency -1 0 " + to_string(ms);
+                      return std::vector<unsigned char>(mss.begin(), mss.end());
+      - delay: 1s
+      - uart.write: "saveCfg 0x45670123 0xCDEF89AB 0x956128C6 0xDF54AC89"
+      - delay: 1s
+      - switch.turn_on: mmwave_sensor
+
+  - platform: template
+    name: sensitivity
+    id: sensitivity
+    min_value: 0
+    max_value: 9
+    initial_value: 7
+    optimistic: 'true'
+    step: 1
+    restore_value: 'true'
+    set_action:
+      - switch.turn_off: mmwave_sensor
+      - delay: 1s
+      - uart.write: !lambda
+                      std::string mss = "setSensitivity " + to_string((int)x);
+                      return std::vector<unsigned char>(mss.begin(), mss.end());
+      - delay: 1s
+      - uart.write: "saveConfig"
+      - delay: 1s
+      - switch.turn_on: mmwave_sensor
+
+button:
+  - platform: restart
+    name: Restart $device_name
+
+  - platform: template
+    name: "factory_reset_sensor"
+    id: "factory_reset_sensor"
+    on_press:
+      - switch.turn_off: mmwave_sensor
+      - delay: 1s
+      - uart.write: "resetCfg"
+      - delay: 3s
+      - switch.turn_on: mmwave_sensor

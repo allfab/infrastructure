@@ -1,0 +1,41 @@
+http:
+  routers:
+    jellyfin:
+      entryPoints:
+        - websecure
+      rule: 'Host(`jellyfin.allfabox.fr`)'
+      service: jellyfin
+    navidrome:
+      entryPoints:
+        - websecure
+      rule: 'Host(`navidrome.allfabox.fr`)'
+      service: navidrome
+    calibre:
+      entryPoints:
+        - websecure
+      rule: 'Host(`calibre.allfabox.fr`)'
+      service: calibre
+    calibre-web:
+      entryPoints:
+        - websecure
+      rule: 'Host(`calibre-web.allfabox.fr`)'
+      service: calibre-web
+  
+  services:
+    jellyfin:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.40:8096
+    navidrome:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.41:4533
+    calibre:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.41:8083
+    calibre-web:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.41:8084
+    

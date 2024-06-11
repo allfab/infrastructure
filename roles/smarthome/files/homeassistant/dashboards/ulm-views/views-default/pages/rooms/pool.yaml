@@ -1,0 +1,52 @@
+- title: "Piscine"
+  path: "room-pool"
+  icon: "mdi:pool"
+  cards:
+    - type: "custom:button-card"
+      template: "chip_back"
+      variables:
+        ulm_chip_back_path: "/lovelace"
+    - type: "vertical-stack"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Piscine 🏊🏻"
+          label: ""
+        - type: "picture"
+          image: "/local/images/lovelace/rooms/room-chickencoop.jpg"
+          style: |
+            ha-card {
+              height: 100px !important;
+            }
+        ############ TEMPERATURE #############
+        - type: "vertical-stack"
+          cards:
+            - type: "custom:button-card"
+              template: "card_title"
+              label: "Température"
+            - type: "vertical-stack"
+              cards:
+                - type: "custom:mini-graph-card"
+                  entities:
+                    - "sensor.owon_temperature_sensor_swimmingpool_temperature"
+                  name: "Température (C°)"
+                  line_color: "var(--google-blue)"   
+                  line_width: 8
+                  font_size: 75
+                  align_icon: "left"
+                  align_state: "center"
+                  hours_to_show: 48
+                  show:
+                    fill: true
+                - type: "custom:mini-graph-card"
+                  name: "Statistiques (24h)"
+                  icon: "mdi:thermometer-lines"
+                  entities:
+                    - entity: "sensor.owon_temperature_sensor_swimmingpool_temperature"
+                  show:
+                    extrema: true
+                    average: true
+                    graph: false
+                  hour24: true
+                  hours_to_show: 24
+          ############ TEMPERATURE #############

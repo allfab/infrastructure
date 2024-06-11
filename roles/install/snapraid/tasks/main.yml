@@ -1,0 +1,15 @@
+---
+# # - name: INSTALLATION DE snapraid
+# #   include_tasks: install.yml
+# #   when: ansible_os_family == 'Debian' and snapraid_install
+
+- name: CONFIGURATION DE snapraid
+  include_tasks: configure.yml
+
+- name: INSTALLATION ET CONFIGURATION DE snapraid-runner
+  include_tasks: snapraid-runner.yml
+  when: snapraid_runner
+
+- name: PLANIFICATION DE LA SYNCHRONISATION snapraid (CRON)
+  include_tasks: cron.yml
+  when: not snapraid_runner

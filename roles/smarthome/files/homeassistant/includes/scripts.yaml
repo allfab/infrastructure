@@ -1,0 +1,774 @@
+#SCENES
+scene_tv:
+  alias: "scene_tv"
+  sequence:
+  - service: "light.turn_on"
+    data:
+      entity_id: "light.ikea_tradfri_bulb_wall_diningroom"
+      kelvin: 3500
+      brightness_pct: 80
+  - service: "light.turn_on"
+    data:
+      entity_id: "light.ikea_tradfri_bulb_window_diningroom"
+      kelvin: 3500
+      brightness_pct: 80
+  - service: "light.turn_on"
+    data:
+      entity_id: "light.lifx_livingroom_krosby"
+      kelvin: 3500
+      brightness_pct: 80
+  - service: "switch.turn_on"
+    data:
+      entity_id: "switch.xiaomi_aqara_smartplug_livingroom_tv" 
+
+scene_active_home:
+  alias: "scene_active_home"
+  sequence:
+  - service: "light.turn_off"
+    data:
+      entity_id: "light.all_lights"      
+  - delay:
+      seconds: 1
+  - service: "light.turn_on"
+    data:
+      entity_id: "light.lifx_hall_krosby"
+      kelvin: 3500
+      brightness_pct: 100
+  - service: "light.turn_on"
+    data:
+      entity_id: "light.lifx_livingroom_krosby"
+      kelvin: 3500
+      brightness_pct: 100
+  - service: "light.turn_on"
+    data:
+      entity_id: "light.ikea_tradfri_bulb_library_window"
+      kelvin: 3500
+      brightness_pct: 100
+      
+scene_reception:
+  alias: "scene_reception"
+  sequence:
+  - service: "light.turn_off"
+    data:
+      entity_id: "light.all_lights"      
+  - delay:
+      seconds: 1
+  - service: "light.turn_on"
+    data:
+      entity_id: "light.lifx_hall_krosby"
+      kelvin: 3500
+      brightness_pct: 100
+  - service: "light.turn_on"
+    data:
+      entity_id: "light.lifx_livingroom_krosby"
+      kelvin: 3500
+      brightness_pct: 100
+  - service: "light.turn_on"
+    data:
+      entity_id: "light.ikea_tradfri_bulb_window_diningroom"
+      kelvin: 3500
+      brightness_pct: 100
+  - service: "light.turn_on"
+    data:
+      entity_id: "light.ikea_tradfri_bulb_wall_diningroom"
+      kelvin: 3500
+      brightness_pct: 100
+
+scene_dodo:
+  alias: "scene_dodo"
+  sequence:
+  - service: "light.turn_off"
+    data:
+      entity_id: "light.all_lights"      
+  - delay:
+      seconds: 1
+  - service: "switch.turn_off"
+    data:
+      entity_id: "switch.xiaomi_aqara_smartplug_livingroom_tv"
+  - delay:
+      seconds: 1
+  - service: "light.turn_on"
+    data:
+      entity_id: "light.lifx_bedroom_right_nightstand"
+      kelvin: 2500
+      brightness_pct: 30
+  - delay:
+      seconds: 1
+  - service: "light.turn_on"
+    data:
+      entity_id: "light.lifx_hall_krosby"
+      kelvin: 3500
+      brightness_pct: 30
+  - delay:
+      seconds: 30
+  - service: "light.turn_off"
+    data:
+      entity_id: "light.lifx_hall_krosby"
+
+scene_dodo_incognito:
+  alias: "scene_dodo_incognito"
+  sequence:
+  - service: "light.turn_off"
+    data:
+      entity_id: "light.all_lights"
+  - delay:
+      seconds: 1
+  - service: "switch.turn_off"
+    data:
+      entity_id: "switch.xiaomi_aqara_smartplug_livingroom_tv"     
+  - delay:
+      seconds: 1
+  - service: "light.turn_on"
+    data:
+      entity_id: "light.lifx_hall_krosby"
+      kelvin: 3500
+      brightness_pct: 30
+  - delay:
+      seconds: 60
+  - service: "light.turn_off"
+    data:
+      entity_id: "light.lifx_hall_krosby"
+
+tts_leonie_pyjama:
+  alias: "tts_leonie_pyjama"
+  sequence:
+  - service: "media_player.volume_set"
+    data_template:
+      entity_id: "media_player.mi_smart_clock_leonie"
+      volume_level: 0.75
+  - delay:
+      seconds: 1
+  - service: "tts.google_say"
+    data_template:
+      entity_id: "media_player.mi_smart_clock_leonie"
+      message: "Léonie, met toi en pyjama !"
+      language: "fr"
+
+tts_leonie_eat:
+  alias: "tts_tts_leonie_eatleonie_pyjama"
+  sequence:
+  - service: "media_player.volume_set"
+    data_template:
+      entity_id: "media_player.mi_smart_clock_leonie"
+      volume_level: 0.75
+  - delay:
+      seconds: 1
+  - service: "tts.google_say"
+    data_template:
+      entity_id: "media_player.mi_smart_clock_leonie"
+      message: "Léonie, à table, descend manger !"
+      language: "fr"
+
+scene_morning:
+  alias: "scene_morning"
+  sequence:
+  - service: "light.turn_on"
+    data:
+      entity_id: "light.lifx_hall_krosby"
+      kelvin: 3250
+      brightness_pct: 80
+  - delay:
+      minutes: 30
+  - service: "light.turn_off"
+    data:
+      entity_id: "light.lifx_hall_krosby"
+
+scene_chickencoop:
+  alias: "scene_chickencoop"
+  sequence:
+  - service: "light.turn_on"
+    data:
+      entity_id: "light.ikea_tradfri_bulb_chickencoop"
+      brightness_pct: 100
+
+scene_cocooning_home:
+  alias: "scene_cocooning_home"
+  sequence:
+  - service: "light.turn_off"
+    data:
+      entity_id: "light.all_lights"      
+  - delay:
+      seconds: 1
+  - service: "light.turn_on"
+    data:
+      entity_id: "light.lifx_hall_krosby"
+      kelvin: 3500
+      brightness_pct: 80
+  - service: "light.turn_on"
+    data:
+      entity_id: "light.lifx_livingroom_krosby"
+      kelvin: 3500
+      brightness_pct: 80
+
+scene_baby:
+  alias: "scene_baby"
+  sequence:
+  - service: "light.toggle"
+    data:
+      entity_id: "light.ikea_tradfri_bulb_bedroom_baby"
+      kelvin: 3000
+      brightness_pct: 100
+
+scene_puzzle:
+  alias: "scene_puzzle"
+  sequence:
+  - service: "light.turn_off"
+    data:
+      entity_id: "light.all_lights"      
+  - delay:
+      seconds: 1
+  - service: "light.turn_on"
+    data:
+      entity_id: "light.lifx_hall_krosby"
+      kelvin: 3500
+      brightness_pct: 80
+  - service: "light.turn_on"
+    data:
+      entity_id: "light.lifx_livingroom_krosby"
+      kelvin: 3500
+      brightness_pct: 100
+  - service: "light.turn_on"
+    data:
+      entity_id: "light.ikea_tradfri_bulb_window_diningroom"
+      kelvin: 3500
+      brightness_pct: 100
+  - service: "light.turn_on"
+    data:
+      entity_id: "light.ikea_tradfri_bulb_wall_diningroom"
+      kelvin: 3500
+      brightness_pct: 100
+
+
+#BROWNSER_MOD POPUP
+popup_light:
+  alias: "popup_light"
+  sequence:
+    - service: "browser_mod.popup"
+      data:
+        title: "{{ title }}"
+        size: "{{ size }}"
+        card_mod:
+          style:
+            .: |
+              .content {
+                /*padding: 0px 6px !important;*/
+              }
+              .mdc-dialog__scrim {
+                  background-color: var(--mdc-dialog-scrim-color, rgba(0, 0, 0, 0.72)) !important;
+              }
+        content:
+          type: "vertical-stack"
+          cards:
+            ##########
+            #   ON   #
+            ##########
+            - type: "vertical-stack"
+              view_layout:
+                grid-area: "lights_on"
+              cards:
+                - type: "custom:button-card"
+                  template: "card_title"
+                  name: "Lumière(s) allumée(s)"
+                - type: "custom:auto-entities"
+                  card:
+                    type: "grid"
+                    square: false
+                    columns: 3
+                  card_param: "cards"
+                  filter:
+                    include:
+                      - domain: "light"
+                        state: "on"
+                        options:
+                          type: "custom:button-card"
+                          template: "card_light"
+                          variables:
+                            ulm_card_light_enable_slider: true
+                            ulm_card_light_enable_color: false
+                    exclude:
+                      - entity_id: "light.work_chrome*"
+                      - entity_id: "light.allfab_*"
+                      - entity_id: "light.allfab_desktop_screen"
+                      - entity_id: "light.galaxy_tab_a8*"
+                      - entity_id: "light.all_lights"
+                  sort: 
+                    method: "entity_id"
+            ###########
+            #   OFF   #
+            ###########
+            - type: "vertical-stack"
+              view_layout:
+                grid-area: "lights_all"
+              cards:
+                - type: "custom:button-card"
+                  template: "card_title"
+                  name: "Lumière(s) éteinte(s)"
+                - type: "custom:auto-entities"
+                  card:
+                    type: "grid"
+                    square: false
+                    columns: 3
+                  card_param: "cards"
+                  filter:
+                    include:
+                      - domain: "light"
+                        state: "off"
+                        options:
+                          type: "custom:button-card"
+                          template: "card_light"
+                          variables:
+                            ulm_card_light_enable_slider: true
+                            ulm_card_light_enable_color: false
+                    exclude:
+                      - entity_id: "light.work_chrome*"
+                      - entity_id: "light.allfab_*"
+                      - entity_id: "light.allfab_desktop_screen"
+                      - entity_id: "light.galaxy_tab_a8*"
+                      - entity_id: "light.all_lights"
+                  sort: 
+                    method: "name"
+
+popup_lights_management:
+  alias: "popup_lights_management"
+  sequence:
+    - service: "browser_mod.popup"
+      data:
+        title: "{{ title }}"
+        size: "{{ size }}"
+        card_mod:
+          style:
+            .: |
+              .content {
+                /*padding: 0px 6px !important;*/
+              }
+              .mdc-dialog__scrim {
+                  background-color: var(--mdc-dialog-scrim-color, rgba(0, 0, 0, 0.72)) !important;
+              }
+        content:
+          #RDC
+          type: "vertical-stack"
+          cards:
+            - type: "custom:button-card"
+              template: "card_title"
+              name: "Rez de chaussée"
+            - type: "custom:button-card"
+              template: "card_title"
+              label: "Pièces de vie"
+            - type: "grid"
+              columns: 5
+              square: false
+              cards:                
+                - type: "tile"
+                  entity: "light.lifx_hallway_krosby"
+                  color: "amber"
+                  vertical: false
+                  name: "Lampadaire Krosby<br />Porte d'entrée"
+                  features:
+                    - type: "light-brightness"
+                    - type: "light-color-temp"
+                - type: "tile"
+                  entity: "light.ikea_tradfri_bulb_krosby_stairs"
+                  color: "amber"
+                  vertical: false
+                  name: "Lampadaire Krosby<br />Escaliers"
+                  features:
+                    - type: "light-brightness"
+                    - type: "light-color-temp"
+                - type: "tile"
+                  entity: "light.ikea_tradfri_bulb_window_diningroom"
+                  color: "amber"
+                  vertical: false
+                  name: "Lampadaire Krosby<br />Côté cour"
+                  features:
+                    - type: "light-brightness"
+                    - type: "light-color-temp"
+                - type: "tile"
+                  entity: "light.ikea_tradfri_bulb_wall_diningroom"
+                  color: "amber"
+                  vertical: false
+                  name: "Lampadaire Krosby<br />Côté piscine"
+                  features:
+                    - type: "light-brightness"
+                    - type: "light-color-temp"
+                - type: "tile"
+                  entity: "light.lifx_livingroom_krosby"
+                  color: "amber"
+                  vertical: false
+                  name: "Lampadaire Krosby<br />Côté poêle"
+                  features:
+                    - type: "light-brightness"
+                    - type: "light-color-temp"
+            - type: "custom:button-card"
+              template: "card_title"
+              label: "Chambres"
+            - type: "grid"
+              columns: 5
+              square: false
+              cards:
+                - type: "tile"
+                  entity: "light.lifx_bedroom_right_nightstand"
+                  color: "amber"
+                  vertical: false
+                  name: "Chambre parentale<br />Chevet droit"
+                  features:
+                    - type: "light-brightness"
+                    - type: "light-color-temp"
+            - type: "custom:button-card"
+              template: "card_title"
+              label: "Extérieur" 
+            - type: "grid"
+              columns: 5
+              square: false
+              cards:
+                - type: "tile"
+                  entity: "light.ikea_tradfri_bulb_chickencoop"
+                  color: "amber"
+                  vertical: false
+                  name: "Éclairage 🐔"
+                  features:
+                    - type: "light-brightness"
+                    - type: "light-color-temp"  
+                - type: "tile"
+                  entity: "switch.loratap_bulb_socket_lamp_adapter_garage"
+                  color: "amber"
+                  vertical: false
+                  name: "Garage<br />Lampe buanderie"
+                  features:
+                    - type: "light-brightness"
+                    - type: "light-color-temp"
+                - type: "tile"
+                  entity: "switch.sonoff_smart_switch_module_garage"
+                  color: "amber"
+                  vertical: false
+                  name: "Éclairage extérieur"
+                  features:
+                    - type: "light-brightness"
+                    - type: "light-color-temp"          
+
+power_outlets_management:
+  alias: "power_sockets_management"
+  sequence:
+    - service: "browser_mod.popup"
+      data:
+        title: "{{ title }}"
+        size: "{{ size }}"
+        card_mod:
+          style:
+            .: |
+              .content {
+                /*padding: 0px 6px !important;*/
+              }
+              .mdc-dialog__scrim {
+                  background-color: var(--mdc-dialog-scrim-color, rgba(0, 0, 0, 0.72)) !important;
+              }
+        content:
+          type: "custom:swipe-card"
+          parameters:
+            spaceBetween: 8
+            scrollbar:
+              hide: false
+              draggable: true
+              snapOnRelease: true
+            #pagination:
+              #type: "bullets"
+          card_mod:
+            style:
+              .: |
+                .swiper-container {
+                  margin-top: 10px !important!
+                }
+          cards:
+            #RDC
+            - type: "vertical-stack"
+              cards:
+                - type: "custom:button-card"
+                  template: "card_title"
+                  name: "Rez de chaussée"
+                - type: "grid"
+                  columns: 3
+                  square: false
+                  cards:
+                    - type: "custom:button-card"
+                      template: "card_power_outlet"
+                      entity: "switch.xiaomi_aqara_smartplug_livingroom_tv"
+                      variables:
+                        ulm_card_power_outlet_consumption_sensor: "sensor.xiaomi_aqara_smartplug_livingroom_tv_power"
+                        ulm_card_power_outlet_name: "Prise TV"
+                        ulm_card_power_outlet_icon: |
+                          [[[   
+                            if (entity.state == "on") {
+                              return "mdi:power-plug";
+                            } else {
+                              return "mdi:power-plug-off";
+                            }
+                          ]]]
+            #1er ETAGE
+            - type: "vertical-stack"
+              cards:
+                - type: "custom:button-card"
+                  template: "card_title"
+                  name: "1er étage"
+                - type: "grid"
+                  columns: 3
+                  square: false
+                  cards:
+                    - type: "custom:button-card"
+                      color_type: "blank-card"
+
+popup_battery:
+  alias: "popup_battery"
+  sequence:
+    - service: "browser_mod.popup"
+      data:
+        title: "{{ title }}"
+        size: "{{ size }}"
+        card_mod:
+          style:
+            .: |
+              .content {
+                /*padding: 0px 6px !important;*/
+              }
+              .mdc-dialog__scrim {
+                  background-color: var(--mdc-dialog-scrim-color, rgba(0, 0, 0, 0.72)) !important;
+              }
+        content:
+          type: "vertical-stack"
+          cards:
+            - type: "custom:button-card"
+              template: "card_title"
+              name: "Ensemble des appareils fonctionnant avec des piles"
+            - type: "custom:auto-entities"
+              card:
+                type: "custom:bar-card"
+                title_position: "inside"
+                height: 38
+                positions:
+                  icon: "inside"
+                  indicator: "inside"
+                  name: "inside"
+                  value: "inside"
+                show_icon: true
+                align: "split"
+                columns: 2
+                max: 100
+                unit_of_measurement: "%"
+                severity:
+                  - color: '#d11e1e'
+                    from: 0
+                    to: 5
+                  - color: '#cf2d11'
+                    from: 6
+                    to: 10
+                  - color: '#cc3900'
+                    from: 11
+                    to: 15
+                  - color: '#c84400'
+                    from: 16
+                    to: 20
+                  - color: '#c44d00'
+                    from: 21
+                    to: 25
+                  - color: '#bf5600'
+                    from: 26
+                    to: 30
+                  - color: '#b95f00'
+                    from: 31
+                    to: 35
+                  - color: '#b36600'
+                    from: 36
+                    to: 40
+                  - color: '#ac6e00'
+                    from: 41
+                    to: 45
+                  - color: '#a57500'
+                    from: 46
+                    to: 50
+                  - color: '#9d7b00'
+                    from: 51
+                    to: 55
+                  - color: '#948100'
+                    from: 56
+                    to: 60
+                  - color: '#8b8700'
+                    from: 61
+                    to: 65
+                  - color: '#818d00'
+                    from: 66
+                    to: 70
+                  - color: '#769200'
+                    from: 71
+                    to: 75
+                  - color: '#6a9700'
+                    from: 76
+                    to: 80
+                  - color: '#5d9c00'
+                    from: 81
+                    to: 85
+                  - color: '#4da100'
+                    from: 86
+                    to: 90
+                  - color: '#39a500'
+                    from: 91
+                    to: 95
+                  - color: '#15a911'
+                    from: 96
+                    to: 100
+                style: |
+                  bar-card-currentbar, bar-card-current, bar-card-backgroundbar {
+                      height: 5px !important;
+                      margin-top: 30px;
+                      padding: 2px 0px 2px 0px !important;
+                  }
+                  ha-card {
+                      background: none;
+                      box-shadow: none;
+                  }
+                  ha-icon {
+                    color: white !important;
+                  }
+                  bar-card-iconbar {
+                      margin-bottom: 10px;
+                  }
+                animation:
+                  state: "on"
+                  speed: 2
+              filter:
+                include:
+                  - entity_id: "^sensor.*_battery$"
+                exclude: []
+              sort:
+                method: "friendly_name"
+              show_empty: false
+
+
+popup_sun_angle:
+  alias: "popup_sun_angle"
+  sequence:
+    - service: "browser_mod.popup"
+      data:
+        title: "{{ title }}"
+        size: "{{ size }}"
+        content:
+          type: "vertical-stack"
+          cards:
+            - type: "custom:button-card"
+              template: "card_title"
+              name: "Carte du soleil"
+            - type: "custom:button-card"
+              template: "custom_card_httpedo13_sun"
+              variables:
+                darkMode: true
+                language: "fr"
+                showAzimuth: false
+                showElevation: false
+                timeFormat: "24h"
+                title: ""
+
+popup_sonos:
+  alias: "popup_sonos"
+  sequence:
+    - service: "browser_mod.popup"
+      data:
+        title: "{{ title }}"
+        size: "{{ size }}"
+        card_mod:
+          style:
+            .: |
+              .content {
+                /*padding: 0px 6px !important;*/
+              }
+              .mdc-dialog__scrim {
+                  background-color: var(--mdc-dialog-scrim-color, rgba(0, 0, 0, 0.72)) !important;
+              }
+        content:
+          type: "vertical-stack"
+          cards:
+            - type: "custom:sonos-card"
+              sections:
+                - "player"
+                - "grouping"
+                - "groups"
+                - "volumes"
+                - "media browser"
+              # player specific
+              showVolumeUpAndDownButtons: true
+              labelWhenNoMediaIsSelected: 'Aucun média sélectionné'
+              labelForTheAllVolumesSlider: 'Tous les appareils'
+              mediaArtworkOverrides:
+                - ifMissing: true
+                  imageUrl: https://cdn-icons-png.flaticon.com/512/651/651758.png
+              widthPercentage: 100 # default is 100. Use this to reduce the width of the card.
+              heightPercentage: 100 # default is 100. Use this to reduce the height of the card.
+              entityId: "media_player.sonos_era100_lounge"
+              entities: []
+
+              # groups specific
+              groupsTitle: ''
+              hideGroupCurrentTrack: false # default is false, which means song/track info for groups will be shown
+
+              groupingTitle: "Intérieur"
+              predefinedGroups:
+                - name: "Salon"
+                  entities:
+                    - "media_player.sonos_era100_lounge"
+                - name: "Bureau"
+                  entities:
+                    - "media_player.sonos_era100_office"
+                - name: "Séjour"
+                  entities:
+                    - "media_player.sonos_era100_lounge"
+                    - "media_player.sonos_era100_office"
+              dynamicVolumeSlider: true
+
+popup_myelectricaldata:
+  alias: "popup_myelectricaldata"
+  sequence:
+    - service: "browser_mod.popup"
+      data:
+        title: "{{ title }}"
+        size: "{{ size }}"
+        card_mod:
+          style:
+            .: |
+              .content {
+                /*padding: 0px 6px !important;*/
+              }
+              .mdc-dialog__scrim {
+                  background-color: var(--mdc-dialog-scrim-color, rgba(0, 0, 0, 0.72)) !important;
+              }
+        content:
+          type: "vertical-stack"
+          cards:
+            - type: "custom:content-card-linky"            
+              entity: "sensor.linky_19470332803501_consumption"
+              ewEntity: "sensor.rte_ecowatt_j0"
+              ewEntityJ1: "sensor.rte_ecowatt_j1"
+              ewEntityJ2: "sensor.rte_ecowatt_j2"
+              tempoInfo: "sensor.edf_tempo_info"
+              tempoEntityJ0: "sensor.rte_tempo_today"
+              tempoEntityJ1: "sensor.rte_tempo_tomorrow"
+              titleName: "Consommation d'hier"
+              nbJoursAffichage: '7'
+              showIcon: false
+              showHistory: true
+              showInTableUnit: true
+              showDayPriceHCHP: true
+              showDayHCHP: false
+              showMonthRatio: true
+              showTitle: true
+              showPeakOffPeak: true
+              showDayPrice: true
+              showPrice: true
+              showCurrentMonthRatio: false
+              showWeekRatio: false
+              showDayName: "short"
+              showDayMaxPower: true
+              showTitleLine: true
+              showEcoWatt: true
+              showEcoWattJ12: true
+              showTempo: true
+              showYearRatio: false
+              showYesterdayRatio: true
+              showError: true
+              showTitreLigne: true
+              showHeader: true

@@ -1,0 +1,27 @@
+---
+# tasks file for roles/postgresql/includes/extensions.yml
+- name: AJOUT DES EXTENSIONS AUX BASE DE DONNÉES
+  postgresql_ext:
+    name: "{{ item.name }}"
+    db: "{{ item.db }}"
+    schema: "{{ item.schema }}"
+  with_items: "{{ postgresql.template_extensions }}"
+  become: true
+  become_user: "{{ postgresql.user.name }}"
+  # See: https://github.com/ansible/ansible/issues/16048#issuecomment-229012509
+  vars:
+    ansible_ssh_pipelining: true
+
+- name: CHANGEMENT DE PROPRIÉTAIRE DES TABLES/VUES Postgis
+  postgresql_owner:
+    db: "{{ item.db }}"
+    obj_type: "{{ item.obj_type }}"
+    obj_name: "{{ item.obj_name }}"
+    new_owner: "{{ item.new_owner }}"
+  with_items: "{{ postgresql.privileges }}"
+  become: true
+  become_user: "{{ postgresql.user.name }}"
+  # See: https://github.com/ansible/ansible/issues/16048#issuecomment-229012509
+  vars:
+    ansible_ssh_pipelining: true
+  notify: restart postgresql

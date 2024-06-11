@@ -1,0 +1,8 @@
+---
+bash_aliases:
+  - { alias: "ls", command: "ls --color=auto" }
+  - { alias: "ll", command: "ls -hl --color=auto" }
+  - { alias: "la", command: "ls -hal --color=auto" }
+  - { alias: "c", command: "clear" }
+  - { alias: "grep", command: "grep --color=auto" }
+  - { alias: "mkdir", command: "mkdir -pv" }

@@ -1,0 +1,94 @@
+---
+# includes tasks file for roles/docker-frontend-stack/traefik
+- name: CRÉATION DU RÉPERTOIRE D'INSTALLATION/CONFIGURATION POUR Traefik
+  file:
+    path: /opt/docker/frontend-stack/traefik
+    state: directory
+    owner: "{{ secret.users.me.name }}"
+    mode: "{{ docker.compose.directory_mask }}"
+
+- name: CRÉATION DU RÉPERTOIRE DU PROVIDER DE FICHIER DE CONFIGURATION POUR Traefik
+  file:
+    path: /opt/docker/frontend-stack/traefik/extra
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.name }}"
+
+- name: CRÉATION DU RÉPERTOIRE CERTS POUR Traefik
+  file:
+    path: /opt/docker/frontend-stack/traefik/certs
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.name }}"
+
+- name: CRÉATION DU RÉPERTOIRE DE LOGS POUR Traefik
+  file:
+    path: /opt/docker/frontend-stack/traefik/logs
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.name }}"
+
+- name: INSTALLATION DU FICHIER DE CONFIGURATION PRINCIPAL DE Traefik
+  template:
+    src: traefik/traefik.yml.j2
+    dest: /opt/docker/frontend-stack/traefik/traefik.yml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+    lstrip_blocks: true
+    trim_blocks: true
+
+- name: INSTALLATION DU FICHIER DE PROVISION PRINCIPAL
+  template:
+    src: traefik/extra/main.yml.j2
+    dest: /opt/docker/frontend-stack/traefik/extra/main.yml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+
+- name: INSTALLATION DU FICHIER DE PROVISION 'pve'
+  template:
+    src: traefik/extra/pve.yml.j2
+    dest: /opt/docker/frontend-stack/traefik/extra/pve.yml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+
+- name: INSTALLATION DU FICHIER DE PROVISION 'freebox'
+  template:
+    src: traefik/extra/freebox.yml.j2
+    dest: /opt/docker/frontend-stack/traefik/extra/freebox.yml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+
+- name: INSTALLATION DU FICHIER DE PROVISION 'unifi'
+  template:
+    src: traefik/extra/unifi.yml.j2
+    dest: /opt/docker/frontend-stack/traefik/extra/unifi.yml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+
+- name: INSTALLATION DU FICHIER DE PROVISION 'smarthome'
+  template:
+    src: traefik/extra/smarthome.yml.j2
+    dest: /opt/docker/frontend-stack/traefik/extra/smarthome.yml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+
+- name: INSTALLATION DU FICHIER DE PROVISION 'media'
+  template:
+    src: traefik/extra/media.yml.j2
+    dest: /opt/docker/frontend-stack/traefik/extra/media.yml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+
+- name: INSTALLATION DU FICHIER DE PROVISION 'vaultwarden'
+  template:
+    src: traefik/extra/vaultwarden.yml.j2
+    dest: /opt/docker/frontend-stack/traefik/extra/vaultwarden.yml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+
+- name: INSTALLATION DU FICHIER DE PROVISION 'webapps'
+  template:
+    src: traefik/extra/webapps.yml.j2
+    dest: /opt/docker/frontend-stack/traefik/extra/webapps.yml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"

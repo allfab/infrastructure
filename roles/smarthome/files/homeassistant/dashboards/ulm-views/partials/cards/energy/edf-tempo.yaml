@@ -1,0 +1,46 @@
+- title: "Énergie - Mon Tempo"
+  path: "energy-tempo"
+  icon: "mdi:lightning-bolt"
+  cards:
+    - type: "custom:button-card"
+      template: "chip_back"
+      variables:
+        ulm_chip_back_path: "/lovelace"
+    - type: "vertical-stack"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Énergie - Mon Tempo"
+          label: ""
+        - type: "picture"
+          image: "/local/images/lovelace/rooms/room-livingroom.jpg"
+          style: |
+            ha-card {
+              height: 100px !important;
+            }
+        ############ TEMPERATURE - HUMIDITÉ #############
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Capteurs"
+          label: "Température, Humidité & Pression atmosphérique"
+        - type: "custom:swipe-card"
+          parameters:
+            spaceBetween: 8
+            pagination:
+              type: "bullets"
+          cards:
+            #TEMPERATURE
+            - type: "vertical-stack"
+              cards:
+                - type: "custom:mini-graph-card"
+                  entities:
+                    - "sensor.xiaomi_aqara_tph_sensor_bedroom_emilie_temperature"
+                  name: "Température (C°)"
+                  line_color: "var(--google-green)"   
+                  line_width: 8
+                  font_size: 75
+                  align_icon: "left"
+                  align_state: "center"
+                  hours_to_show: 48
+                  show:
+                    fill: true

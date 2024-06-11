@@ -1,0 +1,75 @@
+mqtt:
+  prefix: lnxlink
+  clientId: {{ hostname }}
+  server: {{ secret.mqtt.ip }}
+  port: 1883
+  auth:
+    user: {{ secret.mqtt.user }}
+    pass: {{ secret.mqtt.password }}
+    tls: false
+    keyfile: ''
+    certfile: ''
+    ca_certs: ''
+  discovery:
+    enabled: true
+  lwt:
+    enabled: true
+    qos: 1
+    retain: false
+update_interval: 15
+hass_url: null
+hass_api: null
+modules:
+- network
+- cpu
+- update
+- memory
+- restart
+{% if lnxlink_desktop %}
+- microphone_used
+- speaker_used
+- suspend
+{% endif %}
+{% if lnxlink_shutdown %}
+- shutdown
+{% endif %}
+{% if lnxlink_temperature %}
+- temperature
+{% endif %}
+{% if lnxlink_mounts %}
+- mounts
+{% endif %}
+{% if lnxlink_diskuse %}
+- disk_usage
+{% endif %}
+{% if lnxlink_bash %}
+- bash
+{% endif %}
+custom_modules: null
+exclude: null
+settings:
+  hotkeys: null
+{% if ansible_hostname == "morpheus" %}
+  mounts:
+    autocheck: false
+    directories:
+    - /mnt/storage
+  disk_usage:
+    include_disks:
+      - /dev/mapper/pve-root
+    exclude_disks: []
+{% else %}
+  mounts:
+    autocheck: false
+    directories: []
+  disk_usage:
+    include_disks: []
+    exclude_disks: []
+{% endif %}
+  bash:
+    expose: []
+  systemd: null
+  gpio:
+    inputs: null
+    outputs: null
+  statistics: https://analyzer.bkbilly.workers.dev

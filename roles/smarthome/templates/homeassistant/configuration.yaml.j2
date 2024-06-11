@@ -1,0 +1,112 @@
+---
+default_config:
+
+homeassistant:
+  country: FR
+  internal_url: http://192.168.10.30:8123/
+  external_url: https://haas.allfabox.fr/
+
+google_assistant:
+  project_id: {{ homeassistant.google.assistant.project_id }}
+  service_account: !include extra/google-assistant.json
+  report_state: false
+  exposed_domains:
+    - switch
+    - light
+
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    #DOCKER NETWORK HOST MODE
+    - ::1
+    #DOCKER HOST IP MACHINE
+    - 192.168.10.30
+    #DOCKER SMARTHOME NETWORK
+    - 172.18.0.0/16
+  ip_ban_enabled: false
+  login_attempts_threshold: 5
+
+energy:
+
+frontend:
+  themes: !include_dir_merge_named dashboards/resources/themefiles
+  # themes: !include_dir_merge_named themes
+
+browser_mod:
+
+lovelace:
+  mode: yaml
+  resources: !include local-resources.yaml
+  dashboards:
+    lovelace-tablet:
+      mode: yaml
+      filename: ui-lovelace-tablet.yaml
+      title: Tablette
+      icon: mdi:tablet-dashboard
+      show_in_sidebar: true
+      require_admin: false
+
+history:
+
+logbook:
+
+mobile_app:
+
+person:
+
+recorder:
+  #db_url: sqlite://///config/db/home-assistant_v2.db
+  db_url: postgresql://{{ secret.users.me.name }}:{{ secret.users.me.password }}@192.168.10.19:5432/homeassistant
+  purge_keep_days: 7
+
+sun:
+
+system_health:
+
+tts:
+  - platform: google_translate
+    cache: true
+    cache_dir: /tmp/tts
+    time_memory: 300
+    service_name: google_say
+
+zone:
+  #OVERRIDE THE DEFAULT HOME ZONE
+  - name: Home
+    latitude: !secret zone_home_latitude
+    longitude: !secret zone_home_longitude
+    radius: 100
+    icon: mdi:home
+  - name: Work
+    latitude: !secret zone_work_latitude
+    longitude: !secret zone_work_longitude
+    radius: 100
+    icon: mdi:briefcase
+  - name: School
+    latitude: !secret zone_school_latitude
+    longitude: !secret zone_school_longitude
+    radius: 100
+    icon: mdi:school
+
+# INCLUDES
+automation: !include includes/automations.yaml
+#binary_sensor: !include includes/binary_sensors.yaml
+climate: !include includes/climate.yaml
+#devices: !include includes/devices.yaml
+input_boolean: !include includes/input_boolean.yaml
+#input_button:
+input_datetime: !include includes/input_datetime.yaml
+input_number: !include includes/input_number.yaml
+#input_select:
+#input_text: !include includes/input_text.yaml
+#mqtt: !include includes/mqtt_sensors.yaml
+notify: !include includes/notifications.yaml
+##packages: !include_dir_merge_named packages/
+#rest: !include includes/rest.yaml
+#rest_command:  !include includes/rest_command.yaml
+script: !include includes/scripts.yaml
+#scene: !include includes/scenes.yaml
+sensor: !include includes/sensors.yaml
+#switch: !include includes/switchs.yaml
+template: !include includes/templates.yaml
+#utility_meter: !include includes/utility_meter.yaml

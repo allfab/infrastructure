@@ -1,0 +1,531 @@
+---
+- title: "Rooms"
+  path: "rooms"
+  icon: "mdi:sofa"
+  type: "custom:grid-layout"
+  layout:
+    grid-template-columns: 4% repeat(3, 31%) 3%
+    grid-template-rows: 1em 
+    grid-gap: 0.7em
+    grid-template-areas: |
+      ". . . . ."
+      "back rooms_col1 rooms_col2 rooms_col3 ."
+      ". rooms_col1 rooms_col2 rooms_col3 ."
+      ". rooms_col1 rooms_col2 rooms_col3 ."
+      ". . . . ."
+  cards:
+    ############
+    #   Back   #
+    ############
+    - type: "custom:button-card"
+      view_layout:
+        grid-area: "back"
+      template: "chip_back"
+      variables:
+        ulm_chip_back_path: "/lovelace-tablet"
+    
+    #############
+    #   Rooms   #
+    #############
+    - type: "vertical-stack"
+      view_layout:
+        grid-area: "rooms_col1"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Cuisine / Bureau"
+        - type: "grid"
+          columns: 2     
+          square: false
+          cards:
+            ######################## CUISINE ########################
+            - type: "custom:button-card"
+              template:
+                - "card_room"
+                - "grey_no_state"
+              name: "Cuisine"
+              #entity: "sensor.xiaomi_aqara_tph_sensor_hallway_temperature"
+              icon: "mdi:blender"
+              #tap_action:
+                #action: navigate
+                #navigation_path: '/lovelace-tablet/livingroom'
+              variables:
+                label_use_temperature: false
+                label_use_brightness: false
+                entity_4:
+                  entity_id: "vacuum.alfred"
+                  templates:
+                    - "pink_on"
+                  tap_action:
+                    action: "call-service"
+                    service: "script.alfred_clean_hallway"
+            ######################## CUISINE ########################
+            ######################### BUREAU ########################
+            - type: "custom:button-card"
+              template:
+                - "card_room"
+                - "grey_no_state"
+              name: "Bureau"
+              entity: "sensor.xiaomi_aqara_tph_sensor_hallway_temperature"
+              icon: "mdi:chair-rolling"
+              variables:
+                label_use_temperature: true
+                label_use_brightness: false
+                entity_1:
+                  entity_id: "light.lifx_livingroom_krosby"
+                  templates:
+                    - "yellow_on"
+                  tap_action:
+                    action: "toggle"
+                entity_2:
+                  entity_id: "sensor.xiaomi_aqara_tph_sensor_hallway_temperature"
+                  templates:
+                    - "green_on"
+                  tap_action:
+                    action: "none"
+                entity_3:
+                  entity_id: "binary_sensor.xiaomi_aqara_tph_sensor_hallway_temperature"
+                  templates:
+                    - "red_on"
+                  tap_action:
+                    action: "none"
+                entity_4:
+                  entity_id: "vacuum.alfred"
+                  templates:
+                    - "pink_on"
+                  tap_action:
+                    action: "call-service"
+                    service: "script.alfred_clean_hallway"
+            ######################### BUREAU ########################
+
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Hall / Salon / Salle à manger"
+        - type: "grid"
+          columns: 2     
+          square: false
+          cards:
+            ########################## HALL ######################### 
+            - type: "custom:button-card"
+              template:
+                - "card_room"
+                - "yellow_no_state"
+              name: "Hall d'entrée"
+              entity: "sensor.xiaomi_aqara_tph_sensor_hallway_temperature"
+              icon: "mdi:door-open"
+              #tap_action:
+                #action: navigate
+                #navigation_path: '/lovelace-tablet/livingroom'
+              variables:
+                label_use_temperature: true
+                label_use_brightness: false
+                entity_1:
+                  entity_id: "light.lifx_hall_krosby"
+                  templates:
+                    - "yellow_on"
+                  tap_action:
+                    action: "toggle"
+                entity_2:
+                  entity_id: "sensor.xiaomi_aqara_tph_sensor_hallway_temperature"
+                  templates:
+                    - "green_on"
+                  tap_action:
+                    action: "none"
+                entity_3:
+                  entity_id: "sensor.xiaomi_aqara_tph_sensor_hallway_temperature"
+                  templates:
+                    - "red_on"
+                  tap_action:
+                    action: "none"
+                entity_4:
+                  entity_id: "vacuum.alfred"
+                  templates:
+                    - "pink_on"
+                  tap_action:
+                    action: "call-service"
+                    service: "script.alfred_clean_hallway"
+            ########################## HALL #########################
+            ######################### SALON #########################
+            - type: "custom:button-card"
+              template:
+                - "card_room"
+                - "yellow_no_state"
+              name: "Salon"
+              entity: "sensor.xiaomi_aqara_tph_sensor_hallway_temperature"
+              icon: "mdi:sofa"
+              #tap_action:
+                #action: navigate
+                #navigation_path: '/lovelace-tablet/livingroom'
+              variables:
+                label_use_temperature: true
+                label_use_brightness: false
+                entity_1:
+                  entity_id: "light.lifx_livingroom_krosby"
+                  templates:
+                    - "yellow_on"
+                  tap_action:
+                    action: "toggle"
+                entity_2:
+                  entity_id: "sensor.xiaomi_aqara_tph_sensor_hallway_temperature"
+                  templates:
+                    - "green_on"
+                  tap_action:
+                    action: "none"
+                entity_3:
+                  entity_id: "switch.konyks_priska_tv_livingroom_socket"
+                  templates:
+                    - "red_on"
+                  tap_action:
+                    action: "toggle"
+                entity_4:
+                  entity_id: "vacuum.alfred"
+                  templates:
+                    - "pink_on"
+                  tap_action:
+                    action: "call-service"
+                    service: "script.alfred_clean_livingroom"
+            ######################### SALON ######################### 
+            ##################### SALLE À MANGER #################### 
+            - type: "custom:button-card"
+              template:
+                - "card_room"
+                - "yellow_no_state"
+              name: "Salle à manger"
+              entity: "sensor.xiaomi_aqara_tph_sensor_hallway_temperature"
+              icon: "mdi:table-furniture"
+              tap_action:
+                action: "navigate"
+                navigation_path: "/lovelace-tablet/dining-room/home.yaml"
+              variables:
+                label_use_temperature: true
+                label_use_brightness: false
+                entity_1:
+                  entity_id: "light.ikea_tradfri_bulb_window_diningroom"
+                  templates:
+                    - "yellow_on"
+                  tap_action:
+                    action: "toggle"
+                entity_2:
+                  entity_id: "light.ikea_tradfri_bulb_window_diningroom"
+                  templates:
+                    - "yellow_on"
+                  tap_action:
+                    action: "toggle"
+                entity_3:
+                  entity_id: "binary_sensor.xiaomi_aqara_tph_sensor_hallway_temperature"
+                  templates:
+                    - "red_on"
+                  tap_action:
+                    action: "none"
+                entity_4:
+                  entity_id: "vacuum.alfred"
+                  templates:
+                    - "pink_on"
+                  tap_action:
+                    action: "call-service"
+                    service: "script.alfred_clean_hallway"
+            ##################### SALLE À MANGER ####################
+          
+
+    - type: "vertical-stack"
+      view_layout:
+        grid-area: "rooms_col2"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Chambre parentale"
+        - type: "grid"
+          columns: 2     
+          square: false
+          cards:
+            ################### CHAMBRE PARENTALE ###################
+            - type: "custom:button-card"
+              template:
+                - "card_room"
+                - "pink_no_state"
+              name: "Parentale"
+              #label: "Parentale"
+              entity: "sensor.xiaomi_aqara_tph_sensor_hallway_temperature"
+              icon: "mdi:bed-king"
+              #tap_action:
+                #action: navigate
+                #navigation_path: '/lovelace-tablet/livingroom'
+              variables:
+                label_use_temperature: true
+                label_use_brightness: false
+                entity_1:
+                  entity_id: "light.lifx_bedroom_right_nightstand"
+                  templates:
+                    - "yellow_on"
+                  tap_action:
+                    action: "toggle"
+                entity_2:
+                  entity_id: "sensor.xiaomi_aqara_tph_sensor_hallway_temperature"
+                  templates:
+                    - "green_on"
+                  tap_action:
+                    action: "none"
+                entity_3:
+                  entity_id: "binary_sensor.xiaomi_aqara_tph_sensor_hallway_temperature"
+                  templates:
+                    - "red_on"
+                  tap_action:
+                    action: "none"
+                entity_4:
+                  entity_id: "vacuum.alfred"
+                  templates:
+                    - "pink_on"
+                  tap_action:
+                    action: "call-service"
+                    service: "script.alfred_clean_hallway"
+            ################### CHAMBRE PARENTALE ###################
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Chambres des enfants"
+        - type: "grid"
+          columns: 2     
+          square: false
+          cards:
+            #################### CHAMBRE LÉONIE #####################
+            - type: "custom:button-card"
+              template:
+                - "card_room"
+                - "pink_no_state"
+              name: "Léonie"
+              #label: "Léonie"
+              entity: "sensor.xiaomi_aqara_tph_sensor_hallway_temperature"
+              icon: "mdi:teddy-bear"
+              #tap_action:
+                #action: navigate
+                #navigation_path: '/lovelace-tablet/livingroom'
+              variables:
+                label_use_temperature: false
+                label_use_brightness: false
+                entity_1:
+                  entity_id: "light.lifx_bedroom_right_nightstand"
+                  templates:
+                    - "yellow_on"
+                  tap_action:
+                    action: "toggle"
+                entity_2:
+                  entity_id: "sensor.xiaomi_aqara_tph_sensor_hallway_temperature"
+                  templates:
+                    - "green_on"
+                  tap_action:
+                    action: "none"
+                entity_3:
+                  entity_id: "binary_sensor.xiaomi_aqara_tph_sensor_hallway_temperature"
+                  templates:
+                    - "red_on"
+                  tap_action:
+                    action: "none"
+                entity_4:
+                  entity_id: "vacuum.alfred"
+                  templates:
+                    - "pink_on"
+                  tap_action:
+                    action: "call-service"
+                    service: "script.alfred_clean_hallway"
+            #################### CHAMBRE LÉONIE #####################
+            #################### CHAMBRE ÉMILIE #####################
+            - type: "custom:button-card"
+              template:
+                - "card_room"
+                - "pink_no_state"
+              name: "Émilie"
+              #label: "Émilie"
+              entity: "sensor.xiaomi_aqara_tph_sensor_bedroom_emilie_temperature"
+              icon: "mdi:teddy-bear"
+              #tap_action:
+                #action: navigate
+                #navigation_path: '/lovelace-tablet/livingroom'
+              variables:
+                label_use_temperature: true
+                label_use_brightness: false
+                entity_1:
+                  entity_id: "light.ikea_tradfri_bulb_bedroom_baby"
+                  templates:
+                    - "yellow_on"
+                  tap_action:
+                    action: "toggle"
+                entity_2:
+                  entity_id: "sensor.xiaomi_aqara_tph_sensor_bedroom_emilie_temperature"
+                  templates:
+                    - "green_on"
+                  tap_action:
+                    action: "none"
+                entity_3:
+                  entity_id: "binary_sensor.xiaomi_aqara_doorwindow_sensor_bedroom_baby_contact"
+                  templates:
+                    - "blue_on"
+                  icon: |
+                    [[[   
+                      if (entity.state == "on") {
+                        return "mdi:window-open-variant";
+                      } else {
+                        return "mdi:window-closed-variant";
+                      }
+                    ]]]
+                  tap_action:
+                    action: "none"
+                entity_4:
+                  entity_id: "vacuum.alfred"
+                  templates:
+                    - "pink_on"
+                  tap_action:
+                    action: "call-service"
+                    service: "script.alfred_clean_hallway"
+            #################### CHAMBRE ÉMILIE #####################
+
+    - type: "vertical-stack"
+      view_layout:
+        grid-area: "rooms_col3"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Salles d'eau"
+        - type: "grid"
+          columns: 2      
+          square: false
+          cards:
+            #################### SALLE DE BAINS ####################
+            - type: "custom:button-card"
+              template:
+                - "card_room"
+                - "blue_no_state"
+              name: "Salle de bains"
+              entity: "sensor.sonoff_th_sensor_bathroom_temperature"
+              icon: "mdi:shower"
+              #tap_action:
+                #action: navigate
+                #navigation_path: '/lovelace-tablet/livingroom'
+              variables:
+                label_use_temperature: true
+                label_use_brightness: false
+                entity_1:
+                  entity_id: "sensor.sonoff_th_sensor_bathroom_temperature"
+                  templates:
+                    - "green_on"
+                  tap_action:
+                    action: "more-info"
+                entity_2:
+                  entity_id: "sensor.sonoff_th_sensor_bathroom_humidity"
+                  templates:
+                    - "blue_on"
+                  tap_action:
+                    action: "more-info"
+            #################### SALLE DE BAINS ####################
+            ########################## WC ##########################
+            - type: "custom:button-card"
+              template:
+                - "card_room"
+                - "blue_no_state"
+              name: "WC"
+              icon: "mdi:paper-roll"
+              variables:
+                label_use_temperature: false
+                label_use_brightness: true
+                entity_1:
+                  entity_id: "light.xiaomi_aqara_smartledbulb_toilet"
+                  templates:
+                    - "yellow_on"
+                  tap_action:
+                    action: "toggle"
+                entity_2:
+                  entity_id: "binary_sensor.sonoff_motion_sensor_mailbox_occupancy"
+                  templates:
+                    - "red_on"
+                  tap_action:
+                    action: "more-info"  
+            ########################## WC ##########################
+            ###################### BUANDERIE #######################
+            - type: "custom:button-card"
+              template:
+                - "card_room"
+                - "blue_no_state"
+              name: "Buanderie"
+              icon: "mdi:washing-machine"
+              variables:
+                label_use_temperature: false
+                label_use_brightness: true
+                entity_1:
+                  entity_id: "switch.loratap_bulb_socket_lamp_adapter_garage"
+                  templates:
+                    - "yellow_on"
+                  tap_action:
+                    action: "toggle" 
+            ###################### BUANDERIE #######################
+
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Extérieur"
+        - type: "grid"
+          columns: 2      
+          square: false
+          cards:
+            #################### TERRASSE ####################
+            - type: "custom:button-card"
+              template:
+                - "card_room"
+                - "green_no_state"
+              name: "Terrasse"
+              entity: "sensor.xiaomi_aqara_tph_sensor_terrasse_temperature"
+              icon: "mdi:flower"
+              variables:
+                label_use_temperature: true
+                label_use_brightness: false
+                entity_1:
+                  entity_id: "sensor.xiaomi_aqara_tph_sensor_terrasse_temperature"
+                  templates:
+                    - "green_on"
+                  tap_action:
+                    action: "more-info"
+                entity_2:
+                  entity_id: "sensor.xiaomi_aqara_tph_sensor_terrasse_humidity"
+                  templates:
+                    - "blue_on"
+                  tap_action:
+                    action: "more-info"
+                entity_3:
+                  entity_id: "sensor.xiaomi_aqara_tph_sensor_terrasse_pressure"
+                  templates:
+                    - "blue_on"
+                  tap_action:
+                    action: "more-info"
+            #################### TERRASSE ####################
+            #################### POULAILLER ####################
+            - type: "custom:button-card"
+              template:
+                - "card_room"
+                - "green_no_state"
+              name: "Poulailler"
+              entity: "sensor.sonoff_th_sensor_chickencoop_temperature"
+              icon: "mdi:food-drumstick"
+              variables:
+                label_use_temperature: true
+                label_use_brightness: false
+                entity_1:
+                  entity_id: "sensor.sonoff_th_sensor_chickencoop_temperature"
+                  templates:
+                    - "green_on"
+                  tap_action:
+                    action: "more-info"
+                entity_2:
+                  entity_id: "sensor.sonoff_th_sensor_chickencoop_humidity"
+                  templates:
+                    - "blue_on"
+                  tap_action:
+                    action: "more-info"
+                entity_3:
+                  entity_id: "light.ikea_tradfri_bulb_chickencoop"
+                  templates:
+                    - "yellow_on"
+                  tap_action:
+                    action: "toggle"
+                entity_4:
+                  entity_id: "sensor.sonoff_doorwindow_inverted_sensor_main_chickencoop"
+                  templates:
+                    - "blue_no_state"
+                  tap_action:
+                    action: "more-info"
+            #################### POULAILLER ####################

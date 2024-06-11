@@ -1,0 +1,63 @@
+---
+- title: "Média"
+  path: "sonos-music-assistant"
+  icon: "mdi:music-box"
+  cards:
+    - type: "custom:button-card"
+      template: "chip_back"
+      variables:
+        ulm_chip_back_path: "/lovelace"
+    - type: "vertical-stack"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Music Assistant"
+          label: ""
+        - type: "picture"
+          image: "/local/images/lovelace/music-assistant.jpg"
+          style: |
+            ha-card {
+              height: 100px !important;
+            }
+        #################### SONOS ######################
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Sonos"
+          label: "Gestion de la diffusion"
+        - type: "custom:sonos-card"
+          sections:
+            - "player"
+            - "grouping"
+            - "groups"
+            - "volumes"
+            - "media browser"
+          # player specific
+          showVolumeUpAndDownButtons: true
+          labelWhenNoMediaIsSelected: 'Aucun média sélectionné'
+          labelForTheAllVolumesSlider: 'Tous les appareils'
+          mediaArtworkOverrides:
+            - ifMissing: true
+              imageUrl: https://cdn-icons-png.flaticon.com/512/651/651758.png
+          widthPercentage: 100 # default is 100. Use this to reduce the width of the card.
+          heightPercentage: 100 # default is 100. Use this to reduce the height of the card.
+          entityId: "media_player.sonos_era100_lounge"
+          entities: []
+
+          # groups specific
+          groupsTitle: ''
+          hideGroupCurrentTrack: false # default is false, which means song/track info for groups will be shown
+
+          groupingTitle: "Intérieur"
+          predefinedGroups:
+            - name: "Salon"
+              entities:
+                - "media_player.sonos_era100_lounge"
+            - name: "Bureau"
+              entities:
+                - "media_player.sonos_era100_office"
+            - name: "Séjour"
+              entities:
+                - "media_player.sonos_era100_lounge"
+                - "media_player.sonos_era100_office"
+          dynamicVolumeSlider: true
+        #################### SONOS ######################

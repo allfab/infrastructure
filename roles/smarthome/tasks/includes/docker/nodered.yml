@@ -1,0 +1,8 @@
+---
+- name: NODERED - INSTALLATION DE LA CONFIGURATION
+  copy:
+    src: nodered/
+    dest: /opt/docker/smarthome-stack/nodered/
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"

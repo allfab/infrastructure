@@ -1,0 +1,42 @@
+#HOME PRESENCE
+- alias: "Presence Wifi Allfab"
+  description: "Presence Wifi Allfab"
+  trigger:
+    - platform: "state"
+      entity_id: "sensor.allfab_oneplus5_home"
+  condition: []
+  action:
+    - service: "device_tracker.see"
+      data:
+        dev_id: "oneplus_5"
+        location_name: |
+          {% if trigger.to_state.state == 'home' %}
+            home
+          {% elif trigger.to_state.state == 'not_home' %}
+            not_home
+          {% else %}
+            unknown
+          {% endif %}
+        source_type: "router"
+  mode: "single"
+
+- alias: "Presence Wifi Blandine"
+  description: "Presence Wifi Blandine"
+  trigger:
+    - platform: "state"
+      entity_id: "sensor.blandine_oneplus_nord2t_home"
+  condition: []
+  action:
+    - service: "device_tracker.see"
+      data:
+        dev_id: "oneplus_nord2t"
+        location_name: |
+          {% if trigger.to_state.state == 'home' %}
+            home
+          {% elif trigger.to_state.state == 'not_home' %}
+            not_home
+          {% else %}
+            unknown
+          {% endif %}
+        source_type: "router"
+  mode: "single"

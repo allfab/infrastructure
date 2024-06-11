@@ -1,0 +1,62 @@
+---
+- name: CHARGEMENT DES VARIABLES
+  include_vars: defaults/main.yml
+ 
+- name: ON S'ASSURE QU'UN FICHIER docker-compose.yml EXISTE
+  stat:
+    path: /opt/docker/smarthome-stack/docker-compose.yml
+  register: smarthome_stack_docker_compose
+
+- name: SUPPRESSION DE LA STACK smarthome SI ELLE EXISTE
+  shell:
+    chdir: /opt/docker/smarthome-stack
+    cmd: docker compose down
+  when: smarthome_stack_docker_compose.stat.exists
+
+- name: INSTALLATION DU FICHIER DE COMPOSITION
+  template:
+    src: docker-compose.yml.j2
+    dest: /opt/docker/smarthome-stack/docker-compose.yml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+    group: "{{ secret.users.me.gid }}"
+    validate: docker compose -f %s config
+
+- name: INSTALLATION DU FICHIER DES VARIABLES D'ENVIRONNEMENT DOCKER
+  template:
+    src: env.j2
+    dest: /opt/docker/smarthome-stack/.env
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+    group: "{{ secret.users.me.gid }}"
+
+- name: INSTALLATION/CONFIGURATION DU CONTENEUR home-assistant
+  include_tasks: includes/docker/homeassistant.yml
+
+- name: INSTALLATION/CONFIGURATION DU CONTENEUR mosquitto (MQTT)
+  include_tasks: includes/docker/mosquitto.yml
+
+- name: INSTALLATION/CONFIGURATION DU CONTENEUR zigbee2mqtt
+  include_tasks: includes/docker/zigbee2mqtt.yml
+
+- name: INSTALLATION/CONFIGURATION DU CONTENEUR nodered
+  include_tasks: includes/docker/nodered.yml
+
+- name: INSTALLATION/CONFIGURATION DU CONTENEUR esphome
+  include_tasks: includes/docker/esphome.yml
+
+- name: INSTALLATION/CONFIGURATION DU CONTENEUR myelectricaldata
+  include_tasks: includes/docker/myelectricaldata.yml
+
+- name: DÉMARRAGE DE LA STACK smarthome
+  shell:
+    chdir: /opt/docker/smarthome-stack
+    cmd: docker compose up -d
+
+- name: CHANGEMENT DES DROITS UTILISATEUR SUR L'ENSEMBLE DU DOSSIER /opt/docker/smarthome-stack
+  file:
+    dest: /opt/docker/smarthome-stack
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+    mode: "0775"
+    recurse: true

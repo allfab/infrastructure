@@ -1,0 +1,53 @@
+---
+welcome_scenes_collapse:
+  name: "Welcome scenes collapse tag"
+  icon: "mdi:home"
+  initial: false
+
+guestmode:
+  name: "Guest Mode"
+  icon: "mdi:account-clock"
+  initial: false
+
+notify_home:
+  name: "Notify when someone arrives home"
+  icon: "mdi:home-account"
+  initial: false
+notify_work:
+  name: "Notify when i am at work"
+  icon: "mdi:briefcase"
+  initial: false
+notify_night:
+  name: "Notify if it's night"
+  icon: "mdi:moon-waning-crescent"
+  initial: false
+
+cast_dashboard:
+  name: "Cast HA Dashboard"
+  icon: "mdi:cast-variant"
+  initial: false
+
+#AUTOMATION NOD RED
+bedroom_awakening_lights_weekdays_scene:
+  name: "Tamisage de la lampe de chevet droite"
+  icon: "mdi:lamp"
+  initial: true
+bedroom_awakening_tts_weekdays_scene:
+  name: "Annonce"
+  icon: "mdi:bullhorn"
+  initial: true
+hallway_awakening_lights_weekdays_scene:
+  name: "Tamisage du lampadaire du hall d'entrée"
+  icon: "mdi:floor-lamp-torchiere"
+  initial: true
+
+
+bathroom_tag_humidity:
+  name: "Bathroom tag humidity"
+  icon: "mdi:water-percent"
+  initial: false
+
+generic_thermostat_bathroom:
+  name: "Generic thermostat bathroom"
+  icon: "mdi:home-thermometer"
+  initial: false

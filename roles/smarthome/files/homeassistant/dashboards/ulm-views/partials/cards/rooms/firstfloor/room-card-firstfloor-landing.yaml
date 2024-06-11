@@ -1,0 +1,21 @@
+---
+type: "custom:button-card"
+template:
+  - "card_room"
+  - "grey_no_state"
+name: "Palier"
+entity: "sensor.xiaomi_aqara_tph_sensor_firstfloor_landingroom_temperature"
+icon: "mdi:gamepad-variant"
+label: '[[[ return states["sensor.xiaomi_aqara_tph_sensor_firstfloor_landingroom_temperature"].state + " °C / " + states["sensor.xiaomi_aqara_tph_sensor_firstfloor_landingroom_humidity"].state + " %" ]]]'
+# tap_action:
+#   action: "navigate"
+#   navigation_path: "/lovelace/room-hallway"
+variables:
+  label_use_temperature: true
+  label_use_brightness: false
+  entity_4:
+    entity_id: "light.ikea_tradfri_bulb_krosby_landingroom"
+    templates:
+      - "yellow_on"
+    tap_action:
+      action: "toggle"

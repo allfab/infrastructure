@@ -1,0 +1,21 @@
+---
+type: "custom:button-card"
+template:
+  - "card_room"
+  - "grey_no_state"
+name: "Cour"
+#entity: "sensor.owon_temperature_sensor_swimmingpool_temperature"
+icon: "mdi:car"
+label: ""
+# tap_action:
+#   action: "navigate"
+#   navigation_path: "/lovelace/room-pool"
+variables:
+  label_use_temperature: true
+  label_use_brightness: false
+  entity_4:
+    entity_id: "switch.sonoff_smart_switch_module_garage"
+    templates:
+      - "yellow_on"
+    tap_action:
+      action: "toggle"

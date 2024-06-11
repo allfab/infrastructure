@@ -1,0 +1,32 @@
+########################################
+#           TEMPLATE SENSOR            #
+########################################
+- platform: template
+  sensors:
+    # COUNT PEOPLE AT HOME
+    people_home:
+      friendly_name: 'People at home'
+      value_template: > 
+        {% set count = [states.person.fabien_allamanche, states.person.blandine_vincent] | selectattr('state', '==', 'home') | list | count %}
+        {% if is_state('input_boolean.guestmode', 'on') %}
+          {{ count + 1 }} 
+        {% else %}
+          {{ count }}
+        {% endif %}
+    #PRESENCE
+    allfab_oneplus5_home:
+      value_template: >-
+        {% if (states('sensor.oneplus_a5000_wifi_connection') == "ALLFABOX-UDR") or (states('sensor.oneplus_a5000_wifi_connection') == "Allfabox-2.4G") or ((states('sensor.oneplus_a5000_wifi_connection') == "Allfabox-5G")) %}
+            home
+          {% else %}
+            not_home
+          {% endif %}
+      friendly_name: "Allfab OnePlus 5 Home (SSID = ALLFABOX-UDR)"
+    blandine_oneplus_nord2t_home:
+      value_template: >-
+        {% if (states('sensor.cph2399_wifi_connection') == "ALLFABOX-UDR") or (states('sensor.cph2399_wifi_connection') == "Allfabox-2.4G") or ((states('sensor.cph2399_wifi_connection') == "Allfabox-5G")) %}
+            home
+          {% else %}
+            not_home
+          {% endif %}
+      friendly_name: "OnePlus Nord 2T 5G Home (SSID = ALLFABOX-UDR)"

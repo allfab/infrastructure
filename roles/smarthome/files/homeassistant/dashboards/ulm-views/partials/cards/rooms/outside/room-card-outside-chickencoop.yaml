@@ -1,0 +1,40 @@
+---
+type: "custom:button-card"
+template:
+  - "card_room"
+  - "green_no_state"
+name: "Poulailler"
+# entity: "sensor.sonoff_th_sensor_chickencoop_temperature"
+icon: "mdi:turkey"
+label: ""
+# label: '[[[ return states["sensor.sonoff_th_sensor_chickencoop_temperature"].state + " °C / " + states["sensor.sonoff_th_sensor_chickencoop_humidity"].state + " %" ]]]'
+tap_action:
+  action: "navigate"
+  navigation_path: "/lovelace/room-chickencoop"
+variables:
+  label_use_temperature: true
+  label_use_brightness: false
+  entity_4:
+    entity_id: "light.ikea_tradfri_bulb_chickencoop"
+    templates:
+      - "yellow_on"
+    tap_action:
+      action: "toggle"
+  # entity_2:
+  #   entity_id: "sensor.sonoff_th_sensor_chickencoop_temperature"
+  #   templates:
+  #     - "green_on"
+  #   tap_action:
+  #     action: "more-info"
+  # entity_3:
+  #   entity_id: "sensor.sonoff_th_sensor_chickencoop_humidity"
+  #   templates:
+  #     - "blue_on"
+  #   tap_action:
+  #     action: "more-info"                  
+  # entity_4:
+  #   entity_id: "sensor.sonoff_doorwindow_inverted_sensor_main_chickencoop"
+  #   templates:
+  #     - "blue_no_state"
+  #   tap_action:
+  #     action: "more-info"

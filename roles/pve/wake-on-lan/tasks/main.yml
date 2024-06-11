@@ -1,0 +1,25 @@
+---
+## tasks file for roles/wake-on-lan/tasks/main.yml
+- name: INSTALLATION DES PAQUETS NÉCESSAIRE POUR LE WOL
+  package:
+    name: ethtool
+    state: present
+
+- name: ACTIVATION DU WAKE-ON-LAN SUR LE SERVEUR
+  command: ethtool -s "{{ wol_network_interface_name }}" wol g
+
+- name: CRÉATION DU SERVICE SYSTEMD wol.service
+  template:
+    src: wol.service.j2
+    dest: /etc/systemd/system/wol.service
+
+- name: ACTIVATION DU SERVICE wol.service
+  service:
+    name: wol
+    daemon_reload: true
+    enabled: true
+
+- name: DÉMARRAGE DU SERVICE wol.service
+  service:
+    name: wol
+    state: started

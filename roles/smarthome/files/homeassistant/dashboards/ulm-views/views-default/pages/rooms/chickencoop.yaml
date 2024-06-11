@@ -1,0 +1,159 @@
+- title: "Hall d'entrée"
+  path: "room-chickencoop"
+  icon: "mdi:turkey"
+  cards:
+    - type: "custom:button-card"
+      template: "chip_back"
+      variables:
+        ulm_chip_back_path: "/lovelace"
+    - type: "vertical-stack"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Poulailler"
+          label: ""
+        - type: "picture"
+          image: "/local/images/lovelace/rooms/room-chickencoop.jpg"
+          style: |
+            ha-card {
+              height: 100px !important;
+            }
+        ############ TEMPERATURE - HUMIDITÉ #############
+        - type: "custom:button-card"
+          template: "card_title"
+          label: "Température & Humidité"
+        - type: "grid"
+          columns: 2
+          square: false
+          cards:
+            - type: "custom:mini-graph-card"
+              entities:
+                - "sensor.sonoff_th_sensor_chickencoop_temperature"
+              name: "Température (C°)"
+              line_color: "var(--google-green)"   
+              line_width: 8
+              font_size: 75
+              align_icon: "left"
+              align_state: "center"
+              hours_to_show: 48
+              show:
+                fill: true
+            - type: "custom:mini-graph-card"
+              entities:
+                - "sensor.sonoff_th_sensor_chickencoop_humidity"
+              name: "Humidité (%)"
+              line_color: "var(--google-blue)"   
+              line_width: 8
+              font_size: 75
+              align_icon: "left"
+              align_state: "center"
+              hours_to_show: 48
+              show:
+                fill: true
+        ############ TEMPERATURE - HUMIDITÉ #############
+        ########################## CAMERA ##########################
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Surveillance"
+          label: "Vidéo"
+        - type: picture-elements
+          image: "camera.chickencoop"
+          camera_image: "camera.chickencoop"
+          camera_view: "live"
+          #title: "Poulailler Caméra"
+          elements:
+            - type: "icon"
+              icon: "mdi:arrow-up"
+              style:
+                background: "rgba(255, 255, 255, 0.5)"
+                right: 25px
+                bottom: 50px
+              tap_action :
+                action: "call-service"
+                service: "rest_command.chickencoop_cam_pan_up"
+            - type: icon
+              icon: "mdi:arrow-down"
+              style:
+                background: "rgba(255, 255, 255, 0.5)"
+                right: 25px
+                bottom: 0px
+              tap_action :
+                action: "call-service"
+                service: "rest_command.chickencoop_cam_pan_down"
+            - type: icon
+              icon: "mdi:arrow-left"
+              style:
+                background: "rgba(255, 255, 255, 0.5)"
+                right: 50px
+                bottom: 25px
+              tap_action :
+                action: "call-service"
+                service: "rest_command.chickencoop_cam_pan_left"
+            - type: icon
+              icon: "mdi:arrow-right"
+              style:
+                background: "rgba(255, 255, 255, 0.5)"
+                right: 0px
+                bottom: 25px
+              tap_action :
+                action: "call-service"
+                service: "rest_command.chickencoop_cam_pan_right"
+            - type: icon
+              icon: "mdi:checkbox-blank-off"
+              style:
+                background: "rgba(255, 255, 255, 0.5)"
+                right: 25px
+                bottom: 25px
+              tap_action :
+                action: "call-service"
+                service: "rest_command.chickencoop_cam_pan_stop"
+        ########################## CAMERA ##########################
+        ################### CAPTEURS - LUMIERES ####################
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Capteurs & éclairage"
+          label: "Ouverture/Fermeture/Éclairage"
+        - type: "grid"
+          columns: 1
+          square: false
+          cards:
+            - type: "custom:button-card"
+              template:
+                - "card_binary_sensor"
+                - "allfab_battery_info"
+              entity: "sensor.sonoff_doorwindow_inverted_sensor_main_chickencoop"
+              variables:
+                ulm_show_last_changed: true
+                ulm_card_binary_sensor_name: "Portier"
+                ulm_battery_entity: "sensor.sonoff_doorwindow_sensor_main_chickencoop_battery"
+                ulm_card_binary_sensor_icon: |
+                  [[[
+                    if (entity.state == "on") {
+                      return "mdi:door-open";
+                    } else {
+                      return "mdi:door-closed";
+                    }
+                  ]]]                
+            - type: "custom:button-card"
+              template: "card_light_slider_horizontal"
+              entity: "light.ikea_tradfri_bulb_chickencoop"
+              variables:
+                ulm_card_light_name: "Éclairage"
+                ulm_card_light_enable_slider: true
+                ulm_card_light_enable_color: false
+                ulm_card_light_enable_popup: true
+        ################### CAPTEURS - LUMIERES ####################
+        ############ CARTE DU SOLEIL #############
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Carte du soleil"
+        - type: "custom:button-card"
+          template: "custom_card_httpedo13_sun"
+          variables:
+            darkMode: true
+            language: "fr"
+            showAzimuth: false
+            showElevation: false
+            timeFormat: "24h"
+            title: ""
+        ############ CARTE DU SOLEIL #############

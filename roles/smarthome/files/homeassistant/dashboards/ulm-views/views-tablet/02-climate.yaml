@@ -1,0 +1,490 @@
+---
+- title: "Climate"
+  path: "climate"
+  icon: "mdi:home-thermometer"
+  type: "custom:grid-layout"
+  layout:
+    grid-template-columns: 4% repeat(3, 31%) 3%
+    grid-template-rows: 1em 
+    grid-gap: 0.7em
+    grid-template-areas: |
+      ". . . . ."
+      "back office bathroom outdoor ."
+      ". baby_bedroom swimmingpool . ."
+      ". . . . ."
+  cards:
+    ############
+    #   Back   #
+    ############
+    - type: "custom:button-card"
+      view_layout:
+        grid-area: "back"
+      template: "chip_back"
+      variables:
+        ulm_chip_back_path: "/lovelace-tablet"
+
+    #######################
+    #   Intérieur - RDC   #
+    #######################
+    - type: "vertical-stack"
+      view_layout:
+        grid-area: "office"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Rez de chaussée - Salon TV"
+        - type: "custom:swipe-card"
+          parameters:
+            spaceBetween: 8
+            pagination:
+              type: "bullets"
+          cards:
+            #TEMPERATURE
+            - type: "vertical-stack"
+              cards:
+                - type: "custom:mini-graph-card"
+                  entities:
+                    - "sensor.xiaomi_aqara_tph_sensor_livingroom_tv_temperature"
+                  name: "Température (C°)"
+                  line_color: "var(--google-green)"   
+                  line_width: 8
+                  font_size: 75
+                  align_icon: "left"
+                  align_state: "center"
+                  hours_to_show: 48
+                  show:
+                    fill: true
+                - type: "custom:mini-graph-card"
+                  name: "Statistiques (24h)"
+                  icon: "mdi:thermometer-lines"
+                  entities:
+                    - entity: "sensor.xiaomi_aqara_tph_sensor_livingroom_tv_temperature"
+                  show:
+                    extrema: true
+                    average: true
+                    graph: false
+                  hour24: true
+                  hours_to_show: 24
+            #HUMIDITY
+            - type: "vertical-stack"
+              cards:
+                - type: "custom:mini-graph-card"
+                  entities:
+                    - "sensor.xiaomi_aqara_tph_sensor_livingroom_tv_humidity"
+                  name: "Humidité (%)"
+                  line_color: "var(--google-blue)"   
+                  line_width: 8
+                  font_size: 75
+                  align_icon: "left"
+                  align_state: "center"
+                  hours_to_show: 48
+                  show:
+                    fill: true
+                - type: "custom:mini-graph-card"
+                  name: "Statistiques (24h)"
+                  icon: "mdi:water-percent"
+                  entities:
+                    - entity: "sensor.xiaomi_aqara_tph_sensor_livingroom_tv_humidity"
+                  show:
+                    extrema: true
+                    average: true
+                    graph: false
+                  hour24: true
+                  hours_to_show: 24
+            #PRESSION
+            - type: "vertical-stack"
+              cards:
+                - type: "custom:mini-graph-card"
+                  entities:
+                    - "sensor.xiaomi_aqara_tph_sensor_livingroom_tv_pressure"
+                  name: "Pression atmosphérique (hPA)"
+                  line_color: "var(--google-violet)"   
+                  line_width: 4
+                  font_size: 75
+                  align_icon: "left"
+                  align_state: "center"
+                  hours_to_show: 48
+                  show:
+                    fill: true
+                - type: "custom:mini-graph-card"
+                  name: "Statistiques (24h)"
+                  icon: "mdi:gauge"
+                  entities:
+                    - entity: "sensor.xiaomi_aqara_tph_sensor_livingroom_tv_pressure"
+                  show:
+                    extrema: true
+                    average: true
+                    graph: false
+                  hour24: true
+                  hours_to_show: 24            
+
+    ##############
+    #  Bathroom  #
+    ##############
+    - type: "vertical-stack"
+      view_layout:
+        grid-area: "bathroom"
+      cards:
+        - type: "custom:button-card"
+          template: card_title
+          name: "Rez de chaussée - Salle de bains"
+        - type: "custom:swipe-card"
+          parameters:
+            spaceBetween: 8
+            pagination:
+              type: "bullets"
+          cards:
+            #TEMPERATURE
+            - type: "vertical-stack"
+              cards:
+                - type: "custom:mini-graph-card"
+                  entities:
+                    - "sensor.sonoff_th_sensor_bathroom_temperature"
+                  name: "Température (C°)"
+                  line_color: "var(--google-green)"   
+                  line_width: 8
+                  font_size: 75
+                  align_icon: "left"
+                  align_state: "center"
+                  hours_to_show: 48
+                  show:
+                    fill: true
+                - type: "custom:mini-graph-card"
+                  name: "Statistiques (24h)"
+                  icon: "mdi:thermometer-lines"
+                  entities:
+                    - entity: "sensor.sonoff_th_sensor_bathroom_temperature"
+                  show:
+                    extrema: true
+                    average: true
+                    graph: false
+                  hour24: true
+                  hours_to_show: 24
+            #HUMIDITY
+            - type: "vertical-stack"
+              cards:
+                - type: "custom:mini-graph-card"
+                  entities:
+                    - "sensor.sonoff_th_sensor_bathroom_humidity"
+                  name: "Humidité (%)"
+                  line_color: "var(--google-blue)"   
+                  line_width: 8
+                  font_size: 75
+                  align_icon: "left"
+                  align_state: "center"
+                  hours_to_show: 48
+                  show:
+                    fill: true
+                - type: "custom:mini-graph-card"
+                  name: "Statistiques (24h)"
+                  icon: "mdi:water-percent"
+                  entities:
+                    - entity: "sensor.sonoff_th_sensor_bathroom_humidity"
+                  show:
+                    extrema: true
+                    average: true
+                    graph: false
+                  hour24: true
+                  hours_to_show: 24
+
+    #############
+    #  Outdoor  #
+    #############
+    - type: "vertical-stack"
+      view_layout:
+        grid-area: "outdoor"
+      cards:
+        - type: "custom:button-card"
+          template: card_title
+          name: "Extérieur - Terrasse"
+        - type: "custom:swipe-card"
+          parameters:
+            spaceBetween: 8
+            pagination:
+              type: "bullets"
+          cards:
+            #TEMPERATURE
+            - type: "vertical-stack"
+              cards:
+                - type: "custom:mini-graph-card"
+                  entities:
+                    - "sensor.xiaomi_aqara_tph_sensor_terrasse_temperature"
+                  name: "Température (C°)"
+                  line_color: "var(--google-green)"   
+                  line_width: 8
+                  font_size: 75
+                  align_icon: "left"
+                  align_state: "center"
+                  hours_to_show: 48
+                  show:
+                    fill: true
+                - type: "custom:mini-graph-card"
+                  name: "Statistiques (24h)"
+                  icon: "mdi:thermometer-lines"
+                  entities:
+                    - entity: "sensor.xiaomi_aqara_tph_sensor_terrasse_temperature"
+                  show:
+                    extrema: true
+                    average: true
+                    graph: false
+                  hour24: true
+                  hours_to_show: 24
+            #HUMIDITY
+            - type: "vertical-stack"
+              cards:
+                - type: "custom:mini-graph-card"
+                  entities:
+                    - "sensor.xiaomi_aqara_tph_sensor_terrasse_humidity"
+                  name: "Humidité (%)"
+                  line_color: "var(--google-blue)"   
+                  line_width: 8
+                  font_size: 75
+                  align_icon: "left"
+                  align_state: "center"
+                  hours_to_show: 48
+                  show:
+                    fill: true
+                - type: "custom:mini-graph-card"
+                  name: "Statistiques (24h)"
+                  icon: "mdi:water-percent"
+                  entities:
+                    - entity: "sensor.xiaomi_aqara_tph_sensor_terrasse_humidity"
+                  show:
+                    extrema: true
+                    average: true
+                    graph: false
+                  hour24: true
+                  hours_to_show: 24
+            #PRESSION
+            - type: "vertical-stack"
+              cards:
+                - type: "custom:mini-graph-card"
+                  entities:
+                    - "sensor.xiaomi_aqara_tph_sensor_terrasse_pressure"
+                  name: "Pression atmosphérique (hPA)"
+                  line_color: "var(--google-violet)"   
+                  line_width: 4
+                  font_size: 75
+                  align_icon: "left"
+                  align_state: "center"
+                  hours_to_show: 48
+                  show:
+                    fill: true
+                - type: "custom:mini-graph-card"
+                  name: "Statistiques (24h)"
+                  icon: "mdi:gauge"
+                  entities:
+                    - entity: "sensor.xiaomi_aqara_tph_sensor_terrasse_pressure"
+                  show:
+                    extrema: true
+                    average: true
+                    graph: false
+                  hour24: true
+                  hours_to_show: 24
+
+    #################
+    #   1er étage   #
+    #################
+    - type: "vertical-stack"
+      view_layout:
+        grid-area: "baby_bedroom"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "1er étage - Pièce palière"
+        - type: "custom:swipe-card"
+          parameters:
+            spaceBetween: 8
+            pagination:
+              type: "bullets"
+          cards:
+            #TEMPERATURE
+            - type: "vertical-stack"
+              cards:
+                - type: "custom:mini-graph-card"
+                  entities:
+                    - "sensor.xiaomi_aqara_tph_sensor_firstfloor_landingroom_temperature"
+                  name: "Température (C°)"
+                  line_color: "var(--google-green)"   
+                  line_width: 8
+                  font_size: 75
+                  align_icon: "left"
+                  align_state: "center"
+                  hours_to_show: 48
+                  show:
+                    fill: true
+                - type: "custom:mini-graph-card"
+                  name: "Statistiques (24h)"
+                  icon: "mdi:thermometer-lines"
+                  entities:
+                    - entity: "sensor.xiaomi_aqara_tph_sensor_firstfloor_landingroom_temperature"
+                  show:
+                    extrema: true
+                    average: true
+                    graph: false
+                  hour24: true
+                  hours_to_show: 24
+            #HUMIDITY
+            - type: "vertical-stack"
+              cards:
+                - type: "custom:mini-graph-card"
+                  entities:
+                    - "sensor.xiaomi_aqara_tph_sensor_firstfloor_landingroom_humidity"
+                  name: "Humidité (%)"
+                  line_color: "var(--google-blue)"   
+                  line_width: 8
+                  font_size: 75
+                  align_icon: "left"
+                  align_state: "center"
+                  hours_to_show: 48
+                  show:
+                    fill: true
+                - type: "custom:mini-graph-card"
+                  name: "Statistiques (24h)"
+                  icon: "mdi:water-percent"
+                  entities:
+                    - entity: "sensor.xiaomi_aqara_tph_sensor_firstfloor_landingroom_humidity"
+                  show:
+                    extrema: true
+                    average: true
+                    graph: false
+                  hour24: true
+                  hours_to_show: 24
+            #PRESSION
+            - type: "vertical-stack"
+              cards:
+                - type: "custom:mini-graph-card"
+                  entities:
+                    - "sensor.xiaomi_aqara_tph_sensor_firstfloor_landingroom_pressure"
+                  name: "Pression atmosphérique (hPA)"
+                  line_color: "var(--google-violet)"   
+                  line_width: 4
+                  font_size: 75
+                  align_icon: "left"
+                  align_state: "center"
+                  hours_to_show: 48
+                  show:
+                    fill: true
+                - type: "custom:mini-graph-card"
+                  name: "Statistiques (24h)"
+                  icon: "mdi:gauge"
+                  entities:
+                    - entity: "sensor.xiaomi_aqara_tph_sensor_firstfloor_landingroom_pressure"
+                  show:
+                    extrema: true
+                    average: true
+                    graph: false
+                  hour24: true
+                  hours_to_show: 24
+
+    #################
+    #  Chickencoop  #
+    #################
+    # - type: "vertical-stack"
+    #   view_layout:
+    #     grid-area: "chickencoop"
+    #   cards:
+    #     - type: "custom:button-card"
+    #       template: "card_title"
+    #       name: "Poulailler"
+    #     - type: "custom:swipe-card"
+    #       parameters:
+    #         spaceBetween: 8
+    #         pagination:
+    #           type: "bullets"
+    #       cards:
+    #         #TEMPERATURE
+    #         - type: "vertical-stack"
+    #           cards:
+    #             - type: "custom:mini-graph-card"
+    #               entities:
+    #                 - "sensor.sonoff_th_sensor_chickencoop_temperature"
+    #               name: "Température (C°)"
+    #               line_color: "var(--google-green)"   
+    #               line_width: 8
+    #               font_size: 75
+    #               align_icon: "left"
+    #               align_state: "center"
+    #               hours_to_show: 48
+    #               show:
+    #                 fill: true
+    #             - type: "custom:mini-graph-card"
+    #               name: "Statistiques (24h)"
+    #               icon: "mdi:thermometer-lines"
+    #               entities:
+    #                 - entity: "sensor.sonoff_th_sensor_chickencoop_temperature"
+    #               show:
+    #                 extrema: true
+    #                 average: true
+    #                 graph: false
+    #               hour24: true
+    #               hours_to_show: 24
+    #         #HUMIDITY
+    #         - type: "vertical-stack"
+    #           cards:
+    #             - type: "custom:mini-graph-card"
+    #               entities:
+    #                 - "sensor.sonoff_th_sensor_chickencoop_humidity"
+    #               name: "Humidité (%)"
+    #               line_color: "var(--google-blue)"   
+    #               line_width: 8
+    #               font_size: 75
+    #               align_icon: "left"
+    #               align_state: "center"
+    #               hours_to_show: 48
+    #               show:
+    #                 fill: true
+    #             - type: "custom:mini-graph-card"
+    #               name: "Statistiques (24h)"
+    #               icon: "mdi:water-percent"
+    #               entities:
+    #                 - entity: "sensor.sonoff_th_sensor_chickencoop_humidity"
+    #               show:
+    #                 extrema: true
+    #                 average: true
+    #                 graph: false
+    #               hour24: true
+    #               hours_to_show: 24
+        
+    #################
+    # Swimming Pool #
+    #################
+    - type: "vertical-stack"
+      view_layout:
+        grid-area: "swimmingpool"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Piscine"
+        - type: "custom:swipe-card"
+          parameters:
+            spaceBetween: 8
+            pagination:
+              type: "bullets"
+          cards:
+            #TEMPERATURE
+            - type: "vertical-stack"
+              cards:
+                - type: "custom:mini-graph-card"
+                  entities:
+                    - "sensor.owon_temperature_sensor_swimmingpool_temperature"
+                  name: "Température (C°)"
+                  line_color: "var(--google-blue)"   
+                  line_width: 8
+                  font_size: 75
+                  align_icon: "left"
+                  align_state: "center"
+                  hours_to_show: 48
+                  show:
+                    fill: true
+                - type: "custom:mini-graph-card"
+                  name: "Statistiques (24h)"
+                  icon: "mdi:thermometer-lines"
+                  entities:
+                    - entity: "sensor.owon_temperature_sensor_swimmingpool_temperature"
+                  show:
+                    extrema: true
+                    average: true
+                    graph: false
+                  hour24: true
+                  hours_to_show: 24

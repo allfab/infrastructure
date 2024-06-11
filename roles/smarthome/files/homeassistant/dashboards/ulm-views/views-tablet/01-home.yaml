@@ -1,0 +1,831 @@
+---
+- title: "Dashboard"
+  path: "dashboard"
+  icon: "mdi:home-variant"
+  type: "custom:grid-layout"
+  layout:
+    grid-template-columns: 0.35em 5em repeat(3, 3fr) 0.35em
+    grid-template-rows: 5em 24em 26.5em 0.35em
+    grid-gap: 0.35em
+    grid-template-areas: |
+      ". . device_chips chips clock ."
+      ". left_sidebar welcome home outside ."
+      ". left_sidebar energy_tempo home outside ."
+      ". . . . . ."
+  cards:
+    ##################
+    #  LEFT SIDEBAR  #
+    ##################
+    - type: "grid"
+      columns: 1
+      square: true
+      view_layout:
+        grid-area: "left_sidebar"
+      cards:
+        # Home
+        # - type: "custom:button-card"
+        #   icon: "mdi:home"
+        #   aspect_ratio: "1/1"
+        #   tap_action:
+        #     action: "navigate"
+        #     navigation_path: "/lovelace-tablet"
+        # Lights
+        - type: "custom:button-card"
+          icon: "mdi:lightbulb-group"
+          aspect_ratio: "1/1"
+          tap_action: 
+            action: "navigate"
+            navigation_path: "/lovelace-tablet/lights"
+        # Climate
+        - type: "custom:button-card"
+          icon: "mdi:home-thermometer"
+          aspect_ratio: "1/1"
+          tap_action: 
+            action: "navigate"
+            navigation_path: "/lovelace-tablet/climate"
+        # Volets roulants
+        - type: "custom:button-card"
+          icon: "mdi:roller-shade"
+          aspect_ratio: "1/1"
+          tap_action: 
+            action: "navigate"
+            navigation_path: "/lovelace-tablet/roller-shade"
+        # - type: "custom:button-card"
+        #   icon: "mdi:lightbulb-group"
+        #   aspect_ratio: "1/1"
+        #   tap_action:
+        #     action: "call-service"
+        #     service: "script.popup_lights_management"
+        #     #service: "script.popup_light"            
+        #     service_data:
+        #       title: "Gestion de l'éclairage"
+        #       size: "wide"
+        # Power Outlets
+        # - type: "custom:button-card"
+        #   icon: "mdi:power-plug"
+        #   aspect_ratio: "1/1"
+        #   tap_action:
+        #     action: "call-service"
+        #     service: "script.power_outlets_management"
+        #     service_data:
+        #       title: "Prises électriques"
+        #       size: "normal"
+        # Rooms
+        - type: "custom:button-card"
+          icon: "mdi:sofa"
+          aspect_ratio: "1/1"
+          tap_action: 
+            action: "navigate"
+            navigation_path: "/lovelace-tablet/rooms"
+        # Heater
+        - type: "custom:button-card"
+          icon: "mdi:heating-coil"
+          aspect_ratio: "1/1"
+          tap_action:
+            action: "navigate"
+            navigation_path: "/lovelace-tablet/heater"
+        # iRobot
+        - type: "custom:button-card"
+          icon: "mdi:robot-vacuum"
+          aspect_ratio: "1/1"
+          tap_action: 
+            action: "navigate"
+            navigation_path: "/lovelace-tablet/vacuum"
+        # Energy
+        - type: "custom:button-card"
+          icon: "mdi:lightning-bolt"
+          aspect_ratio: "1/1"
+          tap_action: 
+            action: "navigate"
+            navigation_path: "/lovelace-tablet/energy"
+        # Sonos
+        - type: "custom:button-card"
+          icon: "mdi:music-box"
+          aspect_ratio: "1/1"
+          tap_action:
+            action: "call-service"
+            service: "script.popup_sonos"
+            service_data:
+              title: "Music Assistant"
+              size: "normal"
+
+    ####################
+    #   Tab Chips   #
+    ####################
+    - type: "vertical-stack"
+      view_layout:
+        grid-area: "device_chips"
+      cards:
+        - type: "custom:button-card"
+          color_type: "blank-card"
+        - type: "horizontal-stack"
+          cards:  
+            - type: "custom:button-card"
+              color_type: "blank-card"
+            - type: "custom:button-card"
+              template: "chip_icon_state"
+              variables:
+                ulm_chip_icon_state_icon: "🔋"
+                ulm_chip_icon_state_entity: "sensor.galaxy_tab_a8_battery"
+                ulm_card_battery_charging_animation: true
+            - type: "custom:button-card"
+              color_type: "blank-card"
+        - type: "custom:button-card"
+          color_type: "blank-card"
+
+    ####################
+    #   Header Chips   #
+    ####################
+    - type: "vertical-stack"
+      view_layout:
+        grid-area: "chips"
+      cards:
+        - type: "custom:button-card"
+          color_type: "blank-card"
+        - type: "horizontal-stack"
+          cards:  
+            - type: "custom:button-card"
+              color_type: "blank-card"
+            - type: "custom:button-card"
+              template: "chip_presence_detection"
+              variables:
+                ulm_chip_presence_counter_residents: "sensor.people_home"
+            - type: "custom:button-card"
+              template: "chips"
+              label: |
+                [[[   
+                  if (states['binary_sensor.rte_tempo_heures_creuses'].state == "off") {
+                    return "⚡💶 Heures pleines";
+                  } else {
+                    return "⚡💰 Heures creuses";
+                  }
+                ]]]
+            - type: "custom:button-card"
+              template: "chip_temperature"
+              variables:
+                ulm_chip_temperature_inside: "sensor.xiaomi_aqara_tph_sensor_livingroom_tv_temperature"
+                ulm_chip_temperature_outside: "sensor.xiaomi_aqara_tph_sensor_terrasse_temperature"
+                ulm_chip_temperature_weather: "weather.forecast_home"
+              tap_action:
+                action: "navigate"
+                navigation_path: "/lovelace-tablet/climate"
+            - type: "custom:button-card"
+              label: ""
+              icon: "mdi:battery"
+              show_icon: true
+              show_label: true
+              styles:
+                label:
+                  - justify-self: "center"
+                  - padding: "0px 6px"
+                  - font-weight: "bold"
+                  - font-size: "12px"
+                img_cell:
+                  - width: "24px"
+                grid:
+                  - grid-template-areas: "'i l'"
+                icon:
+                    - color: "mdi:battery"
+                card:
+                  - border-radius: "18px"
+                  - box-shadow: "var(--box-shadow)"
+                  - height: "36px"
+                  - width: "auto"
+                  - padding-left: "6px"
+                  - padding-right: "6px"
+              size: "100%"
+              tap_action:
+                action: "call-service"
+                service: "script.popup_battery"
+                service_data:
+                  title: "Niveau des piles"
+                  size: "wide"
+            - type: "custom:button-card"
+              color_type: "blank-card"
+        - type: "custom:button-card"
+          color_type: "blank-card"
+
+    #############
+    #   Clock   #
+    #############
+    - type: "custom:button-card"
+      view_layout:
+        grid-area: "clock"
+      styles:
+        label:
+          - justify-self: "right"
+        name:
+          - justify-self: "right"
+        card:
+          - margin-right: "10em"
+      template: "custom_card_nik_clock"
+      variables:
+        ulm_custom_card_nik_clock_switch_enable: false
+
+    ###############
+    #   Welcome   #
+    ###############
+    - type: "custom:stack-in-card"
+      view_layout:
+        grid-area: "welcome"
+      card_mod:
+        style: |
+          ha-card {
+            font-weight: bold;
+            height: 100% !important;
+          }
+          card-header {
+            text-align: center;
+          }
+      mode: "vertical"
+      cards:
+        - type: "custom:button-card"
+          template: "allfab_card_welcome_popup"
+          styles:
+            card:
+              - height: "100%"
+          #triggers_update: "input_boolean.welcome_scenes_collapse"
+          variables:
+            #ulm_card_allfab_welcome_collapse: "input_boolean.welcome_scenes_collapse"
+            ulm_weather: "weather.forecast_home"
+            entity_1:
+              nav: "tv"
+              script: "script.scene_tv"
+              icon: "mdi:television"
+              name: "TV"
+              color: "blue"
+              popup_size: "wide"
+            entity_2:
+              nav: "active_home"
+              script: "script.scene_active_home"
+              icon: "mdi:lamps"
+              name: "Actif"
+              color: "yellow"
+              popup_size: "wide"
+            entity_3:
+              nav: "reception"
+              script: "script.scene_reception"
+              icon: "mdi:account-group"
+              name: "Réception"
+              color: "red"
+              popup_size: "normal"
+            entity_4:
+              nav: "dodo"
+              script: "script.scene_dodo"
+              icon: "mdi:weather-night"
+              name: "Dodo"
+              color: "yellow"
+              popup_size: "normal"
+            entity_5:
+              nav: "dodo"
+              script: "script.scene_dodo_incognito"
+              icon: "mdi:incognito"
+              name: "Dodo"
+              color: "purple"
+              popup_size: "normal"
+        - type: "custom:button-card"
+          template: "card_scenes"
+          variables:
+            entity_1:
+              entity_id: "script.tts_leonie_pyjama"
+              icon: "mdi:weather-night"
+              icon_color: "blue"
+              name: "Pyjama"
+              bg_color: "blue"
+              popup_size: "normal"
+            entity_2:
+              entity_id: "script.tts_leonie_eat"
+              icon: "mdi:silverware-fork-knife"
+              icon_color: "red"
+              name: "À table !"
+              bg_color: "red"
+            entity_3:
+              entity_id: "script.scene_baby"
+              icon: "mdi:baby-bottle"
+              icon_color: "red"
+              name: "Bébé"
+              bg_color: "red"
+            entity_4:
+              entity_id: "script.scene_puzzle"
+              icon: "mdi:puzzle"
+              icon_color: "yellow"
+              name: "Puzzle"
+              bg_color: "yellow"
+            entity_5:
+              entity_id: "script.scene_chickencoop"
+              icon: "mdi:food-drumstick"
+              icon_color: "green"
+              name: "Poulailler"
+              bg_color: "green"
+              popup_size: "normal"
+
+    ##################
+    #      Home      #
+    ##################
+    - type: "custom:stack-in-card"
+      view_layout:
+        grid-area: "home"
+      card_mod:
+        style: |
+          ha-card {
+            font-weight: bold;
+            height: 100% !important;
+          }
+      mode: "vertical"
+      cards:
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Maison 🏡"
+          label: "Qui est à la maison ?"
+        - type: "horizontal-stack"
+          cards:
+            - type: "custom:button-card"
+              template: "allfab_card_person"
+              entity: "person.fabien_allamanche"
+              icon: "mdi:face-man"
+              variables:
+                ulm_card_person_entity: "person.fabien_allamanche"
+                ulm_card_person_use_entity_picture: true
+                ulm_card_person_zone1: "zone.home"
+                ulm_card_person_zone2: "zone.work"
+                ulm_card_person_battery: "sensor.oneplus_a5000_battery_level"
+            - type: "custom:button-card"
+              template: "allfab_card_person"
+              entity: "person.blandine_vincent"
+              icon: "mdi:face-woman"
+              variables:
+                ulm_card_person_entity: "person.blandine_vincent"
+                ulm_card_person_use_entity_picture: true
+                ulm_card_person_zone1: "zone.home"
+                ulm_card_person_zone2: "zone.work"
+                ulm_card_person_battery: "sensor.cph2399_battery_level"
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Prise(s)"
+        - type: "grid"
+          columns: 1
+          square: false
+          cards:
+            - type: "tile"
+              entity: "switch.xiaomi_aqara_smartplug_livingroom_tv"
+              color: "red"
+              show_entity_picture: false
+              vertical: false
+        - type: "custom:button-card"
+          template: "card_title"
+          name: "Volets roulants"
+        - type: "grid"
+          columns: 1
+          square: false
+          cards:
+            - type: "tile"
+              entity: "cover.nodon_roller_shutter_switch_sin4rs20_etage"
+              name: "Rez de chaussée"
+              icon: "mdi:roller-shade"
+              color: "deep-purple"
+              show_entity_picture: false
+              vertical: false
+              hide_state: false
+              features:
+                - type: "cover-open-close"
+                - type: "cover-position"   
+            - type: "tile"
+              entity: "cover.nodon_roller_shutter_switch_sin4rs20_etage"
+              name: "1er étage"
+              icon: "mdi:roller-shade"
+              color: "deep-purple"
+              show_entity_picture: false
+              vertical: false
+              hide_state: false
+              features:
+                - type: "cover-open-close"
+                - type: "cover-position"          
+            # - type: "tile"
+            #   entity: "cover.nodon_roller_shutter_switch_sin4rs20_landing_room"
+            #   name: "Palier"
+            #   icon: "mdi:roller-shade"
+            #   color: "deep-purple"
+            #   show_entity_picture: false
+            #   vertical: false
+            #   hide_state: false
+            #   features:
+            #     - type: "cover-open-close"
+            #     - type: "cover-position"
+            # - type: "tile"
+            #   entity: "cover.nodon_roller_shutter_switch_sin4rs20_bedroom_south"
+            #   name: "Chambre Sud"
+            #   icon: "mdi:roller-shade"
+            #   color: "deep-purple"
+            #   show_entity_picture: false
+            #   vertical: false
+            #   hide_state: false
+            #   features:
+            #     - type: "cover-open-close"
+            #     - type: "cover-position"
+            # - type: "tile"
+            #   entity: "cover.nodon_roller_shutter_switch_sin4rs20_bedroom_north"
+            #   name: "Chambre Nord"
+            #   icon: "mdi:roller-shade"
+            #   color: "deep-purple"
+            #   show_entity_picture: false
+            #   vertical: false
+            #   hide_state: false
+            #   features:
+            #     - type: "cover-open-close"
+            #     - type: "cover-position"
+        # - type: "custom:button-card"
+        #   template: "card_title"
+        #   label: "Media Center"
+        # - type: "grid"
+        #   columns: 3
+        #   square: false
+        #   cards:
+        #     - type: "custom:button-card"
+        #       color_type: "blank-card"
+        #     - type: "custom:button-card"
+        #       template: "card_script"
+        #       variables:
+        #         ulm_card_script_title: "Sonos"
+        #         ulm_card_script_icon: "mdi:music-box"
+        #       tap_action:
+        #         action: "call-service"
+        #         service: "script.popup_sonos"
+        #         service_data:
+        #           title: "Music Assistant"
+        #           size: "normal"
+        #     - type: "custom:button-card"
+        #       color_type: "blank-card"
+   
+    ###############
+    #    METEO    #
+    ###############
+    # - type: "custom:stack-in-card"
+    #   view_layout:
+    #       grid-area: "outside"
+    #   mode: "vertical"
+    #   card_mod:
+    #     style: |
+    #       ha-card {
+    #         font-weight: bold;
+    #         height: 100% !important;
+    #       }
+    #   cards:
+    #     - type: "horizontal-stack"
+    #       cards:
+    #         - type: "custom:button-card"
+    #           color_type: "blank-card"
+    #         - type: "custom:button-card"
+    #           template: "chip_temperature"
+    #           variables:
+    #             ulm_chip_temperature_inside: "sensor.xiaomi_aqara_tph_sensor_livingroom_tv_temperature"
+    #             ulm_chip_temperature_outside: "sensor.xiaomi_aqara_tph_sensor_terrasse_temperature"
+    #             ulm_chip_temperature_weather: "weather.forecast_home"
+    #           tap_action:
+    #             action: "navigate"
+    #             navigation_path: "/lovelace-tablet/climate"
+    #         - type: "custom:button-card"
+    #           color_type: "blank-card"
+    #     - type: "vertical-stack"
+    #       cards:
+    #         - type: "weather-forecast"
+    #           show_current: true
+    #           show_forecast: true
+    #           entity: "weather.forecast_home"
+
+    ###############
+    #  EDF TEMPO  #
+    ###############
+    - type: "custom:stack-in-card"
+      view_layout:
+        grid-area: "energy_tempo"
+      card_mod:
+        style: |
+          ha-card {
+            font-weight: bold;
+            height: 100% !important;
+          } 
+      cards:
+        - type: "vertical-stack"
+          cards:
+            - type: "custom:button-card"
+              template: "card_title"
+              name: "Mon Tempo ⚡"
+            - type: "grid"
+              columns: 2
+              square: false
+              cards:
+                - type: "tile"
+                  entity: "sensor.rte_tempo_couleur_actuelle_visuel"
+                  name: "Aujourd'hui"
+                  icon: "mdi:calendar-today"
+                  card_mod:
+                    style: |
+                      .tile {
+                        {% if states.sensor['rte_tempo_couleur_actuelle'].state == 'Bleu' %}
+                          --tile-color: var(--blue-color);
+                        {% elif states.sensor['rte_tempo_couleur_actuelle'].state == 'Blanc' %}
+                          --tile-color: var(--white-color);
+                        {% elif states.sensor['rte_tempo_couleur_actuelle'].state == 'Rouge' %}  
+                          --tile-color: var(--red-color);;
+                        {% else %}  
+                          --tile-color: var(--disabled-color);;
+                        {% endif %}
+                      }
+                  tap_action:
+                    action: "call-service"
+                    service: "script.popup_myelectricaldata"
+                    service_data:
+                      title: "MyElectricalData"
+                      size: "normal"
+                  icon_tap_action:
+                    action: "call-service"
+                    service: "script.popup_myelectricaldata"
+                    service_data:
+                      title: "MyElectricalData"
+                      size: "normal"
+                - type: "tile"
+                  entity: "sensor.rte_tempo_prochaine_couleur_visuel"
+                  name: "Demain"
+                  icon: "mdi:calendar-today-outline"
+                  card_mod:
+                    style: |
+                      .tile {
+                        {% if states.sensor['rte_tempo_prochaine_couleur'].state == 'Bleu' %}
+                          --tile-color: var(--blue-color);
+                        {% elif states.sensor['rte_tempo_prochaine_couleur'].state == 'Blanc' %}
+                          --tile-color: var(--white-color);
+                        {% elif states.sensor['rte_tempo_prochaine_couleur'].state == 'Rouge' %}  
+                          --tile-color: var(--red-color);;
+                        {% else %}  
+                          --tile-color: var(--disabled-color);;
+                        {% endif %}
+                      }
+                  tap_action:
+                    action: "call-service"
+                    service: "script.popup_myelectricaldata"
+                    service_data:
+                      title: "MyElectricalData"
+                      size: "normal"
+                  icon_tap_action:
+                    action: "call-service"
+                    service: "script.popup_myelectricaldata"
+                    service_data:
+                      title: "MyElectricalData"
+                      size: "normal"
+            - type: "custom:button-card"
+              template: "card_title"
+              label: "Jours restants"
+              # label: "Du 1er septembre 2023 au 31 août 2024"
+            - type: "grid"
+              columns: 3
+              square: false
+              cards:
+                - type: "tile"
+                  entity: "sensor.rte_tempo_cycle_jours_restants_bleu"
+                  name: "Bleu"
+                  color: "blue"
+                  tap_action:
+                    action: "none"
+                  icon_tap_action:
+                    action: "none"
+                - type: "tile"
+                  entity: "sensor.rte_tempo_cycle_jours_restants_blanc"
+                  name: "Blanc"
+                  color: "white"
+                  tap_action:
+                    action: "none"
+                  icon_tap_action:
+                    action: "none"
+                - type: "tile"
+                  entity: "sensor.rte_tempo_cycle_jours_restants_rouge"
+                  name: "Rouge"
+                  color: "red"
+                  tap_action:
+                    action: "none"
+                  icon_tap_action:
+                    action: "none"
+            - type: "custom:button-card"
+              template: "card_title"
+              label: "Tarifs"
+              #label: "Du 1er septembre 2023 au 31 août 2024"
+            - type: "grid"
+              columns: 2
+              square: false
+              cards:
+                - type: "tile"
+                  entity: "sensor.edf_tempo_prix_actuel"
+                  name: "Actuel"
+                  card_mod:
+                    style: |
+                      .tile {
+                        {% if states("sensor.edf_tempo_prix_actuel")|float > states("sensor.edf_tempo_prochain_prix")|float  %}
+                          --tile-color: var(--red-color);
+                        {% else %}
+                          --tile-color: var(--green-color);
+                        {% endif %}
+                      }
+                  tap_action:
+                    action: "none"
+                  icon_tap_action:
+                    action: "none"
+                - type: "tile"
+                  entity: "sensor.edf_tempo_prochain_prix"
+                  name: "Suivant"
+                  # color: "green"
+                  card_mod:
+                    style: |
+                      .tile {
+                        {% if states("sensor.edf_tempo_prochain_prix")|float < states("sensor.edf_tempo_prix_actuel")|float  %}
+                          --tile-color: var(--green-color);
+                        {% else %}
+                          --tile-color: var(--red-color);
+                        {% endif %}
+                      }
+                  tap_action:
+                    action: "none"
+                  icon_tap_action:
+                    action: "none"
+
+    ###############
+    # ALARMCLOCK  #
+    ###############
+    # - type: "custom:stack-in-card"
+    #   view_layout:
+    #     grid-area: "alarmclock"
+    #   card_mod:
+    #     style: |
+    #       ha-card {
+    #         font-weight: bold;
+    #         height: 100% !important;
+    #       } 
+    #   cards:
+    #     - type: "vertical-stack"
+    #       cards:
+    #         - type: "custom:button-card"
+    #           template: "card_title"
+    #           name: "Réveil-matin ⏰"
+    #           label: "Tamisage/Simulation de l'aube"
+    #         - type: "grid"
+    #           columns: 2
+    #           square: false
+    #           cards:
+    #             - type: "tile"
+    #               entity: "input_boolean.bedroom_awakening_lights_weekdays_scene"
+    #               name: "Chevet droit"
+    #               color: "deep-orange"
+    #               tap_action:
+    #                 action: "toggle"
+    #               icon_tap_action:
+    #                 action: "toggle"
+    #             - type: "tile"
+    #               entity: "input_boolean.hallway_awakening_lights_weekdays_scene"
+    #               name: "Hall d'entrée"
+    #               color: "deep-orange"
+    #               tap_action:
+    #                 action: "toggle"
+    #               icon_tap_action:
+    #                 action: "toggle"
+    #         - type: "custom:button-card"
+    #           template: "card_title"
+    #           label: "Annonce / Heure de réveil"
+    #         - type: "grid"
+    #           columns: 2
+    #           square: false
+    #           cards:
+    #             - type: "tile"
+    #               entity: "input_boolean.bedroom_awakening_tts_weekdays_scene"
+    #               name: "Annonce"
+    #               color: "teal"
+    #               tap_action:
+    #                 action: "toggle"
+    #               icon_tap_action:
+    #                 action: "toggle"
+    #             - type: "tile"
+    #               entity: "input_datetime.bedroom_awake_sunrise_simulation_starttime"
+    #               name: "Heures de début/fin"
+    #               color: "teal"
+    #               tap_action:
+    #                 action: "call-service"
+    #                 service: "script.popup_alarmclock"
+    #                 data:
+    #                   title: "Réveil-matin"
+    #                   size: "normal"
+    #               icon_tap_action:
+    #                 action: "call-service"
+    #                 service: "script.popup_alarmclock"
+    #                 data:
+    #                   title: "Réveil-matin"
+    #                   size: "normal"
+            
+    ##################
+    #     OUTSIDE    #
+    ##################
+    - type: "custom:stack-in-card"
+      view_layout:
+        grid-area: "outside"
+      card_mod:
+        style: |
+          ha-card {
+            font-weight: bold;
+            height: 100% !important;
+          }
+      cards:
+        - type: "vertical-stack"
+          cards:
+            - type: "horizontal-stack"
+              cards:
+                - type: "custom:button-card"
+                  color_type: "blank-card"
+                - type: "custom:button-card"
+                  template: "chip_temperature"
+                  variables:
+                    ulm_chip_temperature_inside: "sensor.xiaomi_aqara_tph_sensor_livingroom_tv_temperature"
+                    ulm_chip_temperature_outside: "sensor.xiaomi_aqara_tph_sensor_terrasse_temperature"
+                    ulm_chip_temperature_weather: "weather.forecast_home"
+                  tap_action:
+                    action: "navigate"
+                    navigation_path: "/lovelace-tablet/climate"
+                - type: "custom:button-card"
+                  color_type: "blank-card"
+
+            - type: "vertical-stack"
+              cards:
+                - type: "weather-forecast"
+                  show_current: true
+                  show_forecast: true
+                  entity: "weather.forecast_home"
+                - type: "custom:button-card"
+                  template: "card_title"
+                  name: "Capteurs"
+                - type: "grid"
+                  columns: 2
+                  square: false
+                  cards:
+                    - type: "tile"
+                      entity: "binary_sensor.xiaomi_aqara_doorwindow_sensor_portal_contact"
+                      color: "light-green"
+                      name: "Portail"
+                      icon: "mdi:gate"
+                    - type: "tile"
+                      entity: "binary_sensor.xiaomi_aqara_doorwindow_sensor_garage_contact"
+                      color: "blue-grey"
+                      show_entity_picture: false
+                      vertical: false
+                      name: "Porte du garage"
+                      icon: "mdi:garage-variant-lock"
+
+                - type: "custom:button-card"
+                  template: "card_title"
+                  name: "Poulailler 🐔"
+                  #label: "Ensoleillement/Éclairage"
+                - type: "grid"
+                  columns: 2
+                  square: false
+                  cards:
+                    - type: "tile"
+                      entity: "sun.sun"
+                      icon: "mdi:sun-angle"
+                      color: "white"
+                      tap_action:
+                        action: "call-service"
+                        service: "script.popup_sun_angle"
+                        data:
+                          title: "Carte du soleil"
+                          size: "normal"
+                      icon_tap_action:
+                        action: "call-service"
+                        service: "script.popup_sun_angle"
+                        data:
+                          title: "Carte du soleil"
+                          size: "normal"
+                    - type: "tile"
+                      entity: "light.ikea_tradfri_bulb_chickencoop"
+                      color: "amber"
+                      vertical: false
+                      name: "Éclairage"
+                      # features:
+                      #   - type: light-brightness
+                      #   - type: light-color-temp
+            
+                - type: "custom:button-card"
+                  template: "card_title"
+                  name: "Cour 🚗"
+                  #label: "Température"
+                - type: "custom:button-card"
+                  template: "card_light"
+                  entity: "switch.sonoff_smart_switch_module_garage"
+                  variables:
+                    ulm_card_light_name: "Éclairage extérieur<br/>Côté cour"
+                    ulm_card_light_icon: "mdi:light-flood-down"
+                    ulm_card_light_enable_slider: false
+                    ulm_card_light_enable_color: false
+                    ulm_card_light_force_background_color: true
+
+                - type: "custom:button-card"
+                  template: "card_title"
+                  name: "Piscine 🏊🏻"
+                  #label: "Température"
+                - type: "tile"
+                  entity: "sensor.owon_temperature_sensor_swimmingpool_temperature"
+                  icon: "mdi:pool-thermometer"
+                  color: "light-blue"

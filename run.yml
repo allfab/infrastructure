@@ -1,0 +1,133 @@
+---
+- hosts: all
+  tags: timezone
+  vars_files:
+    - vars/vault.yml
+  tasks:
+    - name: DÉFINITION DU FUSEAU HORAIRE
+      community.general.timezone:
+        name: "{{ timezone }}"
+  
+- hosts: pve
+  tags: config
+  vars_files:
+    - vars/vault.yml
+  roles:
+    - role: pve/community-repo
+      tags: pve-community-repo
+    - role: pve/fake-subscription
+      tags: pve-fake-subscription
+    - role: pve/wake-on-lan
+      tags: pve-wol
+    - role: config/users
+      tags: pve-users
+    - role: config/bash-aliases
+      tags: pve-alias
+    - role: grog.package
+      tags: pve-package
+    - role: install/zellij
+      tags: install-zellij
+    - role: install/motd
+      tags: pve-motd
+
+- hosts: morpheus
+  tags: setup
+  vars_files:
+    - vars/vault.yml
+  roles:
+    - role: morpheus
+      tags: morpheus-setup
+    - role: config/bash-aliases
+      tags: morpheus-alias
+    - role: grog.package
+      tags: morpheus-package
+    - role: install/mergerfs
+      tags: morpheus-mergerfs
+    - role: install/snapraid
+      tags: morpheus-snapraid
+
+- hosts: frontend
+  tags: setup
+  vars_files:
+    - vars/vault.yml
+  pre_tasks:
+    - name: MISE À JOUR SYSTÈME
+      apt:
+        update_cache: true
+        upgrade: true
+        cache_valid_time: 14400
+  roles:
+    - grog.package
+    - config/users
+    - config/bash-aliases
+    - install/motd    
+    - geerlingguy.docker
+    - frontend
+
+- hosts: elephant
+  tags: setup
+  vars_files:
+    - vars/vault.yml
+  pre_tasks:
+    - name: MISE À JOUR SYSTÈME
+      apt:
+        update_cache: true
+        upgrade: true
+        cache_valid_time: 14400
+  roles:
+    - grog.package
+    - config/users
+    - config/bash-aliases
+    - install/motd
+    - install/postgresql
+
+- hosts: smarthome
+  tags: setup
+  vars_files:
+    - vars/vault.yml
+  pre_tasks:
+    - name: MISE À JOUR SYSTÈME
+      apt:
+        update_cache: true
+        upgrade: true
+        cache_valid_time: 14400
+  roles:
+    - grog.package
+    - config/users
+    - config/bash-aliases
+    - install/motd
+    - geerlingguy.docker
+    - smarthome
+
+- hosts: jellyfin
+  tags: setup
+  vars_files:
+    - vars/vault.yml
+  pre_tasks:
+    - name: MISE À JOUR SYSTÈME
+      apt:
+        update_cache: true
+        upgrade: true
+        cache_valid_time: 14400
+  roles:
+    - grog.package
+    - install/motd
+    - jellyfin
+
+- hosts: webapps
+  tags: setup
+  vars_files:
+    - vars/vault.yml
+  pre_tasks:
+    - name: MISE À JOUR SYSTÈME
+      apt:
+        update_cache: true
+        upgrade: true
+        cache_valid_time: 14400
+  roles:
+    # - grog.package
+    # - config/users
+    # - config/bash-aliases
+    # - install/motd
+    # - geerlingguy.docker
+    - webapps

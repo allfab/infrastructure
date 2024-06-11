@@ -1,0 +1,27 @@
+---
+type: "custom:button-card"
+template:
+  - "card_room"
+  - "blue_no_state"
+name: "Salle de bains"
+entity: "sensor.sonoff_th_sensor_bathroom_temperature"
+icon: "mdi:shower-head"
+label: '[[[ return states["sensor.sonoff_th_sensor_bathroom_temperature"].state + " °C / " + states["sensor.sonoff_th_sensor_bathroom_humidity"].state + " %" ]]]'
+tap_action:
+  action: "navigate"
+  navigation_path: "/lovelace/room-bathroom"
+variables:
+  label_use_temperature: true
+  label_use_brightness: false
+  entity_3:
+    entity_id: "sensor.sonoff_th_sensor_bathroom_temperature"
+    templates:
+      - "green_on"
+    tap_action:
+      action: "more-info"
+  entity_4:
+    entity_id: "sensor.sonoff_th_sensor_bathroom_humidity"
+    templates:
+      - "blue_on"
+    tap_action:
+      action: "more-info"

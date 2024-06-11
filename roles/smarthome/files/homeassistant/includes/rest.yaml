@@ -1,0 +1,16 @@
+- resource_template: https://particulier.edf.fr/services/rest/referentiel/searchTempoStore?dateRelevant={{now().strftime("%Y-%m-%d")}}
+  scan_interval: 3600
+  sensor:
+    - name: "EDF Tempo Demain"
+      value_template: "{{ value_json.couleurJourJ1 }}"
+    - name: "EDF Tempo Aujourd'hui"
+      value_template: "{{ value_json.couleurJourJ }}"
+- resource: https://particulier.edf.fr/services/rest/referentiel/getNbTempoDays?TypeAlerte=TEMPO
+  scan_interval: 3600
+  sensor:
+    - name: "EDF Tempo Jours Rouge restants"
+      value_template: "{{ value_json.PARAM_NB_J_ROUGE }}"
+    - name: "EDF Tempo Jours Blanc restants"
+      value_template: "{{ value_json.PARAM_NB_J_BLANC }}"
+    - name: "EDF Tempo Jours Bleu restants"
+      value_template: "{{ value_json.PARAM_NB_J_BLEU }}"

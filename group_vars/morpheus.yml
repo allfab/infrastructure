@@ -1,0 +1,431 @@
+---
+wol_network_interface_name: enp2s0
+intel_jasper_lake_or_elkhart_lake_processor: false
+
+# grog.package
+package_list:
+  - name: bash-completion
+  - name: ca-certificates
+  - name: cifs-utils
+  - name: curl
+  - name: dnsutils
+  - name: duf
+  - name: ffmpeg
+  - name: fio
+  - name: git
+  - name: htop  
+  - name: iftop
+  - name: intel-gpu-tools
+  - name: inxi
+  - name: iotop
+  - name: lm-sensors
+  - name: mc
+  - name: molly-guard
+  - name: neofetch
+  - name: net-tools
+  - name: nmap
+  - name: nvme-cli
+  - name: openssh-client
+  - name: openssh-server
+  - name: python3
+  - name: progress
+  - name: smartmontools
+  - name: sudo
+  - name: tmux
+  - name: tree
+  - name: vim
+  - name: wget
+
+lxc_to_deploy:
+  - name: frontend
+    vmid: 110
+    cores: 2
+    disk: "local-zfs:16"
+    nesting: 1
+    keyctl: 1
+    fuse: 1
+    memory: 512
+    nameserver: 192.168.0.253
+    ip: 192.168.10.10
+    gw: 192.168.10.1
+    description: |
+      <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
+
+      # Frontend LXC
+
+      <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a>
+      <a href="https://www.docker.com/" target="_blank"><img src="https://img.shields.io/badge/Docker-526CFE?style=for-the-badge&logo=Docker&logoColor=white" /></a>
+      </div>
+    tags:
+      - docker
+      - prod
+    zfs_mountpoint: true
+
+  - name: elephant
+    vmid: 120
+    cores: 1
+    disk: "local-zfs:8"
+    nesting: 1
+    keyctl: 0
+    fuse: 0
+    memory: 2048
+    nameserver: 192.168.0.253
+    ip: 192.168.10.19
+    gw: 192.168.10.1
+    onboot: false
+    description: |
+      <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
+
+      # PostgreSQL LXC
+
+      <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a>
+      <a href="https://www.postgresql.org/" target="_blank"><img src="https://img.shields.io/badge/Postgresql-526CFE?style=for-the-badge&logo=Postgresql&logoColor=white" /></a>
+      </div>
+    tags:
+    - postgresql
+    - prod
+    zfs_mountpoint: true
+
+  - name: smarthome
+    vmid: 130
+    cores: 2
+    disk: "local-zfs:16"
+    nesting: 1
+    keyctl: 1
+    fuse: 1
+    memory: 2048
+    nameserver: 192.168.0.253
+    ip: 192.168.10.30
+    gw: 192.168.10.1
+    unprivileged: false
+    description: |
+      <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
+
+      # Smarthome LXC
+
+      <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a>
+      <a href="https://www.home-assistant.io/" target="_blank"><img src="https://img.shields.io/badge/homeassistant-038fc7?style=for-the-badge&logo=homeassistant&logoColor=white" /></a><br />
+      <a href="https://mosquitto.org/" target="_blank"><img src="https://img.shields.io/badge/mosquitto-3f5788?style=for-the-badge&logo=mqtt&logoColor=white" /></a>
+      <a href="https://www.zigbee2mqtt.io/" target="_blank"><img src="https://img.shields.io/badge/zigbee2mqtt-ffc135?style=for-the-badge&logo=mqtt&logoColor=white&fontColor=white" /></a><br />
+      <a href="https://esphome.io/" target="_blank"><img src="https://img.shields.io/badge/esphome-489e9e?style=for-the-badge&logo=esphome&logoColor=white" /></a>
+      <a href="https://nodered.org/" target="_blank"><img src="https://img.shields.io/badge/nodered-8f0000?style=for-the-badge&logo=nodered&logoColor=white" /></a>
+      </div>
+    tags:
+      - smarthome
+      - prod
+    zfs_mountpoint: true
+
+  - name: jellyfin
+    vmid: 140
+    cores: 2
+    disk: "local-zfs:32"
+    nesting: 1
+    keyctl: 1
+    fuse: 0
+    memory: 2048
+    nameserver: 192.168.0.253
+    ip: 192.168.10.40
+    gw: 192.168.10.1
+    unprivileged: false
+    description: |
+      <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
+
+      # Jellyfin LXC
+
+      <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a>
+      <a href="https://jellyfin.org/" target="_blank"><img src="https://img.shields.io/badge/Jellyfin-526CFE?style=for-the-badge&logo=Jellyfin&logoColor=white" /></a>
+      </div>
+    tags:
+      - jellies
+      - prod
+    zfs_mountpoint: true
+
+  - name: mediaserver
+    vmid: 141
+    cores: 2
+    disk: "local-zfs:16"
+    nesting: 1
+    keyctl: 1
+    fuse: 1
+    memory: 512
+    nameserver: 192.168.0.253
+    ip: 192.168.10.41
+    gw: 192.168.10.1
+    unprivileged: false
+    description: |
+      <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
+
+      # Mediaserver LXC
+
+      <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a>
+      <a href="https://calibre-ebook.com/" target="_blank"><img src="https://img.shields.io/badge/calibre-453e38?style=for-the-badge&logo=calibre&logoColor=white" /></a>
+      <a href="hhttps://www.navidrome.org/" target="_blank"><img src="https://img.shields.io/badge/navidrome-0084ff?style=for-the-badge&logo=spotify&logoColor=white" /></a>
+      </div>
+    tags:
+      - mediaserver
+      - prod
+    zfs_mountpoint: true
+
+  - name: webapps
+    vmid: 150
+    cores: 2
+    disk: "local-zfs:16"
+    nesting: 1
+    keyctl: 1
+    fuse: 1
+    memory: 512
+    nameserver: 192.168.0.253
+    ip: 192.168.10.50
+    gw: 192.168.10.1
+    unprivileged: false
+    description: |
+      <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
+
+      # Webapps LXC
+
+      <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a>
+      <a href="https://github.com/bastienwirtz/homer/" target="_blank"><img src="https://img.shields.io/badge/homer-bc23fa?style=for-the-badge&logo=dashboard&logoColor=white" /></a>
+      </div>
+    tags:
+      - webapps
+      - prod
+    zfs_mountpoint: true
+
+  - name: monitoring
+    vmid: 160
+    cores: 2
+    disk: "local-zfs:16"
+    nesting: 1
+    keyctl: 1
+    fuse: 1
+    memory: 512
+    nameserver: 192.168.0.253
+    ip: 192.168.10.60
+    gw: 192.168.10.1
+    unprivileged: false
+    description: |
+      <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
+
+      # Monitoring LXC
+
+      <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a>
+      </div>
+    tags:
+      - monitoring
+      - prod
+    zfs_mountpoint: true
+
+zfs:
+  dataset:
+    frontend:
+      parent:
+        create: true
+        name: rpool/docker
+        extra:
+          mountpoint: /opt/docker
+          compression: lz4
+          atime: off
+          xattr: sa
+          recordsize: 128k
+          quota: 20G
+      child:
+        create: true
+        name: rpool/docker/frontend-stack
+        mountpoint:
+          host: /opt/docker/frontend-stack
+          lxc: /opt/docker/frontend-stack
+        mount: true
+    elephant:
+      parent:
+        create: true
+        name: rpool/postgresql
+        extra:
+          mountpoint: /var/lib/postgresql
+          compression: lz4
+          atime: off
+          xattr: sa
+          recordsize: 128k
+          quota: 100G
+      child:
+        create: true
+        name: rpool/postgresql/data
+        mountpoint:
+          host: /var/lib/postgresql/16/main
+          lxc: /var/lib/postgresql/16/main
+        mount: true
+    smarthome:
+      parent:
+        create: true
+        name: rpool/docker
+        extra:
+          mountpoint: /opt/docker
+          compression: lz4
+          atime: off
+          xattr: sa
+          recordsize: 128k
+          quota: 20G
+      child:
+        create: true
+        name: rpool/docker/smarthome-stack
+        mountpoint:
+          host: /opt/docker/smarthome-stack
+          lxc: /opt/docker/smarthome-stack
+        mount: true
+    jellyfin:
+      parent:
+        create: true
+        name: rpool/jellyfin
+        extra:
+          mountpoint:
+            host: /var/lib/jellyfin
+            lxc: /var/lib/jellyfin
+          compression: lz4
+          atime: off
+          xattr: sa
+          recordsize: 128k
+          quota: 10G
+        mount: true
+    mediaserver:
+      parent:
+        create: true
+        name: rpool/docker
+        extra:
+          mountpoint: /opt/docker
+          compression: lz4
+          atime: off
+          xattr: sa
+          recordsize: 128k
+          quota: 20G
+      child:
+        create: true
+        name: rpool/docker/mediaserver-stack
+        mountpoint:
+          host: /opt/docker/mediaserver-stack
+          lxc: /opt/docker/mediaserver-stack
+        mount: true
+    webapps:
+      parent:
+        create: true
+        name: rpool/docker
+        extra:
+          mountpoint: /opt/docker
+          compression: lz4
+          atime: off
+          xattr: sa
+          recordsize: 128k
+          quota: 20G
+      child:
+        create: true
+        name: rpool/docker/webapps-stack
+        mountpoint:
+          host: /opt/docker/webapps-stack
+          lxc: /opt/docker/webapps-stack
+        mount: true
+    monitoring:
+      parent:
+        create: true
+        name: rpool/docker
+        extra:
+          mountpoint: /opt/docker
+          compression: lz4
+          atime: off
+          xattr: sa
+          recordsize: 128k
+          quota: 20G
+      child:
+        create: true
+        name: rpool/docker/monitoring-stack
+        mountpoint:
+          host: /opt/docker/monitoring-stack
+          lxc: /opt/docker/monitoring-stack
+        mount: true
+
+### Disks
+mergerfs_mount:
+  - path: /mnt/storage
+
+external_mount:
+  - path: /mnt/iso
+
+parity_disks:
+  - path: /mnt/parity
+    source: /dev/disk/by-id/ata-WDC_WD180EDGZ-11BLDS0_8LJJK5EA-part1
+    fs: ext4
+    opts: defaults
+    content: false
+    # mkfs.ext4 -L PARITY /dev/disk/by-id/ata-WDC_WD180EDGZ-11BLDS0_8LJJK5EA-part1
+    # tune2fs -m 1 /dev/disk/by-id/ata-WDC_WD180EDGZ-11BLDS0_8LJJK5EA-part1
+
+data_disks:
+  - path: /mnt/disk1
+    source: /dev/disk/by-id/ata-TOSHIBA_MG09ACA18TE_Z3W0A0BEFQDH-part1
+    fs: ext4
+    opts: defaults
+    content: true
+    # mkfs.ext4 -L DISK1 /dev/disk/by-id/ata-TOSHIBA_MG09ACA18TE_Z3W0A0BEFQDH-part1
+    # tune2fs -m 1 /dev/disk/by-id/ata-TOSHIBA_MG09ACA18TE_Z3W0A0BEFQDH-part1
+
+fstab_mergerfs:
+  - source: "/mnt/disk*"
+    mountpoint: /mnt/storage
+    fs: fuse.mergerfs
+    opts: "defaults,nonempty,cache.files=off,category.create=epmfs,moveonenospc=true,dropcacheonclose=true,minfreespace=5G,fsname=mergerfs"
+
+freebox_mount:
+  - path: /mnt/freebox
+    source: "//192.168.0.254/freebox"
+    fs: cifs
+    opts: "rw,uid={{ secret.users.me.uid }},gid={{ secret.users.me.gid }},credentials={{ secret.users.me.home }}/.freebox-credentials,iocharset=utf8,file_mode=0777,dir_mode=0777"
+
+nfs_exports: 
+  - local_path: /mnt/storage/media/videos
+    authorized_network:
+      - server: jellyfin
+        ip: 192.168.10.0/24
+        options: rw,sync,no_root_squash,no_subtree_check,fsid=0
+
+  - local_path: /opt/docker
+    authorized_network: 
+      - ip: 192.168.10.0/24
+        options: rw,sync,no_subtree_check
+
+snapraid_runner: false
+snapraid_data_disks:
+  - path: /mnt/disk1
+    content: true
+snapraid_parity_disks:
+  - path: /mnt/parity
+    content: true
+snapraid_content_files:
+  - /var/snapraid.content
+snapraid_config_excludes:
+  - "*.unrecoverable"
+  - /lost+found/
+  - "*.!sync"
+  - /tmp/
+  - downloads/
+  - appdata/
+  - "*.!sync"
+  - .AppleDouble
+  - ._AppleDouble
+  - .DS_Store
+  - ._.DS_Store
+  - .Thumbs.db
+  - .fseventsd
+  - .Spotlight-V100
+  - .TemporaryItems
+  - .Trashes
+  - .AppleDB
+  - .nfo
+snapraid_runner_touch: true
+snapraid_runner_scrub: true
+snapraid_runner_delete_threshold: 250
+snapraid_scrub_percent: 12
+snapraid_scrub_age: 10
+snapraid_sync_schedule:
+  minute: 0
+  hour: 2
+  weekday: 1,4
+snapraid_scrub_schedule:
+  hour: 5
+  weekday: 1,4

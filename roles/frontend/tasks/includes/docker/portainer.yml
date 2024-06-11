@@ -1,0 +1,8 @@
+---
+# includes tasks file for roles/docker-frontend-stack/portainer
+- name: CRÉATION DU RÉPERTOIRE D'INSTALLATION/CONFIGURATION POUR 'portainer'
+  file:
+    path: /opt/docker/frontend-stack/portainer
+    state: directory
+    owner: "{{ secret.users.me.name }}"
+    mode: "{{ docker.compose.directory_mask }}"

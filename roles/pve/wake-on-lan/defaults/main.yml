@@ -1,0 +1,3 @@
+---
+# defaults file for roles/wake-on-lan
+wol_network_interface_name: eth0

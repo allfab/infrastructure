@@ -1,0 +1,41 @@
+---
+- name: INSTALLATION DES PRÉ-REQUIS LOGICIEL
+  apt:
+    name:
+      - apt-transport-https
+      - gnupg2
+      - software-properties-common
+    state: present
+
+# - name: ACTIVER LE RÉFÉRENTIEL universe POUR LE SUPPORT DE FFmpeg
+#   shell: "add-apt-repository universe"
+
+- name: AJOUT DE LA CLÉ DE SIGNATURE jellyfin AU GESTIONNAIRE DE PAQUETS apt
+  get_url:
+    url: https://repo.jellyfin.org/jellyfin_team.gpg.key
+    dest: /etc/apt/trusted.gpg.d/jellyfin.asc
+    mode: 0644
+    force: false
+
+- name: AJOUT DU DÉPÔT jellyfin
+  apt_repository:
+    repo: "deb [signed-by=/etc/apt/trusted.gpg.d/jellyfin.asc] https://repo.jellyfin.org/debian bookworm main"
+    state: present
+    filename: jellyfin
+    update_cache: true
+
+- name: INSTALLATION DE jellyfin
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - jellyfin
+
+- name: ACTIVATION ET DÉMARRAGE DU SERVICE Jellyfin
+  service:
+    name: jellyfin
+    state: started
+    enabled: true
+
+# - name: CHANGE GROUPES
+#   command: "sed -i -e 's/^ssl-cert:x:104:$/render:x:104:root,jellyfin/' -e 's/^render:x:108:root,jellyfin$/ssl-cert:x:108:/' /etc/group"

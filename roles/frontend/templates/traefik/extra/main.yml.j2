@@ -1,0 +1,54 @@
+http:
+  middlewares:
+    compress:
+      compress: {}
+
+    # https://paramdeo.com/blog/opting-your-website-out-of-googles-floc-network
+    floc:
+      headers:
+        customResponseHeaders:
+          Permissions-Policy: "interest-cohort=()"
+
+    securityHeaders:
+      headers:
+        customResponseHeaders:
+          X-Robots-Tag: "none,noarchive,nosnippet,notranslate,noimageindex"
+          server: ""
+          X-Forwarded-Proto: "https"
+        sslProxyHeaders:
+          X-Forwarded-Proto: https
+        referrerPolicy: "strict-origin-when-cross-origin"
+        hostsProxyHeaders:
+          - "X-Forwarded-Host"
+        customRequestHeaders:
+          X-Forwarded-Proto: "https"
+        contentTypeNosniff: true
+        browserXssFilter: true
+        forceSTSHeader: true
+        stsIncludeSubdomains: true
+        stsSeconds: 63072000
+        stsPreload: true
+
+    httpsRedirect:
+      redirectScheme:
+        scheme: https
+
+    authelia:
+      forwardauth:
+        address: http://authelia:9091/api/verify?rd=https://identity.allfabox.fr/
+        trustForwardHeader: true
+        authResponseHeaders:
+          - Remote-User
+          - Remote-Groups
+          - Remote-Name
+          - Remote-Email
+  
+    authelia-basic:
+      forwardauth:
+        address: http://authelia:9091/api/verify?auth=basic
+        trustForwardHeader: true
+        authResponseHeaders:
+          - Remote-User
+          - Remote-Groups
+          - Remote-Name
+          - Remote-Email

@@ -1,0 +1,26 @@
+---
+- name: start smarthome-stack
+  shell:
+    chdir: /opt/docker/smarthome-stack
+    cmd: docker compose up -d
+
+- name: restart smarthome-stack
+  shell:
+    chdir: /opt/docker/smarthome-stack
+    cmd: docker compose down --remove-orphans && docker compose rm && docker compose up -d
+
+- name: update smarthome-stack
+  shell:
+    chdir: /opt/docker/smarthome-stack
+    cmd: docker compose pull && docker compose up -d --remove-orphans
+
+- name: stop smarthome-stack
+  shell:
+    chdir: /opt/docker/smarthome-stack
+    cmd: docker compose down
+
+
+- name: restart homeassistant
+  shell:
+    chdir: /opt/docker/smarthome-stack
+    cmd: docker restart homeassistant

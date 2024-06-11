@@ -1,0 +1,48 @@
+---
+- name: LNXLINK - INSTALLATION DE pipx
+  package:
+    name: pipx
+    state: present
+
+- name: LNXLINK - INSTALLATION
+  command: pipx install lnxlink
+
+- name: LNXLINK - COPIE DU BINAIRE DANS /usr/local/bin
+  copy:
+    src: /root/.local/bin/lnxlink
+    dest: /usr/local/bin
+    mode: +x
+    remote_src: true
+
+- name: LNXLINK - CRÉATION DU RÉPERTOIRE create config directory
+  file:
+    path: /home/{{ main_username }}/.lnxlink
+    state: directory
+    owner: "{{ main_username }}"
+    group: "{{ main_groupname }}"
+
+- name: Copy template files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
+    owner: "{{ main_username }}"
+    group: "{{ main_username }}"
+  loop:
+    - {src: "config.yaml.j2", dest: "/home/{{ main_username }}/.lnxlink/config.yaml", mode: "0644"}
+
+- name: Copy systemd service file
+  template:
+    src: ../templates/lnxlink.service.j2
+    dest: /etc/systemd/system/lnxlink.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Reload systemd services/timers
+  systemd:
+    enabled: true
+    daemon-reload: true
+    state: started
+    name: lnxlink.service
+    no_block: true
