@@ -16,60 +16,55 @@ mqtt:
     enabled: true
     qos: 1
     retain: false
-update_interval: 15
+update_interval: 5
 hass_url: null
 hass_api: null
 modules:
-- network
-- cpu
-- update
-- memory
-- restart
-{% if lnxlink_desktop %}
-- microphone_used
-- speaker_used
-- suspend
-{% endif %}
-{% if lnxlink_shutdown %}
-- shutdown
-{% endif %}
-{% if lnxlink_temperature %}
-- temperature
-{% endif %}
-{% if lnxlink_mounts %}
-- mounts
-{% endif %}
-{% if lnxlink_diskuse %}
-- disk_usage
-{% endif %}
-{% if lnxlink_bash %}
-- bash
-{% endif %}
+  - network
+  - cpu
+  - update
+  - memory
+  - restart
+  - temperature
+  - disk_usage
+  - gpu
 custom_modules: null
-exclude: null
+exclude:
+- audio_select
+- bash
+- battery
+- boot_select
+- brightness
+- fullscreen
+- gpio
+- idle
+- inference_time
+- keep_alive
+- keyboard_hotkeys
+- media
+- mouse
+- notify
+- power_profile
+- screen_onoff
+- screenshot
+- send_keys
+- speech_recognition
+- systemd
+- webcam
+- xdg_open
 settings:
-  hotkeys: null
-{% if ansible_hostname == "morpheus" %}
-  mounts:
-    autocheck: false
-    directories:
-    - /mnt/storage
-  disk_usage:
-    include_disks:
-      - /dev/mapper/pve-root
-    exclude_disks: []
-{% else %}
-  mounts:
-    autocheck: false
-    directories: []
-  disk_usage:
-    include_disks: []
-    exclude_disks: []
-{% endif %}
-  bash:
-    expose: []
   systemd: null
   gpio:
     inputs: null
     outputs: null
+  hotkeys: null
+  disk_usage:
+    include_disks: []
+    exclude_disks: []
   statistics: https://analyzer.bkbilly.workers.dev
+  bash:
+    expose: null
+  mounts:
+    autocheck: false
+    directories: []
+    
