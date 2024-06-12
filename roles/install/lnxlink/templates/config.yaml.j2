@@ -1,6 +1,6 @@
 mqtt:
   prefix: lnxlink
-  clientId: {{ hostname }}
+  clientId: {{ ansible_hostname }}
   server: {{ secret.mqtt.ip }}
   port: 1883
   auth:
