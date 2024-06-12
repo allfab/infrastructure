@@ -20,6 +20,9 @@ morpheus:
 morpheus-tags TAGS:
   ansible-playbook -i hosts.ini run.yml --limit morpheus --tags "{{TAGS}}"
 
+morpheus-lnxlink:
+  ansible-playbook -i hosts.ini run.yml --limit morpheus --tags "lnxlink, lnxlink-setup"
+
 frontend:
   ansible-playbook -i hosts.ini run.yml --limit frontend --tags setup
 

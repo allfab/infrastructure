@@ -46,6 +46,14 @@
     - role: install/snapraid
       tags: morpheus-snapraid
 
+- hosts: morpheus
+  tags: lnxlink
+  vars_files:
+    - vars/vault.yml
+  roles:
+    - role: install/lnxlink
+      tags: lnxlink-setup
+
 - hosts: frontend
   tags: setup
   vars_files:
