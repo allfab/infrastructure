@@ -1,0 +1,44 @@
+---
+- name: MONITORING - CRÉATION DU DATASET ZFS parent
+  community.general.zfs:
+    name: "{{ zfs.dataset.monitoring.parent.name }}"
+    state: present
+    extra_zfs_properties:
+      mountpoint: "{{ zfs.dataset.monitoring.parent.extra.mountpoint }}"
+      compression: "{{ zfs.dataset.monitoring.parent.extra.compression }}"
+      atime: "{{ zfs.dataset.monitoring.parent.extra.atime }}"
+      xattr: "{{ zfs.dataset.monitoring.parent.extra.xattr }}"
+      recordsize: "{{ zfs.dataset.monitoring.parent.extra.recordsize }}"
+      quota: "{{ zfs.dataset.monitoring.parent.extra.quota }}"
+  when: zfs.dataset.monitoring.parent.create == true
+
+- name: MONITORING - CRÉATION DU DATASET ZFS enfant - POINT DE MONTAGE HOST<->LXC
+  community.general.zfs:
+    name: "{{ zfs.dataset.monitoring.child.name }}"
+    state: present
+    extra_zfs_properties:
+      mountpoint: "{{ zfs.dataset.monitoring.child.mountpoint.host }}"
+  when: zfs.dataset.monitoring.child.create == true
+
+- name: MONITORING - CONFIGURATION DU POINT DE MONTAGE HOST<->LXC
+  command: pct set 160 -mp0 "{{ zfs.dataset.monitoring.child.mountpoint.host }}",mp="{{ zfs.dataset.monitoring.child.mountpoint.lxc }}"
+  when: zfs.dataset.monitoring.child.create
+  
+- name: MONITORING - CHANGEMENT DES DROITS UTILISATEUR SUR LE POINT DE MONTAGE
+  file:
+    dest: "{{ zfs.dataset.monitoring.child.mountpoint.host }}"
+    owner: 101000
+    group: 101000
+    recurse: true
+
+- name: MONITORING - REDÉMARRAGE DU CONTENEUR LXC
+  community.general.proxmox:
+    node: morpheus
+    api_host: 192.168.10.5
+    api_user: root@pam
+    api_password: "{{ secret.proxmox.morpheus.api.password }}"
+    api_token_id: "{{ secret.proxmox.morpheus.api.token_id }}"
+    api_token_secret: "{{ secret.proxmox.morpheus.api.token_secret }}"
+    vmid: 160
+    state: "restarted"
+    timeout: 90

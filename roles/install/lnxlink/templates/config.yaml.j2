@@ -27,31 +27,10 @@ modules:
   - restart
   - temperature
   - disk_usage
+  - mounts
   - gpu
 custom_modules: null
-exclude:
-- audio_select
-- bash
-- battery
-- boot_select
-- brightness
-- fullscreen
-- gpio
-- idle
-- inference_time
-- keep_alive
-- keyboard_hotkeys
-- media
-- mouse
-- notify
-- power_profile
-- screen_onoff
-- screenshot
-- send_keys
-- speech_recognition
-- systemd
-- webcam
-- xdg_open
+exclude: null
 settings:
   systemd: null
   gpio:
@@ -59,12 +38,18 @@ settings:
     outputs: null
   hotkeys: null
   disk_usage:
-    include_disks: []
-    exclude_disks: []
+    include_disks:
+      - /rpool
+      - /dev/sda
+      - /dev/sdb
+      - /dev/sdc
+    exclude_disks:
+      - /rpool/*
   statistics: https://analyzer.bkbilly.workers.dev
   bash:
     expose: null
   mounts:
     autocheck: false
-    directories: []
-    
+    directories:
+      - /mnt/storage
+      - /mnt/freebox

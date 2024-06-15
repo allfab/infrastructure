@@ -19,7 +19,7 @@
       tags: pve-fake-subscription
     - role: pve/wake-on-lan
       tags: pve-wol
-    - role: config/users
+    - role: pve/users
       tags: pve-users
     - role: config/bash-aliases
       tags: pve-alias
@@ -68,7 +68,7 @@
     - grog.package
     - config/users
     - config/bash-aliases
-    - install/motd    
+    - install/motd
     - geerlingguy.docker
     - frontend
 
@@ -133,9 +133,27 @@
         upgrade: true
         cache_valid_time: 14400
   roles:
-    # - grog.package
-    # - config/users
-    # - config/bash-aliases
-    # - install/motd
-    # - geerlingguy.docker
+    - grog.package
+    - config/users
+    - config/bash-aliases
+    - install/motd
+    - geerlingguy.docker
     - webapps
+
+- hosts: monitoring
+  tags: setup
+  vars_files:
+    - vars/vault.yml
+  pre_tasks:
+    - name: MISE À JOUR SYSTÈME
+      apt:
+        update_cache: true
+        upgrade: true
+        cache_valid_time: 14400
+  roles:
+    - grog.package
+    - config/users
+    - config/bash-aliases
+    - install/motd
+    - geerlingguy.docker
+    - monitoring

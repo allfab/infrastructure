@@ -1,5 +1,4 @@
 ---
-# tasks file for roles/postgresql/includes/user.yml
 - name: CRÉATION DE L'UTILISATEUR postgres
   user:
     name: "{{ postgresql.user.name }}"    

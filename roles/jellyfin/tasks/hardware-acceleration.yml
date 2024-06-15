@@ -58,7 +58,7 @@
 
 - name: VÉRIFICATION DE L'EXISTANCE DU DOSSIER TEMPORAIRE transcodes SUR /dev/shm POUR LE TRANSCODAGE
   ansible.builtin.file:
-    path: /dev/shm/transcodes/
+    path: /dev/shm/transcodes
     state: directory
     owner: "{{ secret.users.jellyfin.uid }}"
     group: "{{ secret.users.jellyfin.gid }}"

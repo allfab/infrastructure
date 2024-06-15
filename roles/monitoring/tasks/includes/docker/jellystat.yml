@@ -1,0 +1,11 @@
+---
+- name: CHARGEMENT DES VARIABLES PAR DÉFAUT
+  include_vars: defaults/main.yml
+
+- name: JELLYSTAT - CRÉATION DU RÉPERTOIRE D'INSTALLATION/CONFIGURATION
+  file:
+    path: /opt/docker/monitoring-stack/jellystat
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"

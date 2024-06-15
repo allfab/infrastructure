@@ -34,6 +34,9 @@
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR traefik
   include_tasks: includes/docker/traefik.yml
 
+- name: INSTALLATION/CONFIGURATION DU CONTENEUR headscale
+  include_tasks: includes/docker/headscale.yml
+
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR portainer
   include_tasks: includes/docker/portainer.yml
 
@@ -41,3 +44,6 @@
   shell:
     chdir: /opt/docker/frontend-stack
     cmd: docker compose up -d
+
+- name: POST-INSTALLATION DU CONTENEUR headscale
+  include_tasks: includes/docker/headscale-postinstall.yml

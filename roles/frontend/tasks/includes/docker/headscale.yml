@@ -1,0 +1,38 @@
+---
+- name: CRÉATION DU RÉPERTOIRE D'INSTALLATION POUR headscale
+  file:
+    path: /opt/docker/frontend-stack/headscale
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.name }}"
+
+- name: CRÉATION DU RÉPERTOIRE DE CONFIGURATION POUR headscale
+  file:
+    path: /opt/docker/frontend-stack/headscale/config
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.name }}"
+
+- name: CRÉATION DU RÉPERTOIRE DES DATA POUR headscale
+  file:
+    path: /opt/docker/frontend-stack/headscale/data
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.name }}"
+
+- name: CRÉATION DU RÉPERTOIRE POUR L'INTERFACE ADMIN
+  file:
+    path: /opt/docker/frontend-stack/headscale/webui
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.name }}"
+
+- name: INSTALLATION DU FICHIER DE CONFIGURATION PRINCIPAL DE headscale
+  template:
+    src: headscale/config.yml.j2
+    dest: /opt/docker/frontend-stack/headscale/config/config.yaml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+    lstrip_blocks: true
+    trim_blocks: true
+    

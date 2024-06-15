@@ -4,9 +4,6 @@ docker:
     file_mask: "664"
     directory_mask: "775"
 
-freebox:
-  ip: "{{ secret.freebox.ip }}"
-  
 portainer:
   agent:
     secret:
