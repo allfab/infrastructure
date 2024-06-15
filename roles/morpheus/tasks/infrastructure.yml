@@ -71,6 +71,11 @@
     mode: 0600
   when: intel_jasper_lake_or_elkhart_lake_processor == true
 
+- name: AJOUT DU POINT DE MONTAGE LXC POUR LA MÉDIATHÈQUE SUR mediaserver
+  command: "{{ item }}"
+  with_items:
+    - "pct set 141 -mp1 /mnt/storage/media/musics,mp=/mnt/media/musics"
+
 - name: DÉMARRAGE DES CONTENEURS LXC
   community.general.proxmox:
     node: morpheus

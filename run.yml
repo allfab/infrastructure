@@ -122,6 +122,24 @@
     - install/motd
     - jellyfin
 
+- hosts: mediaserver
+  tags: setup
+  vars_files:
+    - vars/vault.yml
+  pre_tasks:
+    - name: MISE À JOUR SYSTÈME
+      apt:
+        update_cache: true
+        upgrade: true
+        cache_valid_time: 14400
+  roles:
+    # - grog.package
+    # - config/users
+    # - config/bash-aliases
+    # - install/motd
+    # - geerlingguy.docker
+    - mediaserver
+
 - hosts: webapps
   tags: setup
   vars_files:

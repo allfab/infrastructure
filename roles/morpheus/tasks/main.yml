@@ -55,6 +55,10 @@
   include_tasks: zfs-webapps-dataset.yml
   when: zfs.dataset.webapps.parent.create == true
 
+- name: CRÉATION DU DATASET ZFS POUR LE CONTENEUR LXC mediaserver
+  include_tasks: zfs-mediaserver-dataset.yml
+  when: zfs.dataset.mediaserver.parent.create == true
+
 - name: CRÉATION DU DATASET ZFS POUR LE CONTENEUR LXC monitoring
   include_tasks: zfs-monitoring-dataset.yml
   when: zfs.dataset.monitoring.parent.create == true

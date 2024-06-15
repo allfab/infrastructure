@@ -1,0 +1,53 @@
+---
+services:
+  portainer-agent:
+    container_name: portainer-agent
+    image: portainer/agent:latest
+    restart: always
+    ports:
+      - 9001:9001
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes 
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - AGENT_SECRET="{{ portainer.agent.secret.key }}"
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - mediaserver
+  
+  navidrome:
+    container_name: navidrome
+    image: deluan/navidrome:latest
+    user: {{ secret.users.me.uid }}:{{ secret.users.me.gid }}
+    restart: unless-stopped    
+    ports:
+      - 4533:4533  
+    volumes:
+      - ./mediaserver-stack/navidrome:/data
+      - /mnt/media/musics:/music:ro
+    environment:
+      - ND_SCANSCHEDULE=1h
+      - ND_LOGLEVEL=info
+      - ND_SESSIONTIMEOUT=24h
+      - ND_BASEURL=""
+      - ND_DEFAULTLANGUAGE=fr
+      - ND_DEFAULTTHEME=Spotify-ish
+      - ND_ENABLEDOWNLOADS=false
+      #- ND_REVERSEPROXYUSERHEADER=Remote-User
+      #- ND_REVERSEPROXYWHITELIST="172.18.0.1/16"
+      - ND_ENABLETRANSCODINGCONFIG=true
+      - ND_TRANSCODINGCACHESIZE=1024MB
+    networks:
+      - mediaserver
+
+# docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 mediaserver
+networks:
+  mediaserver:
+    name: mediaserver
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "172.18.0.0/16"
+          gateway: "172.18.0.1"
