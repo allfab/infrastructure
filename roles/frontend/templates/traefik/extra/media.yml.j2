@@ -10,6 +10,11 @@ http:
         - websecure
       rule: 'Host(`navidrome.allfabox.fr`)'
       service: navidrome
+    bonob:
+      entryPoints:
+        - websecure
+      rule: 'Host(`bonob.allfabox.fr`)'
+      service: bonob
     calibre:
       entryPoints:
         - websecure
@@ -27,6 +32,10 @@ http:
         servers:
           - url: http://192.168.10.40:8096
     navidrome:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.41:4533
+    bonob:
       loadBalancer:
         servers:
           - url: http://192.168.10.41:4533
