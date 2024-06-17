@@ -83,10 +83,12 @@ Ce dépôt contient le code que j'utilise pour déployer et gérer les serveurs 
 
 # Coffre-fort Ansible
 
-## Commandes `just`
+## Raccourci
 
-- `just encrypt` - Chiffre le coffre-fort Ansible
-- `just decrypt` - Décrypte le coffre-fort Ansible
+- `just encrypt` - Chiffre le coffre-fort Ansible :
+  - Exécute la commande `ansible-vault encrypt --vault-password-file bw-vault.sh ./vars/vault.yml;`
+- `just decrypt` - Décrypte le coffre-fort Ansible :
+  - Exécute la commande `ansible-vault decrypt --vault-password-file bw-vault.sh ./vars/vault.yml;`
 
 ## PRÉREQUIS : `ansible-vault` - Chiffrement des fichiers vault.yml
 
