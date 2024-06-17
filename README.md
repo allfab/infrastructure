@@ -81,13 +81,12 @@ Ce dépôt contient le code que j'utilise pour déployer et gérer les serveurs 
         - `install/lnxlink` : Installation et configuration de `lnxlink` - Monitorer sans effort votre machine Linux à l'aide de MQTT.
 
 
-# Ansible Vault
+# Coffre-fort Ansible
+
+## Commandes `just`
 
 - `just encrypt` - Chiffre le coffre-fort Ansible
 - `just decrypt` - Décrypte le coffre-fort Ansible
-
-
-# Coffre-fort Ansible
 
 ## PRÉREQUIS : `ansible-vault` - Chiffrement des fichiers vault.yml
 
