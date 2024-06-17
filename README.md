@@ -83,7 +83,7 @@ Ce dépôt contient le code que j'utilise pour déployer et gérer les serveurs 
 
 # Coffre-fort Ansible
 
-## Raccourci
+## Raccourcis
 
 - `just encrypt` - Chiffre le coffre-fort Ansible :
   - Exécute la commande `ansible-vault encrypt --vault-password-file bw-vault.sh ./vars/vault.yml;`
