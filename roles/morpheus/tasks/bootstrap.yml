@@ -17,6 +17,17 @@
     - {"lxc":"160", "sed":"s\/#PermitRootLogin prohibit-password\/PermitRootLogin yes\/"}
     - {"lxc":"160", "sed":"s\/#PasswordAuthentication yes\/PasswordAuthentication yes\/"}
 
+- name: ACTIVATION DU SERVICE ssh SUR LES CONTENEURS
+  ansible.builtin.command: lxc-attach "{{ item.lxc }}" -- /bin/bash -c "systemctl enable ssh.service"
+  loop:
+    - {"lxc":"110"}
+    - {"lxc":"120"}
+    - {"lxc":"130"}
+    - {"lxc":"140"}
+    - {"lxc":"141"}
+    - {"lxc":"150"}
+    - {"lxc":"160"}
+  
 - name: REDÉMARRAGE DU SERVICE ssh SUR LES CONTENEURS
   ansible.builtin.command: lxc-attach "{{ item.lxc }}" -- /bin/bash -c "systemctl restart ssh.service"
   loop:

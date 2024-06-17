@@ -1,1 +1,0 @@
-{{ secret.users.me.name }} ALL=(ALL) NOPASSWD: ALL

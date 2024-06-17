@@ -1,0 +1,47 @@
+---
+- name: CHARGEMENT DES VARIABLES PAR DÉFAUT
+  include_vars: defaults/main.yml
+
+- name: INSTALLATION DU SERVEUR ssh POUR UNE DISTRIBUTION Debian
+  package:
+    name: openssh-server
+  when: ansible_os_family == 'Debian'
+
+- name: INSTALLATION DU SERVEUR ssh POUR UNE DISTRIBUTION Arch
+  package:
+    name: openssh
+  when: ansible_os_family == 'Archlinux'
+
+- name: CONFIGURATION DU SERVEUR ssh
+  template:
+    src: sshd_config.j2
+    dest: /etc/ssh/sshd_config
+    validate: /usr/sbin/sshd -t -f %s
+    backup: true
+    mode: 0644
+  register: sshd_config
+
+- name: INSTALLATION DE LE CLÉ SSH POUR L'UTILISATEUR PRINCIPAL
+  authorized_key:
+    user: "{{ secret.users.me.name }}"
+    key: "{{ secret.users.me.ssh.pubkey }}"
+    state: present
+
+# - name: CONFIGURATION DES CLÉS AUTORISÉES SUR LE SERVEUR
+#   authorized_key:
+#     user: "{{ secret.users.me.name }}"
+#     key: "{{ lookup('file', item) }}"
+#     state: present
+#   loop:
+#     - "keys/{{ secret.users.me.name }}.pub"
+
+- name: ACTIVATION DU SERVICE ssh
+  service:
+    name: sshd
+    enabled: true
+
+- name: REDÉMARRAGE DU SERVICE ssh
+  service:
+    name: sshd
+    state: restarted
+  when: sshd_config.changed

@@ -1,5 +1,6 @@
 ---
 - name: HEADSCALE - CRÉATION DE L'UTILISATEUR {{ secret.users.me.name }}
+  remote_user: "{{ secret.users.me.name }}"
   community.docker.docker_container_exec:
     container: headscale
     command: /bin/bash -c "headscale users create {{ secret.users.me.name }}"

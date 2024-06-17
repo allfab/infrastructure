@@ -33,6 +33,9 @@
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR navidrome
   include_tasks: includes/docker/navidrome.yml
 
+- name: INSTALLATION/CONFIGURATION DU CONTENEUR calibre-web
+  include_tasks: includes/docker/calibre-web.yml
+
 - name: DÉMARRAGE DE LA STACK mediaserver
   shell:
     chdir: /opt/docker/mediaserver-stack

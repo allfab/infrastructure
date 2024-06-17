@@ -7,7 +7,8 @@
     path: /opt/docker/frontend-stack/docker-compose.yml
   register: frontend_stack_docker_compose
 
-- name: SUPPRESSION DE LA STACK 'frontend' SI ELLE EXISTE
+- name: SUPPRESSION DE LA STACK frontend SI ELLE EXISTE
+  remote_user: "{{ secret.users.me.name }}"
   shell:
     chdir: /opt/docker/frontend-stack
     cmd: docker compose down
@@ -41,6 +42,7 @@
   include_tasks: includes/docker/portainer.yml
 
 - name: DÉMARRAGE DE LA STACK frontend
+  remote_user: "{{ secret.users.me.name }}"
   shell:
     chdir: /opt/docker/frontend-stack
     cmd: docker compose up -d

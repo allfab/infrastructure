@@ -1,13 +1,13 @@
 http:
   routers:
-    homer:
+    headscale:
       entryPoints:
         - websecure
       rule: 'Host(`headscale.allfabox.fr`)'
       service: homer
   
   services:
-    homer:
+    headscale:
       loadBalancer:
         servers:
           - url: http://192.168.10.10:8096

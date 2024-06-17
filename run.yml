@@ -17,10 +17,12 @@
       tags: pve-community-repo
     - role: pve/fake-subscription
       tags: pve-fake-subscription
+    - role: config/users
+      tags: pve-users
+    - role: config/security
+      tags: pve-ssh
     - role: pve/wake-on-lan
       tags: pve-wol
-    - role: pve/users
-      tags: pve-users
     - role: config/bash-aliases
       tags: pve-alias
     - role: grog.package
@@ -65,12 +67,13 @@
         upgrade: true
         cache_valid_time: 14400
   roles:
-    - grog.package
-    - config/users
-    - config/bash-aliases
-    - install/motd
-    - geerlingguy.docker
-    - frontend
+    # - grog.package
+    # - config/users
+    # - config/bash-aliases
+    # - install/motd
+    # - geerlingguy.docker
+    # - frontend
+    - config/security
 
 - hosts: elephant
   tags: setup

@@ -31,34 +31,35 @@
 - name: CRÉATION DES CONTENEURS LXC
   include_tasks: infrastructure.yml
 
+### Amorçage des conteneurs (SSH)
 - name: AMORÇAGE DES CONTENEURS LXC
   include_tasks: bootstrap.yml
 
 ### ZFS
 - name: CRÉATION DU DATASET ZFS POUR LE CONTENEUR LXC frontend
-  include_tasks: zfs-frontend-dataset.yml
+  include_tasks: zfs/frontend-dataset.yml
   when: zfs.dataset.frontend.parent.create == true
 
 - name: CRÉATION DU DATASET ZFS POUR LE CONTENEUR LXC elephant
-  include_tasks: zfs-elephant-dataset.yml
+  include_tasks: zfs/elephant-dataset.yml
   when: zfs.dataset.elephant.parent.create == true
 
 - name: CRÉATION DU DATASET ZFS POUR LE CONTENEUR LXC smarthome
-  include_tasks: zfs-smarthome-dataset.yml
+  include_tasks: zfs/smarthome-dataset.yml
   when: zfs.dataset.smarthome.parent.create == true
 
 - name: CRÉATION DU DATASET ZFS POUR LE CONTENEUR LXC jellyfin
-  include_tasks: zfs-jellyfin-dataset.yml
+  include_tasks: zfs/jellyfin-dataset.yml
   when: zfs.dataset.jellyfin.parent.create == true
 
 - name: CRÉATION DU DATASET ZFS POUR LE CONTENEUR LXC webapps
-  include_tasks: zfs-webapps-dataset.yml
+  include_tasks: zfs/webapps-dataset.yml
   when: zfs.dataset.webapps.parent.create == true
 
 - name: CRÉATION DU DATASET ZFS POUR LE CONTENEUR LXC mediaserver
-  include_tasks: zfs-mediaserver-dataset.yml
+  include_tasks: zfs/mediaserver-dataset.yml
   when: zfs.dataset.mediaserver.parent.create == true
 
 - name: CRÉATION DU DATASET ZFS POUR LE CONTENEUR LXC monitoring
-  include_tasks: zfs-monitoring-dataset.yml
+  include_tasks: zfs/monitoring-dataset.yml
   when: zfs.dataset.monitoring.parent.create == true

@@ -46,11 +46,13 @@
     - {"lxc":"150", "order":"6"}
     - {"lxc":"160", "order":"7"}
 
-- name: AJOUT DU POINT DE MONTAGE LXC POUR LA MÉDIATHÈQUE SUR jellyfin
+- name: AJOUT DES POINTS DE MONTAGE LXC POUR LA MÉDIATHÈQUE SUR jellyfin et mediaserver
   command: "{{ item }}"
   with_items:
     - "pct set 140 -mp0 /mnt/storage/media/videos,mp=/mnt/media/videos"
-
+    - "pct set 141 -mp1 /mnt/storage/media/musics,mp=/mnt/media/musics"
+    - "pct set 141 -mp2 /mnt/storage/media/books,mp=/mnt/media/books"
+    
 - name: AJOUT DU RELAIS iGPU  DANS LE FICHIER DE CONFIGURATION Jellyfin /etc/pve/lxc/140.conf
   lineinfile:
     dest: "/etc/pve/lxc/140.conf"
@@ -70,11 +72,6 @@
     group: root
     mode: 0600
   when: intel_jasper_lake_or_elkhart_lake_processor == true
-
-- name: AJOUT DU POINT DE MONTAGE LXC POUR LA MÉDIATHÈQUE SUR mediaserver
-  command: "{{ item }}"
-  with_items:
-    - "pct set 141 -mp1 /mnt/storage/media/musics,mp=/mnt/media/musics"
 
 - name: DÉMARRAGE DES CONTENEURS LXC
   community.general.proxmox:
