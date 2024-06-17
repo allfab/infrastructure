@@ -45,11 +45,11 @@ monitoring:
   ansible-playbook -i hosts.ini run.yml --limit monitoring --tags setup
 
 # Ansible Vault Encrypt
-ansible-encrypt:
+encrypt:
   @if (grep --quiet "vault_password_file" ansible.cfg); then ansible-vault encrypt ./vars/vault.yml; else ansible-vault encrypt --vault-password-file bw-vault.sh ./vars/vault.yml; fi
 
 # Ansible Vault Decrypt
-ansible-decrypt:
+decrypt:
   @if (grep --quiet "vault_password_file" ansible.cfg); then ansible-vault decrypt ./vars/vault.yml; else ansible-vault decrypt --vault-password-file bw-vault.sh ./vars/vault.yml; fi
 
 yamllint:
