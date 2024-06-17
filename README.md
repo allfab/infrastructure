@@ -63,16 +63,22 @@ Ce dépôt contient le code que j'utilise pour déployer et gérer les serveurs 
         - `config/users` : Création des utilisateurs Linux,
         - `config/bash-aliases` : Configuration des alias Bash,
         - `grog.package` : Installation des paquets de base,
+        - `install/zellij`: Installation de Zellij,
         - `install/motd` : Installation de [figurine](https://github.com/arsham/figurine) et configuration de Message of the Day (MOTD) à la connexion SSH.
 
 - `just morpheus` :
     - Exécute la commande `ansible-playbook -i hosts.ini run.yml --limit morpheus --tags setup`
-    - Ce playbook initialise l'infrastructure du Homelab en jpuant les rôles :en , en configurant les alias Bash:
+    - Ce playbook initialise l'infrastructure du Homelab en jouant les rôles :
         - `morpheus`: Déploiement des conteneurs LXC sur Promox,
         - `config/bash-aliases` : Configuration des alias Bash,
         - `grog.package` : Installation des complémentaires aux paquets de base,
         - `install/mergerfs` : Installation et configuration de `mergerfs`,
         - `install/snapraid` : Installation et configuration de `snapraid`.
+
+- `just morpheus-lnxlink` :
+    - Exécute la commande `ansible-playbook -i hosts.ini run.yml --limit morpheus --tags "lnxlink, lnxlink-setup"`
+    - Ce playbook installe `lnxlink` :
+        - `install/lnxlink` : Installation et configuration de `lnxlink` - Monitorer sans effort votre machine Linux à l'aide de MQTT.
 
 
 # Coffre-fort Ansible
