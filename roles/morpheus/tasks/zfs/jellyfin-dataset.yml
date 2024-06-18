@@ -13,7 +13,7 @@
   when: zfs.dataset.jellyfin.parent.create == true
 
 - name: JELLYFIN - CONFIGURATION DU POINT DE MONTAGE HOST<->LXC
-  command: pct set 140 -mp1 "{{ zfs.dataset.jellyfin.parent.extra.mountpoint.host }}",mp="{{ zfs.dataset.jellyfin.parent.extra.mountpoint.lxc }}"
+  command: pct set 140 -mp0 "{{ zfs.dataset.jellyfin.parent.extra.mountpoint.host }}",mp="{{ zfs.dataset.jellyfin.parent.extra.mountpoint.lxc }}"
   when: zfs.dataset.jellyfin.parent.mount == true
   
 - name: JELLYFIN - CHANGEMENT DES DROITS UTILISATEUR SUR LE POINT DE MONTAGE

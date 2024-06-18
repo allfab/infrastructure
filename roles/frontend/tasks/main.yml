@@ -50,3 +50,11 @@
 
 - name: POST-INSTALLATION DU CONTENEUR headscale
   include_tasks: includes/docker/headscale-postinstall.yml
+
+- name: CHANGEMENT DES DROITS UTILISATEUR SUR L'ENSEMBLE DU DOSSIER /opt/docker/frontend-stack
+  file:
+    dest: /opt/docker/frontend-stack
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+    mode: "0777"
+    recurse: true
