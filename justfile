@@ -23,26 +23,32 @@ morpheus-tags TAGS:
 morpheus-lnxlink:
   ansible-playbook -i hosts.ini run.yml --limit morpheus --tags "lnxlink, lnxlink-setup"
 
+morpheus-destroy-infra:
+  ansible-playbook -i hosts.ini run.yml --limit morpheus --tags "destroy-infra, morpheus-destroy-infra"
+
+# frontend:
+#   ansible-playbook -i hosts.ini run.yml --limit frontend --tags setup
+
 frontend:
-  ansible-playbook -i hosts.ini run.yml --limit frontend --tags setup
+  ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit frontend --tags setup
 
 elephant:
-  ansible-playbook -i hosts.ini run.yml --limit elephant --tags setup
+  ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit elephant --tags setup
 
 smarthome:
-  ansible-playbook -i hosts.ini run.yml --limit smarthome --tags setup
+  ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit smarthome --tags setup
 
 jellyfin:
-  ansible-playbook -i hosts.ini run.yml --limit jellyfin --tags setup
+  ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit jellyfin --tags setup
 
 mediaserver:
-  ansible-playbook -i hosts.ini run.yml --limit mediaserver --tags setup
+  ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit mediaserver --tags setup
 
 webapps:
-  ansible-playbook -i hosts.ini run.yml --limit webapps --tags setup
+  ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit webapps --tags setup
 
 monitoring:
-  ansible-playbook -i hosts.ini run.yml --limit monitoring --tags setup
+  ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit monitoring --tags setup
 
 # Ansible Vault Encrypt
 encrypt:

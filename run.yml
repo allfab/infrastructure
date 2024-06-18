@@ -62,18 +62,21 @@
     - vars/vault.yml
   pre_tasks:
     - name: MISE À JOUR SYSTÈME
+      become: true
       apt:
         update_cache: true
         upgrade: true
         cache_valid_time: 14400
   roles:
-    # - grog.package
-    # - config/users
-    # - config/bash-aliases
-    # - install/motd
-    # - geerlingguy.docker
-    # - frontend
-    - config/security
+    - role: grog.package
+      become: true
+    - config/users
+    - config/bash-aliases
+    - install/motd
+    - role: geerlingguy.docker
+      become: true
+    - role: frontend
+      become: true
 
 - hosts: elephant
   tags: setup
@@ -81,12 +84,14 @@
     - vars/vault.yml
   pre_tasks:
     - name: MISE À JOUR SYSTÈME
+      become: true
       apt:
         update_cache: true
         upgrade: true
         cache_valid_time: 14400
   roles:
-    - grog.package
+    - role: grog.package
+      become: true
     - config/users
     - config/bash-aliases
     - install/motd
@@ -98,17 +103,21 @@
     - vars/vault.yml
   pre_tasks:
     - name: MISE À JOUR SYSTÈME
+      become: true
       apt:
         update_cache: true
         upgrade: true
         cache_valid_time: 14400
   roles:
-    - grog.package
+    - role: grog.package
+      become: true
     - config/users
     - config/bash-aliases
     - install/motd
-    - geerlingguy.docker
-    - smarthome
+    - role: geerlingguy.docker
+      become: true
+    - role: smarthome
+      become: true
 
 - hosts: jellyfin
   tags: setup
@@ -116,14 +125,17 @@
     - vars/vault.yml
   pre_tasks:
     - name: MISE À JOUR SYSTÈME
+      become: true
       apt:
         update_cache: true
         upgrade: true
         cache_valid_time: 14400
   roles:
-    - grog.package
+    - role: grog.package
+      become: true
     - install/motd
-    - jellyfin
+    - role: jellyfin
+      become: true
 
 - hosts: mediaserver
   tags: setup
@@ -131,17 +143,21 @@
     - vars/vault.yml
   pre_tasks:
     - name: MISE À JOUR SYSTÈME
+      become: true
       apt:
         update_cache: true
         upgrade: true
         cache_valid_time: 14400
   roles:
-    # - grog.package
-    # - config/users
-    # - config/bash-aliases
-    # - install/motd
-    # - geerlingguy.docker
-    - mediaserver
+    - role: grog.package
+      become: true
+    - config/users
+    - config/bash-aliases
+    - install/motd
+    - role: geerlingguy.docker
+      become: true
+    - role: mediaserver
+      become: true
 
 - hosts: webapps
   tags: setup
@@ -149,17 +165,21 @@
     - vars/vault.yml
   pre_tasks:
     - name: MISE À JOUR SYSTÈME
+      become: true
       apt:
         update_cache: true
         upgrade: true
         cache_valid_time: 14400
   roles:
-    - grog.package
+    - role: grog.package
+      become: true
     - config/users
     - config/bash-aliases
     - install/motd
-    - geerlingguy.docker
-    - webapps
+    - role: geerlingguy.docker
+      become: true
+    - role: webapps
+      become: true
 
 - hosts: monitoring
   tags: setup
@@ -167,14 +187,31 @@
     - vars/vault.yml
   pre_tasks:
     - name: MISE À JOUR SYSTÈME
+      become: true
       apt:
         update_cache: true
         upgrade: true
         cache_valid_time: 14400
   roles:
-    - grog.package
+    - role: grog.package
+      become: true
     - config/users
     - config/bash-aliases
     - install/motd
-    - geerlingguy.docker
-    - monitoring
+    - role: geerlingguy.docker
+      become: true
+    - role: monitoring
+      become: true
+
+# - hosts: morpheus
+#   tags: destroy-infra
+#   vars_files:
+#     - vars/vault.yml
+#   vars_prompt:
+#     - name: morpheus_destroy_infra
+#       prompt: Voulez-vous supprimer l'infrasctucture mise en place (oui, yes) ?
+#       private: false
+#   roles:
+#     - role: infra/destroy
+#       tags: morpheus-destroy-infra
+#       when: morpheus_destroy_infra == 'yes' or morpheus_destroy_infra == 'oui'

@@ -3,11 +3,13 @@
   include_vars: defaults/main.yml
  
 - name: ON S'ASSURE QU'UN FICHIER docker-compose.yml EXISTE
+  remote_user: "{{ secret.users.me.name }}"
   stat:
     path: /opt/docker/webapps-stack/docker-compose.yml
   register: webapps_stack_docker_compose
 
 - name: SUPPRESSION DE LA STACK webapps SI ELLE EXISTE
+  remote_user: "{{ secret.users.me.name }}"
   shell:
     chdir: /opt/docker/webapps-stack
     cmd: docker compose down
@@ -37,6 +39,7 @@
   include_tasks: includes/docker/vaultwarden.yml
 
 - name: DÉMARRAGE DE LA STACK webapps
+  remote_user: "{{ secret.users.me.name }}"
   shell:
     chdir: /opt/docker/webapps-stack
     cmd: docker compose up -d

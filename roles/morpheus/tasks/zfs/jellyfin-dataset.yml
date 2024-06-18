@@ -21,6 +21,7 @@
     dest: "{{ zfs.dataset.jellyfin.parent.extra.mountpoint.lxc }}"
     owner: 100900
     group: 100900
+    mode: 0777
     recurse: true
 
 - name: JELLYFIN - REDÉMARRAGE DU CONTENEUR LXC

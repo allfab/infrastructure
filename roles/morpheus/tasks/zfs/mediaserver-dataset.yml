@@ -29,6 +29,7 @@
     dest: "{{ zfs.dataset.mediaserver.child.mountpoint.host }}"
     owner: 101000
     group: 101000
+    mode: 0777
     recurse: true
 
 - name: MEDIASERVER - REDÉMARRAGE DU CONTENEUR LXC

@@ -1,0 +1,22 @@
+---
+- name: ARRÊT DE TOUS LES CONTENEURS LXC DE L'INFRASTRUCTURE
+  ansible.builtin.command: "pct shutdown {{ item.lxc }}"
+  loop:
+    - {"lxc":"110"}
+    - {"lxc":"120"}
+    - {"lxc":"130"}
+    - {"lxc":"140"}
+    - {"lxc":"141"}
+    - {"lxc":"150"}
+    - {"lxc":"160"}
+
+- name: SUPPRESSION DE TOUS LES CONTENEURS LXC DE L'INFRASTRUCTURE
+  ansible.builtin.command: "pct destroy {{ item.lxc }}"
+  loop:
+    - {"lxc":"110"}
+    - {"lxc":"120"}
+    - {"lxc":"130"}
+    - {"lxc":"140"}
+    - {"lxc":"141"}
+    - {"lxc":"150"}
+    - {"lxc":"160"}

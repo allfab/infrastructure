@@ -2,72 +2,62 @@
 - name: CHARGEMENT DES VARIABLES PAR DÉFAUT
   include_vars: defaults/main.yml
 
-- name: VÉRIFICATION DE LA PRÉSENCE DE 'figurine'
+- name: VÉRIFICATION DE LA PRÉSENCE DE figurine
   stat:
-    path: "{{ figurine_binary_path }}"
+    path: /usr/local/bin/figurine
   register: figurine_binary_exists
 
-- name: DÉFINITION DE LA VARIABLE 'figurine_is_installed'
+- name: DÉFINITION DE LA VARIABLE figurine_is_installed
   set_fact:
     figurine_is_installed: "{{ figurine_binary_exists.stat.exists }}"
 
-- name: VÉRIFICATION DE LA VERSION DE 'figurine'
-  shell: "{{ figurine_binary_path }} version | awk '{ print $3 }' | cut -c 2-"
-  changed_when: false
-  register: installed_version_registered
+- name: VÉRIFICATION DE LA VERSION DE figurine
+  shell: "/usr/local/bin/figurine version | awk '{ print $3 }' | cut -c 1-"
+  register: figurine_installed_version_registered
   when: figurine_is_installed == True
 
-- name: TÉLÉCHARGEMENT DE LA DERNIÈRE VERSION DE 'figurine'
+- name: OBTENTION DE LA DERNIÈRE VERSION
   uri:
     url: https://api.github.com/repos/arsham/figurine/releases/latest
+    url_username: "{{ secret.github.api.user | default (omit) }}"
+    url_password: "{{ secret.github.api.token | default (omit) }}"
     return_content: true
-  register: release_version_registered
-  when: figurine_download_latest_ver == True
+    force_basic_auth: "{{ secret.github.api.auth | default (omit) }}"
+  register: figurine_latest_release
+  when: force_install == True
 
-
-- name: ENREGISTREMENT DE LA DERNIÈRE VERSION DE 'figurine' DANS LA VARIABLE 'figurine_ver'
+- name: DÉFINITION DE LA VERSION SI CE N'EST PAS LE CAS
   set_fact:
-    figurine_ver: "{{ release_version_registered.json.tag_name|regex_replace('v') }}"
-  when: figurine_download_latest_ver == True
+    figurine_version: "{{ figurine_latest_release.json.tag_name }}"
+  when: figurine_version is undefined and force_install == True
 
-- name: ENREGISTREMENT DE LA VERSION ÉPINGLÉE DE 'figurine' DANS LA VARIABLE 'figurine_ver'
+- name: RECUPÉRATION DE L'ARCHITECTURE DU SERVEUR
+  vars:
+    arch_lut:
+      aarch64: arm64
+      armv6l: arm
+      armv7l: arm
+      x86_64: amd64
   set_fact:
-    figurine_ver: "{{ figurine_pinned_ver }}"
-  when: figurine_download_latest_ver == False
+    arch: "{{ arch_lut[ansible_architecture] | default(ansible_architecture) }}"
 
-- block:
-    - name: CONFIGURATOIN DE L'ARCHITECTURE DU SERVEUR
-      vars:
-        arch_lut:
-          aarch64: arm64
-          armv6l: arm
-          armv7l: arm
-          x86_64: amd64
-      set_fact:
-        arch: "{{ arch_lut[ansible_architecture] | default(ansible_architecture) }}"
+# - name: TÉLÉCHARGEMENT DE LA VERSION SOUHAITÉE
+#   get_url:
+#     url: "https://github.com/arsham/figurine/releases/download/{{ figurine_version }}/figurine_linux_{{ arch }}_{{ figurine_version }}.tar.gz"
+#     dest: /tmp
+#   when: force_install == True
 
-    ## v1.2.1 changed naming scheme
-    - name: CONSTRUCTION DE L'URL DE TÉLÉCHARGEMENT POUR UNE VERSION SUPÉRIEURE À LA v1.2.1
-      set_fact:
-        figurine_pkg_path: "v{{ figurine_ver }}/figurine_linux_v{{ figurine_ver }}.tar.gz"
-      when: figurine_ver is version('1.2.1', '<')
-
-    - name: CONSTRUCTION DE L'URL DE TÉLÉCHARGEMENT POUR UNE VERSION INFÉRIEURE À LA v 1.2.0
-      set_fact:
-        figurine_pkg_path: "v{{ figurine_ver }}/figurine_linux_{{ arch }}_v{{ figurine_ver }}.tar.gz"
-      when: figurine_ver is version('1.2.0', '>')
-    
-    - name: EXTRACTION DE L'EXECUTABLE 'figurine' VERS LE RÉPERTOIRE D'INSTALLATION
-      unarchive:
-        remote_src: true
-        src: "{{ figurine_gh_url }}/{{ figurine_pkg_path }}"
-        #src: "figurine_linux_v{{ figurine_ver }}.tar.gz"
-        dest: "{{ figurine_system_bin_path }}"
-        extra_opts: [--strip-components=1]
-  when: figurine_is_installed == False or ( figurine_is_installed == True and figurine_download_latest_ver == True and installed_version_registered.stdout != figurine_ver ) or ( figurine_is_installed == True and figurine_download_latest_ver == False and installed_version_registered.stdout != figurine_pinned_ver )
+- name: TÉLÉCHARGEMENT DE LA VERSION SOUHAITÉE ET EXTRACTION DE L'EXECUTABLE figurine VERS LE RÉPERTOIRE D'INSTALLATION
+  unarchive:    
+    src: "https://github.com/arsham/figurine/releases/download/{{ figurine_version }}/figurine_linux_{{ arch }}_{{ figurine_version }}.tar.gz"
+    dest: /usr/local/bin
+    extra_opts: [--strip-components=1]
+    remote_src: true
+  become: true
 
 - name: CONFIGURATION DU MOTD - MESSAGE OF THE DAY
   template:
     src: figurine.sh.j2
     dest: /etc/profile.d/figurine.sh
   when: figurine_install_login_script
+  become: true

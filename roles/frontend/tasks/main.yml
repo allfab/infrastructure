@@ -3,6 +3,7 @@
   include_vars: defaults/main.yml
  
 - name: ON S'ASSURE QU'UN FICHIER docker-compose.yml EXISTE
+  remote_user: "{{ secret.users.me.name }}"
   stat:
     path: /opt/docker/frontend-stack/docker-compose.yml
   register: frontend_stack_docker_compose

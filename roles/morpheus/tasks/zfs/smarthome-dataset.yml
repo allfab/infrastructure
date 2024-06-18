@@ -29,6 +29,7 @@
     dest: "{{ zfs.dataset.smarthome.child.mountpoint.host }}"
     owner: 101000
     group: 101000
+    mode: 0777
     recurse: true
 
 - name: SMARTHOME - REDÉMARRAGE DU CONTENEUR LXC

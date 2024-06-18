@@ -1,5 +1,12 @@
 ---
-- name: CRÉATION DE L'UTILISATEUR postgres
+- name: VÉRIFICATION DE L'EXISTENCE DU GROUPE UTILISATEUR postgres
+  ansible.builtin.group:
+    name: "{{ postgresql.user.name }}" 
+    gid: "{{ postgresql.user.gid }}"
+    state: present
+  become: true
+
+- name: AJOUT DE L'UTILISATEUR postgres
   user:
     name: "{{ postgresql.user.name }}"    
     uid: "{{ postgresql.user.uid }}"
@@ -9,9 +16,11 @@
     shell: /bin/bash
     system: true
     comment: "{{ postgresql.user.comment }}"
+  become: true
 
 - name: DÉFINITION DES VARIABLES D'ENVIRONNEMENT PostgreSQL
   template:
     src: postgres.sh.j2
     dest: /etc/profile.d/postgres.sh
     mode: 0644
+  become: true

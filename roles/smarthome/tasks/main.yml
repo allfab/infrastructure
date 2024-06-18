@@ -3,11 +3,13 @@
   include_vars: defaults/main.yml
  
 - name: ON S'ASSURE QU'UN FICHIER docker-compose.yml EXISTE
+  remote_user: "{{ secret.users.me.name }}"
   stat:
     path: /opt/docker/smarthome-stack/docker-compose.yml
   register: smarthome_stack_docker_compose
 
 - name: SUPPRESSION DE LA STACK smarthome SI ELLE EXISTE
+  remote_user: "{{ secret.users.me.name }}"
   shell:
     chdir: /opt/docker/smarthome-stack
     cmd: docker compose down
@@ -19,7 +21,6 @@
     dest: /opt/docker/smarthome-stack/docker-compose.yml
     mode: "{{ docker.compose.file_mask }}"
     owner: "{{ secret.users.me.name }}"
-    group: "{{ secret.users.me.gid }}"
     validate: docker compose -f %s config
 
 - name: INSTALLATION DU FICHIER DES VARIABLES D'ENVIRONNEMENT DOCKER
@@ -28,7 +29,6 @@
     dest: /opt/docker/smarthome-stack/.env
     mode: "{{ docker.compose.file_mask }}"
     owner: "{{ secret.users.me.name }}"
-    group: "{{ secret.users.me.gid }}"
 
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR home-assistant
   include_tasks: includes/docker/homeassistant.yml
@@ -49,6 +49,7 @@
   include_tasks: includes/docker/myelectricaldata.yml
 
 - name: DÉMARRAGE DE LA STACK smarthome
+  remote_user: "{{ secret.users.me.name }}"
   shell:
     chdir: /opt/docker/smarthome-stack
     cmd: docker compose up -d
@@ -58,5 +59,5 @@
     dest: /opt/docker/smarthome-stack
     owner: "{{ secret.users.me.uid }}"
     group: "{{ secret.users.me.gid }}"
-    mode: "0775"
+    mode: "0777"
     recurse: true

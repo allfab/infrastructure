@@ -29,6 +29,7 @@
     dest: "{{ zfs.dataset.monitoring.child.mountpoint.host }}"
     owner: 101000
     group: 101000
+    mode: 0777
     recurse: true
 
 - name: MONITORING - REDÉMARRAGE DU CONTENEUR LXC
