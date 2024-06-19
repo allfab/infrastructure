@@ -1,0 +1,7 @@
+---
+- name: CRÉATION DU RÉPERTOIRE D'INSTALLATION POUR tailscale
+  file:
+    path: /opt/docker/frontend-stack/tailscale
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.name }}"

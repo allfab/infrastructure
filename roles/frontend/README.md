@@ -43,10 +43,14 @@ An optional section for the role authors to include contact information, or a we
 ## Docker
 
 docker compose exec headscale headscale users create allfab
+docker compose exec headscale headscale preauthkeys create -e 10m -u allfab
+
+docker compose exec headscale headscale users create docker
+docker compose exec headscale headscale preauthkeys create -e 10m -u docker
 
 docker compose exec headscale headscale apikeys create
 
-docker compose exec headscale headscale preauthkeys create -e 10m -u allfab
+
 
 https://headscale.net/running-headscale-linux/#register-a-machine-normal-login
 
@@ -57,6 +61,15 @@ sudo tailscale login --login-server https://headscale.allfabox.fr
 sudo tailscale up --login-server https://headscale.allfabox.fr --authkey xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 tailscale up --login-server https://headscale.allfabox.fr --authkey xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+### Nodes
+
+docker compose exec headscale headscale nodes list
+
+### Routes
+
+docker compose exec headscale headscale routes list
+docker compose exec headscale headscale routes enable -r <ID>
 
 
 ## Windows Client 

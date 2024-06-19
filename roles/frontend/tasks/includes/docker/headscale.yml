@@ -35,4 +35,3 @@
     owner: "{{ secret.users.me.name }}"
     lstrip_blocks: true
     trim_blocks: true
-    

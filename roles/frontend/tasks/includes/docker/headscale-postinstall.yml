@@ -1,6 +1,19 @@
 ---
-- name: HEADSCALE - CRÉATION DE L'UTILISATEUR {{ secret.users.me.name }}
+- name: HEADSCALE - CRÉATION DES UTILISATEURS
   remote_user: "{{ secret.users.me.name }}"
   community.docker.docker_container_exec:
     container: headscale
-    command: /bin/bash -c "headscale users create {{ secret.users.me.name }}"
+    command: /bin/bash -c "headscale users create {{ item }}"
+  with_items:
+    - "{{ secret.users.me.name }}"
+    - docker
+
+- name: HEADSCALE - CRÉATION DES CLÉS PRÉ-AUTHENTIFIÉE POUR LES FUTURS CLIENTS
+  remote_user: "{{ secret.users.me.name }}"
+  community.docker.docker_container_exec:
+    container: headscale
+    command: /bin/bash -c "headscale preauthkeys create -e 10m -u {{ item }}"
+  with_items:
+    - "{{ secret.users.me.name }}"
+    - docker
+    

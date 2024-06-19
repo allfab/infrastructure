@@ -29,7 +29,10 @@
     dest: /opt/docker/frontend-stack/.env
     mode: "{{ docker.compose.file_mask }}"
     owner: "{{ secret.users.me.name }}"
- 
+
+- name: INSTALLATION/CONFIGURATION DU CONTENEUR portainer
+  include_tasks: includes/docker/portainer.yml
+
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR authelia
   include_tasks: includes/docker/authelia.yml
 
@@ -39,8 +42,8 @@
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR headscale
   include_tasks: includes/docker/headscale.yml
 
-- name: INSTALLATION/CONFIGURATION DU CONTENEUR portainer
-  include_tasks: includes/docker/portainer.yml
+- name: INSTALLATION/CONFIGURATION DU CONTENEUR tailscale
+  include_tasks: includes/docker/tailscale.yml
 
 - name: DÉMARRAGE DE LA STACK frontend
   remote_user: "{{ secret.users.me.name }}"

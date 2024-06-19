@@ -20,7 +20,12 @@ portainer:
       key: "{{ secret.portainer.agent.secret.key }}"
 
 headscale:
-  webui:
+  admin:
+    login_server: "{{ secret.headscale.webui.key }}"
+    advertise_route: "{{ secret.headscale.webui.key }}"
+  docker:
+    authkey: "{{ secret.headscale.docker.authkey }}"
+  webui:    
     key: "{{ secret.headscale.webui.key }}"
 
 authelia:
