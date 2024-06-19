@@ -7,17 +7,21 @@ docker:
 freebox:
   ip: "{{ secret.freebox.ip }}"
 
-portainer:
-  agent:
-    secret:
-      key: "{{ secret.portainer.agent.secret.key }}"
-  
 ovh:
   endpoint: "{{ secret.ovh.endpoint }}"
   application:
     key: "{{ secret.ovh.application.key }}"
     secret: "{{ secret.ovh.application.secret }}"
   consumer_key: "{{ secret.ovh.consumer_key }}"
+
+portainer:
+  agent:
+    secret:
+      key: "{{ secret.portainer.agent.secret.key }}"
+
+headscale:
+  webui:
+    key: "{{ secret.headscale.webui.key }}"
 
 authelia:
   jwt_secret: "{{ secret.authelia.jwt_secret }}"

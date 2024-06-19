@@ -36,3 +36,32 @@ Author Information
 ------------------
 
 An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+
+
+# HEADSCALE - MÉMO
+
+## Docker
+
+docker compose exec headscale headscale users create allfab
+
+docker compose exec headscale headscale apikeys create
+
+docker compose exec headscale headscale preauthkeys create -e 10m -u allfab
+
+https://headscale.net/running-headscale-linux/#register-a-machine-normal-login
+
+sudo tailscale up --login-server https://headscale.allfabox.fr
+
+sudo tailscale login --login-server https://headscale.allfabox.fr
+
+sudo tailscale up --login-server https://headscale.allfabox.fr --authkey xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+tailscale up --login-server https://headscale.allfabox.fr --authkey xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+## Windows Client 
+https://github.com/juanfont/headscale/blob/main/docs/windows-client.md
+
+New-Item -Path "HKLM:\SOFTWARE\Tailscale IPN"
+New-ItemProperty -Path 'HKLM:\Software\Tailscale IPN' -Name UnattendedMode -PropertyType String -Value always
+New-ItemProperty -Path 'HKLM:\Software\Tailscale IPN' -Name LoginURL -PropertyType String -Value https://headscale.allfabox.fr

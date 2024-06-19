@@ -85,7 +85,7 @@ services:
     image: headscale/headscale:0.22.3
     restart: unless-stopped
     ports:
-      - 8896:8080
+      - 8880:8080
     command: headscale serve
     volumes:
       - ./headscale/config:/etc/headscale
@@ -96,12 +96,12 @@ services:
       - traefik.http.routers.headscale.rule=Host(`headscale.allfabox.fr`)
       - traefik.http.routers.headscale.tls=true
       - traefik.http.routers.headscale.tls.certresolver=letsencrypt
-      - traefik.http.services.headscale.loadbalancer.server.port=8896
+      - traefik.http.services.headscale.loadbalancer.server.port=8880
     networks:
     - frontend
 
-  headscale-webui:
-    container_name: headscale-webui
+  headscale-admin:
+    container_name: headscale-admin
     image: ifargle/headscale-webui:latest
     restart: unless-stopped
     ports:
@@ -113,27 +113,19 @@ services:
       - TZ=Europe/Paris
       - PGID=1000
       - PUID=1000
-      - COLOR=blue                             # Use the base colors (ie, no darken-3, etc) - 
-      - HS_SERVER=http://192.168.10.10:8896    # Reachable endpoint for your Headscale server
-      - DOMAIN_NAME=http://192.168.10.10:5000  # The base domain name for this container.
-      - SCRIPT_NAME=/admin                     # This is your applications base path (wsgi requires the name "SCRIPT_NAME").  Remove if you are hosing at the root /
-      - KEY="dMWV0w7wF5xdMgNPih/uYdA5YsvwKCLYnO1RFxZ0jCs="             # Generate with "openssl rand -base64 32" - used to encrypt your key on disk.
-      # - AUTH_TYPE=Basic                      # AUTH_TYPE is either Basic or OIDC.  Empty for no authentication
-      - LOG_LEVEL=info                         # Log level.  "DEBUG", "ERROR", "WARNING", or "INFO".  Default "INFO"
-      # ENV for Basic Auth (Used only if AUTH_TYPE is "Basic").  Can be omitted if you aren't using Basic Auth
-      # - BASIC_AUTH_USER=youruser                   # Used for basic auth
-      # - BASIC_AUTH_PASS=some-long-str0n6-pa66word4                  # Used for basic auth
-      # ENV for OIDC (Used only if AUTH_TYPE is "OIDC").  Can be omitted if you aren't using OIDC
-      #- OIDC_AUTH_URL=https://yourauthserver.com/application/o/headscale/.well-known/openid-configuration # URL for your OIDC issuer's well-known endpoint
-      #- OIDC_CLIENT_ID=your-auth-server-client-id-info-here         # Your OIDC Issuer's Client ID for Headscale-WebUI
-      #- OIDC_CLIENT_SECRET=your-oidc-auth-server-client-secret-key-will-go-here-and-be-very-long-indeed      # Your OIDC Issuer's Secret Key for Headscale-WebUI
+      - COLOR=blue
+      - HS_SERVER=http://192.168.10.10:8880
+      - DOMAIN_NAME=http://192.168.10.10:5000
+      - SCRIPT_NAME=/admin
+      - KEY=${KEY_WEBUI}
+      - LOG_LEVEL=info
     labels:
       - traefik.enable=true
-      - traefik.http.routers.headscale-webui.entrypoints=websecure
-      - traefik.http.routers.headscale-webui.rule=Host(`headscale.allfabox.fr`) && (PathPrefix(`/admin/`) || PathPrefix(`/admin`))
-      - traefik.http.routers.headscale-webui.tls=true
-      - traefik.http.routers.headscale-webui.tls.certresolver=letsencrypt
-      - traefik.http.routers.headscale-webui.middlewares=authelia@docker
+      - traefik.http.routers.headscale-admin.entrypoints=websecure
+      - traefik.http.routers.headscale-admin.rule=Host(`headscale.allfabox.fr`) && (PathPrefix(`/admin/`) || PathPrefix(`/admin`))
+      - traefik.http.routers.headscale-admin.tls=true
+      - traefik.http.routers.headscale-admin.tls.certresolver=letsencrypt
+      - traefik.http.routers.headscale-admin.middlewares=authelia@docker
     networks:
       - frontend
 
@@ -150,7 +142,7 @@ services:
       - ./portainer:/data    
       - /etc/localtime:/etc/localtime:ro
     environment:
-      - AGENT_SECRET="{{ portainer.agent.secret.key }}"
+      - AGENT_SECRET=${AGENT_SECRET}
     security_opt:
       - no-new-privileges:true
     labels:
