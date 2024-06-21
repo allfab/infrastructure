@@ -68,13 +68,13 @@
         upgrade: true
         cache_valid_time: 14400
   roles:
-    # - role: grog.package
-    #   become: true
-    # - config/users
-    # - config/bash-aliases
-    # - install/motd
-    # - role: geerlingguy.docker
-    #   become: true
+    - role: grog.package
+      become: true
+    - config/users
+    - config/bash-aliases
+    - install/motd
+    - role: geerlingguy.docker
+      become: true
     - role: frontend
       become: true
 
