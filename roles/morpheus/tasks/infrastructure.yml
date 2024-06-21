@@ -46,16 +46,44 @@
     - {"lxc":"150", "order":"6"}
     - {"lxc":"160", "order":"7"}
 
+- name: "VÉRIFICATION DE LA PRÉSENCE DE LA CONFIGURATION POUR LA FONCTION TUN/TAP frontend"
+  lineinfile:
+    path: /etc/pve/lxc/110.conf
+    regexp: "^lxc.cgroup2.devices.allow: c 10:200 rwm"
+    state: absent
+  check_mode: yes
+  changed_when: false
+  register: tun_tap_exists
+
+- name: "AJOUT DE LA CONFIGURATION POUR LA FONCTION TUN/TAP - CONTENEUR NON PRIVILÉGIÉ"
+  lineinfile:
+    path: /etc/pve/lxc/110.conf
+    insertafter: EOF
+    line: |
+      lxc.cgroup2.devices.allow: c 10:200 rwm
+      lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file
+    unsafe_writes: yes
+  when: not tun_tap_exists.found
+
 - name: AJOUT DES POINTS DE MONTAGE LXC POUR LA MÉDIATHÈQUE SUR jellyfin et mediaserver
   command: "{{ item }}"
   with_items:
     - "pct set 140 -mp1 /mnt/storage/media/videos,mp=/mnt/media/videos"
     - "pct set 141 -mp2 /mnt/storage/media/musics,mp=/mnt/media/musics"
     - "pct set 141 -mp3 /mnt/storage/media/books,mp=/mnt/media/books"
-     
-- name: AJOUT DU RELAIS iGPU  DANS LE FICHIER DE CONFIGURATION Jellyfin /etc/pve/lxc/140.conf
+
+- name: VÉRIFICATION DE LA PRÉSENCE DU RELAIS iGPU DANS LE FICHIER DE CONFIGURATION Jellyfin /etc/pve/lxc/140.conf
   lineinfile:
-    dest: "/etc/pve/lxc/140.conf"
+    path: /etc/pve/lxc/140.conf
+    regexp: "^lxc.cgroup2.devices.allow: c 226:0 rwm"
+    state: absent
+  check_mode: yes
+  changed_when: false
+  register: igpu_exists
+
+- name: AJOUT DU RELAIS iGPU DANS LE FICHIER DE CONFIGURATION Jellyfin /etc/pve/lxc/140.conf
+  lineinfile:
+    dest: /etc/pve/lxc/140.conf
     insertafter: EOF
     line: |
       lxc.cgroup2.devices.allow: c 226:0 rwm
@@ -63,6 +91,7 @@
       lxc.mount.entry: /dev/dri/card0 dev/dri/card0 none bind,optional,create=file
       lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file
     unsafe_writes: yes
+  when: not igpu_exists.found
 
 - name: ACTIVATION DU FIRMWARE Intel GUC/HUC POUR Jellyfin
   template:

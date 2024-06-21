@@ -1,4 +1,21 @@
 ---
+- name: HEADSCALE - PRÉREQUIS LOGIGIEL jq
+  package:
+    name: jq
+    state: present
+
+- name: HEADSCALE - VÉRIFICATION DE L'EXISTENCE DES UTILISATEURS
+  remote_user: "{{ secret.users.me.name }}"
+  # community.docker.docker_container_exec:
+  #   container: headscale
+  #   command: "headscale users list -o json-line | jq '. | length'"
+  shell: "docker exec headscale headscale users list -o json-line | jq '. | length'"
+  register: headscale_users_number
+
+- name: HEADSCALE - NOMBRE D'UTILISATEURS EXISTANTS
+  debug:
+    msg: "{{ headscale_users_number.stdout }} utilisateur(s)"
+
 - name: HEADSCALE - CRÉATION DES UTILISATEURS
   remote_user: "{{ secret.users.me.name }}"
   community.docker.docker_container_exec:
@@ -6,14 +23,15 @@
     command: /bin/bash -c "headscale users create {{ item }}"
   with_items:
     - "{{ secret.users.me.name }}"
-    - docker
+    - frontend-tail
+  when: headscale_users_number.stdout | int == 0
 
 - name: HEADSCALE - CRÉATION DES CLÉS PRÉ-AUTHENTIFIÉE POUR LES FUTURS CLIENTS
   remote_user: "{{ secret.users.me.name }}"
   community.docker.docker_container_exec:
     container: headscale
-    command: /bin/bash -c "headscale preauthkeys create -e 10m -u {{ item }}"
+    command: /bin/bash -c "headscale preauthkeys create --reusable -u {{ item }}"
   with_items:
     - "{{ secret.users.me.name }}"
-    - docker
-    
+    - frontend-tail
+  when: headscale_users_number.stdout | int == 0

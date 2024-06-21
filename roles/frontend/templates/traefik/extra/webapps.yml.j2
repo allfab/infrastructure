@@ -3,7 +3,7 @@ http:
     homer:
       entryPoints:
         - websecure
-      rule: 'Host(`allfabox.fr`,`www.allfabox.fr`)'
+      rule: 'Host(`allfabox.fr`) || Host(`www.allfabox.fr`)'
       service: homer
   
   services:

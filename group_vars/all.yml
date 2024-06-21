@@ -13,6 +13,7 @@ package_list:
   - name: iftop
   - name: inxi
   - name: iotop
+  - name: jq
   - name: lm-sensors
   - name: mc
   - name: molly-guard
@@ -36,6 +37,9 @@ bash_aliases:
   - { alias: "c", command: "clear" }
   - { alias: "grep", command: "grep --color=auto" }
   - { alias: "mkdir", command: "mkdir -pv" }
+  - { alias: "dcp", command: "docker compose up -d"}
+  - { alias: "dcd", command: "docker compose down"}
+  - { alias: "dtail", command: "docker logs -tf --tail='50' "}  
 
 # geerlingguy.docker
 docker_edition: 'ce'

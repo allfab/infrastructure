@@ -20,12 +20,12 @@
     mode: "{{ docker.compose.directory_mask }}"
     owner: "{{ secret.users.me.name }}"
 
-- name: CRÉATION DU RÉPERTOIRE POUR L'INTERFACE ADMIN
-  file:
-    path: /opt/docker/frontend-stack/headscale/webui
-    state: directory
-    mode: "{{ docker.compose.directory_mask }}"
-    owner: "{{ secret.users.me.name }}"
+# - name: CRÉATION DU RÉPERTOIRE POUR L'INTERFACE ADMIN
+#   file:
+#     path: /opt/docker/frontend-stack/headscale/webui
+#     state: directory
+#     mode: "{{ docker.compose.directory_mask }}"
+#     owner: "{{ secret.users.me.name }}"
 
 - name: INSTALLATION DU FICHIER DE CONFIGURATION PRINCIPAL DE headscale
   template:

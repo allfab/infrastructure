@@ -38,17 +38,31 @@ Author Information
 An optional section for the role authors to include contact information, or a website (HTML is not allowed).
 
 
-# HEADSCALE - MÉMO
+# HEADSCALE - TAILSCALE
 
 ## Docker
 
 docker compose exec headscale headscale users create allfab
 docker compose exec headscale headscale preauthkeys create -e 10m -u allfab
 
-docker compose exec headscale headscale users create docker
-docker compose exec headscale headscale preauthkeys create -e 10m -u docker
+Afin que le conteneur docker `tailscale` s'authentifie bien avec `headscale`, il est nécessaire d'ajouter la configuration `hostname` au fichier compose et que ce `hostname` corresponde bien à un utilisateur sur headscale. C'est pourquou on retrouve :
+``` yaml
+tailscale:
+    container_name: tailscale
+    image: tailscale/tailscale:latest
+    `hostname: docker`
+    ...
+```
 
+docker compose exec headscale headscale users create frontend-tail
+docker compose exec headscale headscale preauthkeys create -e 10m -u frontend-tail
+docker compose exec headscale headscale preauthkeys create --reusable -u frontend-tail
+
+# Connect to headscale-webui
 docker compose exec headscale headscale apikeys create
+
+## docker tailscale
+tailscale up --login-server=https://headscale.allfabox.fr --advertise-exit-node --advertise-routes=192.168.0.0/16 --accept-dns=true
 
 
 

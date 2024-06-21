@@ -21,8 +21,8 @@ portainer:
 
 headscale:
   admin:
-    login_server: "{{ secret.headscale.webui.key }}"
-    advertise_route: "{{ secret.headscale.webui.key }}"
+    login_server: "{{ secret.headscale.admin.login_server }}"
+    advertise_route: "{{ secret.headscale.admin.advertise_route }}"
   docker:
     authkey: "{{ secret.headscale.docker.authkey }}"
   webui:    
