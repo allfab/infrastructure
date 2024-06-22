@@ -1,0 +1,47 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/latest/configs/settings
+
+title: Tableau de bord - IGEO
+startUrl: http://192.168.10.50:3000/
+language: fr
+
+background:
+  image: /images/dariusz-sankowski-3OiYMgDKJ6k-unsplash.jpg
+  blur: sm # sm, "", md, xl... see https://tailwindcss.com/docs/backdrop-blur
+  saturate: 50 # 0, 50, 100... see https://tailwindcss.com/docs/backdrop-saturate
+  brightness: 50 # 0, 50, 75... see https://tailwindcss.com/docs/backdrop-brightness
+  opacity: 40 # 0-100
+
+layout:
+  Services (10.10.22.100):
+    tab: SRVIGEO20
+    style: row
+    columns: 1
+  Outils:
+    tab: SRVIGEO20
+    style: row
+    columns: 6
+  GEO:
+    tab: SRVIGEO20
+    style: row
+    columns: 3
+  Intranet:
+    tab: SRVIGEO20
+    style: row
+    columns: 3
+  Métiers:
+    tab: SRVIGEO20
+    style: row
+    columns: 2
+
+  Services (localhost):
+    tab: LOCALHOST
+    columns: 2
+
+
+showStats: true
+
+providers:
+  openweathermap: openweathermapapikey
+  weatherapi: weatherapiapikey

@@ -44,6 +44,9 @@ jellyfin:
 mediaserver:
   ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit mediaserver --tags setup
 
+fileserver:
+  ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit fileserver --tags setup
+
 webapps:
   ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit webapps --tags setup
 

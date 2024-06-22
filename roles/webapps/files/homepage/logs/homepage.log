@@ -1,0 +1,2625 @@
+[2023-10-27T09:03:14.843Z] info: docker.yaml was copied to the config folder
+[2023-10-27T09:03:14.856Z] info: services.yaml was copied to the config folder
+[2023-10-27T09:03:14.859Z] info: bookmarks.yaml was copied to the config folder
+[2023-10-27T09:03:14.907Z] info: widgets.yaml was copied to the config folder
+[2023-10-27T09:03:14.909Z] info: custom.css was copied to the config folder
+[2023-10-27T09:03:14.912Z] info: custom.js was copied to the config folder
+[2023-10-27T09:03:15.415Z] info: kubernetes.yaml was copied to the config folder
+[2023-10-27T09:41:27.937Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:41:27.941Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:41:27.955Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:41:27.955Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:41:36.828Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:41:36.829Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:41:36.841Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:41:36.842Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:41:45.182Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:41:45.184Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:41:45.188Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:41:45.189Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:43:49.889Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:43:49.895Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:43:49.918Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:43:49.920Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:43:50.742Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:43:50.751Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:43:50.783Z] error: <credentialedProxyHandler> HTTP Error 404 calling http://10.10.22.100:9000//api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:43:50.804Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:43:50.805Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:43:55.885Z] error: <credentialedProxyHandler> HTTP Error 404 calling http://10.10.22.100:9000//api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:43:58.005Z] error: <credentialedProxyHandler> HTTP Error 404 calling http://10.10.22.100:9000//api/endpoints/1/docker/containers/json?all=1
+[2023-10-27T09:43:58.007Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:43:58.009Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:43:58.014Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:43:58.015Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:43:58.379Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:43:58.381Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:43:58.385Z] error: <credentialedProxyHandler> HTTP Error 404 calling http://10.10.22.100:9000//api/endpoints/1/docker/containers/json?all=1
+[2023-10-27T09:43:58.390Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:43:58.391Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:44:03.913Z] error: <credentialedProxyHandler> HTTP Error 404 calling http://10.10.22.100:9000//api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:44:03.922Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:44:03.923Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:44:03.949Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:44:03.950Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:44:04.563Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:44:04.566Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:44:04.570Z] error: <credentialedProxyHandler> HTTP Error 404 calling http://10.10.22.100:9000//api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:44:04.573Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:44:04.574Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:44:08.535Z] error: <credentialedProxyHandler> HTTP Error 404 calling http://10.10.22.100:9000//api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:44:08.541Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:44:08.542Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:44:08.553Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:44:08.553Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:44:18.592Z] error: <credentialedProxyHandler> HTTP Error 404 calling http://10.10.22.100:9000//api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:44:41.175Z] error: <credentialedProxyHandler> HTTP Error 404 calling http://10.10.22.100:9000//api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:44:41.222Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:44:41.223Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:44:41.235Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:44:41.236Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:44:43.664Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:44:43.665Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:44:43.679Z] error: <credentialedProxyHandler> HTTP Error 404 calling http://10.10.22.100:9000//api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:44:43.691Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:44:43.692Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:44:48.776Z] error: <credentialedProxyHandler> HTTP Error 404 calling http://10.10.22.100:9000//api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:44:55.754Z] error: <credentialedProxyHandler> HTTP Error 404 calling http://10.10.22.100:9000//api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:44:55.760Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:44:55.761Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:44:55.776Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:44:55.777Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:44:58.996Z] error: <credentialedProxyHandler> HTTP Error 404 calling http://10.10.22.100:9000//api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:45:42.025Z] error: <credentialedProxyHandler> HTTP Error 404 calling http://10.10.22.100:9000//api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:45:42.027Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:45:42.028Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:45:42.043Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:45:42.044Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:45:42.527Z] error: <credentialedProxyHandler> HTTP Error 404 calling http://10.10.22.100:9000//api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:45:42.531Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:45:42.532Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:45:42.538Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:45:42.539Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:45:44.166Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:45:44.168Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:45:44.172Z] error: <credentialedProxyHandler> HTTP Error 404 calling http://10.10.22.100:9000//api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:45:44.176Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:45:44.177Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:45:54.707Z] error: <credentialedProxyHandler> HTTP Error 404 calling http://10.10.22.100:9000//api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:46:18.150Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:46:18.152Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:46:18.169Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:46:18.170Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:46:18.594Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:46:18.595Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:46:18.602Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:46:18.603Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:46:31.732Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:46:31.736Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:46:31.767Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:46:31.768Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:46:32.203Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:46:32.205Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:46:32.229Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:46:32.230Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:46:37.457Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:46:37.459Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:46:37.467Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:46:37.468Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:46:59.614Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:46:59.618Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:46:59.623Z] error: <credentialedProxyHandler> HTTP Error 401 calling http://10.10.22.100:9000/api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:46:59.672Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:46:59.674Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:47:00.109Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:47:00.110Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:47:00.140Z] error: <credentialedProxyHandler> HTTP Error 401 calling http://10.10.22.100:9000/api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:47:00.195Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:47:00.196Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:47:13.890Z] error: undefined
+[2023-10-27T09:49:02.109Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:49:02.111Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:49:02.119Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:49:02.120Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:49:32.047Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:49:32.049Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:49:32.052Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:49:32.054Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:49:34.368Z] error: <httpProxy> Error calling http://127.0.0.1:9000/api/endpoints/2/docker/containers/json...
+[2023-10-27T09:49:34.369Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:49:34.371Z] error: <credentialedProxyHandler> HTTP Error 500 calling http://127.0.0.1:9000/api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:49:34.377Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:49:34.378Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:49:34.382Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:49:34.383Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:49:53.279Z] error: <httpProxy> Error calling http://127.0.0.1:9000/api/endpoints/2/docker/containers/json...
+[2023-10-27T09:49:53.281Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:49:53.282Z] error: <credentialedProxyHandler> HTTP Error 500 calling http://127.0.0.1:9000/api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:49:53.298Z] error: <credentialedProxyHandler> HTTP Error 401 calling http://10.10.22.100:9000/api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:49:53.304Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:49:53.305Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:49:53.321Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:49:53.322Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:49:53.627Z] error: <httpProxy> Error calling http://127.0.0.1:9000/api/endpoints/2/docker/containers/json...
+[2023-10-27T09:49:53.629Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:49:53.629Z] error: <credentialedProxyHandler> HTTP Error 500 calling http://127.0.0.1:9000/api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:49:53.636Z] error: <credentialedProxyHandler> HTTP Error 401 calling http://10.10.22.100:9000/api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:49:53.646Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:49:53.647Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:49:53.668Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:49:53.669Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:50:07.473Z] error: <httpProxy> Error calling http://127.0.0.1:9000/api/endpoints/2/docker/containers/json...
+[2023-10-27T09:50:07.474Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:50:07.475Z] error: <credentialedProxyHandler> HTTP Error 500 calling http://127.0.0.1:9000/api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:50:07.480Z] error: <credentialedProxyHandler> HTTP Error 401 calling http://10.10.22.100:9000/api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:50:07.484Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:50:07.485Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:50:07.505Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:50:07.506Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:50:07.833Z] error: <httpProxy> Error calling http://127.0.0.1:9000/api/endpoints/2/docker/containers/json...
+[2023-10-27T09:50:07.834Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:50:07.835Z] error: <credentialedProxyHandler> HTTP Error 500 calling http://127.0.0.1:9000/api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:50:07.840Z] error: <credentialedProxyHandler> HTTP Error 401 calling http://10.10.22.100:9000/api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:50:07.851Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:50:07.851Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:50:07.868Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:50:07.869Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:50:39.906Z] error: <httpProxy> Error calling http://127.0.0.1:9000/api/endpoints/2/docker/containers/json...
+[2023-10-27T09:50:39.908Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:50:39.909Z] error: <credentialedProxyHandler> HTTP Error 500 calling http://127.0.0.1:9000/api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:50:39.931Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:50:39.932Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:50:39.945Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:50:39.946Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:50:40.289Z] error: <httpProxy> Error calling http://127.0.0.1:9000/api/endpoints/2/docker/containers/json...
+[2023-10-27T09:50:40.291Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:50:40.292Z] error: <credentialedProxyHandler> HTTP Error 500 calling http://127.0.0.1:9000/api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:50:40.314Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:50:40.315Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:50:40.327Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:50:40.328Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:50:53.552Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:50:53.553Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:50:53.562Z] error: <httpProxy> Error calling http://localhost:9000/api/endpoints/2/docker/containers/json...
+[2023-10-27T09:50:53.562Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:50:53.563Z] error: <credentialedProxyHandler> HTTP Error 500 calling http://localhost:9000/api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:50:53.595Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:50:53.596Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:50:54.184Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:50:54.185Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:50:54.187Z] error: <httpProxy> Error calling http://localhost:9000/api/endpoints/2/docker/containers/json...
+[2023-10-27T09:50:54.187Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:50:54.188Z] error: <credentialedProxyHandler> HTTP Error 500 calling http://localhost:9000/api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:50:54.201Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:50:54.201Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:51:00.531Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:51:00.534Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:51:00.537Z] error: <httpProxy> Error calling http://localhost:9000/api/endpoints/2/docker/containers/json...
+[2023-10-27T09:51:00.538Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:51:00.538Z] error: <credentialedProxyHandler> HTTP Error 500 calling http://localhost:9000/api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:51:00.565Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:51:00.566Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:51:17.977Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:51:17.979Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:51:17.991Z] error: <httpProxy> Error calling http://localhost:9000/api/endpoints/2/docker/containers/json...
+[2023-10-27T09:51:17.992Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:51:17.992Z] error: <credentialedProxyHandler> HTTP Error 500 calling http://localhost:9000/api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:51:18.019Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:51:18.021Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:51:42.750Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:51:42.752Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:51:42.760Z] error: <httpProxy> Error calling http://localhost:9000/api/endpoints/2/docker/containers/json...
+[2023-10-27T09:51:42.761Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:51:42.762Z] error: <credentialedProxyHandler> HTTP Error 500 calling http://localhost:9000/api/endpoints/2/docker/containers/json?all=1
+[2023-10-27T09:51:42.765Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:51:42.766Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:51:52.079Z] error: undefined
+[2023-10-27T09:51:52.085Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:51:52.087Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:51:52.104Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:51:52.105Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:51:52.492Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:51:52.493Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:51:52.499Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:51:52.500Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:52:12.637Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:52:12.639Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:52:12.647Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:52:12.648Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:52:22.436Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:52:22.437Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:52:22.445Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:52:22.446Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:52:43.475Z] error: undefined
+[2023-10-27T09:52:43.519Z] error: undefined
+[2023-10-27T09:52:55.240Z] error: undefined
+[2023-10-27T09:52:55.266Z] error: undefined
+[2023-10-27T09:52:55.926Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:52:55.927Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:52:55.942Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:52:55.943Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:53:12.118Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:53:12.119Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:53:12.133Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:53:12.134Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:53:12.193Z] error: undefined
+[2023-10-27T09:53:12.220Z] error: undefined
+[2023-10-27T09:53:46.194Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:53:46.200Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:53:46.291Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:53:46.297Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:54:05.816Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:54:05.817Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:54:05.836Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:54:05.838Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:54:06.195Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:54:06.198Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:54:06.222Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:54:06.223Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:54:19.643Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:54:19.644Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:54:19.649Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:54:19.650Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:54:20.048Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:54:20.050Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:54:20.078Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:54:20.079Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:55:48.937Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:55:48.943Z] error: Failed to load settings.yaml, please check for errors
+[2023-10-27T09:55:48.938Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:55:48.944Z] error: YAMLException: bad indentation of a mapping entry (18:30)
+
+ 15 | 
+ 16 | layout:
+ 17 |   ...
+ 18 |   Bookmark Group on First Tab:
+-----------------------------------^
+ 19 |     tab: First
+ 20 | 
+[2023-10-27T09:55:48.978Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:55:48.963Z] error: <index> YAMLException: bad indentation of a mapping entry (18:30)
+
+ 15 | 
+ 16 | layout:
+ 17 |   ...
+ 18 |   Bookmark Group on First Tab:
+-----------------------------------^
+ 19 |     tab: First
+ 20 | 
+    at generateError (file:///app/node_modules/.pnpm/js-yaml@4.1.0/node_modules/js-yaml/dist/js-yaml.mjs:1273:10)
+    at throwError (file:///app/node_modules/.pnpm/js-yaml@4.1.0/node_modules/js-yaml/dist/js-yaml.mjs:1277:9)
+    at readBlockMapping (file:///app/node_modules/.pnpm/js-yaml@4.1.0/node_modules/js-yaml/dist/js-yaml.mjs:2272:7)
+    at composeNode (file:///app/node_modules/.pnpm/js-yaml@4.1.0/node_modules/js-yaml/dist/js-yaml.mjs:2531:12)
+    at readDocument (file:///app/node_modules/.pnpm/js-yaml@4.1.0/node_modules/js-yaml/dist/js-yaml.mjs:2715:3)
+    at loadDocuments (file:///app/node_modules/.pnpm/js-yaml@4.1.0/node_modules/js-yaml/dist/js-yaml.mjs:2778:5)
+    at Object.load$1 [as load] (file:///app/node_modules/.pnpm/js-yaml@4.1.0/node_modules/js-yaml/dist/js-yaml.mjs:2804:19)
+    at getSettings (/app/.next/server/chunks/9277.js:109:75)
+    at getStaticProps (/app/.next/server/pages/index.js:2718:101)
+    at Object.renderToHTML (/app/node_modules/.pnpm/next@12.3.4_react-dom@18.2.0_react@18.2.0/node_modules/next/dist/server/render.js:386:26)
+[2023-10-27T09:55:48.979Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:55:48.982Z] error: Failed to load settings.yaml, please check for errors
+[2023-10-27T09:55:48.982Z] error: YAMLException: bad indentation of a mapping entry (18:30)
+
+ 15 | 
+ 16 | layout:
+ 17 |   ...
+ 18 |   Bookmark Group on First Tab:
+-----------------------------------^
+ 19 |     tab: First
+ 20 | 
+[2023-10-27T09:55:49.124Z] error: Failed to load settings.yaml, please check for errors
+[2023-10-27T09:55:49.128Z] error: YAMLException: bad indentation of a mapping entry (18:30)
+
+ 15 | 
+ 16 | layout:
+ 17 |   ...
+ 18 |   Bookmark Group on First Tab:
+-----------------------------------^
+ 19 |     tab: First
+ 20 | 
+[2023-10-27T09:55:49.134Z] error: Failed to load settings.yaml, please check for errors
+[2023-10-27T09:55:49.135Z] error: YAMLException: bad indentation of a mapping entry (18:30)
+
+ 15 | 
+ 16 | layout:
+ 17 |   ...
+ 18 |   Bookmark Group on First Tab:
+-----------------------------------^
+ 19 |     tab: First
+ 20 | 
+[2023-10-27T09:55:53.865Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:55:53.866Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:55:53.870Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:55:53.870Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:56:07.790Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:56:07.791Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:56:07.803Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:56:07.803Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:56:23.793Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:56:23.796Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:56:23.799Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:56:23.800Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:56:48.669Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:56:48.670Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:56:48.679Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:56:48.681Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:57:09.633Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:57:09.634Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:57:09.638Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:57:09.638Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:57:15.531Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:57:15.533Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:57:15.569Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:57:15.570Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:57:45.378Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:57:45.379Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:57:45.384Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:57:45.385Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:57:45.737Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:57:45.738Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:57:45.750Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:57:45.751Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:57:54.945Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:57:54.946Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:57:54.954Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:57:54.954Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:57:55.275Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:57:55.276Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:57:55.290Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:57:55.291Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:58:08.289Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:58:08.290Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:58:08.299Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:58:08.300Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:58:08.700Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:58:08.701Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:58:08.715Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:58:08.717Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:58:38.611Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:58:38.613Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:58:38.616Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:58:38.617Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:58:39.565Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:58:39.568Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:58:39.581Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:58:39.582Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:59:36.235Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:59:36.237Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:59:36.248Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:59:36.249Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:59:36.607Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:59:36.609Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:59:36.617Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:59:36.618Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:59:50.615Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:59:50.617Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T09:59:50.619Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T09:59:50.620Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:00:07.138Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:00:07.139Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:00:07.143Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:00:07.144Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:00:13.018Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:00:13.022Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:00:13.026Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:00:13.028Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:00:16.383Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:00:16.384Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:00:16.388Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:00:16.388Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:00:18.674Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:00:18.676Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:00:18.679Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:00:18.680Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:00:21.162Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:00:21.163Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:00:21.165Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:00:21.166Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:01:07.491Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:01:07.493Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:01:07.495Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:01:07.496Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:01:35.544Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:01:35.547Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:01:35.587Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:01:35.589Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:02:00.752Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:02:00.754Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:02:00.767Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:02:00.768Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:02:01.070Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:02:01.072Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:02:01.079Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:02:01.080Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:02:01.471Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:02:01.472Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:02:01.477Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:02:01.478Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:02:12.926Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:02:12.928Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:02:12.933Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:02:12.934Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:02:13.217Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:02:13.219Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:02:13.226Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:02:13.227Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:02:19.343Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:02:19.344Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:02:19.351Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:02:19.352Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:02:29.125Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:02:29.126Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:02:29.140Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:02:29.142Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:02:29.449Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:02:29.450Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:02:29.458Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:02:29.460Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:02:29.726Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:02:29.727Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:02:29.748Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:02:29.749Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:02:58.182Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:02:58.185Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:02:58.195Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:02:58.196Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:28:15.841Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:28:15.848Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:28:15.853Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:28:15.854Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:28:18.604Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:28:18.605Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:28:18.608Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:28:18.609Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:28:21.111Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:28:21.113Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:28:21.116Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:28:21.117Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:28:24.695Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:28:24.697Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:28:24.702Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:28:24.703Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:29:10.730Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:29:10.733Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:29:10.749Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:29:10.754Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:29:20.099Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:29:20.101Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:29:20.109Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:29:20.109Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:29:20.625Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:29:20.626Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:29:20.633Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:29:20.633Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:30:30.034Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:30:30.036Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:30:30.044Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-27T10:30:30.045Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-27T10:33:15.266Z] error: end of the stream or a document separator is expected (32:1)
+
+ 29 |         icon: stirling-pdf.svg
+ 30 |         ping: http://10.10.22.1 ...
+ 31 | 
+ 32 | http://10.10.22.100:6080/
+------^
+ 33 | 
+ 34 | - Services (localhost):
+[2023-10-27T10:33:15.269Z] error: Failed to load services.yaml, please check for errors
+[2023-10-27T10:33:15.270Z] error: YAMLException: end of the stream or a document separator is expected (32:1)
+
+ 29 |         icon: stirling-pdf.svg
+ 30 |         ping: http://10.10.22.1 ...
+ 31 | 
+ 32 | http://10.10.22.100:6080/
+------^
+ 33 | 
+ 34 | - Services (localhost):
+[2023-10-27T10:33:15.281Z] error: end of the stream or a document separator is expected (32:1)
+
+ 29 |         icon: stirling-pdf.svg
+ 30 |         ping: http://10.10.22.1 ...
+ 31 | 
+ 32 | http://10.10.22.100:6080/
+------^
+ 33 | 
+ 34 | - Services (localhost):
+[2023-10-27T10:33:15.283Z] error: end of the stream or a document separator is expected (32:1)
+
+ 29 |         icon: stirling-pdf.svg
+ 30 |         ping: http://10.10.22.1 ...
+ 31 | 
+ 32 | http://10.10.22.100:6080/
+------^
+ 33 | 
+ 34 | - Services (localhost):
+[2023-10-27T10:33:15.288Z] error: end of the stream or a document separator is expected (32:1)
+
+ 29 |         icon: stirling-pdf.svg
+ 30 |         ping: http://10.10.22.1 ...
+ 31 | 
+ 32 | http://10.10.22.100:6080/
+------^
+ 33 | 
+ 34 | - Services (localhost):
+[2023-10-27T10:33:15.296Z] error: Failed to load services.yaml, please check for errors
+[2023-10-27T10:33:15.296Z] error: YAMLException: end of the stream or a document separator is expected (32:1)
+
+ 29 |         icon: stirling-pdf.svg
+ 30 |         ping: http://10.10.22.1 ...
+ 31 | 
+ 32 | http://10.10.22.100:6080/
+------^
+ 33 | 
+ 34 | - Services (localhost):
+[2023-10-27T10:33:15.642Z] error: Failed to load services.yaml, please check for errors
+[2023-10-27T10:33:15.643Z] error: YAMLException: end of the stream or a document separator is expected (32:1)
+
+ 29 |         icon: stirling-pdf.svg
+ 30 |         ping: http://10.10.22.1 ...
+ 31 | 
+ 32 | http://10.10.22.100:6080/
+------^
+ 33 | 
+ 34 | - Services (localhost):
+[2023-10-31T14:00:01.208Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-31T14:00:01.229Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2023-10-31T14:00:01.233Z] error: <httpProxy> Error calling http://localhost:9000/...
+[2023-10-31T14:00:01.234Z] error: <httpProxy> [
+  500,
+  Error: connect ECONNREFUSED 127.0.0.1:9000
+      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+    errno: -111,
+    code: 'ECONNREFUSED',
+    syscall: 'connect',
+    address: '127.0.0.1',
+    port: 9000
+  }
+]
+[2024-06-21T12:19:50.921Z] error: <service-helpers> Error getting services from Docker server 'my-docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2024-06-21T12:19:51.440Z] error: <service-helpers> Error getting services from Docker server 'my-docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2024-06-21T12:19:52.217Z] error: <service-helpers> Error getting services from Docker server 'my-docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2024-06-21T12:20:06.853Z] error: <service-helpers> Error getting services from Docker server 'my-docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2024-06-21T12:22:42.014Z] error: <service-helpers> Error getting services from Docker server 'my-docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2024-06-21T12:23:29.734Z] error: <service-helpers> Error getting services from Docker server 'my-docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2024-06-21T12:23:39.137Z] error: <service-helpers> Error getting services from Docker server 'my-docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2024-06-21T12:23:51.296Z] error: <service-helpers> Error getting services from Docker server 'my-docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2024-06-21T12:24:02.443Z] error: <service-helpers> Error getting services from Docker server 'my-docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2024-06-21T12:24:09.949Z] error: <service-helpers> Error getting services from Docker server 'my-docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2024-06-21T12:27:02.737Z] error: <service-helpers> Error getting services from Docker server 'my-docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2024-06-21T12:27:11.780Z] error: <service-helpers> Error getting services from Docker server 'my-docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2024-06-21T12:27:38.542Z] error: <service-helpers> Error getting services from Docker server 'my-docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}
+[2024-06-21T12:29:35.957Z] error: <service-helpers> Error getting services from Docker server 'my-docker': Error: connect EACCES /var/run/docker.sock
+    at PipeConnectWrap.afterConnect [as oncomplete] (node:net:1555:16) {
+  errno: -13,
+  code: 'EACCES',
+  syscall: 'connect',
+  address: '/var/run/docker.sock'
+}

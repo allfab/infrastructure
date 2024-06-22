@@ -133,6 +133,7 @@
   roles:
     - role: grog.package
       become: true
+    - config/users
     - install/motd
     - role: jellyfin
       become: true
@@ -157,6 +158,28 @@
     - role: geerlingguy.docker
       become: true
     - role: mediaserver
+      become: true
+  
+- hosts: fileserver
+  tags: setup
+  vars_files:
+    - vars/vault.yml
+  pre_tasks:
+    - name: MISE À JOUR SYSTÈME
+      become: true
+      apt:
+        update_cache: true
+        upgrade: true
+        cache_valid_time: 14400
+  roles:
+    - role: grog.package
+      become: true
+    - config/users
+    - config/bash-aliases
+    - install/motd
+    - role: geerlingguy.docker
+      become: true
+    - role: fileserver
       become: true
 
 - hosts: webapps

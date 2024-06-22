@@ -1,0 +1,19 @@
+---
+- name: CHARGEMENT DES VARIABLES PAR DÉFAUT
+  include_vars: defaults/main.yml
+
+- name: HOMEPAGE - CRÉATION DU RÉPERTOIRE D'INSTALLATION/CONFIGURATION
+  file:
+    path: /opt/docker/webapps-stack/homepage
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+
+- name: HOMEPAGE - INSTALLATION DES DIFFÉRENTS FICHIERS DE CONFIGURATION
+  copy:
+    src: homepage/
+    dest: /opt/docker/webapps-stack/homepage/
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"

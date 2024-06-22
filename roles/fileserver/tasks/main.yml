@@ -5,20 +5,20 @@
 - name: ON S'ASSURE QU'UN FICHIER docker-compose.yml EXISTE
   remote_user: "{{ secret.users.me.name }}"
   stat:
-    path: /opt/docker/webapps-stack/docker-compose.yml
-  register: webapps_stack_docker_compose
+    path: /opt/docker/fileserver-stack/docker-compose.yml
+  register: fileserver_stack_docker_compose
 
-- name: SUPPRESSION DE LA STACK webapps SI ELLE EXISTE
+- name: SUPPRESSION DE LA STACK fileserver SI ELLE EXISTE
   remote_user: "{{ secret.users.me.name }}"
   shell:
-    chdir: /opt/docker/webapps-stack
+    chdir: /opt/docker/fileserver-stack
     cmd: docker compose down
-  when: webapps_stack_docker_compose.stat.exists
+  when: fileserver_stack_docker_compose.stat.exists
 
 - name: INSTALLATION DU FICHIER DE COMPOSITION
   template:
     src: docker-compose.yml.j2
-    dest: /opt/docker/webapps-stack/docker-compose.yml
+    dest: /opt/docker/fileserver-stack/docker-compose.yml
     mode: "{{ docker.compose.file_mask }}"
     owner: "{{ secret.users.me.name }}"
     group: "{{ secret.users.me.gid }}"
@@ -27,29 +27,23 @@
 - name: INSTALLATION DU FICHIER DES VARIABLES D'ENVIRONNEMENT DOCKER
   template:
     src: env.j2
-    dest: /opt/docker/webapps-stack/.env
+    dest: /opt/docker/fileserver-stack/.env
     mode: "{{ docker.compose.file_mask }}"
     owner: "{{ secret.users.me.name }}"
     group: "{{ secret.users.me.gid }}"
 
-- name: INSTALLATION/CONFIGURATION DU CONTENEUR homer
-  include_tasks: includes/docker/homer.yml
+# - name: INSTALLATION/CONFIGURATION DU CONTENEUR navidrome
+#   include_tasks: includes/docker/navidrome.yml
 
-- name: INSTALLATION/CONFIGURATION DU CONTENEUR homepage
-  include_tasks: includes/docker/homepage.yml
-
-- name: INSTALLATION/CONFIGURATION DU CONTENEUR vaultwarden
-  include_tasks: includes/docker/vaultwarden.yml
-
-- name: DÉMARRAGE DE LA STACK webapps
+- name: DÉMARRAGE DE LA STACK fileserver
   remote_user: "{{ secret.users.me.name }}"
   shell:
-    chdir: /opt/docker/webapps-stack
+    chdir: /opt/docker/fileserver-stack
     cmd: docker compose up -d
 
-- name: CHANGEMENT DES DROITS UTILISATEUR SUR L'ENSEMBLE DU DOSSIER /opt/docker/webapps-stack
+- name: CHANGEMENT DES DROITS UTILISATEUR SUR L'ENSEMBLE DU DOSSIER /opt/docker/fileserver-stack
   file:
-    dest: /opt/docker/webapps-stack
+    dest: /opt/docker/fileserver-stack
     owner: "{{ secret.users.me.uid }}"
     group: "{{ secret.users.me.gid }}"
     mode: "0777"

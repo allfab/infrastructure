@@ -1,0 +1,58 @@
+# For configuration options and examples, please see:
+# https://gethomepage.dev/latest/configs/services
+
+- Services (10.10.22.100):
+    - Portainer:
+        href: http://10.10.22.100:9000
+        description: Gestion des conteneurs Docker
+        icon: portainer.svg
+        ping: http://10.10.22.100:9000
+        widget:
+            type: portainer
+            url: http://10.10.22.100:9000
+            env: 2
+            key: ptr_yLDZHfOTwO6t6azadnP3dmqb5vULfvombLzv1KkJS7U=
+- Outils:
+    - Nodered:
+        href: http://10.10.22.100:1880
+        description: Nodered
+        icon: node-red.svg
+        ping: http://10.10.22.100:1880
+    - IT-Tools:
+        href: http://10.10.22.100:8088
+        description: Outils pratiques pour les développeurs
+        icon: it-tools.svg
+        ping: http://10.10.22.100:8088
+    - Stirling-PDF:
+        href: http://10.10.22.100:6080
+        description: Outils PDF puissants
+        icon: stirling-pdf.svg
+        ping: http://10.10.22.100:6080
+    - Excalidraw:
+        href: http://10.10.22.100:5000
+        description: Tableau blanc virtuel
+        icon: excalidraw.svg
+        ping: http://10.10.22.100:5000
+    - Mini-IO:
+        href: http://10.10.22.100:9010
+        description: Magasin d'objets
+        icon: minio.svg
+        ping: http://10.10.22.100:9010/
+    - Wiki-JS:
+        href: http://10.10.22.100:3000
+        description: Base documentaire
+        icon: /icons/wikijs-butterfly.svg
+        ping: http://10.10.22.100:3000
+
+
+- Services (localhost):
+    - Portainer:
+        href: http://localhost:9000
+        description: Gestion des conteneurs Docker
+        icon: portainer.svg
+        ping: http://localhost:9000
+        # widget:
+        #     type: portainer
+        #     url: http://localhost:9000
+        #     env: 2
+        #     key: ptr_iory4JUyoi9GW8OcpRvg6uhzTZ7VLq9pN3akcdkd+xU=

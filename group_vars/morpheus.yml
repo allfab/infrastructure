@@ -18,6 +18,7 @@ package_list:
   - name: intel-gpu-tools
   - name: inxi
   - name: iotop
+  - name: jq
   - name: lm-sensors
   - name: mc
   - name: molly-guard
@@ -54,7 +55,12 @@ lxc_to_deploy:
       # Frontend LXC
 
       <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a>
-      <a href="https://www.docker.com/" target="_blank"><img src="https://img.shields.io/badge/Docker-526CFE?style=for-the-badge&logo=Docker&logoColor=white" /></a>
+      <a href="https://www.docker.com/" target="_blank"><img src="https://img.shields.io/badge/Docker-526CFE?style=for-the-badge&logo=Docker&logoColor=white" /></a><br />
+      <a href="https://www.authelia.com/" target="_blank"><img src="https://img.shields.io/badge/Authelia-4f2872?style=for-the-badge&logo=Authelia&logoColor=white" /></a>
+      <a href="https://www.portainer.io/" target="_blank"><img src="https://img.shields.io/badge/Portainer-0ba5ec?style=for-the-badge&logo=Portainer&logoColor=white" /></a>
+      <a href="https://traefik.io/" target="_blank"><img src="https://img.shields.io/badge/Traefik-000000?style=for-the-badge&logo=Traefik&logoColor=white" /></a><br />
+      <a href="https://headscale.net/" target="_blank"><img src="https://img.shields.io/badge/headscale-facbdb?style=for-the-badge&logo=headscale&logoColor=white" /></a>
+      <a href="https://tailscale.com/" target="_blank"><img src="https://img.shields.io/badge/tailscale-815500?style=for-the-badge&logo=tailscale&logoColor=white" /></a>
       </div>
     tags:
       - docker
@@ -159,10 +165,36 @@ lxc_to_deploy:
 
       <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a>
       <a href="https://calibre-ebook.com/" target="_blank"><img src="https://img.shields.io/badge/calibre-453e38?style=for-the-badge&logo=calibre&logoColor=white" /></a>
-      <a href="hhttps://www.navidrome.org/" target="_blank"><img src="https://img.shields.io/badge/navidrome-0084ff?style=for-the-badge&logo=spotify&logoColor=white" /></a>
+      <a href="https://www.navidrome.org/" target="_blank"><img src="https://img.shields.io/badge/navidrome-0084ff?style=for-the-badge&logo=spotify&logoColor=white" /></a>
       </div>
     tags:
       - mediaserver
+      - prod
+    zfs_mountpoint: true
+
+  - name: fileserver
+    vmid: 142
+    cores: 2
+    disk: "local-zfs:16"
+    nesting: 1
+    keyctl: 1
+    fuse: 1
+    memory: 512
+    nameserver: 192.168.0.253
+    ip: 192.168.10.42
+    gw: 192.168.10.1
+    unprivileged: false
+    description: |
+      <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
+
+      # Fileserver LXC
+
+      <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a><br />
+      <a href="https://nextcloud.com/fr/" target="_blank"><img src="https://img.shields.io/badge/nextcloud-15a3f1?style=for-the-badge&logo=nextcloud&logoColor=white" /></a>
+      <a href="https://filebrowser.org/" target="_blank"><img src="https://img.shields.io/badge/filebrowser-465a65?style=for-the-badge&logo=filebrowser&logoColor=white" /></a>
+      </div>
+    tags:
+      - fileserver
       - prod
     zfs_mountpoint: true
 
@@ -303,6 +335,24 @@ zfs:
           host: /opt/docker/mediaserver-stack
           lxc: /opt/docker/mediaserver-stack
         mount: true
+    fileserver:
+      parent:
+        create: true
+        name: rpool/docker
+        extra:
+          mountpoint: /opt/docker
+          compression: lz4
+          atime: off
+          xattr: sa
+          recordsize: 128k
+          quota: 20G
+      child:
+        create: true
+        name: rpool/docker/fileserver-stack
+        mountpoint:
+          host: /opt/docker/fileserver-stack
+          lxc: /opt/docker/fileserver-stack
+        mount: true
     webapps:
       parent:
         create: true
@@ -383,7 +433,14 @@ nfs_exports:
       - server: jellyfin
         ip: 192.168.10.0/24
         options: rw,sync,no_root_squash,no_subtree_check,fsid=0
-
+  - local_path: /mnt/storage/media/documents
+    authorized_network:
+      - ip: 192.168.10.0/24
+        options: rw,sync,no_root_squash,no_subtree_check,fsid=0
+  - local_path: /mnt/storage/media
+    authorized_network:
+      - ip: 192.168.10.0/24
+        options: rw,sync,no_root_squash,no_subtree_check,fsid=0
   - local_path: /opt/docker
     authorized_network: 
       - ip: 192.168.10.0/24

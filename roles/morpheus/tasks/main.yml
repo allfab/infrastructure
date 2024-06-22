@@ -52,13 +52,17 @@
   include_tasks: zfs/jellyfin-dataset.yml
   when: zfs.dataset.jellyfin.parent.create == true
 
-- name: CRÉATION DU DATASET ZFS POUR LE CONTENEUR LXC webapps
-  include_tasks: zfs/webapps-dataset.yml
-  when: zfs.dataset.webapps.parent.create == true
-
 - name: CRÉATION DU DATASET ZFS POUR LE CONTENEUR LXC mediaserver
   include_tasks: zfs/mediaserver-dataset.yml
   when: zfs.dataset.mediaserver.parent.create == true
+
+- name: CRÉATION DU DATASET ZFS POUR LE CONTENEUR LXC fileserver
+  include_tasks: zfs/fileserver-dataset.yml
+  when: zfs.dataset.fileserver.parent.create == true
+
+- name: CRÉATION DU DATASET ZFS POUR LE CONTENEUR LXC webapps
+  include_tasks: zfs/webapps-dataset.yml
+  when: zfs.dataset.webapps.parent.create == true
 
 - name: CRÉATION DU DATASET ZFS POUR LE CONTENEUR LXC monitoring
   include_tasks: zfs/monitoring-dataset.yml
