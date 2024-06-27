@@ -24,7 +24,7 @@
     - {"lxc":"160"}
 
 - name: AMORÇAGE - AJOUT DU MOT DE PASSE L'UTILISATEUR PRINCIPAL
-  ansible.builtin.command: lxc-attach "{{ item.lxc }}" -- /bin/bash -c "usermod --password {{ secret.users.me.password }} {{ secret.users.me.name }}"
+  ansible.builtin.command: lxc-attach "{{ item.lxc }}" -- /bin/bash -c "printf '{{ secret.users.me.password }}\n{{ secret.users.me.password }}\n' | passwd {{ secret.users.me.name }}"
   loop:
     - {"lxc":"110"}
     - {"lxc":"120"}
