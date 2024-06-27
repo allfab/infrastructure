@@ -32,6 +32,9 @@
     owner: "{{ secret.users.me.name }}"
     group: "{{ secret.users.me.gid }}"
 
+- name: INSTALLATION/CONFIGURATION DU CONTENEUR filebrowser
+  include_tasks: includes/docker/filebrowser.yml
+
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR homer
   include_tasks: includes/docker/homer.yml
 

@@ -1,0 +1,24 @@
+---
+- name: CHARGEMENT DES VARIABLES PAR DÉFAUT
+  include_vars: defaults/main.yml
+
+- name: NEXTCLOUD - CRÉATION DU RÉPERTOIRE D'INSTALLATION/CONFIGURATION
+  file:
+    path: /opt/docker/nextcloud-stack/nextcloud/config
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+    recurse: true
+
+- name: NEXTCLOUD - CRÉATION DU RÉPERTOIRE D'INSTALLATION/CONFIGURATION
+  file:
+    path: "/opt/docker/nextcloud-stack/nextcloud/{{ item }}"
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+    recurse: true
+  loop:
+    - config
+    - data

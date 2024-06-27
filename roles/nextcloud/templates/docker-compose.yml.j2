@@ -1,0 +1,47 @@
+---
+services:
+  portainer-agent:
+    container_name: portainer-agent
+    image: portainer/agent:latest
+    restart: always
+    ports:
+      - 9001:9001
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes 
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - AGENT_SECRET="${AGENT_SECRET}"
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - nextcloud
+  
+  nextcloud:
+    container_name: nextcloud
+    image: lscr.io/linuxserver/nextcloud:latest    
+    restart: unless-stopped
+    ports:
+      - 8643:443
+    volumes:
+      - ./nextcloud/config:/config
+      - ./nextcloud/data:/data
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+      # - POSTGRES_USER={{ secret.users.me.name }}
+      # - POSTGRES_PASSWORD={{ secret.users.me.password }}
+      # - POSTGRES_DB=nextcloud
+    networks:
+      - nextcloud
+      
+# docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 nextcloud
+networks:
+  nextcloud:
+    name: nextcloud
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "172.18.0.0/16"
+          gateway: "172.18.0.1"

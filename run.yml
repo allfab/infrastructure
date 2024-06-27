@@ -160,7 +160,7 @@
     - role: mediaserver
       become: true
   
-- hosts: fileserver
+- hosts: nextcloud
   tags: setup
   vars_files:
     - vars/vault.yml
@@ -172,14 +172,14 @@
         upgrade: true
         cache_valid_time: 14400
   roles:
-    - role: grog.package
-      become: true
-    - config/users
-    - config/bash-aliases
-    - install/motd
-    - role: geerlingguy.docker
-      become: true
-    - role: fileserver
+    # - role: grog.package
+    #   become: true
+    # - config/users
+    # - config/bash-aliases
+    # - install/motd
+    # - role: geerlingguy.docker
+    #   become: true
+    - role: nextcloud
       become: true
 
 - hosts: webapps

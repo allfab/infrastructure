@@ -172,10 +172,10 @@ lxc_to_deploy:
       - prod
     zfs_mountpoint: true
 
-  - name: fileserver
+  - name: nextcloud
     vmid: 142
     cores: 2
-    disk: "local-zfs:16"
+    disk: "local-zfs:32"
     nesting: 1
     keyctl: 1
     fuse: 1
@@ -187,14 +187,13 @@ lxc_to_deploy:
     description: |
       <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
 
-      # Fileserver LXC
+      # Nextcloud LXC
 
       <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a><br />
       <a href="https://nextcloud.com/fr/" target="_blank"><img src="https://img.shields.io/badge/nextcloud-15a3f1?style=for-the-badge&logo=nextcloud&logoColor=white" /></a>
-      <a href="https://filebrowser.org/" target="_blank"><img src="https://img.shields.io/badge/filebrowser-465a65?style=for-the-badge&logo=filebrowser&logoColor=white" /></a>
       </div>
     tags:
-      - fileserver
+      - nextcloud
       - prod
     zfs_mountpoint: true
 
@@ -335,7 +334,7 @@ zfs:
           host: /opt/docker/mediaserver-stack
           lxc: /opt/docker/mediaserver-stack
         mount: true
-    fileserver:
+    nextcloud:
       parent:
         create: true
         name: rpool/docker
@@ -348,10 +347,10 @@ zfs:
           quota: 20G
       child:
         create: true
-        name: rpool/docker/fileserver-stack
+        name: rpool/docker/nextcloud-stack
         mountpoint:
-          host: /opt/docker/fileserver-stack
-          lxc: /opt/docker/fileserver-stack
+          host: /opt/docker/nextcloud-stack
+          lxc: /opt/docker/nextcloud-stack
         mount: true
     webapps:
       parent:

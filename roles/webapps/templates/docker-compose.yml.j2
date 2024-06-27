@@ -70,6 +70,22 @@ services:
     networks:
       - webapps
 
+  filebrowser:
+    container_name: filebrowser
+    image: filebrowser/filebrowser:latest 
+    restart: unless-stopped
+    ports:
+      - 8080:80
+    volumes:
+      - /mnt/media:/srv
+      - ./filebrowser/filebrowser.db:/database/filebrowser.db
+      - ./filebrowser/.filebrowser.json:/.filebrowser.json
+    environment:
+      - PUID=1000
+      - PGID=1000
+    networks:
+      - webapps
+
 # docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 webapps
 networks:
   webapps:
