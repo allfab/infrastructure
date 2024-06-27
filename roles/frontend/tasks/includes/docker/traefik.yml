@@ -79,13 +79,6 @@
     mode: "{{ docker.compose.file_mask }}"
     owner: "{{ secret.users.me.name }}"
 
-- name: INSTALLATION DU FICHIER DE PROVISION vaultwarden
-  template:
-    src: traefik/extra/vaultwarden.yml.j2
-    dest: /opt/docker/frontend-stack/traefik/extra/vaultwarden.yml
-    mode: "{{ docker.compose.file_mask }}"
-    owner: "{{ secret.users.me.name }}"
-
 - name: INSTALLATION DU FICHIER DE PROVISION webapps
   template:
     src: traefik/extra/webapps.yml.j2

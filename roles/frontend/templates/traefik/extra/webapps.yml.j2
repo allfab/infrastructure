@@ -5,9 +5,27 @@ http:
         - websecure
       rule: 'Host(`allfabox.fr`) || Host(`www.allfabox.fr`)'
       service: homepage
+    filebrowser:
+      entryPoints:
+        - websecure
+      rule: 'Host(`filebrowser.allfabox.fr`)'
+      service: homepage
+    vaultwarden:
+      entryPoints:
+        - websecure
+      rule: 'Host(`vaultwarden.allfabox.fr`)'
+      service: vaultwarden
   
   services:
     homepage:
       loadBalancer:
         servers:
-          - url: http://192.168.10.50:3000
+          - url: http://192.168.10.50:3000    
+    filebrowser:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.50:4080
+    vaultwarden:
+      loadBalancer:
+        servers:
+          - url: https://192.168.10.50:8680

@@ -75,7 +75,7 @@ services:
     image: filebrowser/filebrowser:latest 
     restart: unless-stopped
     ports:
-      - 8080:80
+      - 4080:80
     volumes:
       - /mnt/media:/srv
       - ./filebrowser/filebrowser.db:/database/filebrowser.db
