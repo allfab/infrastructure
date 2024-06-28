@@ -3,12 +3,12 @@
   description: "Presence Wifi Allfab"
   trigger:
     - platform: "state"
-      entity_id: "sensor.allfab_oneplus5_home"
+      entity_id: "sensor.allfab_nothing_phone_a2_home"
   condition: []
   action:
     - service: "device_tracker.see"
       data:
-        dev_id: "oneplus_5"
+        dev_id: "nothing_phone_a2"
         location_name: |
           {% if trigger.to_state.state == 'home' %}
             home

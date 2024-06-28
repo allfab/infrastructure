@@ -75,6 +75,8 @@
     - "pct set 141 -mp2 /mnt/storage/media/books,mp=/mnt/media/books"
     - "pct set 142 -mp1 /mnt/storage,mp=/mnt/media"
     - "pct set 142 -mp2 /mnt/freebox,mp=/mnt/media/freebox"
+    - "pct set 150 -mp1 /mnt/storage,mp=/mnt/media"
+    - "pct set 150 -mp2 /mnt/freebox,mp=/mnt/media/freebox"
 
 - name: VÉRIFICATION DE LA PRÉSENCE DU RELAIS iGPU DANS LE FICHIER DE CONFIGURATION Jellyfin /etc/pve/lxc/140.conf
   lineinfile:

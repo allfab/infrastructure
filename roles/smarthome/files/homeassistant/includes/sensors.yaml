@@ -14,14 +14,14 @@
           {{ count }}
         {% endif %}
     #PRESENCE
-    allfab_oneplus5_home:
+    allfab_nothing_phone_a2_home:
       value_template: >-
-        {% if (states('sensor.oneplus_a5000_wifi_connection') == "ALLFABOX-UDR") or (states('sensor.oneplus_a5000_wifi_connection') == "Allfabox-2.4G") or ((states('sensor.oneplus_a5000_wifi_connection') == "Allfabox-5G")) %}
+        {% if (states('sensor.nothing_phone_a2_wifi_connection') == "ALLFABOX-UDR") or (states('sensor.nothing_phone_a2_wifi_connection') == "Allfabox-2.4G") or ((states('sensor.nothing_phone_a2_wifi_connection') == "Allfabox-5G")) %}
             home
           {% else %}
             not_home
           {% endif %}
-      friendly_name: "Allfab OnePlus 5 Home (SSID = ALLFABOX-UDR)"
+      friendly_name: "Allfab Nothing Phone (a2) Home (SSID = ALLFABOX-UDR)"
     blandine_oneplus_nord2t_home:
       value_template: >-
         {% if (states('sensor.cph2399_wifi_connection') == "ALLFABOX-UDR") or (states('sensor.cph2399_wifi_connection') == "Allfabox-2.4G") or ((states('sensor.cph2399_wifi_connection') == "Allfabox-5G")) %}

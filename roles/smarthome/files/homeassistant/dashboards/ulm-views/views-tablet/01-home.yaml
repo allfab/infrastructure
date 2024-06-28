@@ -348,7 +348,7 @@
                 ulm_card_person_use_entity_picture: true
                 ulm_card_person_zone1: "zone.home"
                 ulm_card_person_zone2: "zone.work"
-                ulm_card_person_battery: "sensor.oneplus_a5000_battery_level"
+                ulm_card_person_battery: "sensor.nothing_phone_a2_battery_level"
             - type: "custom:button-card"
               template: "allfab_card_person"
               entity: "person.blandine_vincent"
