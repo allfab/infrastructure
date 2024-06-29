@@ -35,8 +35,8 @@
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR nextcloud
   include_tasks: includes/docker/nextcloud.yml
 
-- name: INSTALLATION/CONFIGURATION DU CONTENEUR filebrowser
-  include_tasks: includes/docker/filebrowser.yml
+- name: INSTALLATION/CONFIGURATION DU CONTENEUR onlyoffice
+  include_tasks: includes/docker/onlyoffice.yml
 
 - name: DÉMARRAGE DE LA STACK nextcloud
   remote_user: "{{ secret.users.me.name }}"

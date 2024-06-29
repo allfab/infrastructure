@@ -25,10 +25,31 @@ services:
       - 8643:443
     volumes:
       - ./nextcloud/config:/config
-      - ./nextcloud/data:/data
+      - /mnt/documents:/data
     environment:
       - PUID=1000
       - PGID=1000
+      - TZ=Europe/Paris
+    networks:
+      - nextcloud
+
+  onlyoffice:
+    container_name: onlyoffice
+    image: onlyoffice/documentserver:latest    
+    restart: unless-stopped
+    ports:
+      - 8680:80
+      - 8743:443
+    volumes:
+      - ./onlyoffice/data:/var/www/onlyoffice/Data
+      - ./onlyoffice/logs:/var/log/onlyoffice
+      - ./onlyoffice/lib:/var/lib/onlyoffice
+      #- /mnt/nextcloud/data:/data
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - JWT_ENABLED=true
+      - JWT_SECRET=${JWT_SECRET}
       - TZ=Europe/Paris
     networks:
       - nextcloud

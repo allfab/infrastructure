@@ -77,7 +77,7 @@ services:
     ports:
       - 4080:80
     volumes:
-      - /mnt/media:/srv
+      - /mnt:/srv
       - ./filebrowser/filebrowser.db:/database/filebrowser.db
       - ./filebrowser/.filebrowser.json:/.filebrowser.json
     environment:
