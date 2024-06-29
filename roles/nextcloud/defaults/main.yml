@@ -9,6 +9,6 @@ portainer:
     secret:
       key: "{{ secret.portainer.agent.secret.key }}"
 
-navidrome:
+onlyoffice:
   jwt:
-    secret: "{{ secret.jellystat.jwt.secret }}"
+    secret: "{{ secret.onlyoffice.jwt.secret }}"
