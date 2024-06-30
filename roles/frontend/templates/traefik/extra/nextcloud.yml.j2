@@ -1,0 +1,23 @@
+http:
+  routers:
+    nextcloud:
+      entryPoints:
+        - websecure
+      rule: 'Host(`nextcloud.allfabox.fr`)'
+      service: nextcloud
+    onlyoffice:
+      entryPoints:
+        - websecure
+      rule: 'Host(`onlyoffice.allfabox.fr`)'
+      service: onlyoffice
+
+  services:
+    nextcloud:
+      loadBalancer:
+        servers:
+          - url: https://192.168.10.42:8643
+    onlyoffice:
+      loadBalancer:
+        servers:
+          - url: https://192.168.10.42:8743
+    

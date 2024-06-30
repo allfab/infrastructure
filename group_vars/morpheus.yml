@@ -179,7 +179,8 @@ lxc_to_deploy:
     nesting: 1
     keyctl: 1
     fuse: 1
-    memory: 512
+    memory: 4096
+    swap: 4096
     nameserver: 192.168.0.253
     ip: 192.168.10.42
     gw: 192.168.10.1
@@ -362,7 +363,7 @@ zfs:
           atime: off
           xattr: sa
           recordsize: 128k
-          quota: 100G
+          quota: 400G
       child:
         create: true
         name: rpool/tank/documents
@@ -433,7 +434,7 @@ data_disks:
     # tune2fs -m 1 /dev/disk/by-id/ata-TOSHIBA_MG09ACA18TE_Z3W0A0BEFQDH-part1
 
 fstab_mergerfs:
-  - source: "/mnt/disk*:/mnt/tank"
+  - source: "/mnt/disk*"
     mountpoint: /mnt/storage
     fs: fuse.mergerfs
     opts: "defaults,nonempty,cache.files=off,category.create=epmfs,moveonenospc=true,dropcacheonclose=true,minfreespace=5G,fsname=mergerfs"

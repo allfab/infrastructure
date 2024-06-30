@@ -78,6 +78,7 @@
 # # https://github.com/ONLYOFFICE/onlyoffice-nextcloud/issues/821
 # - name: ONLYOFFICE - https://github.com/ONLYOFFICE/onlyoffice-nextcloud/issues/821
 #   ansible.builtin.command: docker exec onlyoffice sudo sed 's/\"rejectUnauthorized": true, "rejectUnauthorized": false,' -i /etc/onlyoffice/documentserver/default.json
+# supervisorctl restart all
 
 # sed "s\/'rejectUnauthorized':\true\/PermitRootLogin yes\/"
 # sed "s/\('name':\)/\1\"hello\"\,/g" /path/to/file.json

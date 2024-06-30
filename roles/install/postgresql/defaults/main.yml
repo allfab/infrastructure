@@ -158,6 +158,12 @@ postgresql:
       lc_ctype: "fr_FR.UTF-8"
       encoding: "UTF-8"
       template: _template
+    - name: nextcloud
+      owner: "{{ secret.users.me.name }}"
+      lc_collate: "fr_FR.UTF-8"
+      lc_ctype: "fr_FR.UTF-8"
+      encoding: "UTF-8"
+      template: _template
     - name: jfstat
       owner: "{{ secret.users.me.name }}"
       lc_collate: "fr_FR.UTF-8"

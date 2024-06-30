@@ -23,27 +23,27 @@
     state: mounted
   loop: "{{ data_disks + parity_disks }}"
 
-- name: CRÉATION DU DATASET ZFS PARENT tank
-  community.general.zfs:
-    name: rpool/tank
-    state: present
-    extra_zfs_properties:
-      mountpoint: /mnt/tank
-      compression: lz4
-      atime: off
-      xattr: sa
-      recordsize: 128k
-      quota: 400G
+# - name: CRÉATION DU DATASET ZFS PARENT tank
+#   community.general.zfs:
+#     name: rpool/tank
+#     state: present
+#     extra_zfs_properties:
+#       mountpoint: /mnt/tank
+#       compression: lz4
+#       atime: off
+#       xattr: sa
+#       recordsize: 128k
+#       quota: 400G
 
-- name: CRÉATION DU DATASET ZFS ENFANTS tank/*
-  community.general.zfs:
-    name: "{{ item.name }}"
-    state: present
-    extra_zfs_properties:
-      mountpoint: "{{ item.mountpoint }}"
-  loop:
-    - {"name": "rpool/tank/documents", "mountpoint": "/mnt/tank/documents"}
-    - {"name": "rpool/tank/photos", "mountpoint": "/mnt/tank/photos"}
+# - name: CRÉATION DU DATASET ZFS ENFANTS tank/*
+#   community.general.zfs:
+#     name: "{{ item.name }}"
+#     state: present
+#     extra_zfs_properties:
+#       mountpoint: "{{ item.mountpoint }}"
+#   loop:
+#     - {"name": "rpool/tank/documents", "mountpoint": "/mnt/tank/documents"}
+#     - {"name": "rpool/tank/photos", "mountpoint": "/mnt/tank/photos"}
 
 - name: AJOUT DU POINT DE MONTAGE DU TABLEAU mergerfs SUR /etc/fstab
   mount:
