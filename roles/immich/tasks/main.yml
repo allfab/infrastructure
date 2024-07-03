@@ -47,6 +47,11 @@
     mode: "{{ docker.compose.directory_mask }}"
     owner: "{{ secret.users.me.uid }}"
     group: "{{ secret.users.me.gid }}"
+  
+- name: TRANSCODAGE - CHANGEMENT DE L'IDENTIFIANT NUMÉRIQUE DU GROUPE render POUR CORRESPONDANCE AVEC L'HÔTE proxmox
+  shell: "{{ item}}"
+  with_items:
+    - "sed -i -e 's/^sgx:x:104:$/sgx:x:106:/' -e 's/^render:x:106:$/render:x:104:/' /etc/group"
 
 - name: CRÉATION DES RÉPERTOIREs D'INSTALLATION/CONFIGURATION
   file:
