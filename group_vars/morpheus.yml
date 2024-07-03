@@ -198,6 +198,32 @@ lxc_to_deploy:
       - prod
     zfs_mountpoint: true
 
+  - name: immich
+    vmid: 143
+    cores: 4
+    disk: "local-zfs:16"
+    nesting: 1
+    keyctl: 1
+    fuse: 1
+    memory: 8192
+    swap: 4096
+    nameserver: 192.168.0.253
+    ip: 192.168.10.43
+    gw: 192.168.10.1
+    unprivileged: false
+    description: |
+      <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
+
+      # Nextcloud LXC
+
+      <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a><br />
+      <a href="https://immich.app/" target="_blank"><img src="https://img.shields.io/badge/immich-15a3f1?style=for-the-badge&logo=immich&logoColor=white" /></a>
+      </div>
+    tags:
+      - immich
+      - prod
+    zfs_mountpoint: true
+
   - name: webapps
     vmid: 150
     cores: 2
@@ -370,6 +396,24 @@ zfs:
         mountpoint:
           host: /mnt/tank/documents
           lxc: /mnt/documents
+        mount: true
+    immich:
+      parent:
+        create: true
+        name: rpool/docker
+        extra:
+          mountpoint: /opt/docker
+          compression: lz4
+          atime: off
+          xattr: sa
+          recordsize: 128k
+          quota: 20G
+      child:
+        create: true
+        name: rpool/docker/immich-stack
+        mountpoint:
+          host: /opt/docker/immich-stack
+          lxc: /opt/docker/immich-stack
         mount: true
     webapps:
       parent:

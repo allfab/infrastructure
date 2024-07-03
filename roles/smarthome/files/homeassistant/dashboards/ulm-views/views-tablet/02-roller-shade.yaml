@@ -39,7 +39,7 @@
           square: false
           cards:                
             - type: "tile"
-              entity: "cover.nodon_roller_shutter_switch_sin4rs20_landing_room"
+              entity: "cover.somfy_tahoma_roller_shutter_rdc_livingroom_tv"
               name: "Salon TV"
               icon: "mdi:roller-shade"
               color: "deep-purple"
@@ -50,7 +50,7 @@
                 - type: "cover-open-close"
                 - type: "cover-position"
             - type: "tile"
-              entity: "cover.nodon_roller_shutter_switch_sin4rs20_bedroom_south"
+              entity: "cover.somfy_tahoma_roller_shutter_rdc_livingroom_stairs"
               name: "Salon Côté Escalier"
               icon: "mdi:roller-shade"
               color: "deep-purple"
@@ -61,7 +61,7 @@
                 - type: "cover-open-close"
                 - type: "cover-position"
             - type: "tile"
-              entity: "cover.nodon_roller_shutter_switch_sin4rs20_bedroom_north"
+              entity: "cover.somfy_tahoma_roller_shutter_rdc_bedroom_emilie"
               name: "Chambre d'Émilie"
               icon: "mdi:roller-shade"
               color: "deep-purple"
@@ -72,7 +72,7 @@
                 - type: "cover-open-close"
                 - type: "cover-position"
             - type: "tile"
-              entity: "cover.nodon_roller_shutter_switch_sin4rs20_bedroom_north"
+              entity: "cover.somfy_tahoma_roller_shutter_rdc_bedroom_parents"
               name: "Chambre Parentale"
               icon: "mdi:roller-shade"
               color: "deep-purple"
@@ -83,8 +83,19 @@
                 - type: "cover-open-close"
                 - type: "cover-position"
             - type: "tile"
-              entity: "cover.nodon_roller_shutter_switch_sin4rs20_bedroom_north"
-              name: "Garage"
+              entity: "cover.somfy_tahoma_roller_shutter_rdc_garage_big"
+              name: "Garage - Grande fenêtre"
+              icon: "mdi:roller-shade"
+              color: "deep-purple"
+              show_entity_picture: false
+              vertical: false
+              hide_state: false
+              features:
+                - type: "cover-open-close"
+                - type: "cover-position"
+            - type: "tile"
+              entity: "cover.somfy_tahoma_roller_shutter_rdc_garage_small"
+              name: "Garage - Petite fenêtre"
               icon: "mdi:roller-shade"
               color: "deep-purple"
               show_entity_picture: false

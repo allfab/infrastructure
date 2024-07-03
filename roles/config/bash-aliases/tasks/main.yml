@@ -1,5 +1,5 @@
 ---
-- name: CONFIGURATION DES ALIAS Bash
+- name: "CONFIGURATION DES ALIAS Bash POUR L'UTILISATEUR {{ secret.users.me.name }}"
   lineinfile:
     dest: "{{ secret.users.me.home }}/.bash_aliases"
     create: yes
@@ -7,5 +7,16 @@
     line: 'alias {{ item.alias }}="{{ item.command }}"'
     mode: 0644
     owner: "{{ secret.users.me.name }}"
+    regexp: "^alias {{ item.alias }}="
+  with_items: "{{ bash_aliases }}"
+
+- name: CONFIGURATION DES ALIAS Bash POUR L'UTILISATEUR root
+  lineinfile:
+    dest: /root/.bash_aliases
+    create: yes
+    group: root
+    line: 'alias {{ item.alias }}="{{ item.command }}"'
+    mode: 0644
+    owner: root
     regexp: "^alias {{ item.alias }}="
   with_items: "{{ bash_aliases }}"

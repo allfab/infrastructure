@@ -1,0 +1,75 @@
+---
+- name: CHARGEMENT DES VARIABLES
+  include_vars: defaults/main.yml
+ 
+- name: ON S'ASSURE QU'UN FICHIER docker-compose.yml EXISTE
+  remote_user: "{{ secret.users.me.name }}"
+  stat:
+    path: /opt/docker/immich-stack/docker-compose.yml
+  register: immich_stack_docker_compose
+
+- name: SUPPRESSION DE LA STACK immich SI ELLE EXISTE
+  remote_user: "{{ secret.users.me.name }}"
+  shell:
+    chdir: /opt/docker/immich-stack
+    cmd: docker compose down
+  when: immich_stack_docker_compose.stat.exists
+
+- name: INSTALLATION DU FICHIER DE COMPOSITION
+  template:
+    src: docker-compose.yml.j2
+    dest: /opt/docker/immich-stack/docker-compose.yml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+    group: "{{ secret.users.me.gid }}"
+    validate: docker compose -f %s config
+
+- name: INSTALLATION DU FICHIER DES VARIABLES D'ENVIRONNEMENT DOCKER
+  template:
+    src: env.j2
+    dest: /opt/docker/immich-stack/.env
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+    group: "{{ secret.users.me.gid }}"
+
+- name: INSTALLATION DU FICHIER DE CONFIGURATION POUR L'ACCÉLÉRATION MATÉRIELLE ET LE TRANSCODAGE 1/2
+  copy:
+    src: hwaccel.transcoding.yml
+    dest: /opt/docker/immich-stack/hwaccel.transcoding.yml
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+
+- name: INSTALLATION DU FICHIER DE CONFIGURATION POUR L'ACCÉLÉRATION MATÉRIELLE ET LE TRANSCODAGE 2/2
+  copy:
+    src: hwaccel.transcoding.yml
+    dest: /opt/docker/immich-stack/hwaccel.ml.yml
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+
+- name: CRÉATION DES RÉPERTOIREs D'INSTALLATION/CONFIGURATION
+  file:
+    path: "/opt/docker/immich-stack/immich/{{ item }}"
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+    recurse: true
+  loop:
+    - db
+    - model-cache
+
+- name: DÉMARRAGE DE LA STACK immich
+  remote_user: "{{ secret.users.me.name }}"
+  shell:
+    chdir: /opt/docker/immich-stack
+    cmd: docker compose up -d
+
+- name: CHANGEMENT DES DROITS UTILISATEUR SUR L'ENSEMBLE DU DOSSIER /opt/docker/immich-stack
+  file:
+    dest: /opt/docker/immich-stack
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+    mode: "0777"
+    recurse: true

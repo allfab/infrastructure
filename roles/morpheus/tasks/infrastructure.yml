@@ -44,8 +44,9 @@
     - {"lxc":"140", "order":"4"}
     - {"lxc":"141", "order":"5"}
     - {"lxc":"142", "order":"6"}
-    - {"lxc":"150", "order":"7"}
-    - {"lxc":"160", "order":"8"}
+    - {"lxc":"143", "order":"7"}
+    - {"lxc":"150", "order":"8"}
+    - {"lxc":"160", "order":"9"}
 
 - name: "VÉRIFICATION DE LA PRÉSENCE DE LA CONFIGURATION POUR LA FONCTION TUN/TAP frontend"
   lineinfile:
@@ -73,21 +74,22 @@
     - "pct set 140 -mp1 /mnt/storage/videos,mp=/mnt/videos"
     - "pct set 141 -mp1 /mnt/storage/musics,mp=/mnt/musics"
     - "pct set 141 -mp2 /mnt/storage/books,mp=/mnt/books"
+    - "pct set 143 -mp1 /mnt/storage/photos/immich,mp=/mnt/photos"
     - "pct set 150 -mp1 /mnt/storage,mp=/mnt/storage"
     - "pct set 150 -mp2 /mnt/freebox,mp=/mnt/freebox"
 
 - name: VÉRIFICATION DE LA PRÉSENCE DU RELAIS iGPU DANS LE FICHIER DE CONFIGURATION Jellyfin /etc/pve/lxc/140.conf
   lineinfile:
-    path: /etc/pve/lxc/140.conf
+    path: "/etc/pve/lxc/140.conf"
     regexp: "^lxc.cgroup2.devices.allow: c 226:0 rwm"
     state: absent
   check_mode: yes
   changed_when: false
-  register: igpu_exists
+  register: igpu_exists_140
 
 - name: AJOUT DU RELAIS iGPU DANS LE FICHIER DE CONFIGURATION Jellyfin /etc/pve/lxc/140.conf
   lineinfile:
-    dest: /etc/pve/lxc/140.conf
+    dest: "/etc/pve/lxc/140.conf"
     insertafter: EOF
     line: |
       lxc.cgroup2.devices.allow: c 226:0 rwm
@@ -95,7 +97,28 @@
       lxc.mount.entry: /dev/dri/card0 dev/dri/card0 none bind,optional,create=file
       lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file
     unsafe_writes: yes
-  when: not igpu_exists.found
+  when: not igpu_exists_140.found
+
+- name: VÉRIFICATION DE LA PRÉSENCE DU RELAIS iGPU DANS LE FICHIER DE CONFIGURATION immich /etc/pve/lxc/143.conf
+  lineinfile:
+    path: "/etc/pve/lxc/143.conf"
+    regexp: "^lxc.cgroup2.devices.allow: c 226:0 rwm"
+    state: absent
+  check_mode: yes
+  changed_when: false
+  register: igpu_exists_143
+
+- name: AJOUT DU RELAIS iGPU DANS LE FICHIER DE CONFIGURATION immich /etc/pve/lxc/143.conf
+  lineinfile:
+    dest: "/etc/pve/lxc/143.conf"
+    insertafter: EOF
+    line: |
+      lxc.cgroup2.devices.allow: c 226:0 rwm
+      lxc.cgroup2.devices.allow: c 226:128 rwm
+      lxc.mount.entry: /dev/dri/card0 dev/dri/card0 none bind,optional,create=file
+      lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file
+    unsafe_writes: yes
+  when: not igpu_exists_143.found
 
 - name: ACTIVATION DU FIRMWARE Intel GUC/HUC POUR Jellyfin
   template:
@@ -124,5 +147,6 @@
     - {"lxc":"140"}
     - {"lxc":"141"}
     - {"lxc":"142"}
+    - {"lxc":"143"}
     - {"lxc":"150"}
     - {"lxc":"160"}

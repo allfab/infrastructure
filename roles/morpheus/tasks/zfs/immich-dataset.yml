@@ -1,0 +1,45 @@
+---
+- name: IMMICH - CRÉATION DU DATASET ZFS parent - APPDATA docker
+  community.general.zfs:
+    name: "{{ zfs.dataset.immich.parent.name }}"
+    state: present
+    extra_zfs_properties:
+      mountpoint: "{{ zfs.dataset.immich.parent.extra.mountpoint }}"
+      compression: "{{ zfs.dataset.immich.parent.extra.compression }}"
+      atime: "{{ zfs.dataset.immich.parent.extra.atime }}"
+      xattr: "{{ zfs.dataset.immich.parent.extra.xattr }}"
+      recordsize: "{{ zfs.dataset.immich.parent.extra.recordsize }}"
+      quota: "{{ zfs.dataset.immich.parent.extra.quota }}"
+  when: zfs.dataset.immich.parent.create == true
+
+- name: IMMICH - CRÉATION DU DATASET ZFS enfant - POINT DE MONTAGE HOST<->LXC - APPDATA docker
+  community.general.zfs:
+    name: "{{ zfs.dataset.immich.child.name }}"
+    state: present
+    extra_zfs_properties:
+      mountpoint: "{{ zfs.dataset.immich.child.mountpoint.host }}"
+  when: zfs.dataset.immich.child.create == true
+
+- name: IMMICH - CONFIGURATION DU POINT DE MONTAGE HOST<->LXC - APPDATA docker
+  command: pct set 143 -mp0 "{{ zfs.dataset.immich.child.mountpoint.host }}",mp="{{ zfs.dataset.immich.child.mountpoint.lxc }}"
+  when: zfs.dataset.immich.child.create
+  
+- name: IMMICH - CHANGEMENT DES DROITS UTILISATEUR SUR LE POINT DE MONTAGE - APPDATA docker
+  file:
+    dest: "{{ zfs.dataset.immich.child.mountpoint.host }}"
+    owner: "{{ secret.users.me.name }}"
+    group: "{{ secret.users.me.name }}"
+    mode: 0777
+    recurse: true
+
+- name: IMMICH - REDÉMARRAGE DU CONTENEUR LXC
+  community.general.proxmox:
+    node: morpheus
+    api_host: 192.168.10.5
+    api_user: root@pam
+    api_password: "{{ secret.proxmox.morpheus.api.password }}"
+    api_token_id: "{{ secret.proxmox.morpheus.api.token_id }}"
+    api_token_secret: "{{ secret.proxmox.morpheus.api.token_secret }}"
+    vmid: 143
+    state: "restarted"
+    timeout: 90

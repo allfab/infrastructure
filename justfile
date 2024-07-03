@@ -47,6 +47,9 @@ mediaserver:
 nextcloud:
   ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit nextcloud --tags setup
 
+immich:
+  ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit immich --tags setup
+
 webapps:
   ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit webapps --tags setup
 

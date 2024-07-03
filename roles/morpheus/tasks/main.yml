@@ -60,6 +60,10 @@
   include_tasks: zfs/nextcloud-dataset.yml
   when: zfs.dataset.nextcloud.parent.create == true
 
+- name: CRÉATION DU DATASET ZFS POUR LE CONTENEUR LXC immich
+  include_tasks: zfs/immich-dataset.yml
+  when: zfs.dataset.immich.parent.create == true
+
 - name: CRÉATION DU DATASET ZFS POUR LE CONTENEUR LXC webapps
   include_tasks: zfs/webapps-dataset.yml
   when: zfs.dataset.webapps.parent.create == true

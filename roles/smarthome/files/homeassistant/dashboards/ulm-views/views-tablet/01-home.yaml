@@ -379,7 +379,7 @@
           square: false
           cards:
             - type: "tile"
-              entity: "cover.nodon_roller_shutter_switch_sin4rs20_etage"
+              entity: "cover.somfy_tahoma_roller_shutter_rdc"
               name: "Rez de chaussée"
               icon: "mdi:roller-shade"
               color: "deep-purple"
