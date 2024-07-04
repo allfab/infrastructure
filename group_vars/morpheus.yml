@@ -389,7 +389,7 @@ zfs:
           atime: off
           xattr: sa
           recordsize: 128k
-          quota: 400G
+          quota: 200G
       child:
         create: true
         name: rpool/tank/documents

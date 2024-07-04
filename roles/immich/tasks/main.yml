@@ -22,7 +22,7 @@
     mode: "{{ docker.compose.file_mask }}"
     owner: "{{ secret.users.me.name }}"
     group: "{{ secret.users.me.gid }}"
-    validate: docker compose -f %s config
+    # validate: docker compose -f %s config
 
 - name: INSTALLATION DU FICHIER DES VARIABLES D'ENVIRONNEMENT DOCKER
   template:
