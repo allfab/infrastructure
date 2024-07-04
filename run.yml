@@ -71,7 +71,8 @@
     - role: grog.package
       become: true
     - config/users
-    - config/bash-aliases
+    - role: config/bash-aliases
+      become: true
     - install/motd
     - role: geerlingguy.docker
       become: true
@@ -93,7 +94,8 @@
     - role: grog.package
       become: true
     - config/users
-    - config/bash-aliases
+    - role: config/bash-aliases
+      become: true
     - install/motd
     - install/postgresql
 
@@ -112,7 +114,8 @@
     - role: grog.package
       become: true
     - config/users
-    - config/bash-aliases
+    - role: config/bash-aliases
+      become: true
     - install/motd
     - role: geerlingguy.docker
       become: true
@@ -134,6 +137,8 @@
     - role: grog.package
       become: true
     - config/users
+    - role: config/bash-aliases
+      become: true
     - install/motd
     - role: jellyfin
       become: true
@@ -153,7 +158,8 @@
     - role: grog.package
       become: true
     - config/users
-    - config/bash-aliases
+    - role: config/bash-aliases
+      become: true
     - install/motd
     - role: geerlingguy.docker
       become: true
@@ -172,13 +178,14 @@
         upgrade: true
         cache_valid_time: 14400
   roles:
-    # - role: grog.package
-    #   become: true
-    # - config/users
-    # - config/bash-aliases
-    # - install/motd
-    # - role: geerlingguy.docker
-    #   become: true
+    - role: grog.package
+      become: true
+    - config/users
+    - role: config/bash-aliases
+      become: true
+    - install/motd
+    - role: geerlingguy.docker
+      become: true
     - role: nextcloud
       become: true
 
@@ -220,7 +227,8 @@
     - role: grog.package
       become: true
     - config/users
-    - config/bash-aliases
+    - role: config/bash-aliases
+      become: true
     - install/motd
     - role: geerlingguy.docker
       become: true
@@ -242,7 +250,8 @@
     - role: grog.package
       become: true
     - config/users
-    - config/bash-aliases
+    - role: config/bash-aliases
+      become: true
     - install/motd
     - role: geerlingguy.docker
       become: true
