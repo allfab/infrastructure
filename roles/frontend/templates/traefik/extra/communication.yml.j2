@@ -1,0 +1,22 @@
+http:
+  routers:
+    ntfy:
+      entryPoints:
+        - websecure
+      rule: 'Host(`ntfy.allfabox.fr`)'
+      service: ntfy
+    waha:
+      entryPoints:
+        - websecure
+      rule: 'Host(`waha.allfabox.fr`)'
+      service: waha
+  
+  services:
+    ntfy:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.70:2080    
+    waha:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.70:3000
