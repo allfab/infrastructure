@@ -71,3 +71,7 @@
 - name: CRÉATION DU DATASET ZFS POUR LE CONTENEUR LXC monitoring
   include_tasks: zfs/monitoring-dataset.yml
   when: zfs.dataset.monitoring.parent.create == true
+
+- name: CRÉATION DU DATASET ZFS POUR LE CONTENEUR LXC monitoring
+  include_tasks: zfs/communication-dataset.yml
+  when: zfs.dataset.communication.parent.create == true

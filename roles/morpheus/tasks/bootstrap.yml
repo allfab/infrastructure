@@ -11,6 +11,7 @@
     - {"lxc":"143"}
     - {"lxc":"150"}
     - {"lxc":"160"}
+    - {"lxc":"170"}
 
 - name: AMORÇAGE - AJOUT DE L'UTILISATEUR PRINCIPAL
   ansible.builtin.command: lxc-attach "{{ item.lxc }}" -- /bin/bash -c "id -u {{ secret.users.me.name }} &>/dev/null || useradd --create-home --shell /bin/bash --uid {{ secret.users.me.uid }} --gid {{ secret.users.me.gid }} --groups sudo --comment '{{ secret.users.me.comment }}' {{ secret.users.me.name }}"
@@ -24,6 +25,7 @@
     - {"lxc":"143"}
     - {"lxc":"150"}
     - {"lxc":"160"}
+    - {"lxc":"170"}
 
 - name: AMORÇAGE - AJOUT DU MOT DE PASSE L'UTILISATEUR PRINCIPAL
   ansible.builtin.command: lxc-attach "{{ item.lxc }}" -- /bin/bash -c "printf '{{ secret.users.me.password }}\n{{ secret.users.me.password }}\n' | passwd {{ secret.users.me.name }}"
@@ -37,6 +39,7 @@
     - {"lxc":"143"}
     - {"lxc":"150"}
     - {"lxc":"160"}
+    - {"lxc":"170"}
 
 - name: AMORÇAGE - COPIE DE LA CONFIGURATION ssh SUR LA MACHINE HÔTE
   template:
@@ -58,6 +61,7 @@
     - {"lxc":"143"}
     - {"lxc":"150"}
     - {"lxc":"160"}
+    - {"lxc":"170"}
 
 - name: AMORÇAGE - COPIE DE LA CLÉ ssh SUR LA MACHINE HÔTE
   copy:
@@ -79,6 +83,7 @@
     - {"lxc":"143"}
     - {"lxc":"150"}
     - {"lxc":"160"}
+    - {"lxc":"170"}
 
 - name: AMORÇAGE - PERMISSIONS DU RÉPERTOIRE DE CONFIGURATION ssh POUR L'UTILISATEUR PRINCIPAL
   ansible.builtin.command: lxc-attach "{{ item.lxc }}" -- /bin/bash -c "chmod -Rf 0600 /home/{{ secret.users.me.name }}/.ssh"
@@ -92,6 +97,7 @@
     - {"lxc":"143"}
     - {"lxc":"150"}
     - {"lxc":"160"}
+    - {"lxc":"170"}
 
 - name: AMORÇAGE - INSTALLATION DE LA CLÉ ssh SUR LES CONTENEURS LXC
   ansible.builtin.command: "pct push {{ item.lxc }} /tmp/authorized_keys /home/{{ secret.users.me.name }}/.ssh/authorized_keys"
@@ -105,6 +111,7 @@
     - {"lxc":"143"}
     - {"lxc":"150"}
     - {"lxc":"160"}
+    - {"lxc":"170"}
 
 - name: AMORÇAGE - CHANGEMENT DES PERMISSIONS DU RÉPERTOIRE .ssh DU FICHIER authorized_keys (CHMOD)
   ansible.builtin.command: lxc-attach "{{ item.lxc }}" -- /bin/bash -c "chmod -Rf 700 /home/{{ secret.users.me.name }}/.ssh"
@@ -118,6 +125,7 @@
     - {"lxc":"143"}
     - {"lxc":"150"}
     - {"lxc":"160"}
+    - {"lxc":"170"}
 
 - name: AMORÇAGE - CHANGEMENT DES PERMISSIONS DU RÉPERTOIRE .ssh DU FICHIER authorized_keys (CHOWN)
   ansible.builtin.command: lxc-attach "{{ item.lxc }}" -- /bin/bash -c "chown -Rf {{ secret.users.me.name }}:{{ secret.users.me.name }} /home/{{ secret.users.me.name }}/.ssh"
@@ -131,6 +139,7 @@
     - {"lxc":"143"}
     - {"lxc":"150"}
     - {"lxc":"160"}
+    - {"lxc":"170"}
 
 - name: AMORÇAGE - INSTALLATION DE sudo
   ansible.builtin.command: lxc-attach "{{ item.lxc }}" -- /bin/bash -c "apt install sudo"
@@ -144,6 +153,7 @@
     - {"lxc":"143"}
     - {"lxc":"150"}
     - {"lxc":"160"}
+    - {"lxc":"170"}
 
 - name: AMORÇAGE - COPIE DU FICHIER sudoers POUR L'UTILISATEUR PRINCIPAL
   template:
@@ -165,6 +175,7 @@
     - {"lxc":"143"}
     - {"lxc":"150"}
     - {"lxc":"160"}
+    - {"lxc":"170"}
 
 - name: AMORÇAGE - REDÉMARRAGE DES CONTENEURS LXC
   community.general.proxmox:
@@ -187,6 +198,7 @@
     - {"lxc":"143"}
     - {"lxc":"150"}
     - {"lxc":"160"}
+    - {"lxc":"170"}
 
 # - name: AMORÇAGE - AUTORISER LA CONNEXION root VIA SSH DANS LE CONTENEUR AFIN DE POUSSER LA CONFIGURATION
 #   ansible.builtin.command: lxc-attach "{{ item.lxc }}" -- /bin/bash -c "sed -i -e '{{ item.sed }}' /etc/ssh/sshd_config"

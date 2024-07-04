@@ -272,6 +272,32 @@ lxc_to_deploy:
       - monitoring
       - prod
     zfs_mountpoint: true
+  
+  - name: communication
+    vmid: 170
+    cores: 2
+    disk: "local-zfs:8"
+    nesting: 1
+    keyctl: 1
+    fuse: 1
+    memory: 512
+    nameserver: 192.168.0.253
+    ip: 192.168.10.70
+    gw: 192.168.10.1
+    unprivileged: true
+    description: |
+      <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
+
+      # Communication LXC
+
+      <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a>
+      <a href="https://ntfy.sh/" target="_blank"><img src="https://img.shields.io/badge/ntfy-43aa98?style=for-the-badge&logo=ntfy&logoColor=white" /></a>
+      <a href="https://waha.devlike.pro//" target="_blank"><img src="https://img.shields.io/badge/waha-5d2f86?style=for-the-badge&logo=waha&logoColor=white" /></a>
+      </div>
+    tags:
+      - monitoring
+      - prod
+    zfs_mountpoint: true
 
 zfs:
   dataset:
@@ -450,6 +476,24 @@ zfs:
         mountpoint:
           host: /opt/docker/monitoring-stack
           lxc: /opt/docker/monitoring-stack
+        mount: true
+    communication:
+      parent:
+        create: true
+        name: rpool/docker
+        extra:
+          mountpoint: /opt/docker
+          compression: lz4
+          atime: off
+          xattr: sa
+          recordsize: 128k
+          quota: 20G
+      child:
+        create: true
+        name: rpool/docker/communication-stack
+        mountpoint:
+          host: /opt/docker/communication-stack
+          lxc: /opt/docker/communication-stack
         mount: true
 
 ### Disks
