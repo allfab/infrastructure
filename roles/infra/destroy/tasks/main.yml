@@ -10,6 +10,7 @@
     - {"lxc":"142"}
     - {"lxc":"150"}
     - {"lxc":"160"}
+    - {"lxc":"170"}
 
 - name: SUPPRESSION DE TOUS LES CONTENEURS LXC DE L'INFRASTRUCTURE
   ansible.builtin.command: "pct destroy {{ item.lxc }}"
@@ -22,3 +23,4 @@
     - {"lxc":"142"}
     - {"lxc":"150"}
     - {"lxc":"160"}
+    - {"lxc":"170"}

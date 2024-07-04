@@ -1,0 +1,23 @@
+---
+- name: CHARGEMENT DES VARIABLES PAR DÉFAUT
+  include_vars: defaults/main.yml
+
+- name: NTFY - CRÉATION DU RÉPERTOIRE D'INSTALLATION/CONFIGURATION
+  file:
+    path: /opt/docker/communication-stack/ntfy
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+  
+- name: CRÉATION DES RÉPERTOIREs D'INSTALLATION/CONFIGURATION
+  file:
+    path: "/opt/docker/communication-stack/ntfy/{{ item }}"
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+    recurse: true
+  loop:
+    - config
+    - cache

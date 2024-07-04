@@ -1,0 +1,59 @@
+---
+services:
+  portainer-agent:
+    container_name: portainer-agent
+    image: portainer/agent:latest
+    restart: always
+    ports:
+      - 9001:9001
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes 
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - AGENT_SECRET="${AGENT_SECRET}"
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - communication
+
+  ntfy:    
+    container_name: ntfy
+    image: binwiederhier/ntfy
+    user: 1000:1000
+    restart: unless-stopped
+    ports:
+      - 2080:80
+    command:
+      - serve
+    volumes:
+      - ./ntfy/config:/etc/ntfy
+      - ./ntfy/cache:/var/cache/ntfy      
+    environment:
+      - TZ=Europe/Paris
+    networks:
+      - communication
+
+  waha:
+    container_name: waha
+    image: devlikeapro/waha:latest
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    environment:
+      - WHATSAPP_API_HOSTNAME=waha.allfabox.fr
+      - WHATSAPP_START_SESSION=default
+      - WHATSAPP_SWAGGER_USERNAME="{{ secret.users.me.name }}"
+      - WHATSAPP_SWAGGER_PASSWORD="{{ secret.users.me.password }}"
+    networks:
+      - communication
+
+# docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 communication
+networks:
+  communication:
+    name: communication
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "172.18.0.0/16"
+          gateway: "172.18.0.1"

@@ -78,7 +78,7 @@ lxc_to_deploy:
     nameserver: 192.168.0.253
     ip: 192.168.10.19
     gw: 192.168.10.1
-    onboot: false
+    onboot: true
     description: |
       <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
 

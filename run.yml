@@ -270,16 +270,16 @@
         upgrade: true
         cache_valid_time: 14400
   roles:
-    - role: grog.package
-      become: true
-    - config/users
-    - role: config/bash-aliases
-      become: true
-    - install/motd
-    - role: geerlingguy.docker
-      become: true
-    # - role: communication
+    # - role: grog.package
     #   become: true
+    # - config/users
+    # - role: config/bash-aliases
+    #   become: true
+    # - install/motd
+    # - role: geerlingguy.docker
+    #   become: true
+    - role: communication
+      become: true
 
 # - hosts: morpheus
 #   tags: destroy-infra
