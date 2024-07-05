@@ -28,6 +28,16 @@
 
 Ce dépôt contient le code que j'utilise pour déployer et gérer les serveurs de mon homelab :
 
+  <details>
+  <summary>Frontend</summary>
+  - Docker :
+    - Authelia
+    - Portainer
+    - Traefik
+    - Headscale
+    - Tailscale
+  </details>
+
 - Frontend
 - Elephant (PostgreSQL)
 - Smarthome
