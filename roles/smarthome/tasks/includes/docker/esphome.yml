@@ -20,6 +20,7 @@
     repo: https://github.com/paveldn/haier-esphome
     dest: /opt/docker/smarthome-stack/esphome/haier-esphome
     version: master
+    force: true
 
 - name: ESPHOME - INSTALLATION DU FICHIER DE CONFIGURATION mmwave-wc-occupancy.yaml
   template:

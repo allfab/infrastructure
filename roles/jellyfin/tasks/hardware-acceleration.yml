@@ -24,6 +24,8 @@
 # Pour voir si le transcodage fonctionne, ouvrez le shell sur la machine hôte Proxmox et installez les outils GPU Intel :
 # ~# intel_gpu_top
 
+# Avec Proxmox 8.2.4 et son kernel 6.8.8-2-pve, le problème est résolu. Plus besoin de rétrogradé au kernel 6.5.13-5-pve pour bénéficier de la prise en charge du iGPU Intel
+
 - name: INSTALLATION DES PRÉ-REQUIS LOGICIEL POUR L'ACCÉLÉRATION MATÉRIELLE
   package:
     name: "{{ item }}"
@@ -36,12 +38,19 @@
     - vainfo
     - va-driver-all
     
-- name: AJUSTEMENT DES DROITS SUR /dev/dri
-  shell: "{{ item}}"
-  with_items:
-    - "chgrp video /dev/dri"
-    - "chmod 755 /dev/dri"
-    - "chmod 660 /dev/dri/*"
+- name: AJUSTEMENT DES DROITS SUR /dev/dri/card0
+  ansible.builtin.file:
+    path: /dev/dri/card0
+    owner: root
+    group: video
+    mode: "660"
+
+- name: AJUSTEMENT DES DROITS SUR /dev/dri/renderD128
+  ansible.builtin.file:
+    path: /dev/dri/renderD128
+    owner: root
+    group: render
+    mode: "660"
 
 - name: AJOUT DE L'UTILISATEUR jellyfin AUX GROUPES video ET render
   shell: "{{ item}}"
@@ -49,12 +58,13 @@
     - "adduser jellyfin video"
     - "adduser jellyfin render"
     - "adduser jellyfin input"
+  become: true
 
-- name: TRANSCODAGE - CHANGEMENT DE L'IDENTIFIANT NUMÉRIQUE DU GROUPE render ET input POUR CORRESPONDANCE AVEC L'HÔTE proxmox
-  shell: "{{ item}}"
-  with_items:
-    - "sed -i -e 's/^crontab:x:101:$/crontab:x:103:/' -e 's/^input:x:103:jellyfin$/input:x:101:jellyfin/' /etc/group"
-    - "sed -i -e 's/^sgx:x:104:$/sgx:x:106:/' -e 's/^render:x:106:jellyfin$/render:x:104:jellyfin/' /etc/group"
+# - name: TRANSCODAGE - CHANGEMENT DE L'IDENTIFIANT NUMÉRIQUE DU GROUPE render ET input POUR CORRESPONDANCE AVEC L'HÔTE proxmox DA NS LE CAS D'UN CONTENEUR NON-PRIVILÉGIÉ
+#   shell: "{{ item}}"
+#   with_items:
+#     - "sed -i -e 's/^crontab:x:101:$/crontab:x:103:/' -e 's/^input:x:103:jellyfin$/input:x:101:jellyfin/' /etc/group"
+#     - "sed -i -e 's/^sgx:x:104:$/sgx:x:106:/' -e 's/^render:x:106:jellyfin$/render:x:104:jellyfin/' /etc/group"
 
 - name: VÉRIFICATION DE L'EXISTANCE DU DOSSIER TEMPORAIRE transcodes SUR /dev/shm POUR LE TRANSCODAGE
   ansible.builtin.file:
