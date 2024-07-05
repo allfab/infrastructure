@@ -60,7 +60,7 @@
     - "adduser jellyfin input"
   become: true
 
-# - name: TRANSCODAGE - CHANGEMENT DE L'IDENTIFIANT NUMÉRIQUE DU GROUPE render ET input POUR CORRESPONDANCE AVEC L'HÔTE proxmox DA NS LE CAS D'UN CONTENEUR NON-PRIVILÉGIÉ
+# - name: TRANSCODAGE - CHANGEMENT DE L'IDENTIFIANT NUMÉRIQUE DU GROUPE render ET input POUR CORRESPONDANCE AVEC L'HÔTE proxmox DANS LE CAS D'UN CONTENEUR NON-PRIVILÉGIÉ
 #   shell: "{{ item}}"
 #   with_items:
 #     - "sed -i -e 's/^crontab:x:101:$/crontab:x:103:/' -e 's/^input:x:103:jellyfin$/input:x:101:jellyfin/' /etc/group"
