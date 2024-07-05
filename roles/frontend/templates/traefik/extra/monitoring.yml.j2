@@ -1,0 +1,22 @@
+http:
+  routers:
+    healthchecks:
+      entryPoints:
+        - websecure
+      rule: 'Host(`healthchecks.allfabox.fr`)'
+      service: healthchecks
+    jellystat:
+      entryPoints:
+        - websecure
+      rule: 'Host(`jellystat.allfabox.fr`)'
+      service: jellystat
+  
+  services:
+    healthchecks:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.60:8000    
+    jellystat:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.60:3000
