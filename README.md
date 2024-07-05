@@ -30,7 +30,8 @@ Ce dépôt contient le code que j'utilise pour déployer et gérer les serveurs 
 
   <details>
   <summary>Frontend</summary>
-  - Docker :
+
+  - Sous Docker :
     - Authelia
     - Portainer
     - Traefik
@@ -38,18 +39,71 @@ Ce dépôt contient le code que j'utilise pour déployer et gérer les serveurs 
     - Tailscale
   </details>
 
-- Frontend
-- Elephant (PostgreSQL)
-- Smarthome
-- Jellyfin
-- Mediaserver
-- Nexcloud
-- Immich
-- Webapps
-- Monitoring
-- Communication
+  <details>
+  <summary>Elephant</summary>
 
- J'utilise Ansible pour exécuter mon infrastructure et ce dépôt est ma contribution au mouvement `Infrastructure as Code`.
+  - PostgreSQL
+  </details>
+
+  <details>
+  <summary>Smarthome</summary>
+
+  - Sous Docker :
+    - Home Assistant
+    - Mosquitto
+    - Zigbee2MQTT
+    - ESP Home
+    - Node-RED
+  </details>
+
+  <details>
+  <summary>Jellyfin</summary>
+
+  - Jellyfin
+  </details>
+
+  <details>
+  <summary>Mediaserver</summary>
+
+  - Sous Docker :
+    - Navidrome
+    - Calibre
+  </details>
+
+  <details>
+  <summary>Immich</summary>
+
+  - Immich
+  </details>
+
+  <details>
+  <summary>Webapps</summary>
+
+  - Sous Docker :
+    - Homepage
+    - Vaultwarden
+    - Filebrowser
+  </details>
+
+  <details>
+  <summary>Monitoring</summary>
+
+  - Sous Docker :
+    - Jellystats
+    - Healthchecks
+  </details>
+
+  <details>
+  <summary>Communication</summary>
+
+  - Sous Docker :
+    - NTFY
+    - WAHA
+  </details>
+  <br />
+
+
+J'utilise Ansible pour exécuter mon infrastructure et ce dépôt est ma contribution au mouvement `Infrastructure as Code`.
 
 
  # Pré-requis
