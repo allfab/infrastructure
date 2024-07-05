@@ -84,7 +84,7 @@ lxc_to_deploy:
 
       # PostgreSQL LXC
 
-      <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a>
+      <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a><br />
       <a href="https://www.postgresql.org/" target="_blank"><img src="https://img.shields.io/badge/Postgresql-526CFE?style=for-the-badge&logo=Postgresql&logoColor=white" /></a>
       </div>
     tags:
@@ -138,7 +138,7 @@ lxc_to_deploy:
 
       # Jellyfin LXC
 
-      <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a>
+      <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a><br />
       <a href="https://jellyfin.org/" target="_blank"><img src="https://img.shields.io/badge/Jellyfin-526CFE?style=for-the-badge&logo=Jellyfin&logoColor=white" /></a>
       </div>
     tags:
@@ -163,8 +163,8 @@ lxc_to_deploy:
 
       # Mediaserver LXC
 
-      <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a>
-      <a href="https://calibre-ebook.com/" target="_blank"><img src="https://img.shields.io/badge/calibre-453e38?style=for-the-badge&logo=calibre&logoColor=white" /></a>
+      <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a></br >
+      <a href="https://calibre-ebook.com/" target="_blank"><img src="https://img.shields.io/badge/calibre-453e38?style=for-the-badge&logo=calibre-web&logoColor=white" /></a>
       <a href="https://www.navidrome.org/" target="_blank"><img src="https://img.shields.io/badge/navidrome-0084ff?style=for-the-badge&logo=spotify&logoColor=white" /></a>
       </div>
     tags:
@@ -241,8 +241,10 @@ lxc_to_deploy:
 
       # Webapps LXC
 
-      <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a>
-      <a href="https://github.com/bastienwirtz/homer/" target="_blank"><img src="https://img.shields.io/badge/homer-bc23fa?style=for-the-badge&logo=dashboard&logoColor=white" /></a>
+      <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a><br />
+      <a href="https://github.com/gethomepage/homepage/" target="_blank"><img src="https://img.shields.io/badge/homepage-1b98d4?style=for-the-badge&logo=homepage&logoColor=white" /></a>
+      <a href="https://github.com/dani-garcia/vaultwarden/" target="_blank"><img src="https://img.shields.io/badge/vaultwarden-105ddd?style=for-the-badge&logo=vaultwarden&logoColor=white" /></a><br />
+      <a href="https://filebrowser.org/" target="_blank"><img src="https://img.shields.io/badge/filebrowser-44b2e6?style=for-the-badge&logo=filebrowser&logoColor=white" /></a>
       </div>
     tags:
       - webapps
@@ -290,9 +292,9 @@ lxc_to_deploy:
 
       # Communication LXC
 
-      <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a>
+      <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a><br />
       <a href="https://ntfy.sh/" target="_blank"><img src="https://img.shields.io/badge/ntfy-43aa98?style=for-the-badge&logo=ntfy&logoColor=white" /></a>
-      <a href="https://waha.devlike.pro//" target="_blank"><img src="https://img.shields.io/badge/waha-5d2f86?style=for-the-badge&logo=waha&logoColor=white" /></a>
+      <a href="https://waha.devlike.pro//" target="_blank"><img src="https://img.shields.io/badge/waha-5d2f86?style=for-the-badge&logo=whatsapp&logoColor=white" /></a>
       </div>
     tags:
       - monitoring
