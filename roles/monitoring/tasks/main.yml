@@ -32,6 +32,9 @@
     owner: "{{ secret.users.me.name }}"
     group: "{{ secret.users.me.gid }}"
 
+- name: INSTALLATION/CONFIGURATION DU CONTENEUR healthchecks
+  include_tasks: includes/docker/healthchecks.yml
+
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR jellystat
   include_tasks: includes/docker/jellystat.yml
 

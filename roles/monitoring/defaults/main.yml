@@ -12,3 +12,7 @@ portainer:
 jellystat:
   jwt:
     secret: "{{ secret.jellystat.jwt.secret }}"
+
+healthchecks:
+  secret:
+    key: "{{ secret.healthchecks.secret.key }}"

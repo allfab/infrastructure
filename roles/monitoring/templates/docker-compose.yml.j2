@@ -17,6 +17,31 @@ services:
     networks:
       - monitoring
 
+  healthchecks:
+    container_name: healthchecks
+    image: lscr.io/linuxserver/healthchecks:latest
+    restart: unless-stopped
+    network_mode: host
+    # ports:
+    #  - 8000:8000
+    volumes:
+      - ./healthchecks/config:/config
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+      - SITE_ROOT=https://healthchecks.allfabox.fr
+      - SITE_NAME=Allfabox Monitoring
+      - SUPERUSER_EMAIL=${SUPERUSER_EMAIL}
+      - SUPERUSER_PASSWORD=${SUPERUSER_PASSWORD}
+      - ALLOWED_HOSTS=healthchecks.allfabox.fr,192.168.10.60
+      - APPRISE_ENABLED=False
+      - CSRF_TRUSTED_ORIGINS=healthchecks.allfabox.fr
+      - DEBUG=True
+      - INTEGRATIONS_ALLOW_PRIVATE_IPS=False
+      - SECRET_KEY=${HEALTHCHECKS_SECRET_KEY}
+      # - SITE_LOGO_URL=
+
   jellystat:
     container_name: jellystat
     image: cyfershepard/jellystat:latest
