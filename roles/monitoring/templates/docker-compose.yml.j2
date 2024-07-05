@@ -32,8 +32,8 @@ services:
       - TZ=Europe/Paris
       - SITE_ROOT=https://healthchecks.allfabox.fr
       - SITE_NAME=Allfabox Monitoring
-      - SUPERUSER_EMAIL=${SUPERUSER_EMAIL}
-      - SUPERUSER_PASSWORD=${SUPERUSER_PASSWORD}
+      - SUPERUSER_EMAIL=${HEALTHCHECKS_SUPERUSER_EMAIL}
+      - SUPERUSER_PASSWORD=${HEALTHCHECKS_SUPERUSER_PASSWORD}
       - ALLOWED_HOSTS=healthchecks.allfabox.fr,192.168.10.60
       - APPRISE_ENABLED=False
       - CSRF_TRUSTED_ORIGINS=healthchecks.allfabox.fr
