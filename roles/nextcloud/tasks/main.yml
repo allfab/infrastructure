@@ -38,6 +38,9 @@
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR onlyoffice
   include_tasks: includes/docker/onlyoffice.yml
 
+- name: INSTALLATION/CONFIGURATION DU CONTENEUR trilium
+  include_tasks: includes/docker/trilium.yml
+
 - name: DÉMARRAGE DE LA STACK nextcloud
   remote_user: "{{ secret.users.me.name }}"
   shell:
