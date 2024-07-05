@@ -10,6 +10,11 @@ http:
         - websecure
       rule: 'Host(`onlyoffice.allfabox.fr`)'
       service: onlyoffice
+    trilium:
+      entryPoints:
+        - websecure
+      rule: 'Host(`notes.allfabox.fr`)'
+      service: trilium
 
   services:
     nextcloud:
@@ -20,4 +25,8 @@ http:
       loadBalancer:
         servers:
           - url: https://192.168.10.42:8743
+    trilium:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.42:8080
     
