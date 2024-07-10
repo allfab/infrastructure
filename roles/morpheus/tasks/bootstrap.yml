@@ -128,7 +128,7 @@
     - {"lxc":"170"}
 
 - name: AMORÇAGE - CHANGEMENT DES PERMISSIONS DU RÉPERTOIRE .ssh DU FICHIER authorized_keys (CHOWN)
-  ansible.builtin.command: lxc-attach "{{ item.lxc }}" -- /bin/bash -c "chown -Rf {{ secret.users.me.name }}:{{ secret.users.me.name }} /home/{{ secret.users.me.name }}/.ssh"
+  ansible.builtin.command: lxc-attach "{{ item.lxc }}" -- /bin/bash -c "chown -Rf {{ secret.users.me.uid }}:{{ secret.users.me.gid }} /home/{{ secret.users.me.name }}/.ssh"
   loop:
     - {"lxc":"110"}
     - {"lxc":"120"}

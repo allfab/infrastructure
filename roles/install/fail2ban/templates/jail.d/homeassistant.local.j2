@@ -1,0 +1,9 @@
+[homeassistant]
+enabled     = false
+action      = iptables-allports
+              ntfy
+filter      = homeassistant
+logpath     = /var/log/Autonomy/homeassistant.log
+port        = 80,443,8123
+maxretry    = 3
+bantime     = 3600

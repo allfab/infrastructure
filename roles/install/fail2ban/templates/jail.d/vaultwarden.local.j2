@@ -1,0 +1,10 @@
+[bitwarden]
+enabled     = false
+action      = iptables-allports
+              ntfy
+port        = 80,443,6482
+filter      = bitwarden
+logpath     = /var/log/vaultwarden.log
+maxretry    = 3
+bantime     = 3600
+findtime    = 3600

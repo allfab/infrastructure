@@ -31,6 +31,14 @@
   with_items:
     - jellyfin
 
+# - name: AJUSTEMENT DES DROITS SUR /usr/share/jellyfin/web
+#   become: true
+#   command: chmod -R 0755 /usr/share/jellyfin/web
+
+# - name: AJUSTEMENT DES DROITS SUR /usr/share/jellyfin/web/*
+#   become: true
+#   command: chmod -Rf 0644 /usr/share/jellyfin/web/*
+
 - name: ACTIVATION ET DÉMARRAGE DU SERVICE Jellyfin
   service:
     name: jellyfin

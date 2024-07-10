@@ -1,0 +1,77 @@
+#!/bin/bash
+# Version 1.0
+# Send Fail2ban notifications using a Telegram Bot
+# Add to the /etc/fail2ban/jail.conf:
+# [sshd]
+# ***
+# action  = iptables[name=SSH, port=22, protocol=tcp]
+#           telegram
+# Create a new file in /etc/fail2ban/action.d with the following information:
+# [Definition]
+# actionstart = /etc/fail2ban/scripts/send_telegram_notif.sh -a start 
+# actionstop = /etc/fail2ban/scripts/send_telegram_notif.sh -a stop
+# actioncheck = 
+# actionban = /etc/fail2ban/scripts/send_telegram_notif.sh -b <ip>
+# actionunban = /etc/fail2ban/scripts/send_telegram_notif.sh -u <ip>
+# 
+# [Init]
+# init = 123
+# Telegram BOT Token 
+# telegramBotToken='<YOUR-BOT-TOKEN-FROM-@BotFather'
+# Telegram Chat ID (must include the dash (-23232323)
+# telegramChatID='<YOUR-TELEGRAM-CHAT-ID-FROM-@getmyid_bot'
+
+function talkToBot() {
+    message=$1
+    curl -d "${message}" https://ntfy.allfabox.fr/fail2ban-neo-docker
+}
+if [ $# -eq 0 ]; then
+    echo "Usage $0 -a ( start || stop ) || -b $IP || -u $IP || -r $REASON"
+    exit 1;
+fi
+while getopts "a:b:u:r:" opt; do
+    case "$opt" in
+        a)
+            action=$OPTARG
+        ;;
+        b)
+            ban=y
+            ip_add_ban=$OPTARG
+        ;;
+        u)
+            unban=y
+            ip_add_unban=$OPTARG
+        ;;
+        r)
+            reason=$OPTARG
+        ;;
+        ?) 
+            echo "Option invalide. -$OPTARG"
+            exit 1
+        ;;
+    esac
+done
+if [[ ! -z ${action} ]]; then
+    case "${action}" in
+        start)
+            talkToBot "Fail2ban a été lancé"
+        ;;
+        stop)
+            talkToBot "Fail2ban a été arrêté"
+        ;;
+        *)
+            echo "Option incorrecte"
+            exit 1;
+        ;;
+    esac
+elif [[ ${ban} == "y" ]]; then
+    # talkToBot "The IP ${ip_add_ban} has been banned due to ${reason}. https://ipinfo.io/${ip_add_ban}"
+    talkToBot "L'adresse IP ${ip_add_ban} a été bannie pour ${reason}. Plus d'info : https://ipinfo.io/${ip_add_ban}"
+    exit 0;
+elif [[ ${unban} == "y" ]]; then
+    # talkToBot "The IP: ${ip_add_unban} has been unbanned."
+    talkToBot "Le blocage de l'adresse IP ${ip_add_unban} a été levée."
+    exit 0;
+else
+    info
+fi

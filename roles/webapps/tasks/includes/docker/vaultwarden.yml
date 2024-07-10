@@ -9,3 +9,10 @@
     mode: "{{ docker.compose.directory_mask }}"
     owner: "{{ secret.users.me.uid }}"
     group: "{{ secret.users.me.gid }}"
+
+- name: VAULTWARDEN - CRÉATION DU FICHIER DE LOG
+  file:
+    path: /var/log/vaultwarden.log
+    mode: "0644"
+    owner: root
+    group: root

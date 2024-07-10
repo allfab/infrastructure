@@ -1,0 +1,89 @@
+---
+- name: FAIL2BAN - CRÉATION DU RÉPERTOIRE STOCKANT LES SCRIPTS PERSONNELS
+  file:
+    path: /etc/fail2ban/scripts
+    state: directory
+    mode: "0775"
+
+- name: FAIL2BAN - COPIE DES FICHIERS DE CONFIGURATION
+  template:
+    src: "{{ item.src }}"
+    dest: "/etc/fail2ban/{{ item.dest }}"
+    owner: root
+    group: root
+    mode: "0644"
+  loop:
+    - {src: 'jail.conf.j2', dest: 'jail.conf'}
+    - {src: 'jail.local.j2', dest: 'jail.local'}
+    - {src: 'action.d/ntfy.conf.j2', dest: 'action.d/ntfy.conf'}
+    - {src: 'action.d/ntfy-traefik.conf.j2', dest: 'action.d/ntfy-traefik.conf'}
+    - {src: 'filter.d/proxmox.conf.j2', dest: 'filter.d/proxmox.conf'}
+    - {src: 'jail.d/proxmox.local.j2', dest: 'jail.d/proxmox.local'}
+    - {src: 'filter.d/homeassistant.conf.j2', dest: 'filter.d/homeassistant.conf'}
+    - {src: 'jail.d/homeassistant.local.j2', dest: 'jail.d/homeassistant.local'}
+    - {src: 'filter.d/jellyfin.conf.j2', dest: 'filter.d/jellyfin.conf'}
+    - {src: 'jail.d/jellyfin.local.j2', dest: 'jail.d/jellyfin.local'}
+    - {src: 'filter.d/traefik.conf.j2', dest: 'filter.d/traefik.conf'}
+    - {src: 'jail.d/traefik.local.j2', dest: 'jail.d/traefik.local'}
+    - {src: 'filter.d/vaultwarden.conf.j2', dest: 'filter.d/vaultwarden.conf'}
+    - {src: 'jail.d/vaultwarden.local.j2', dest: 'jail.d/vaultwarden.local'}
+    - {src: 'scripts/send-ntfy-notification.sh.j2', dest: 'scripts/send-ntfy-notification.sh'}
+    - {src: 'scripts/send-whatsapp-notification.sh.j2', dest: 'scripts/send-whatsapp-notification.sh'}
+
+- name: FAIL2BAN - PVE - ACTIVATION DES PRISONS SUR pve
+  lineinfile:
+    path: "/etc/fail2ban/jail.d/{{ item }}.local"
+    regexp: "^enabled*"
+    line: "enabled     = true"
+  loop:
+    - proxmox
+  when: inventory_hostname == 'morpheus' or inventory_hostname == 'neo'
+
+- name: FAIL2BAN - FRONTEND - ACTIVATION DES PRISONS SUR frontend
+  lineinfile:
+    path: "/etc/fail2ban/jail.d/{{ item }}.local"
+    regexp: "^enabled*"
+    line: "enabled     = true"
+  loop:
+    - traefik
+  when: inventory_hostname == 'frontend'
+
+- name: FAIL2BAN - SMARTHOME - ACTIVATION DES PRISONS SUR smarthome
+  lineinfile:
+    path: "/etc/fail2ban/jail.d/{{ item }}.local"
+    regexp: "^enabled*"
+    line: "enabled     = true"
+  loop:
+    - homeassistant
+  when: inventory_hostname == 'smarthome'
+
+- name: FAIL2BAN - JELLYFIN - ACTIVATION DES PRISONS SUR jellyfin
+  lineinfile:
+    path: "/etc/fail2ban/jail.d/{{ item }}.local"
+    regexp: "^enabled*"
+    line: "enabled     = true"
+  loop:
+    - jellyfin
+  when: inventory_hostname == 'jellyfin'
+
+- name: FAIL2BAN - WEBAPPS - ACTIVATION DES PRISONS SUR webapps
+  lineinfile:
+    path: "/etc/fail2ban/jail.d/{{ item }}.local"
+    regexp: "^enabled*"
+    line: "enabled     = true"
+  loop:
+    - bitwarden
+  when: inventory_hostname == 'webapps'
+
+- name: FAIL2BAN - RENDRE LES SCRIPTS send-ntfy-*.sh EXECUTABLE
+  file:
+    path: "/etc/fail2ban/scripts/{{ item }}"
+    mode: "+x"
+  loop:
+    - send-ntfy-notification.sh
+    - send-whatsapp-notification.sh
+
+- name: FAIL2BAN - REDÉMARRAGE DU SERVICE
+  service:
+    name: fail2ban
+    state: restarted

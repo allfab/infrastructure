@@ -8,6 +8,7 @@ package_list:
   - name: curl
   - name: dnsutils
   - name: duf
+  - name: fail2ban
   - name: git
   - name: htop
   - name: iftop

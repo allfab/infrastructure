@@ -1,0 +1,8 @@
+[DEFAULT]
+ignoreip = {{ secrets.fail2ban.default.ignoreip }}
+
+bantime.increment = true
+
+bantime.rndtime = 2048
+
+bantime.multipliers = 1 5 30 60 300 720 1440 2880

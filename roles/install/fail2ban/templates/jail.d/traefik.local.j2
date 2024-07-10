@@ -1,0 +1,10 @@
+[traefik]
+enabled     = true
+chain       = DOCKER-USER
+port        = http,https
+filter      = traefik
+logpath     = /var/log/traefik/access.log
+action      = ntfy-traefik
+maxretry    = 5
+findtime    = 60
+bantime     = 600

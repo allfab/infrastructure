@@ -1,0 +1,9 @@
+[Definition]
+actionstart = bash /etc/fail2ban/scripts/send-ntfy-notification.sh -a start <name>
+actionstop = bash /etc/fail2ban/scripts/send-ntfy-notification.sh -a stop <name>
+actioncheck =
+actionban = bash /etc/fail2ban/scripts/send-ntfy-notification.sh -b <ip> -r "Navigation forcée sur <F-CONTAINER> (<name>)"
+actionunban = bash /etc/fail2ban/scripts/send-ntfy-notification.sh -u <ip>
+
+[Init]
+init = 123

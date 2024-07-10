@@ -10,6 +10,7 @@ package_list:
   - name: curl
   - name: dnsutils
   - name: duf
+  - name: fail2ban
   - name: ffmpeg
   - name: fio
   - name: git
@@ -49,6 +50,7 @@ lxc_to_deploy:
     nameserver: 192.168.0.253
     ip: 192.168.10.10
     gw: 192.168.10.1
+    unprivileged: true
     description: |
       <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
 
@@ -78,6 +80,7 @@ lxc_to_deploy:
     nameserver: 192.168.0.253
     ip: 192.168.10.19
     gw: 192.168.10.1
+    unprivileged: true
     onboot: true
     description: |
       <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
@@ -124,7 +127,7 @@ lxc_to_deploy:
   - name: jellyfin
     vmid: 140
     cores: 2
-    disk: "local-zfs:32"
+    disk: "local-zfs:16"
     nesting: 1
     keyctl: 1
     fuse: 0
@@ -157,7 +160,7 @@ lxc_to_deploy:
     nameserver: 192.168.0.253
     ip: 192.168.10.41
     gw: 192.168.10.1
-    unprivileged: true
+    unprivileged: false
     description: |
       <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
 
@@ -235,7 +238,7 @@ lxc_to_deploy:
     nameserver: 192.168.0.253
     ip: 192.168.10.50
     gw: 192.168.10.1
-    unprivileged: true
+    unprivileged: false
     description: |
       <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
 
@@ -527,7 +530,7 @@ fstab_mergerfs:
   - source: "/mnt/disk*"
     mountpoint: /mnt/storage
     fs: fuse.mergerfs
-    opts: "defaults,nonempty,cache.files=off,category.create=epmfs,moveonenospc=true,dropcacheonclose=true,minfreespace=5G,fsname=mergerfs"
+    opts: "defaults,nonempty,allow_other,use_ino,cache.files=off,category.create=epmfs,moveonenospc=true,dropcacheonclose=true,minfreespace=5G,fsname=mergerfs"
 
 freebox_mount:
   - path: /mnt/freebox
@@ -536,7 +539,7 @@ freebox_mount:
     opts: "rw,uid={{ secret.users.me.uid }},gid={{ secret.users.me.gid }},credentials={{ secret.users.me.home }}/.freebox-credentials,iocharset=utf8,file_mode=0777,dir_mode=0777"
 
 nfs_exports: 
-  - local_path: /mnt/storage/videos
+  - local_path: /mnt/storage/media/videos
     authorized_network:
       - server: jellyfin
         ip: 192.168.10.0/24

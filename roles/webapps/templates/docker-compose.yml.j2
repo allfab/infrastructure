@@ -54,19 +54,15 @@ services:
     security_opt:
       - no-new-privileges:true
     volumes:
-      - ./vaultwarden/:/data/
+      - ./vaultwarden:/data
+      - /var/log/vaultwarden.log:/data/vaultwarden.log
     environment:
       - DATABASE_URL=postgresql://{{ secret.users.me.name }}:{{ secret.users.me.password }}@192.168.10.19:5432/vaultwarden
       - SIGNUPS_ALLOWED=false
       - INVITATIONS_ALLOWED=false
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.vaultwarden.entrypoints=websecure
-      - traefik.http.routers.vaultwarden.rule=Host(`vaultwarden.allfabox.fr`)
-      - traefik.http.routers.vaultwarden.tls=true
-      - traefik.http.routers.vaultwarden.tls.certresolver=letsencrypt
-      - traefik.http.routers.vaultwarden.middlewares=authelia@docker
-      - traefik.http.services.vaultwarden.loadbalancer.server.port=8680
+      - LOG_FILE=data/vaultwarden.log
+      - LOG_LEVEL=warn
+      - EXTENDED_LOGGING=true
     networks:
       - webapps
 

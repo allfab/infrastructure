@@ -1,0 +1,11 @@
+[jellyfin]
+enabled     = false
+action      = iptables-allports
+              ntfy
+port        = 80,443,8096
+protocol    = tcp
+filter      = jellyfin
+maxretry    = 3
+bantime     = 3600
+findtime    = 3600
+logpath     = /var/log/morpheus/jellyfin.log

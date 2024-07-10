@@ -85,7 +85,7 @@ services:
        - authelia
     volumes:
       - ./traefik:/etc/traefik
-      - ./traefik/logs:/var/log/traefik
+      - /var/log/traefik:/var/log/traefik
     labels:
       - traefik.enable=true      
       - traefik.http.routers.traefik.entrypoints=websecure
