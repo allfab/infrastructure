@@ -70,3 +70,28 @@
     opts: "{{ item.opts }}"
     state: mounted
   loop: "{{ freebox_mount }}"
+
+- name: SUPPRESSION DE TOUS LES ACL SUR LE RÉPERTOIRE /mnt/storage/media/videos
+  command: "setfacl -R -b /mnt/storage/media/videos"
+  # setfacl -R --remove-all /mnt/storage/media/videos
+
+- name: DÉFINITION DES ACL PAR DÉFAUT POUR L'UTILISATEUR jellyfin SUR LA MÉDIATHÈQUE /mnt/storage/media/videos
+  ansible.posix.acl:
+    path: /mnt/storage/media/videos/
+    entity: jellyfin
+    etype: user
+    permissions: rw
+    default: true
+    state: present
+  # setfacl -R -m user:jellyfin:rw /mnt/storage/media/videos
+
+- name: DÉFINITION DES ACL PAR DÉFAUT POUR LE GROUPE jellyfin SUR LA MÉDIATHÈQUE /mnt/storage/media/videos
+  ansible.posix.acl:
+    path: /mnt/storage/media/videos/
+    entity: jellyfin
+    etype: group
+    permissions: rw
+    default: true
+    state: present
+  # setfacl -R -m group:jellyfin:rw /mnt/storage/media/videos
+  # setfacl -R -m user:jellyfin:rw,group:jellyfin:rw /mnt/storage/media/videos

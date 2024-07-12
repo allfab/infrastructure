@@ -38,34 +38,34 @@
     - ocl-icd-libopencl1
     - vainfo
     - va-driver-all
-    
-- name: AJUSTEMENT DES DROITS SUR /dev/dri/card0
-  ansible.builtin.file:
-    path: /dev/dri/card0
-    owner: root
-    group: video
-    mode: "660"
-
-- name: AJUSTEMENT DES DROITS SUR /dev/dri/renderD128
-  ansible.builtin.file:
-    path: /dev/dri/renderD128
-    owner: root
-    group: render
-    mode: "660"
-
-- name: AJOUT DE L'UTILISATEUR jellyfin AUX GROUPES video ET render
-  shell: "{{ item}}"
-  with_items:
-    - "adduser jellyfin video"
-    - "adduser jellyfin render"
-    - "adduser jellyfin input"
-  become: true
 
 - name: TRANSCODAGE - CHANGEMENT DE L'IDENTIFIANT NUMÉRIQUE DU GROUPE render ET input POUR CORRESPONDANCE AVEC L'HÔTE proxmox DANS LE CAS D'UN CONTENEUR NON-PRIVILÉGIÉ
   shell: "{{ item}}"
   with_items:
     - "sed -i -e 's/^crontab:x:101:$/crontab:x:103:/' -e 's/^input:x:103:jellyfin$/input:x:101:jellyfin/' /etc/group"
     - "sed -i -e 's/^sgx:x:104:$/sgx:x:106:/' -e 's/^render:x:106:jellyfin$/render:x:104:jellyfin/' /etc/group"
+    
+- name: TRANSCODAGE - AJUSTEMENT DES DROITS SUR /dev/dri/card0
+  ansible.builtin.file:
+    path: /dev/dri/card0
+    owner: root
+    group: video
+    mode: "660"
+
+- name: TRANSCODAGE - AJUSTEMENT DES DROITS SUR /dev/dri/renderD128
+  ansible.builtin.file:
+    path: /dev/dri/renderD128
+    owner: root
+    group: render
+    mode: "660"
+
+- name: TRANSCODAGE - AJOUT DE L'UTILISATEUR jellyfin AUX GROUPES video ET render
+  shell: "{{ item}}"
+  with_items:
+    - "adduser jellyfin video"
+    - "adduser jellyfin render"
+    - "adduser jellyfin input"
+  become: true
 
 - name: VÉRIFICATION DE L'EXISTANCE DU DOSSIER TEMPORAIRE transcodes SUR /dev/shm POUR LE TRANSCODAGE
   ansible.builtin.file:
