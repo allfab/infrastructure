@@ -2,7 +2,7 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/latest/configs/settings
 
-title: Tableau de bord - IGEO
+title: PERFECT HOMELAB
 startUrl: http://192.168.10.50:3000/
 language: fr
 

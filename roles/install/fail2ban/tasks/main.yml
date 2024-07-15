@@ -37,7 +37,7 @@
     line: "enabled     = true"
   loop:
     - proxmox
-  when: inventory_hostname == 'morpheus' or inventory_hostname == 'neo'
+  when: inventory_hostname == 'morpheus' or inventory_hostname == 'neo' or inventory_hostname == '192.168.10.5'
 
 - name: FAIL2BAN - FRONTEND - ACTIVATION DES PRISONS SUR frontend
   lineinfile:

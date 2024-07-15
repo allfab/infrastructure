@@ -23,7 +23,7 @@
 
 function talkToBot() {
     message=$1
-    curl -d "${message}" https://ntfy.allfabox.fr/fail2ban-neo-docker
+    curl -d "${message}" https://ntfy.allfabox.fr/fail2ban-morpheus-docker
 }
 if [ $# -eq 0 ]; then
     echo "Usage $0 -a ( start || stop ) || -b $IP || -u $IP || -r $REASON"

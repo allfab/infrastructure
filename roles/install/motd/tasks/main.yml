@@ -24,12 +24,12 @@
     return_content: true
     force_basic_auth: "{{ secret.github.api.auth | default (omit) }}"
   register: figurine_latest_release
-  when: force_install == True
+  # when: force_install == True
 
 - name: DÉFINITION DE LA VERSION SI CE N'EST PAS LE CAS
   set_fact:
     figurine_version: "{{ figurine_latest_release.json.tag_name }}"
-  when: figurine_version is undefined and force_install == True
+  # when: figurine_version is undefined and force_install == True
 
 - name: RECUPÉRATION DE L'ARCHITECTURE DU SERVEUR
   vars:

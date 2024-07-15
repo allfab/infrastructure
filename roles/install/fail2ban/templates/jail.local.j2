@@ -4,7 +4,8 @@ action      = iptables-allports
               ntfy
 mode        = ddos
 filter      = sshd
-logpath     = /var/log/auth.log
+backend     = systemd
+# logpath     = /var/log/auth.log
 maxretry    = 3
 bantime     = 3600
 findtime    = 600

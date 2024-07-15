@@ -38,7 +38,10 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./homepage:/app/config
+      - ./homepage/config:/app/config
+      - ./homepage/images:/app/public/images
+      - ./homepage/icons:/app/public/icons
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     environment:
       PUID: 1000
       PGID: 1000
