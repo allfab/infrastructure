@@ -1,0 +1,14 @@
+http:
+  routers:
+    immich:
+      entryPoints:
+        - websecure
+      rule: 'Host(`immich.allfabox.fr`)'
+      service: immich
+
+  services:
+    immich:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.43:2283
+    

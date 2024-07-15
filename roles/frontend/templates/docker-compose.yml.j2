@@ -86,6 +86,7 @@ services:
     volumes:
       - ./traefik:/etc/traefik
       - /var/log/traefik:/var/log/traefik
+      # - /var/run/docker.sock:/var/run/docker.sock:ro
     labels:
       - traefik.enable=true      
       - traefik.http.routers.traefik.entrypoints=websecure

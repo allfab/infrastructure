@@ -86,6 +86,13 @@
     mode: "{{ docker.compose.file_mask }}"
     owner: "{{ secret.users.me.name }}"
 
+- name: INSTALLATION DU FICHIER DE PROVISION immich
+  template:
+    src: traefik/extra/immich.yml.j2
+    dest: /opt/docker/frontend-stack/traefik/extra/immich.yml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+
 - name: INSTALLATION DU FICHIER DE PROVISION webapps
   template:
     src: traefik/extra/webapps.yml.j2
