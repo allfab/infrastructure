@@ -51,6 +51,13 @@
     mode: "{{ docker.compose.file_mask }}"
     owner: "{{ secret.users.me.name }}"
 
+- name: INSTALLATION DU FICHIER DE PROVISION headscale
+  template:
+    src: traefik/extra/headscale.yml.j2
+    dest: /opt/docker/frontend-stack/traefik/extra/headscale.yml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+
 - name: INSTALLATION DU FICHIER DE PROVISION freebox
   template:
     src: traefik/extra/freebox.yml.j2

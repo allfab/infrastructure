@@ -19,7 +19,16 @@ services:
       - NETWORKS=1
       - SERVICES=1
       - TASKS=1
-      - VOLUMES=1
+      - VOLUMES=1      
+      - BUILD=1
+      - COMMIT=1
+      - CONFIGS=1
+      - DISTRIBUTION=1
+      - EXEC=1
+      - NODES=1
+      - PLUGINS=1
+      - SESSSION=1
+      - LOG_LEVEL=err
     networks:
       - socket-proxy
   
@@ -118,16 +127,16 @@ services:
     volumes:
       - ./headscale/config:/etc/headscale
       - ./headscale/data:/var/lib/headscale
-    labels:
-      - traefik.enable=true      
-      - traefik.http.routers.headscale.entrypoints=websecure
-      - traefik.http.routers.headscale.rule=Host(`headscale.allfabox.fr`)
-      - traefik.http.routers.headscale.tls=true
-      - traefik.http.routers.headscale.tls.certresolver=letsencrypt
-      - traefik.http.services.headscale.loadbalancer.server.port=8880
-      # UDP ports for DERP, etc
-      - traefik.udp.services.headscale-udp-41641.loadbalancer.server.port=41641
-      - traefik.udp.services.headscale-udp-3478.loadbalancer.server.port=3478
+    # labels:
+      # - traefik.enable=true      
+      # - traefik.http.routers.headscale.entrypoints=websecure
+      # - traefik.http.routers.headscale.rule=Host(`headscale.allfabox.fr`)
+      # - traefik.http.routers.headscale.tls=true
+      # - traefik.http.routers.headscale.tls.certresolver=letsencrypt
+      # - traefik.http.services.headscale.loadbalancer.server.port=8880
+      # # UDP ports for DERP, etc
+      # - traefik.udp.services.headscale-udp-41641.loadbalancer.server.port=41641
+      # - traefik.udp.services.headscale-udp-3478.loadbalancer.server.port=3478
     networks:
     - frontend
 
@@ -139,14 +148,14 @@ services:
       - 5000:80
     environment:
       - TZ=Europe/Paris
-    labels:
-      - traefik.enable=true
-      - traefik.http.routers.headscale-admin.entrypoints=websecure
-      - traefik.http.routers.headscale-admin.rule=Host(`headscale.allfabox.fr`) && (PathPrefix(`/admin/`) || PathPrefix(`/admin`))
-      - traefik.http.routers.headscale-admin.tls=true
-      - traefik.http.routers.headscale-admin.tls.certresolver=letsencrypt
-      - traefik.http.routers.headscale-admin.middlewares=authelia@docker
-      - traefik.http.services.headscale-admin.loadbalancer.server.port=5000
+    # labels:
+      # - traefik.enable=true
+      # - traefik.http.routers.headscale-admin.entrypoints=websecure
+      # - traefik.http.routers.headscale-admin.rule=Host(`headscale.allfabox.fr`) && (PathPrefix(`/admin/`) || PathPrefix(`/admin`))
+      # - traefik.http.routers.headscale-admin.tls=true
+      # - traefik.http.routers.headscale-admin.tls.certresolver=letsencrypt
+      # - traefik.http.routers.headscale-admin.middlewares=authelia@docker
+      # - traefik.http.services.headscale-admin.loadbalancer.server.port=5000
     networks:
       - frontend
 
@@ -168,7 +177,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TS_HOSNAME=frontend-tail
-      - TS_AUTHKEY=f6c39ab06ca0d6c8ae6e9e9b545c6af228e04ba04fb683a8
+      - TS_AUTHKEY=${AUTHKEY}
       - TS_STATE_DIR=/var/lib/tailscale
       - TS_SOCKET=/tmp/tailscaled.sock
       - TS_USERSPACE=true

@@ -1,0 +1,24 @@
+http:
+  routers:
+    headscale:
+      entryPoints:
+        - websecure
+      rule: 'Host(`headscale.allfabox.fr`)'
+      service: headscale
+    headscale-admin:
+      entryPoints:
+        - websecure
+      rule: 'Host(`headscale.allfabox.fr`) && (PathPrefix(`/admin/`)) || (PathPrefix(`/admin`))'
+      middlewares:
+        - authelia
+      service: headscale-admin
+  
+  services:
+    headscale:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.10:8880
+    headscale-admin:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.10:5000
