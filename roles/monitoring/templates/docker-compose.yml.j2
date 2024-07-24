@@ -51,7 +51,7 @@ services:
     volumes:
       - ./jellystat:/app/backend/backup-data
     environment:
-      - POSTGRES_DB=jellystat
+      - POSTGRES_DB=jfstat
       - POSTGRES_USER={{ secret.users.me.name }}
       - POSTGRES_PASSWORD={{ secret.users.me.password }}
       - POSTGRES_IP=192.168.10.19
