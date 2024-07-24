@@ -34,15 +34,16 @@ services:
   
   portainer:
     container_name: portainer
-    image: portainer/portainer-ee:latest
+    image: portainer/portainer-ee:sts
     restart: always
     ports:
-      - 9443:9443
+      - 9000:9000
     depends_on: 
        - socket-proxy
     command: -H tcp://socket-proxy:2375
     volumes:
-      - ./portainer:/data    
+      - ./portainer:/data
+      # - /var/run/docker.sock:/var/run/docker.sock:ro
       - /etc/localtime:/etc/localtime:ro
     environment:
       - AGENT_SECRET="${AGENT_SECRET}"
@@ -54,7 +55,7 @@ services:
       - traefik.http.routers.portainer.rule=Host(`portainer.allfabox.fr`)
       - traefik.http.routers.portainer.tls=true
       - traefik.http.routers.portainer.tls.certresolver=letsencrypt
-      - traefik.http.services.portainer.loadbalancer.server.port=9443
+      - traefik.http.services.portainer.loadbalancer.server.port=9000
     networks:
       - frontend
       - socket-proxy
@@ -83,7 +84,7 @@ services:
 
   traefik:
     container_name: traefik
-    image: traefik:v3.0.0
+    image: traefik:latest
     restart: always
     ports:
       - 80:80
@@ -94,7 +95,7 @@ services:
        - authelia
     volumes:
       - ./traefik:/etc/traefik
-      - /var/log/traefik:/var/log/traefik
+      - ./traefik/logs:/var/log/traefik
       # - /var/run/docker.sock:/var/run/docker.sock:ro
     labels:
       - traefik.enable=true      
@@ -138,7 +139,7 @@ services:
       # - traefik.udp.services.headscale-udp-41641.loadbalancer.server.port=41641
       # - traefik.udp.services.headscale-udp-3478.loadbalancer.server.port=3478
     networks:
-    - frontend
+      - frontend
 
   headscale-admin:
     container_name: headscale-admin

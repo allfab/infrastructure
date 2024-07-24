@@ -21,3 +21,4 @@
     recurse: true
   loop:
     - config
+    

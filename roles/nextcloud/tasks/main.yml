@@ -54,3 +54,10 @@
     group: "{{ secret.users.me.gid }}"
     mode: "0777"
     recurse: true
+
+- name: NEXTCLOUD - trusted_domains
+  remote_user: "{{ secret.users.me.name }}"
+  # community.docker.docker_container_exec:
+  #   container: nextcloud
+  #   command: "occ config:system:set trusted_domains 1 --value=nextcloud.allfabox.fr"
+  shell: "docker exec nextcloud occ config:system:set trusted_domains 1 --value=nextcloud.allfabox.fr"

@@ -9,6 +9,8 @@ http:
       entryPoints:
         - websecure
       rule: 'Host(`onlyoffice.allfabox.fr`)'
+      # middlewares:
+        # - authelia
       service: onlyoffice
     trilium:
       entryPoints:

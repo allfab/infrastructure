@@ -1,14 +1,31 @@
 http:
   middlewares:
-    compress:
-      compress: {}
+    nextcloud:
+      redirectregex:
+        permanent: true
+        regex: 'https://(.*)/.well-known/(?:card|cal)dav'
+        replacement: 'https://$${1}/remote.php/dav'
 
-    # https://paramdeo.com/blog/opting-your-website-out-of-googles-floc-network
-    floc:
-      headers:
-        customResponseHeaders:
-          Permissions-Policy: "interest-cohort=()"
-
+    authelia:
+      forwardauth:
+        address: http://authelia:9091/api/verify?rd=https://identity.allfabox.fr/
+        trustForwardHeader: true
+        authResponseHeaders:
+          - Remote-User
+          - Remote-Groups
+          - Remote-Name
+          - Remote-Email
+  
+    authelia-basic:
+      forwardauth:
+        address: http://authelia:9091/api/verify?auth=basic
+        trustForwardHeader: true
+        authResponseHeaders:
+          - Remote-User
+          - Remote-Groups
+          - Remote-Name
+          - Remote-Email
+    
     securityHeaders:
       headers:
         customResponseHeaders:
@@ -33,22 +50,11 @@ http:
       redirectScheme:
         scheme: https
 
-    authelia:
-      forwardauth:
-        address: http://authelia:9091/api/verify?rd=https://identity.allfabox.fr/
-        trustForwardHeader: true
-        authResponseHeaders:
-          - Remote-User
-          - Remote-Groups
-          - Remote-Name
-          - Remote-Email
-  
-    authelia-basic:
-      forwardauth:
-        address: http://authelia:9091/api/verify?auth=basic
-        trustForwardHeader: true
-        authResponseHeaders:
-          - Remote-User
-          - Remote-Groups
-          - Remote-Name
-          - Remote-Email
+    compress:
+      compress: {}
+
+    # https://paramdeo.com/blog/opting-your-website-out-of-googles-floc-network
+    floc:
+      headers:
+        customResponseHeaders:
+          Permissions-Policy: "interest-cohort=()"

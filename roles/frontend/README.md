@@ -58,7 +58,7 @@ docker compose exec headscale headscale users create frontend-tail
 docker compose exec headscale headscale preauthkeys create -e 10m -u frontend-tail
 docker compose exec headscale headscale preauthkeys create --reusable -u frontend-tail
 
-# Connect to headscale-webui
+# Connect to headscale-admin
 docker compose exec headscale headscale apikeys create
 
 ## docker tailscale
@@ -79,6 +79,9 @@ tailscale up --login-server https://headscale.allfabox.fr --authkey xxxxxxxxxxxx
 ### Nodes
 
 docker compose exec headscale headscale nodes list
+
+Register new node :
+docker compose exec headscale headscale nodes register --user allfab --key nodekey:0e2f6490d13b0204a8b0721ff5e5f89e7e9881c8377b31e3a5f2f2dcbd86d87e
 
 ### Routes
 
