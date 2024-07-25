@@ -156,7 +156,8 @@ lxc_to_deploy:
     nesting: 1
     keyctl: 1
     fuse: 1
-    memory: 512
+    memory: 1024
+    swap: 1024
     nameserver: 192.168.0.253
     ip: 192.168.10.41
     gw: 192.168.10.1

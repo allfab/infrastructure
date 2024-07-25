@@ -43,6 +43,31 @@ services:
     networks:
       - mediaserver
 
+  bonob:
+    container_name: bonob
+    image: simojenki/bonob:latest
+    restart: unless-stopped
+    # network_mode: host
+    ports:
+      - 4534:4534
+    # user: 1000:1000
+    environment:
+      - BNB_PORT=4534
+      - BNB_SONOS_SERVICE_NAME=Navidrome
+      - BNB_SECRET=${BONOB_SECRET}
+      - BNB_URL=https://bonob.allfabox.fr
+      # - BNB_URL=http://192.168.10.41:4534
+      - BNB_SONOS_AUTO_REGISTER=false
+      - BNB_SONOS_DEVICE_DISCOVERY=false
+      - BNB_SONOS_SERVICE_ID=246
+      - BNB_SUBSONIC_URL=https://navidrome.allfabox.fr
+      - BNB_ICON_FOREGROUND_COLOR="#1db954"
+      - BNB_ICON_BACKGROUND_COLOR="#121212"
+      - BNB_SONOS_SEED_HOST=192.168.20.57 # sonos ip address device seed host for discovery, or ommitted for for auto-discovery
+      - TZ="Europe/Paris"
+    networks:
+      - mediaserver
+
   calibre-web:
     container_name: calibre-web
     image: lscr.io/linuxserver/calibre-web:latest
