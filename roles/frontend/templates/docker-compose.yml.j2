@@ -143,7 +143,8 @@ services:
 
   headscale-admin:
     container_name: headscale-admin
-    image: goodieshq/headscale-admin:latest
+    # image: goodieshq/headscale-admin:latest
+    image: allfab/headscale-admin:manager
     restart: unless-stopped
     ports:
       - 5000:80
@@ -152,7 +153,7 @@ services:
     # labels:
       # - traefik.enable=true
       # - traefik.http.routers.headscale-admin.entrypoints=websecure
-      # - traefik.http.routers.headscale-admin.rule=Host(`headscale.allfabox.fr`) && (PathPrefix(`/admin/`) || PathPrefix(`/admin`))
+      # - traefik.http.routers.headscale-admin.rule=Host(`headscale.allfabox.fr`) && (PathPrefix(`/manager/`) || PathPrefix(`/manager`))
       # - traefik.http.routers.headscale-admin.tls=true
       # - traefik.http.routers.headscale-admin.tls.certresolver=letsencrypt
       # - traefik.http.routers.headscale-admin.middlewares=authelia@docker

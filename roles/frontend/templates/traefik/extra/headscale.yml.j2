@@ -8,7 +8,7 @@ http:
     headscale-admin:
       entryPoints:
         - websecure
-      rule: 'Host(`headscale.allfabox.fr`) && (PathPrefix(`/admin/`)) || (PathPrefix(`/admin`))'
+      rule: 'Host(`headscale.allfabox.fr`) && (PathPrefix(`/manager/`)) || (PathPrefix(`/manager`))'
       middlewares:
         - authelia
       service: headscale-admin
