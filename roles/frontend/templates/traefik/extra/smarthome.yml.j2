@@ -26,6 +26,13 @@ http:
       service: esphome
       middlewares:
         - authelia
+    myelectricaldata:
+      entryPoints:
+        - websecure
+      rule: 'Host(`myelectricaldata.allfabox.fr`)'
+      service: myelectricaldata
+      middlewares:
+        - authelia
   
   services:
     homeassistant:
@@ -39,8 +46,12 @@ http:
     zigbee2mqtt:
       loadBalancer:
         servers:
-          - url: http://192.168.10.20:8080
+          - url: http://192.168.10.20:8880
     esphome:
       loadBalancer:
         servers:
           - url: http://192.168.10.20:6052
+    myelectricaldata:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.20:5000
