@@ -15,6 +15,13 @@ http:
         - websecure
       rule: 'Host(`bonob.allfabox.fr`)'
       service: bonob
+    bliss:
+      entryPoints:
+        - websecure
+      rule: 'Host(`bliss.allfabox.fr`)'
+      middlewares:
+        - authelia
+      service: bliss
     calibre:
       entryPoints:
         - websecure
@@ -39,6 +46,10 @@ http:
       loadBalancer:
         servers:
           - url: http://192.168.10.41:4534
+    bliss:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.41:3220
     calibre:
       loadBalancer:
         servers:

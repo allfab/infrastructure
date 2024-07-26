@@ -68,6 +68,23 @@ services:
     # networks:
       # - mediaserver
 
+  bliss:
+    container_name: bliss
+    image: romancin/bliss:latest
+    restart: unless-stopped
+    ports:
+      - 3220:3220
+      - 3221:3221
+    volumes:
+      - ./bliss/config:/config
+      - /mnt/media/musics:/music
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+    networks:
+      - mediaserver
+
   calibre-web:
     container_name: calibre-web
     image: lscr.io/linuxserver/calibre-web:latest
