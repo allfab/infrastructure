@@ -1,0 +1,12 @@
+[sshd]
+enabled     = true
+port        = ssh
+filter      = sshd
+logpath     = journal
+backend     = systemd
+banaction   = iptables-allports
+maxretry    = 2
+bantime     = 86400
+findtime    = 300
+ignoreip    = 127.0.0.1/8 ::1
+action      = ntfy

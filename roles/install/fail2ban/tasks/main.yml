@@ -14,11 +14,12 @@
     mode: "0644"
   loop:
     - {src: 'jail.conf.j2', dest: 'jail.conf'}
-    - {src: 'jail.local.j2', dest: 'jail.local'}
     - {src: 'action.d/ntfy.conf.j2', dest: 'action.d/ntfy.conf'}
     - {src: 'action.d/ntfy-traefik.conf.j2', dest: 'action.d/ntfy-traefik.conf'}
     - {src: 'filter.d/proxmox.conf.j2', dest: 'filter.d/proxmox.conf'}
     - {src: 'jail.d/proxmox.local.j2', dest: 'jail.d/proxmox.local'}
+    - {src: 'jail.d/pam-generic.local.j2', dest: 'jail.d/pam-generic.local'}
+    - {src: 'jail.d/sshd.local.j2', dest: 'jail.d/sshd.local'}
     - {src: 'filter.d/homeassistant.conf.j2', dest: 'filter.d/homeassistant.conf'}
     - {src: 'jail.d/homeassistant.local.j2', dest: 'jail.d/homeassistant.local'}
     - {src: 'filter.d/jellyfin.conf.j2', dest: 'filter.d/jellyfin.conf'}
@@ -37,6 +38,8 @@
     line: "enabled     = true"
   loop:
     - proxmox
+    - proxmox-pam-generic
+    - sshd
   when: inventory_hostname == 'morpheus' or inventory_hostname == 'neo' or inventory_hostname == '192.168.10.5'
 
 - name: FAIL2BAN - FRONTEND - ACTIVATION DES PRISONS SUR frontend

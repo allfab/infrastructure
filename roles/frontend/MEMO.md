@@ -1,9 +1,9 @@
 # https://www.it-connect.fr/filtres-et-actions-personnalises-dans-fail2ban/
 
-# Filtre traefik-general-forceful-browsing.conf
+# Filtre traefik.conf
 docker compose exec fail2ban sh
-fail2ban-regex /var/log/traefik/traefik-access.log /etc/fail2ban/filter.d/traefik-general-forceful-browsing.conf
-docker exec -it fail2ban fail2ban-regex /var/log/traefik/access.log /etc/fail2ban/filter.d/traefik-general-forceful-browsing.conf
+fail2ban-regex /var/log/traefik/traefik-access.log /etc/fail2ban/filter.d/traefik.conf
+docker exec -it fail2ban fail2ban-regex /var/log/traefik/access.log /etc/fail2ban/filter.d/traefik.conf
 
 docker exec -it fail2ban fail2ban-regex /var/log/daemon.log /etc/fail2ban/filter.d/proxmox.conf
 
@@ -26,8 +26,14 @@ docker exec -it fail2ban fail2ban-client status <jail name>
 
 # Débannir une adresse IP
 docker exec -it fail2ban fail2ban-client set <jail name> unbanip <IP>
-docker exec -it fail2ban fail2ban-client set traefik-general-forceful-browsing unbanip 92.184.107.122
-fail2ban-client set traefik-general-forceful-browsing unbanip 92.184.107.94
+docker exec -it fail2ban fail2ban-client set traefik unbanip 92.184.104.95
+fail2ban-client set traefik unbanip 92.184.104.95
+
+# Proxmox
+fail2ban-regex systemd-journal /etc/fail2ban/filter.d/proxmox.conf
+
+fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 fail2ban-client status
+alias showbans="fail2ban-client status | sed -n 's/,//g;s/.*Jail list://p' | xargs -n1 fail2ban-client status"
 
 
 # Notification

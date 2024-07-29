@@ -1,10 +1,10 @@
 [proxmox]
-enabled     = false
+enabled     = true
 port        = https,http,8006
-backend     = systemd
 filter      = proxmox
+logpath     = journal
+backend     = systemd
 maxretry    = 3
-bantime     = 1h
 findtime    = 2d
-action      = iptables-allports
-              ntfy
+bantime     = 1h
+action      = ntfy
