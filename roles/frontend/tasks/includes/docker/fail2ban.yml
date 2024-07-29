@@ -1,0 +1,34 @@
+---
+- name: CRÉATION DU RÉPERTOIRE D'INSTALLATION/CONFIGURATION POUR fail2ban
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.name }}"
+  loop:
+    - /opt/docker/frontend-stack/fail2ban
+    - /opt/docker/frontend-stack/fail2ban/action.d
+    - /opt/docker/frontend-stack/fail2ban/db
+    - /opt/docker/frontend-stack/fail2ban/jail.d
+
+- name: INSTALLATION DU FICHIER DE CONFIGURATION PRINCIPAL POUR fail2ban
+  template:
+    src: "{{ item.src }}"
+    dest: "/opt/docker/frontend-stack/{{ item.dest }}"
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+    lstrip_blocks: true
+    trim_blocks: true
+  loop:
+    - {src: 'fail2ban/jail.d/jail.local.j2', dest: 'fail2ban/jail.d/jail.local'}
+    - {src: 'fail2ban/filter.d/traefik.conf.j2', dest: 'fail2ban/filter.d/traefik.conf'}
+    - {src: 'fail2ban/action.d/traefik.conf.j2', dest: 'fail2ban/action.d/traefik.conf'}
+    - {src: 'fail2ban/scripts/send-ntfy-notification.sh.j2', dest: 'fail2ban/action.d/send-ntfy-notification.sh'}
+
+
+- name: RENDRE LES SCRIPTS send-ntfy-*.sh EXECUTABLE - fail2ban
+  file:
+    path: "/opt/docker/frontend-stack/{{ item }}"
+    mode: "+x"
+  loop:
+    - fail2ban/action.d/send-ntfy-notification.sh

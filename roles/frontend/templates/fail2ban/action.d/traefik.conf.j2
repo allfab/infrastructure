@@ -1,0 +1,10 @@
+[Definition]
+actionstart = bash /data/action.d/send-ntfy-notification.sh -a start
+
+actionstop = bash /data/action.d/send-ntfy-notification.sh -a stop
+
+actionban = iptables -I DOCKER-USER -m string --algo bm --string 'X-Forwarded-For: <ip>' -j DROP
+            bash /data/action.d/send-ntfy-notification.sh -b <ip> -r "navigation forcée sur <F-CONTAINER> (<name>)"
+
+actionunban = iptables -D DOCKER-USER -m string --algo bm --string 'X-Forwarded-For: <ip>' -j DROP
+              bash /data/action.d/send-ntfy-notification.sh -u <ip>

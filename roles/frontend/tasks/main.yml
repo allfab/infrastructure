@@ -39,6 +39,9 @@
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR traefik
   include_tasks: includes/docker/traefik.yml
 
+- name: INSTALLATION/CONFIGURATION DU CONTENEUR fail2ban
+  include_tasks: includes/docker/fail2ban.yml
+
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR headscale
   include_tasks: includes/docker/headscale.yml
 
