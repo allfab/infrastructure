@@ -1,17 +1,177 @@
 # For configuration options and examples, please see:
 # https://gethomepage.dev/latest/configs/services
 
-- Services (10.10.22.100):
+- Menu:
+    - Freebox:
+        href: https://freebox.allfabox.fr
+        description: Freebox OS
+        icon: /icons/freebox.svg
+        ping: http://192.168.0.254
+    - OVH Manager:
+        href: https://www.ovh.com/auth/
+        description: OVH Manager
+        icon: ovh.svg
+        ping: https://www.ovh.com/auth/
+    - Kimsufi:
+        href: https://www.kimsufi.com/fr/manager/#/login
+        description: Kimsufi
+        icon: /icons/kimsufi.svg
+        ping: https://www.kimsufi.com/fr/manager/#/login
+    - Hotspot:
+        href: https://hotspot.allfabox.fr/
+        description: Hotspot
+        icon: /icons/hotspot-wifi.svg
+        ping: https://hotspot.allfabox.fr/
+    - Unifi OS:
+        href: https://unifi.allfabox.fr
+        description: Unifi Dream Router (UDR)
+        icon: unifi.svg
+        ping: https://192.168.1.1
+    - Headscale Admin:
+        href: https://headscale.allfabox.fr/manager
+        description: Interface d'administration d'Headscale
+        icon: tailscale.svg
+        ping: http://192.168.10.10:8880
+
+- Services :
+    - Morpheus:
+        href: https://morpheus.allfabox.fr
+        description: Proxmox
+        icon: proxmox.svg
+        ping: https://192.168.10.5:8006
+        # widget:
+        #     type: proxmox
+        #     url: https://morpheus.allfabox.fr
+        #     username: root@pam
+        #     password: "#Rh8ycle_0684%"
+        #     node: morpheus
+    - Neo:
+        href: https://neo.allfabox.fr
+        description: Proxmox
+        icon: proxmox.svg
+        ping: https://192.168.10.6:8006
+        # widget:
+        #     type: proxmox
+        #     url: https://neo.allfabox.fr
+        #     username: root@pam
+        #     password: "#Rh8ycle_0684%"
+        #     node: pve
     - Portainer:
-        href: http://10.10.22.100:9000
+        href: https://portainer.allfabox.fr
         description: Gestion des conteneurs Docker
         icon: portainer.svg
-        ping: http://10.10.22.100:9000
-        widget:
-            type: portainer
-            url: http://10.10.22.100:9000
-            env: 2
-            key: ptr_yLDZHfOTwO6t6azadnP3dmqb5vULfvombLzv1KkJS7U=
+        ping: http://192.168.10.10:9000
+        # widget:
+        #     type: portainer
+        #     url: https://192.168.10.10:9443
+        #     env: 2
+        #     key: ptr_yLDZHfOTwO6t6azadnP3dmqb5vULfvombLzv1KkJS7U=
+    - Traefik:
+        href: https://traefik.allfabox.fr
+        description: Reverse-Proxy
+        icon: traefik.svg
+        ping: http://192.168.10.10:8080
+        # widget:
+        #     type: portainer
+        #     url: https://192.168.10.10:9443
+        #     env: 2
+        #     key: ptr_yLDZHfOTwO6t6azadnP3dmqb5vULfvombLzv1KkJS7U=
+- Google:
+    # - Google:
+    #     href: https://www.google.fr/
+    #     description: Recherche
+    #     icon: google.svg
+    - Gmail:
+        href: https://mail.google.com/mail/?authuser=0
+        description: Messagerie
+        icon: gmail.svg
+    - Photos:
+        href: https://photos.google.com/
+        description: Photos
+        icon: google-photos.svg
+    - Keep:
+        href: https://keep.google.com/
+        description: Notez tout ce qui vous passe par la tête
+        icon: google-keep.svg
+
+- Smarthome:
+    - Home-Assistant:
+        href: https://domotik.allfabox.fr
+        description: Home Assistant
+        icon: home-assistant.svg
+        ping: http://192.168.10.20:8123
+    - Nodered:
+        href: https://nodered.allfabox.fr
+        description: Nodered
+        icon: node-red.svg
+        ping: http://192.168.10.20:1880
+    - Zigbee2MQTT:
+        href: https://zigbee2mqtt.allfabox.fr
+        description: Zigbee2MQTT
+        icon: zigbee2mqtt.svg
+        ping: http://192.168.10.20:8880
+    - ESPHome:
+        href: https://esphome.allfabox.fr
+        description: ESPHome
+        icon: esphome.svg
+        ping: http://192.168.10.20:6052
+
+- Médias:
+    - Jellyfin:
+        href: https://jellyfin.allfabox.fr
+        description: Mon Netflix perso
+        icon: jellyfin.svg
+        ping: http://192.168.10.40:8096
+    - Navidrome:
+        href: https://navidrome.allfabox.fr
+        description: Mon service de streaming audio perso
+        icon: navidrome.svg
+        ping: http://192.168.10.41:4533
+    - Calibre-web:
+        href: https://calibre-web.allfabox.fr
+        description: Gérer ma bibliothèque
+        icon: calibre-web.svg
+        ping: http://192.168.10.41:8083
+    - Filebrowser:
+        href: https://filebrowser.allfabox.fr
+        description: Filebrowser
+        icon: filebrowser.svg
+        ping: http://192.168.10.50:4080
+    - Nextcloud:
+        href: https://nextcloud.allfabox.fr
+        description: Nextcloud
+        icon: nextcloud.svg
+        ping: https://192.168.10.42:8643
+    - Immich:
+        href: https://immich.allfabox.fr
+        description: Immich
+        icon: immich.svg
+        ping: http://192.168.10.43:2283
+
+- Webapps:
+    - Vaultwarden:
+        href: https://vaultwarden.allfabox.fr
+        description: Coffre-fort numérique
+        icon: vaultwarden.svg
+        ping: http://192.168.10.50:8680
+
+- Monitoring:
+    - NTFY:
+        href: https://ntfy.allfabox.fr
+        description: Les notifications push simplifiées
+        icon: ntfy.svg
+        ping: http://192.168.10.60:8680
+    - Healthchecks:
+        href: https://healthchecks.allfabox.fr
+        description: Surveillance des tâches Cron
+        icon: healthchecks.svg
+        ping: http://192.168.10.60:8000
+    - Jellystat:
+        href: https://jellystat.allfabox.fr
+        description: Statistiques Jellyfin
+        icon: jellystat.svg
+        ping: http://192.168.10.60:3000
+
 - Outils:
     - Nodered:
         href: http://10.10.22.100:1880
