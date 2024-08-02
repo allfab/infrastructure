@@ -9,12 +9,13 @@
 # None.
 
 # Automatically selected kernels:
-# 6.5.13-5-pve
+# 6.5.13-6-pve
 # 6.8.4-2-pve
-# 6.8.4-3-pve
+# 6.8.4-4-pve
 
 # Pour sélectionner la version 6.5.13-5-pve pour le démarrage de façon permanente, On éxecute la commande suivante :
-# ~# proxmox-boot-tool kernel pin 6.5.13-5-pve et on répond Oui/Yes à la question de rafraîchissement du boot EFI
+# ~# proxmox-boot-tool kernel pin 6.5.13-6-pve et on répond Oui/Yes à la question de rafraîchissement du boot EFI
+# ~# proxmox-boot-tool kernel pin 6.8.8-4-pve
 
 # Après redémarrage de la machine hôte Proxmox, nous avons bien démarré sur le noyau 6.5.13-5-pve
 # Vérification de la prise en charge des codecs
@@ -24,8 +25,8 @@
 # Pour voir si le transcodage fonctionne, ouvrez le shell sur la machine hôte Proxmox et installez les outils GPU Intel :
 # ~# intel_gpu_top
 
-# Avec Proxmox 8.2.4 et son kernel 6.8.8-2-pve, le problème est résolu. Plus besoin de rétrogradé au kernel 6.5.13-5-pve pour bénéficier de la prise en charge du iGPU Intel
-# proxmox-boot-tool kernel pin 6.8.8-2-pve
+# Avec Proxmox 8.2.4 et son kernel 6.8.8-4-pve, le problème est résolu. Plus besoin de rétrogradé au kernel 6.5.13-5-pve pour bénéficier de la prise en charge du iGPU Intel
+# proxmox-boot-tool kernel pin 6.8.8-4-pve
 
 - name: INSTALLATION DES PRÉ-REQUIS LOGICIEL POUR L'ACCÉLÉRATION MATÉRIELLE
   package:
@@ -59,12 +60,15 @@
     group: render
     mode: "660"
 
-- name: TRANSCODAGE - AJOUT DE L'UTILISATEUR jellyfin AUX GROUPES video ET render
+- name: TRANSCODAGE - AJOUT DE L'UTILISATEUR jellyfin, allfab AUX GROUPES video, render ET input
   shell: "{{ item}}"
   with_items:
     - "adduser jellyfin video"
     - "adduser jellyfin render"
     - "adduser jellyfin input"
+    - "adduser allfab video"
+    - "adduser allfab render"
+    - "adduser allfab input"
   become: true
 
 - name: VÉRIFICATION DE L'EXISTANCE DU DOSSIER TEMPORAIRE transcodes SUR /dev/shm POUR LE TRANSCODAGE

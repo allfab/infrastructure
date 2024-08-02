@@ -7,9 +7,6 @@
       - software-properties-common
     state: present
 
-# - name: ACTIVER LE RÉFÉRENTIEL universe POUR LE SUPPORT DE FFmpeg
-#   shell: "add-apt-repository universe"
-
 - name: AJOUT DE LA CLÉ DE SIGNATURE jellyfin AU GESTIONNAIRE DE PAQUETS apt
   get_url:
     url: https://repo.jellyfin.org/jellyfin_team.gpg.key
@@ -31,13 +28,55 @@
   with_items:
     - jellyfin
 
-# - name: AJUSTEMENT DES DROITS SUR /usr/share/jellyfin/web
-#   become: true
-#   command: chmod -R 0755 /usr/share/jellyfin/web
+- name: ARRÊT DU SERVICE Jellyfin
+  service:
+    name: jellyfin
+    state: stopped
+    enabled: true
 
-# - name: AJUSTEMENT DES DROITS SUR /usr/share/jellyfin/web/*
-#   become: true
-#   command: chmod -Rf 0644 /usr/share/jellyfin/web/*
+- name: VÉRIFICATION DU CHANGEMENT D'UTILISATEUR DANS LE FICHIER DE CONFIGURATION DU SERVICE jellyfin
+  lineinfile:
+    path: /lib/systemd/system/jellyfin.service
+    regexp: "^User = {{ secret.users.me.name }}"
+    state: absent
+  check_mode: yes
+  changed_when: false
+  register: change_user_used_by_jellyfin
+
+- name: CHANGEMENT DE L'UTILISATEUR UTILISÉ PAR LE SERVICE jellyfin
+  lineinfile:
+    dest: /lib/systemd/system/jellyfin.service
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+    owner: root
+    group: root
+    mode: 0644
+  with_items: 
+    - regexp: "^User = jellyfin"
+      line: "User = {{ secret.users.me.name }}"
+    - regexp: "^Group = jellyfin"
+      line: "Group = {{ secret.users.me.group }}"
+  when: not change_user_used_by_jellyfin.found
+
+- name: "AJUSTEMENT DES DROITS SUR LES DOSSIERS POUR L'UTILISATEUR {{ secret.users.me.name }}"
+  ansible.builtin.file:
+    path: "{{ item }}"
+    owner: "{{ secret.users.me.name }}"
+    group: "{{ secret.users.me.group }}"
+    mode: 0644
+    recurse: true
+  loop:
+    - /etc/default/jellyfin
+    - /usr/bin/jellyfin
+    - /var/lib/jellyfin/
+    - /etc/jellyfin/
+    - /var/log/jellyfin/
+    - /var/cache/jellyfin/
+    - /usr/share/jellyfin
+    - /usr/share/jellyfin-ffmpeg
+    - /usr/lib/jellyfin/
+    - /usr/lib/jellyfin-ffmpeg/
 
 - name: ACTIVATION ET DÉMARRAGE DU SERVICE Jellyfin
   service:
