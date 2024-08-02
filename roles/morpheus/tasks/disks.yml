@@ -83,7 +83,7 @@
     permissions: rw
     default: true
     state: present
-  # setfacl -R -m user:jellyfin:rw /mnt/storage/media/videos
+  # setfacl -R -m user:jellyfin:rw /mnt/storage/media/videos/
 
 - name: DÉFINITION DES ACL PAR DÉFAUT POUR LE GROUPE jellyfin SUR LA MÉDIATHÈQUE /mnt/storage/media/videos
   ansible.posix.acl:
