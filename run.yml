@@ -13,26 +13,26 @@
   vars_files:
     - vars/vault.yml
   roles:
-    # - role: pve/community-repo
-    #   tags: pve-community-repo
-    # - role: pve/fake-subscription
-    #   tags: pve-fake-subscription
-    # - role: config/users
-    #   tags: pve-users
-    # # - role: config/security
-    # #   tags: pve-ssh
-    # - role: pve/wake-on-lan
-    #   tags: pve-wol
-    # - role: config/bash-aliases
-    #   tags: pve-alias
-    # - role: grog.package
-    #   tags: pve-package
-    # - role: install/zellij
-    #   tags: install-zellij
-    # - role: install/motd
-    #   tags: pve-motd
-    - role: install/fail2ban
-      tags: pve-fail2ban
+    - role: pve/community-repo
+      tags: pve-community-repo
+    - role: pve/fake-subscription
+      tags: pve-fake-subscription
+    - role: config/users
+      tags: pve-users
+    # - role: config/security
+    #   tags: pve-ssh
+    - role: pve/wake-on-lan
+      tags: pve-wol
+    - role: config/bash-aliases
+      tags: pve-alias
+    - role: grog.package
+      tags: pve-package
+    - role: install/zellij
+      tags: install-zellij
+    - role: install/motd
+      tags: pve-motd
+    # - role: install/fail2ban
+    #   tags: pve-fail2ban
 
 - hosts: morpheus
   tags: setup
@@ -281,6 +281,24 @@
     - role: geerlingguy.docker
       become: true
     - role: communication
+      become: true
+
+- hosts: hetzner
+  tags: setup
+  vars_files:
+    - vars/vault.yml
+  pre_tasks:
+    - name: MISE À JOUR SYSTÈME
+      become: true
+      apt:
+        update_cache: true
+        upgrade: true
+        cache_valid_time: 14400
+  roles:
+    - role: config/bash-aliases
+      become: true
+    - install/motd
+    - role: vps/frontend
       become: true
 
 # - hosts: morpheus

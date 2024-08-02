@@ -59,6 +59,9 @@ monitoring:
 communication:
   ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit communication --tags setup
 
+vps-frontend:
+  ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab-vps-hetzner --limit hetzner --tags setup
+
 # Ansible Vault Encrypt
 encrypt:
   @if (grep --quiet "vault_password_file" ansible.cfg); then ansible-vault encrypt ./vars/vault.yml; else ansible-vault encrypt --vault-password-file bw-vault.sh ./vars/vault.yml; fi
