@@ -61,3 +61,15 @@
   #   container: nextcloud
   #   command: "occ config:system:set trusted_domains 1 --value=nextcloud.allfabox.fr"
   shell: "docker exec nextcloud occ config:system:set trusted_domains 1 --value=nextcloud.allfabox.fr"
+
+- name: NEXTCLOUD - trusted_proxies
+  remote_user: "{{ secret.users.me.name }}"
+  shell: "docker exec nextcloud occ config:system:set trusted_proxies 0 --value=192.168.10.10"
+
+- name: NEXTCLOUD - Maintenance window
+  remote_user: "{{ secret.users.me.name }}"
+  shell: "docker exec nextcloud occ config:system:set maintenance_window_start --type=integer --value=1"
+
+- name: NEXTCLOUD - Default Phone region
+  remote_user: "{{ secret.users.me.name }}"
+  shell: "docker exec nextcloud occ config:system:set default_phone_region 0 --value=FR"
