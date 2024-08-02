@@ -43,6 +43,7 @@
   changed_when: false
   register: change_user_used_by_jellyfin
 
+# https://github.com/tteck/Proxmox/discussions/286
 - name: CHANGEMENT DE L'UTILISATEUR UTILISÉ PAR LE SERVICE jellyfin
   lineinfile:
     dest: /lib/systemd/system/jellyfin.service
