@@ -1,0 +1,21 @@
+---
+# handlers file for roles/docker-frontend-stack
+- name: start frontend-stack
+  shell:
+    chdir: /opt/docker/frontend-stack
+    cmd: docker compose up -d
+
+- name: restart frontend-stack
+  shell:
+    chdir: /opt/docker/frontend-stack
+    cmd: docker compose down --remove-orphans && docker compose rm && docker compose up -d
+
+- name: update frontend-stack
+  shell:
+    chdir: /opt/docker/frontend-stack
+    cmd: docker compose pull && docker compose up -d --remove-orphans
+
+- name: stop frontend-stack
+  shell:
+    chdir: /opt/docker/frontend-stack
+    cmd: docker compose down

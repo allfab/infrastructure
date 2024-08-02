@@ -1,0 +1,38 @@
+---
+docker:
+  compose:
+    file_mask: "664"
+    directory_mask: "775"
+
+freebox:
+  ip: "{{ secret.freebox.ip }}"
+
+ovh:
+  endpoint: "{{ secret.ovh.endpoint }}"
+  application:
+    key: "{{ secret.ovh.application.key }}"
+    secret: "{{ secret.ovh.application.secret }}"
+  consumer_key: "{{ secret.ovh.consumer_key }}"
+
+portainer:
+  agent:
+    secret:
+      key: "{{ secret.portainer.agent.secret.key }}"
+
+authelia:
+  jwt_secret: "{{ secret.vps_authelia.jwt_secret }}"
+  session_secret: "{{ secret.vps_authelia.session_secret }}"
+  storage:
+    encryption_key: "{{ secret.vps_authelia.storage.encryption_key }}"
+  cookies:
+    domain: "{{ secret.vps_authelia.cookies.domain }}"
+    authelia_url: "{{ secret.vps_authelia.cookies.authelia_url }}"
+  access_control:
+    networks: "{{ secret.vps_authelia.access_control.networks }}"
+    rules: "{{ secret.vps_authelia.access_control.rules }}"
+  smtp:
+    address: "{{ secret.vps_authelia.smtp.address }}"
+    username: "{{ secret.vps_authelia.smtp.username }}"
+    password: "{{ secret.vps_authelia.smtp.password }}"
+    sender: "{{ secret.vps_authelia.smtp.sender }}"
+    subject: "{{ secret.vps_authelia.smtp.subject }}"

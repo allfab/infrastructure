@@ -1,0 +1,71 @@
+---
+- name: CHARGEMENT DES VARIABLES
+  include_vars: defaults/main.yml
+
+- name: ON S'ASSURE QUE LES DOSSIERS D'INSTALLATION/CONFIGURATION EXISTENT
+  remote_user: "{{ secret.users.me.name }}"
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.name }}"
+  loop:
+    - /opt/docker
+    - /opt/docker/frontend-stack
+ 
+- name: ON S'ASSURE QU'UN FICHIER docker-compose.yml EXISTE
+  remote_user: "{{ secret.users.me.name }}"
+  stat:
+    path: /opt/docker/frontend-stack/docker-compose.yml
+  register: frontend_stack_docker_compose
+
+- name: SUPPRESSION DE LA STACK frontend SI ELLE EXISTE
+  remote_user: "{{ secret.users.me.name }}"
+  shell:
+    chdir: /opt/docker/frontend-stack
+    cmd: docker compose down
+  when: frontend_stack_docker_compose.stat.exists
+
+- name: INSTALLATION DU FICHIER DE COMPOSITION
+  template:
+    src: docker-compose.yml.j2
+    dest: /opt/docker/frontend-stack/docker-compose.yml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+    validate: docker compose -f %s config
+
+- name: INSTALLATION DU FICHIER DES VARIABLES D'ENVIRONNEMENT DOCKER
+  template:
+    src: env.j2
+    dest: /opt/docker/frontend-stack/.env
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+
+- name: INSTALLATION/CONFIGURATION DU CONTENEUR portainer
+  include_tasks: includes/docker/portainer.yml
+
+- name: INSTALLATION/CONFIGURATION DU CONTENEUR authelia
+  include_tasks: includes/docker/authelia.yml
+
+- name: INSTALLATION/CONFIGURATION DU CONTENEUR traefik
+  include_tasks: includes/docker/traefik.yml
+
+# - name: INSTALLATION/CONFIGURATION DU CONTENEUR fail2ban
+#   include_tasks: includes/docker/fail2ban.yml
+
+# - name: INSTALLATION/CONFIGURATION DU CONTENEUR tailscale
+#   include_tasks: includes/docker/tailscale.yml
+
+- name: DÉMARRAGE DE LA STACK frontend
+  remote_user: "{{ secret.users.me.name }}"
+  shell:
+    chdir: /opt/docker/frontend-stack
+    cmd: docker compose up -d
+
+- name: CHANGEMENT DES DROITS UTILISATEUR SUR L'ENSEMBLE DU DOSSIER /opt/docker/frontend-stack
+  file:
+    dest: /opt/docker/frontend-stack
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+    mode: "0777"
+    recurse: true

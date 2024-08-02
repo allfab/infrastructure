@@ -1,0 +1,185 @@
+---
+services:
+  socket-proxy:
+    container_name: socket-proxy
+    image: lscr.io/linuxserver/socket-proxy:latest
+    restart: unless-stopped
+    # ports:
+    #   - 2375:2375
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    read_only: true
+    tmpfs:
+      - /run
+    environment:
+      - INFO=1
+      - POST=1
+      - CONTAINERS=1
+      - IMAGES=1
+      - NETWORKS=1
+      - SERVICES=1
+      - TASKS=1
+      - VOLUMES=1      
+      - BUILD=1
+      - COMMIT=1
+      - CONFIGS=1
+      - DISTRIBUTION=1
+      - EXEC=1
+      - NODES=1
+      - PLUGINS=1
+      - SESSSION=1
+      - LOG_LEVEL=err
+    networks:
+      - socket-proxy
+  
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce:sts
+    restart: always
+    ports:
+      - 9000:9000
+    depends_on: 
+       - socket-proxy
+    command: -H tcp://socket-proxy:2375
+    volumes:
+      - ./portainer:/data
+      # - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - AGENT_SECRET="${AGENT_SECRET}"
+    security_opt:
+      - no-new-privileges:true
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.portainer.entrypoints=websecure
+      - traefik.http.routers.portainer.rule=Host(`portainer.vps.allfabox.fr`)
+      - traefik.http.routers.portainer.tls=true
+      - traefik.http.routers.portainer.tls.certresolver=letsencrypt
+      - traefik.http.services.portainer.loadbalancer.server.port=9000
+    networks:
+      - frontend
+      - socket-proxy
+
+  authelia:
+    container_name: authelia
+    image: authelia/authelia:latest
+    user: 1000:1000
+    restart: always
+    ports:
+      - 9091:9091
+    volumes:
+      - ./authelia:/config
+    security_opt:
+      - no-new-privileges:true    
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.authelia.entrypoints=websecure
+      - traefik.http.routers.authelia.rule=Host(`identity.vps.allfabox.fr`)
+      - traefik.http.routers.authelia.tls=true
+      - traefik.http.routers.authelia.tls.certresolver=letsencrypt
+    environment:
+      - TZ=Europe/Paris
+    networks:
+      - frontend
+
+  traefik:
+    container_name: traefik
+    image: traefik:latest
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+      - 8080:8080
+    depends_on: 
+       - socket-proxy
+       - authelia
+    volumes:
+      - ./traefik:/etc/traefik
+      - ./traefik/logs:/var/log/traefik
+      # - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels:
+      - traefik.enable=true      
+      - traefik.http.routers.traefik.entrypoints=websecure
+      - traefik.http.routers.traefik.rule=Host(`traefik.vps.allfabox.fr`)
+      - traefik.http.routers.traefik.tls=true
+      - traefik.http.routers.traefik.tls.certresolver=letsencrypt
+      - traefik.http.services.traefik.loadbalancer.server.port=8080
+      - traefik.http.middlewares.authelia.forwardAuth.address=http://authelia:9091/api/verify?rd=https://identity.vps.allfabox.fr/
+      - traefik.http.middlewares.authelia.forwardAuth.trustForwardHeader=true
+      - traefik.http.middlewares.authelia.forwardAuth.authResponseHeaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email
+      - traefik.http.routers.traefik.middlewares=authelia@docker
+    environment:
+      - OVH_ENDPOINT=${OVH_ENDPOINT}
+      - OVH_APPLICATION_KEY=${OVH_APPLICATION_KEY}
+      - OVH_APPLICATION_SECRET=${OVH_APPLICATION_SECRET}
+      - OVH_CONSUMER_KEY=${OVH_CONSUMER_KEY}
+      - TZ=Europe/Paris
+    networks:
+      - frontend
+      - socket-proxy
+
+  # fail2ban:
+  #   container_name: fail2ban
+  #   image: crazymax/fail2ban:latest
+  #   network_mode: host
+  #   restart: unless-stopped
+  #   cap_add:
+  #     - NET_ADMIN
+  #     - NET_RAW
+  #   depends_on: 
+  #     - traefik
+  #   volumes:
+  #     - ./fail2ban:/data
+  #     - ./traefik/logs:/var/log/traefik
+  #     - /var/log:/var/log
+  #   environment:
+  #     - TZ=Europe/Paris
+  #     - F2B_DB_PURGE_AGE=14d
+  #     - F2B_LOG_TARGET=STDOUT
+  #     - F2B_LOG_LEVEL=INFO
+
+  # tailscale:
+  #   container_name: tailscale
+  #   image: tailscale/tailscale:latest
+  #   hostname: frontend-vps-tail
+  #   restart: unless-stopped
+  #   privileged: true
+  #   user: 0:0
+  #   cap_add:
+  #     - NET_ADMIN
+  #     - NET_RAW
+  #     - SYS_MODULE
+  #   volumes:
+  #     - ./tailscale:/var/lib/tailscale
+  #     - /dev/net/tun:/dev/net/tun
+  #   environment:
+  #     - PUID=1000
+  #     - PGID=1000
+  #     - TS_HOSNAME=frontend-vps-tail
+  #     - TS_AUTHKEY=${AUTHKEY}
+  #     - TS_STATE_DIR=/var/lib/tailscale
+  #     - TS_SOCKET=/tmp/tailscaled.sock
+  #     - TS_USERSPACE=true
+  #     - TS_ACCEPT_DNS=true
+  #     - TS_EXTRA_ARGS=--login-server=https://headscale.allfabox.fr --advertise-exit-node
+  #     - TS_ROUTES=192.168.0.0/16
+  #     - TZ=Europe/Paris
+  #   networks:
+  #     - frontend
+
+# docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 frontend
+networks:
+  frontend:
+    name: frontend
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "172.18.0.0/16"
+          gateway: "172.18.0.1"
+  socket-proxy:
+    name: socket-proxy
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "172.19.0.0/16"
+          gateway: "172.19.0.1"

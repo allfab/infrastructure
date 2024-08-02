@@ -1,0 +1,79 @@
+---
+global:
+  checkNewVersion: true
+  sendAnonymousUsage: false
+
+serversTransport:
+  insecureSkipVerify: true
+
+entryPoints:
+  web:
+    address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+  websecure:
+    address: ":443"
+    http:
+      tls:
+        # Generate a wildcard domain certificate
+        certResolver: letsencrypt
+        domains:
+          - main: allfabox.fr
+            sans:
+              - '*.allfabox.fr'
+      middlewares:
+        - securityHeaders@file
+
+providers:
+  docker:
+    endpoint: tcp://socket-proxy:2375
+    watch: true
+    exposedByDefault: false
+    network: frontend
+  file:
+    directory: /etc/traefik/extra
+    watch: true
+
+log:
+  level: debug
+  format: common
+  filePath: /var/log/traefik/error.log
+
+accesslog:
+  format: json
+  filePath: /var/log/traefik/access.log
+  bufferingSize: 0
+  filters:
+    statusCodes:
+      - "400-499"
+
+api:
+  dashboard: true
+  insecure: true
+
+certificatesResolvers:
+  letsencrypt-staging:
+    acme:
+      email: {{ secret.users.me.name }}@gmail.com
+      storage: /etc/traefik/certs/acme-staging.json
+      caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
+      httpChallenge:
+        entryPoint: web
+      # dnsChallenge:
+      #   provider: ovh
+      #   delayBeforeCheck: 10
+  letsencrypt:
+    acme:
+      email: {{ secret.users.me.name }}@gmail.com
+      storage: /etc/traefik/certs/acme.json
+      caServer: "https://acme-v02.api.letsencrypt.org/directory"
+      dnsChallenge:
+        provider: ovh
+        disablePropagationCheck: true
+        delayBeforeCheck: 60
+        resolvers:
+          - "1.1.1.1:53"
+          - "1.0.0.1:53"
