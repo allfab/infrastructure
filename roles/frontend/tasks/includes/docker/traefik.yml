@@ -81,8 +81,8 @@
 
 - name: INSTALLATION DU FICHIER DE PROVISION media
   template:
-    src: traefik/extra/media.yml.j2
-    dest: /opt/docker/frontend-stack/traefik/extra/media.yml
+    src: traefik/extra/mediaserver.yml.j2
+    dest: /opt/docker/frontend-stack/traefik/extra/mediaserver.yml
     mode: "{{ docker.compose.file_mask }}"
     owner: "{{ secret.users.me.name }}"
 

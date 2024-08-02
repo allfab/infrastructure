@@ -15,15 +15,12 @@ http:
         - websecure
       rule: 'Host(`bonob.allfabox.fr`)'
       service: bonob
-    calibre:
-      entryPoints:
-        - websecure
-      rule: 'Host(`calibre.allfabox.fr`)'
-      service: calibre
     calibre-web:
       entryPoints:
         - websecure
       rule: 'Host(`calibre-web.allfabox.fr`)'
+      middlewares:
+        - kobo-sync-headers
       service: calibre-web
   
   services:
@@ -39,10 +36,6 @@ http:
       loadBalancer:
         servers:
           - url: http://192.168.10.41:4534
-    calibre:
-      loadBalancer:
-        servers:
-          - url: http://192.168.10.41:8081
     calibre-web:
       loadBalancer:
         servers:
