@@ -85,6 +85,17 @@ services:
     networks:
       - webapps
 
+  memos:
+    container_name: memos
+    image: neosmemo/memos:stable
+    restart: unless-stopped
+    ports:
+      - 5230:5230
+    volumes:
+      - ./memos:/var/opt/memos
+    networks:
+      - webapps
+
 # docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 webapps
 networks:
   webapps:

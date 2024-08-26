@@ -15,6 +15,11 @@ http:
         - websecure
       rule: 'Host(`vaultwarden.allfabox.fr`)'
       service: vaultwarden
+    memos:
+      entryPoints:
+        - websecure
+      rule: 'Host(`notes.allfabox.fr`)'
+      service: memos
   
   services:
     homepage:
@@ -29,3 +34,7 @@ http:
       loadBalancer:
         servers:
           - url: http://192.168.10.50:8680
+    memos:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.50:5230

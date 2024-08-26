@@ -82,8 +82,7 @@ services:
       - PUID={{ secret.users.me.uid }}
       - PGID={{ secret.users.me.gid }}
       - TZ=Europe/Paris
-      - DOCKER_MODS=linuxserver/mods:universal-calibre #optional
-      #- OAUTHLIB_RELAX_TOKEN_SCOPE=1 #optional
+      - DOCKER_MODS=linuxserver/mods:universal-calibre
     networks:
       - mediaserver
 

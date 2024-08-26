@@ -44,6 +44,9 @@
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR vaultwarden
   include_tasks: includes/docker/vaultwarden.yml
 
+- name: INSTALLATION/CONFIGURATION DU CONTENEUR memos
+  include_tasks: includes/docker/memos.yml
+
 - name: DÉMARRAGE DE LA STACK webapps
   remote_user: "{{ secret.users.me.name }}"
   shell:

@@ -53,17 +53,6 @@ services:
       - TZ=Europe/Paris
     networks:
       - nextcloud
-
-  trilium:
-    container_name: trilium
-    image: zadam/trilium:latest
-    restart: unless-stopped
-    ports:
-      - 8080:8080
-    volumes:
-      - ./trilium:/home/node/trilium-data
-    networks:
-      - nextcloud
       
 # docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 nextcloud
 networks:
