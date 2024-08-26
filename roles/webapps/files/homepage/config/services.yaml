@@ -154,6 +154,11 @@
         description: Coffre-fort numérique
         icon: vaultwarden.svg
         ping: http://192.168.10.50:8680
+    - Memos:
+        href: https://notes.allfabox.fr
+        description: Prise de notes
+        icon: /icons/memos.png
+        ping: http://192.168.10.50:5230
 
 - Monitoring:
     - NTFY:

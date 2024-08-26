@@ -30,9 +30,9 @@
 
 - Intranet:
     - Webmail:
-        - href: https://webmail.vienne-condrieu-agglomeration.fr/
-          description: Messagerie
-          icon: /icons/bluemind.jpg
+        - href: https://outlook.office.com/mail/
+          description: Outlook 365
+          icon: /icons/outlook-office-365.png
     - Auth:
         - href: https://intranet.vienne-condrieu-agglomeration.fr:8443/auth/
           description: Authentification réseau
