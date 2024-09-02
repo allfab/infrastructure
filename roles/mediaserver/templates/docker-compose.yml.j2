@@ -85,6 +85,29 @@ services:
       - DOCKER_MODS=linuxserver/mods:universal-calibre
     networks:
       - mediaserver
+  
+  handbrake:
+    container_name: handbrake
+    image: jlesage/handbrake
+    restart: unless-stopped
+    ports:
+      - 5800:5800
+    volumes:
+      - ./handbrake:/config:rw
+      - /mnt/media/videos:/storage:ro
+      # - /dev/dri:/dev/dri
+      # - /home/allfab/videos/transodes/watch:/watch:rw
+      # - /home/allfab/videos/transodes/output:/output:rw
+    environment:
+      - USER_ID={{ secret.users.me.uid }}
+      - GROUP_ID={{ secret.users.me.gid }}
+      - SECURE_CONNECTION=0
+      #- AUTOMATED_CONVERSION=1
+      #- AUTOMATED_CONVERSION_PRESET=jellyfin/h264-acc
+      - LANG=fr_FR.UTF-8
+      - TZ=Europe/Paris
+    networks:
+      - mediaserver
 
 # docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 mediaserver
 networks:

@@ -75,6 +75,7 @@
     - "pct set 140 -mp1 /mnt/storage/media/videos,mp=/mnt/media/videos"
     - "pct set 141 -mp1 /mnt/storage/media/musics,mp=/mnt/media/musics"
     - "pct set 141 -mp2 /mnt/storage/media/books,mp=/mnt/media/books"
+    - "pct set 141 -mp3 /mnt/storage/media/videos,mp=/mnt/media/videos"
     - "pct set 143 -mp1 /mnt/storage/photos/immich,mp=/mnt/photos"
     - "pct set 150 -mp1 /mnt/storage,mp=/mnt/storage"
     - "pct set 150 -mp2 /mnt/freebox,mp=/mnt/freebox"

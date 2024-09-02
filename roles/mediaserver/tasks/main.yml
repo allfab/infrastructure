@@ -38,6 +38,9 @@
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR calibre-web
   include_tasks: includes/docker/calibre-web.yml
 
+- name: INSTALLATION/CONFIGURATION DU CONTENEUR handbrake
+  include_tasks: includes/docker/handbrake.yml
+
 - name: DÉMARRAGE DE LA STACK mediaserver
   remote_user: "{{ secret.users.me.name }}"
   shell:
