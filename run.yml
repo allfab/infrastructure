@@ -35,6 +35,58 @@
     #   tags: pve-fail2ban
 
 - hosts: morpheus
+  tags: config
+  vars_files:
+    - vars/vault.yml
+  roles:
+    - role: pve/community-repo
+      tags: pve-community-repo
+    - role: pve/fake-subscription
+      tags: pve-fake-subscription
+    - role: config/users
+      tags: pve-users
+    # - role: config/security
+    #   tags: pve-ssh
+    - role: pve/wake-on-lan
+      tags: pve-wol
+    - role: config/bash-aliases
+      tags: pve-alias
+    - role: grog.package
+      tags: pve-package
+    - role: install/zellij
+      tags: install-zellij
+    - role: install/motd
+      tags: pve-motd
+    # - role: install/fail2ban
+    #   tags: pve-fail2ban
+
+- hosts: neo
+  tags: config
+  vars_files:
+    - vars/vault.yml
+  roles:
+    - role: pve/community-repo
+      tags: pve-community-repo
+    - role: pve/fake-subscription
+      tags: pve-fake-subscription
+    - role: config/users
+      tags: pve-users
+    # - role: config/security
+    #   tags: pve-ssh
+    - role: pve/wake-on-lan
+      tags: pve-wol
+    - role: config/bash-aliases
+      tags: pve-alias
+    - role: grog.package
+      tags: pve-package
+    - role: install/zellij
+      tags: install-zellij
+    - role: install/motd
+      tags: pve-motd
+    # - role: install/fail2ban
+    #   tags: pve-fail2ban
+
+- hosts: morpheus
   tags: setup
   vars_files:
     - vars/vault.yml
@@ -51,6 +103,14 @@
       tags: morpheus-snapraid
 
 - hosts: morpheus
+  tags: lnxlink
+  vars_files:
+    - vars/vault.yml
+  roles:
+    - role: install/lnxlink
+      tags: lnxlink-setup
+
+- hosts: neo
   tags: lnxlink
   vars_files:
     - vars/vault.yml

@@ -11,6 +11,12 @@ timezone:
 pve-config-base:
   ansible-playbook -i hosts.ini run.yml --limit pve --tags config
 
+morpheus-config-base:
+  ansible-playbook -i hosts.ini run.yml --limit morpheus --tags config
+
+neo-config-base:
+  ansible-playbook -i hosts.ini run.yml --limit neo --tags config
+
 pve-config-base-tags TAGS:
   ansible-playbook -i hosts.ini run.yml --limit pve --tags "{{TAGS}}"
 
@@ -22,6 +28,9 @@ morpheus-tags TAGS:
 
 morpheus-lnxlink:
   ansible-playbook -i hosts.ini run.yml --limit morpheus --tags "lnxlink, lnxlink-setup"
+
+neo-lnxlink:
+  ansible-playbook -i hosts.ini run.yml --limit neo --tags "lnxlink, lnxlink-setup"
 
 morpheus-destroy-infra:
   ansible-playbook -i hosts.ini run.yml --limit morpheus --tags "destroy-infra, morpheus-destroy-infra"

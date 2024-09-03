@@ -24,6 +24,8 @@ package_list:
   - name: openssh-client
   - name: openssh-server
   - name: python3
+  - name: progress
+  - name: smartmontools
   - name: rclone
   - name: sudo
   - name: tmux
