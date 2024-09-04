@@ -55,10 +55,10 @@ services:
       - ./zigbee2mqtt:/app/data
       - /run/udev:/run/udev:ro
       - /etc/localtime:/etc/localtime:ro
-    #devices:
+    devices:
+      - /dev/ttyUSB0:/dev/ttyUSB0
       #ls -la /dev/serial/by-id/
       #- /dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_a4513c84ba5fec11ad08305f25bfaa52-if00-port0:/dev/ttyUSB0
-      #- /dev/ttyUSB0:/dev/ttyUSB0
     environment:
       - TZ=Europe/Paris
     networks:

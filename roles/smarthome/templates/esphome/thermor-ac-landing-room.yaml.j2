@@ -19,7 +19,8 @@ api:
     # openssl rand -base64 32
 
 ota:
-  password: !secret thermor_ac_landing_room_ota_password
+  - platform: esphome
+    password: !secret thermor_ac_landing_room_ota_password
   # openssl rand -hex 16
 
 wifi:
@@ -46,6 +47,7 @@ web_server:
   ota: 'false'
 
 http_request:
+  verify_ssl: false
   useragent: esphome/$device_namevi 
   timeout: 2s
 

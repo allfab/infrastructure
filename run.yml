@@ -111,6 +111,14 @@
       tags: lnxlink-setup
 
 - hosts: neo
+  tags: setup
+  vars_files:
+    - vars/vault.yml
+  roles:
+    - role: neo
+      tags: neo-setup
+
+- hosts: neo
   tags: lnxlink
   vars_files:
     - vars/vault.yml

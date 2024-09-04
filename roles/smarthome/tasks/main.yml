@@ -1,6 +1,17 @@
 ---
 - name: CHARGEMENT DES VARIABLES
   include_vars: defaults/main.yml
+
+- name: ON S'ASSURE QUE LE DOSSIER /opt/docker/smarthome-stack EXISTE
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.name }}"
+    group: "{{ secret.users.me.group }}"
+  loop:
+    - /opt/docker
+    - /opt/docker/smarthome-stack
  
 - name: ON S'ASSURE QU'UN FICHIER docker-compose.yml EXISTE
   remote_user: "{{ secret.users.me.name }}"

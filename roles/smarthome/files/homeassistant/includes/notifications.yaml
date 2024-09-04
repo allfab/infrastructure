@@ -2,7 +2,7 @@
   name: all_hass_members
   services:
     - service: mobile_app_nothing_phone_a2
-    - service: mobile_app_cph2399
+    - service: mobile_app_oneplus_nord2t
 
 # - platform: rest
 #   name: gotify_admin  

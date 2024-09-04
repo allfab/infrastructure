@@ -35,3 +35,34 @@ package_list:
   - name: tree
   - name: vim
   - name: wget
+
+lxc_to_deploy:
+  - name: smarthome
+    vmid: 230
+    cores: 2
+    disk: "local-lvm:32"
+    nesting: 1
+    keyctl: 1
+    fuse: 1
+    memory: 4096
+    swap: 4096
+    nameserver: 192.168.0.253
+    ip: 192.168.10.30
+    gw: 192.168.10.1
+    unprivileged: false
+    description: |
+      <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
+
+      # Smarthome LXC
+
+      <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a>
+      <a href="https://www.home-assistant.io/" target="_blank"><img src="https://img.shields.io/badge/homeassistant-038fc7?style=for-the-badge&logo=homeassistant&logoColor=white" /></a><br />
+      <a href="https://mosquitto.org/" target="_blank"><img src="https://img.shields.io/badge/mosquitto-3f5788?style=for-the-badge&logo=mqtt&logoColor=white" /></a>
+      <a href="https://www.zigbee2mqtt.io/" target="_blank"><img src="https://img.shields.io/badge/zigbee2mqtt-ffc135?style=for-the-badge&logo=mqtt&logoColor=white&fontColor=white" /></a><br />
+      <a href="https://esphome.io/" target="_blank"><img src="https://img.shields.io/badge/esphome-489e9e?style=for-the-badge&logo=esphome&logoColor=white" /></a>
+      <a href="https://nodered.org/" target="_blank"><img src="https://img.shields.io/badge/nodered-8f0000?style=for-the-badge&logo=nodered&logoColor=white" /></a>
+      </div>
+    tags:
+      - smarthome
+      - prod
+    # zfs_mountpoint: true

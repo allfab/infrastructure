@@ -3,7 +3,7 @@
   mount:
     path: "{{ item.path }}"
     state: unmounted
-  loop: "{{ data_disks + parity_disks + freebox_mount }}"
+  loop: "{{ data_disks + parity_disks + external_mount + freebox_mount }}"
 
 - name: CRÉATION DES POINTS DE MONTAGE /mnt
   file:
@@ -12,16 +12,16 @@
     owner: nobody
     group: nogroup
     mode: 0777
-  loop: "{{ mergerfs_mount + data_disks + parity_disks + freebox_mount }}"
+  loop: "{{ mergerfs_mount + data_disks + parity_disks + external_mount + freebox_mount }}"
 
-- name: AJOUT DES POINTS DE MONTAGE parity, disk* SUR /etc/fstab
+- name: AJOUT DES POINTS DE MONTAGE parity, disk* et external_mount SUR /etc/fstab
   mount:
     path: "{{ item.path }}"
     src: "{{ item.source }}"
     fstype: "{{ item.fs }}"
     opts: "{{ item.opts }}"
     state: mounted
-  loop: "{{ data_disks + parity_disks }}"
+  loop: "{{ data_disks + parity_disks + external_mount }}"
 
 # - name: CRÉATION DU DATASET ZFS PARENT tank
 #   community.general.zfs:
@@ -71,27 +71,27 @@
     state: mounted
   loop: "{{ freebox_mount }}"
 
-- name: SUPPRESSION DE TOUS LES ACL SUR LE RÉPERTOIRE /mnt/storage/media/videos
-  command: "setfacl -R -b /mnt/storage/media/videos"
-  # setfacl -R --remove-all /mnt/storage/media/videos
+# - name: SUPPRESSION DE TOUS LES ACL SUR LE RÉPERTOIRE /mnt/storage/media/videos
+#   command: "setfacl -R -b /mnt/storage/media/videos"
+#   # setfacl -R --remove-all /mnt/storage/media/videos
 
-- name: DÉFINITION DES ACL PAR DÉFAUT POUR L'UTILISATEUR jellyfin SUR LA MÉDIATHÈQUE /mnt/storage/media/videos
-  ansible.posix.acl:
-    path: /mnt/storage/media/videos/
-    entity: jellyfin
-    etype: user
-    permissions: rw
-    default: true
-    state: present
-  # setfacl -R -m user:jellyfin:rw /mnt/storage/media/videos/
+# - name: DÉFINITION DES ACL PAR DÉFAUT POUR L'UTILISATEUR jellyfin SUR LA MÉDIATHÈQUE /mnt/storage/media/videos
+#   ansible.posix.acl:
+#     path: /mnt/storage/media/videos/
+#     entity: jellyfin
+#     etype: user
+#     permissions: rw
+#     default: true
+#     state: present
+#   # setfacl -R -m user:jellyfin:rw /mnt/storage/media/videos/
 
-- name: DÉFINITION DES ACL PAR DÉFAUT POUR LE GROUPE jellyfin SUR LA MÉDIATHÈQUE /mnt/storage/media/videos
-  ansible.posix.acl:
-    path: /mnt/storage/media/videos/
-    entity: jellyfin
-    etype: group
-    permissions: rw
-    default: true
-    state: present
-  # setfacl -R -m group:jellyfin:rw /mnt/storage/media/videos
-  # setfacl -R -m user:jellyfin:rw,group:jellyfin:rw /mnt/storage/media/videos
+# - name: DÉFINITION DES ACL PAR DÉFAUT POUR LE GROUPE jellyfin SUR LA MÉDIATHÈQUE /mnt/storage/media/videos
+#   ansible.posix.acl:
+#     path: /mnt/storage/media/videos/
+#     entity: jellyfin
+#     etype: group
+#     permissions: rw
+#     default: true
+#     state: present
+#   # setfacl -R -m group:jellyfin:rw /mnt/storage/media/videos
+#   # setfacl -R -m user:jellyfin:rw,group:jellyfin:rw /mnt/storage/media/videos

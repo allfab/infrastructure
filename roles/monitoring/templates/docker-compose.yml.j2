@@ -54,7 +54,7 @@ services:
       - POSTGRES_DB=jfstat
       - POSTGRES_USER={{ secret.users.me.name }}
       - POSTGRES_PASSWORD={{ secret.users.me.password }}
-      - POSTGRES_IP=192.168.10.19
+      - POSTGRES_IP=192.168.10.20
       - POSTGRES_PORT=5432
       - JWT_SECRET="{{ jellystat.jwt.secret }}"
       - TZ=Europe/Paris

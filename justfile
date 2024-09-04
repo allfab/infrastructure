@@ -29,6 +29,12 @@ morpheus-tags TAGS:
 morpheus-lnxlink:
   ansible-playbook -i hosts.ini run.yml --limit morpheus --tags "lnxlink, lnxlink-setup"
 
+neo:
+  ansible-playbook -i hosts.ini run.yml --limit neo --tags setup
+
+neo-tags TAGS:
+  ansible-playbook -i hosts.ini run.yml --limit neo --tags "{{TAGS}}"
+
 neo-lnxlink:
   ansible-playbook -i hosts.ini run.yml --limit neo --tags "lnxlink, lnxlink-setup"
 

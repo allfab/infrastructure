@@ -99,22 +99,22 @@
         href: https://domotik.allfabox.fr
         description: Home Assistant
         icon: home-assistant.svg
-        ping: http://192.168.10.20:8123
+        ping: http://192.168.10.30:8123
     - Nodered:
         href: https://nodered.allfabox.fr
         description: Nodered
         icon: node-red.svg
-        ping: http://192.168.10.20:1880
+        ping: http://192.168.10.30:1880
     - Zigbee2MQTT:
         href: https://zigbee2mqtt.allfabox.fr
         description: Zigbee2MQTT
         icon: zigbee2mqtt.svg
-        ping: http://192.168.10.20:8880
+        ping: http://192.168.10.30:8880
     - ESPHome:
         href: https://esphome.allfabox.fr
         description: ESPHome
         icon: esphome.svg
-        ping: http://192.168.10.20:6052
+        ping: http://192.168.10.30:6052
 
 - Médias:
     - Jellyfin:

@@ -60,7 +60,7 @@ services:
       - ./vaultwarden:/data
       - /var/log/vaultwarden.log:/data/vaultwarden.log
     environment:
-      - DATABASE_URL=postgresql://{{ secret.users.me.name }}:{{ secret.users.me.password }}@192.168.10.19:5432/vaultwarden
+      - DATABASE_URL=postgresql://{{ secret.users.me.name }}:{{ secret.users.me.password }}@192.168.10.20:5432/vaultwarden
       - SIGNUPS_ALLOWED=false
       - INVITATIONS_ALLOWED=false
       - LOG_FILE=data/vaultwarden.log

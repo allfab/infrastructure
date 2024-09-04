@@ -78,7 +78,7 @@ lxc_to_deploy:
     fuse: 0
     memory: 2048
     nameserver: 192.168.0.253
-    ip: 192.168.10.19
+    ip: 192.168.10.20
     gw: 192.168.10.1
     unprivileged: true
     onboot: true
@@ -508,6 +508,10 @@ mergerfs_mount:
 
 external_mount:
   - path: /mnt/iso
+    source: /dev/disk/by-id/usb-SanDisk_SanDisk_3.2_Gen1_A20041B913081001-0:0-part1
+    fs: ext4
+    opts: defaults
+    content: false
 
 parity_disks:
   - path: /mnt/parity
@@ -540,12 +544,12 @@ freebox_mount:
     opts: "rw,uid={{ secret.users.me.uid }},gid={{ secret.users.me.gid }},credentials={{ secret.users.me.home }}/.freebox-credentials,iocharset=utf8,file_mode=0777,dir_mode=0777"
 
 nfs_exports: 
-  - local_path: /mnt/storage/media/videos
+  - local_path: /mnt/storage/media
     authorized_network:
       - server: jellyfin
         ip: 192.168.10.0/24
         options: rw,sync,no_root_squash,no_subtree_check,fsid=0
-  - local_path: /mnt/storage/documents
+  - local_path: /mnt/storage/photos
     authorized_network:
       - ip: 192.168.10.0/24
         options: rw,sync,no_root_squash,no_subtree_check,fsid=0
@@ -557,6 +561,10 @@ nfs_exports:
     authorized_network: 
       - ip: 192.168.10.0/24
         options: rw,sync,no_subtree_check
+  - local_path: /mnt/iso
+    authorized_network: 
+      - ip: 192.168.10.0/24
+        options: rw,sync,no_root_squash,no_subtree_check,fsid=0
 
 snapraid_runner: false
 snapraid_data_disks:
