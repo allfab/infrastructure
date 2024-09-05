@@ -10,6 +10,11 @@ http:
         - websecure
       rule: 'Host(`neo.allfabox.fr`)'
       service: neo
+    neo-pbs:
+      entryPoints:
+        - websecure
+      rule: 'Host(`pbs.neo.allfabox.fr`)'
+      service: neo-pbs
   
   services:
     morpheus:
@@ -20,3 +25,7 @@ http:
       loadBalancer:
         servers:
           - url: https://192.168.10.6:8006
+    neo-pbs:
+      loadBalancer:
+        servers:
+          - url: https://192.168.10.6:8007
