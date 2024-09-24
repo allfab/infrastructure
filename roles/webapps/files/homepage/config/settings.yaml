@@ -42,6 +42,10 @@ layout:
     tab: Allfabox.fr
     style: row
     columns: 4
+  SIG:
+    tab: Allfabox.fr
+    style: row
+    columns: 4
   Outils:
     tab: SRVIGEO20
     style: row

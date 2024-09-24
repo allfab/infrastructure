@@ -160,6 +160,18 @@
         icon: /icons/memos.png
         ping: http://192.168.10.50:5230
 
+- SIG:
+    - Qfieldcloud:
+        href: https://qfieldcloud.allfabox.fr
+        description: Stockage de projet QGIS en ligne
+        icon: /icons/qfieldcloud.svg
+        ping: http://192.168.10.80:8011
+    - Geoserver:
+        href: https://geoserver.allfabox.fr
+        description: Partage de données géospatiales
+        icon: /icons/geoserver.png
+        ping: http://192.168.10.80:8080
+
 - Monitoring:
     - NTFY:
         href: https://ntfy.allfabox.fr
