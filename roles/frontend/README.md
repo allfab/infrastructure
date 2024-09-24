@@ -60,6 +60,8 @@ docker compose exec headscale headscale preauthkeys create --reusable -u fronten
 
 # Connect to headscale-admin
 docker compose exec headscale headscale apikeys create
+docker compose exec headscale headscale apikeys list
+docker compose exec headscale headscale apikeys expire --prefix "6fyfujHXyw"
 
 ## docker tailscale
 tailscale up --login-server=https://headscale.allfabox.fr --advertise-exit-node --advertise-routes=192.168.0.0/16 --accept-dns=true

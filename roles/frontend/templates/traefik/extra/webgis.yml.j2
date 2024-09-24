@@ -1,0 +1,22 @@
+http:
+  routers:
+    qfieldcloud-app:
+      entryPoints:
+        - websecure
+      rule: 'Host(`qfieldcloud.allfabox.fr`)'
+      service: qfieldcloud-app
+    qfieldcloud-minio:
+      entryPoints:
+        - websecure
+      rule: 'Host(`qfieldcloud-minio.allfabox.fr`)'
+      service: qfieldcloud-minio
+
+  services:
+    qfieldcloud-app:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.80:8011
+    qfieldcloud-minio:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.80:8010
