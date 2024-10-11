@@ -1,24 +1,45 @@
 ---
-- name: VÉRIFICATION DE L'EXISTENCE DU GROUPE UTILISATEUR jellyfin
-  ansible.builtin.group:
-    name: "{{ secret.users.jellyfin.group }}"
-    gid: "{{ secret.users.jellyfin.gid }}"
-    state: present
+- name: CHARGEMENT DES VARIABLES
+  include_vars: defaults/main.yml
+ 
+- name: ON S'ASSURE QU'UN FICHIER docker-compose.yml EXISTE
+  remote_user: "{{ secret.users.me.name }}"
+  stat:
+    path: /opt/docker/jellyfin-stack/docker-compose.yml
+  register: jellyfin_stack_docker_compose
 
-- name: AJOUT DE L'UTILISATEUR jellyfin
-  ansible.builtin.user:
-    name: "{{ secret.users.jellyfin.name }}"
-    uid: "{{ secret.users.jellyfin.uid }}"
-    group: "{{ secret.users.jellyfin.gid }}"
-    groups: "{{ secret.users.jellyfin.group }}"
-    create_home: "{{ secret.users.jellyfin.create_home }}"
-    home: "{{ secret.users.jellyfin.home }}"
-    shell: /bin/bash
-    system: "{{ secret.users.jellyfin.system }}"
-    comment: "{{ secret.users.jellyfin.comment }}"
+- name: SUPPRESSION DE LA STACK webapps SI ELLE EXISTE
+  remote_user: "{{ secret.users.me.name }}"
+  shell:
+    chdir: /opt/docker/jellyfin-stack
+    cmd: docker compose down
+  when: jellyfin_stack_docker_compose.stat.exists
 
-- name: INSTALLATION DE jellyfin
-  include_tasks: installation.yml
+- name: INSTALLATION DU FICHIER DE COMPOSITION
+  template:
+    src: docker-compose.yml.j2
+    dest: /opt/docker/jellyfin-stack/docker-compose.yml
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+    group: "{{ secret.users.me.gid }}"
+    validate: docker compose -f %s config
 
-- name: CONFIGURATION DE L'ACCÉLÉRATION MATÉRIELLE
-  include_tasks: hardware-acceleration.yml
+- name: INSTALLATION DU FICHIER DES VARIABLES D'ENVIRONNEMENT DOCKER
+  template:
+    src: env.j2
+    dest: /opt/docker/jellyfin-stack/.env
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+    group: "{{ secret.users.me.gid }}"
+
+- name: INSTALLATION/CONFIGURATION DU CONTENEUR jellyfin
+  include_tasks: includes/docker/jellyfin.yml
+
+- name: INSTALLATION/CONFIGURATION DU CONTENEUR jellyfin
+  include_tasks: includes/docker/tinymediamanager.yml
+
+- name: DÉMARRAGE DE LA STACK jellyfin
+  remote_user: "{{ secret.users.me.name }}"
+  shell:
+    chdir: /opt/docker/jellyfin-stack
+    cmd: docker compose up -d

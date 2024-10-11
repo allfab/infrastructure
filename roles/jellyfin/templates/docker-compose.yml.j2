@@ -16,15 +16,15 @@ services:
       - no-new-privileges:true
     networks:
       - jellyfin
-  
+
   jellyfin:
     container_name: jellyfin
-    image: jellyfin/jellyfin    
-    user: 1000:1000
-    group_add:
-      - 104
+    image: jellyfin/jellyfin
     network_mode: host
     restart: unless-stopped
+    user: 1000:1000
+    group_add:
+      - 104 # cat /etc/group | grep render
     # ports:
       # - 8096:8096
     devices:
@@ -58,11 +58,11 @@ services:
       - LANG=fr_FR.UTF-8
       - LC_TIME=C.UTF-8
       - TZ=Europe/Paris
-      - PASSWORD="${VNC_PASSWORD}"
+      - PASSWORD=${VNC_PASSWORD}
     networks:
       - jellyfin
-      
-docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 jellyfin
+
+# docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 jellyfin
 networks:
   jellyfin:
     name: jellyfin
@@ -71,8 +71,3 @@ networks:
       config:
         - subnet: "172.18.0.0/16"
           gateway: "172.18.0.1"
-
-# https://jellyfin.org/docs/general/administration/hardware-acceleration/intel/#configure-with-linux-virtualization
-# getent group render | cut -d: -f3   # return 104 group ID.
-# Check the QSV and VA-API codecs : docker exec -it jellyfin /usr/lib/jellyfin-ffmpeg/vainfo
-# Check the OpenCL runtime status : docker exec -it jellyfin /usr/lib/jellyfin-ffmpeg/ffmpeg -v verbose -init_hw_device vaapi=va -init_hw_device opencl@va
