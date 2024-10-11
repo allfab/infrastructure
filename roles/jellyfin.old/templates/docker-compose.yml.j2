@@ -1,0 +1,78 @@
+---
+services:
+  portainer-agent:
+    container_name: portainer-agent
+    image: portainer/agent:latest
+    restart: always
+    ports:
+      - 9001:9001
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes 
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - AGENT_SECRET="${AGENT_SECRET}"
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - jellyfin
+  
+  jellyfin:
+    container_name: jellyfin
+    image: jellyfin/jellyfin    
+    user: 1000:1000
+    group_add:
+      - 104
+    network_mode: host
+    restart: unless-stopped
+    # ports:
+      # - 8096:8096
+    devices:
+      - /dev/dri/renderD128:/dev/dri/renderD128
+    volumes:
+      - ./jellyfin/config:/config
+      - ./jellyfin/cache:/cache
+      - /mnt/media/videos:/media
+      - /dev/shm/transcodes:/dev/shm/transcodes
+    environment:
+      - JELLYFIN_PublishedServerUrl=http://jellyfin.allfabox.fr
+    extra_hosts:
+      - host.docker.internal:host-gateway
+
+  tinymediamanager:
+    container_name: tinymediamanager
+    image: tinymediamanager/tinymediamanager:latest
+    restart: unless-stopped
+    ports:
+      - 5900:5900 # VNC port
+      - 4000:4000 # Webinterface
+    volumes:
+      - ./tinymediamanager/config:/data
+      - /mnt/media/videos/movies:/media/movies
+      - /mnt/media/videos/tvshows:/media/tv_shows
+    environment:
+      - USER_ID=1000
+      - GROUP_ID=1000
+      - ALLOW_DIRECT_VNC=true
+      - LC_ALL=fr_FR.UTF-8
+      - LANG=fr_FR.UTF-8
+      - LC_TIME=C.UTF-8
+      - TZ=Europe/Paris
+      - PASSWORD="${VNC_PASSWORD}"
+    networks:
+      - jellyfin
+      
+docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 jellyfin
+networks:
+  jellyfin:
+    name: jellyfin
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "172.18.0.0/16"
+          gateway: "172.18.0.1"
+
+# https://jellyfin.org/docs/general/administration/hardware-acceleration/intel/#configure-with-linux-virtualization
+# getent group render | cut -d: -f3   # return 104 group ID.
+# Check the QSV and VA-API codecs : docker exec -it jellyfin /usr/lib/jellyfin-ffmpeg/vainfo
+# Check the OpenCL runtime status : docker exec -it jellyfin /usr/lib/jellyfin-ffmpeg/ffmpeg -v verbose -init_hw_device vaapi=va -init_hw_device opencl@va
