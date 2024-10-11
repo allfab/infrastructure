@@ -1,0 +1,45 @@
+---
+- name: COMMUNICATION - CRÉATION DU DATASET ZFS parent
+  community.general.zfs:
+    name: "{{ zfs.dataset.communication.parent.name }}"
+    state: present
+    extra_zfs_properties:
+      mountpoint: "{{ zfs.dataset.communication.parent.extra.mountpoint }}"
+      compression: "{{ zfs.dataset.communication.parent.extra.compression }}"
+      atime: "{{ zfs.dataset.communication.parent.extra.atime }}"
+      xattr: "{{ zfs.dataset.communication.parent.extra.xattr }}"
+      recordsize: "{{ zfs.dataset.communication.parent.extra.recordsize }}"
+      quota: "{{ zfs.dataset.communication.parent.extra.quota }}"
+  when: zfs.dataset.communication.parent.create == true
+
+- name: COMMUNICATION - CRÉATION DU DATASET ZFS enfant - POINT DE MONTAGE HOST<->LXC
+  community.general.zfs:
+    name: "{{ zfs.dataset.communication.child.name }}"
+    state: present
+    extra_zfs_properties:
+      mountpoint: "{{ zfs.dataset.communication.child.mountpoint.host }}"
+  when: zfs.dataset.communication.child.create == true
+
+- name: COMMUNICATION - CONFIGURATION DU POINT DE MONTAGE HOST<->LXC
+  command: pct set 170 -mp0 "{{ zfs.dataset.communication.child.mountpoint.host }}",mp="{{ zfs.dataset.communication.child.mountpoint.lxc }}"
+  when: zfs.dataset.communication.child.create
+  
+- name: COMMUNICATION - CHANGEMENT DES DROITS UTILISATEUR SUR LE POINT DE MONTAGE
+  file:
+    dest: "{{ zfs.dataset.communication.child.mountpoint.host }}"
+    owner: 101000
+    group: 101000
+    mode: 0777
+    recurse: true
+
+- name: COMMUNICATION - REDÉMARRAGE DU CONTENEUR LXC
+  community.general.proxmox:
+    node: morpheus
+    api_host: 192.168.10.5
+    api_user: root@pam
+    api_password: "{{ secret.proxmox.morpheus.api.password }}"
+    api_token_id: "{{ secret.proxmox.morpheus.api.token_id }}"
+    api_token_secret: "{{ secret.proxmox.morpheus.api.token_secret }}"
+    vmid: 170
+    state: "restarted"
+    timeout: 90

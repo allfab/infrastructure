@@ -1,0 +1,78 @@
+---
+- name: NEXTCLOUD - CRÉATION DU DATASET ZFS parent - APPDATA docker
+  community.general.zfs:
+    name: "{{ zfs.dataset.nextcloud.parent.name }}"
+    state: present
+    extra_zfs_properties:
+      mountpoint: "{{ zfs.dataset.nextcloud.parent.extra.mountpoint }}"
+      compression: "{{ zfs.dataset.nextcloud.parent.extra.compression }}"
+      atime: "{{ zfs.dataset.nextcloud.parent.extra.atime }}"
+      xattr: "{{ zfs.dataset.nextcloud.parent.extra.xattr }}"
+      recordsize: "{{ zfs.dataset.nextcloud.parent.extra.recordsize }}"
+      quota: "{{ zfs.dataset.nextcloud.parent.extra.quota }}"
+  when: zfs.dataset.nextcloud.parent.create == true
+
+- name: NEXTCLOUD - CRÉATION DU DATASET ZFS enfant - POINT DE MONTAGE HOST<->LXC - APPDATA docker
+  community.general.zfs:
+    name: "{{ zfs.dataset.nextcloud.child.name }}"
+    state: present
+    extra_zfs_properties:
+      mountpoint: "{{ zfs.dataset.nextcloud.child.mountpoint.host }}"
+  when: zfs.dataset.nextcloud.child.create == true
+
+- name: NEXTCLOUD - CONFIGURATION DU POINT DE MONTAGE HOST<->LXC - APPDATA docker
+  command: pct set 142 -mp0 "{{ zfs.dataset.nextcloud.child.mountpoint.host }}",mp="{{ zfs.dataset.nextcloud.child.mountpoint.lxc }}"
+  when: zfs.dataset.nextcloud.child.create
+  
+- name: NEXTCLOUD - CHANGEMENT DES DROITS UTILISATEUR SUR LE POINT DE MONTAGE - APPDATA docker
+  file:
+    dest: "{{ zfs.dataset.nextcloud.child.mountpoint.host }}"
+    owner: 101000
+    group: 101000
+    mode: 0777
+    recurse: true
+
+- name: NEXTCLOUD - CRÉATION DU DATASET ZFS parent - DATA
+  community.general.zfs:
+    name: "{{ zfs.dataset.nextcloud_data.parent.name }}"
+    state: present
+    extra_zfs_properties:
+      mountpoint: "{{ zfs.dataset.nextcloud_data.parent.extra.mountpoint }}"
+      compression: "{{ zfs.dataset.nextcloud_data.parent.extra.compression }}"
+      atime: "{{ zfs.dataset.nextcloud_data.parent.extra.atime }}"
+      xattr: "{{ zfs.dataset.nextcloud_data.parent.extra.xattr }}"
+      recordsize: "{{ zfs.dataset.nextcloud_data.parent.extra.recordsize }}"
+      quota: "{{ zfs.dataset.nextcloud_data.parent.extra.quota }}"
+  when: zfs.dataset.nextcloud_data.parent.create == true
+
+- name: NEXTCLOUD - CRÉATION DES DATASET ZFS enfants - POINT DE MONTAGE HOST<->LXC - DATA
+  community.general.zfs:
+    name: "{{ zfs.dataset.nextcloud_data.child.name }}"
+    state: present
+    extra_zfs_properties:
+      mountpoint: "{{ zfs.dataset.nextcloud_data.child.mountpoint.host }}"
+  when: zfs.dataset.nextcloud_data.child.create == true
+
+- name: NEXTCLOUD - CONFIGURATION DU POINT DE MONTAGE HOST<->LXC - DATA
+  command: pct set 142 -mp1 "{{ zfs.dataset.nextcloud_data.child.mountpoint.host }}",mp="{{ zfs.dataset.nextcloud_data.child.mountpoint.lxc }}"
+  when: zfs.dataset.nextcloud_data.child.create
+
+- name: NEXTCLOUD - CHANGEMENT DES DROITS UTILISATEUR SUR LE POINT DE MONTAGE - DATA
+  file:
+    dest: "{{ zfs.dataset.nextcloud_data.child.mountpoint.host }}"
+    owner: 101000
+    group: 101000
+    mode: 0777
+    recurse: true
+
+- name: NEXTCLOUD - REDÉMARRAGE DU CONTENEUR LXC
+  community.general.proxmox:
+    node: morpheus
+    api_host: 192.168.10.5
+    api_user: root@pam
+    api_password: "{{ secret.proxmox.morpheus.api.password }}"
+    api_token_id: "{{ secret.proxmox.morpheus.api.token_id }}"
+    api_token_secret: "{{ secret.proxmox.morpheus.api.token_secret }}"
+    vmid: 142
+    state: "restarted"
+    timeout: 90

@@ -1,0 +1,55 @@
+---
+- name: INSTALLATION DU SERVEUR samba
+  apt:
+    name:
+      - samba
+      - samba-common
+    state: present
+  notify:
+    - start samba service
+
+- name: AJOUT DES UTILISATEURS DANS LE GROUPE smbshare
+  shell:  "printf '{{ secret.users.me.password }}\n{{ secret.users.me.password }}\n' | smbpasswd -a {{ secret.users.me.name }}"
+
+- name: ACTIVATION DE L'UTILSATEUR POUR LE PARTAGE samba
+  shell: "smbpasswd -e {{ secret.users.me.name }}"
+  notify:
+    - restart samba service
+
+- name: INSTALLATION DE LA CONFIGURATION samba smb.conf
+  template:
+    src: samba/smb.conf.j2
+    dest: /etc/samba/smb.conf
+    owner: root
+    group: root
+  notify:
+    - restart samba service
+
+- name: INSTALLATION DU SERVEUR nfs
+  apt:
+    name:
+      - nfs-common
+      - nfs-kernel-server
+    state: present
+
+- name: VÉRIFICATION DE LA PRÉSENCE DES DOSSIERS À PARTAGER
+  file:
+    path: "{{ item.local_path }}"
+    state: directory
+  with_items: "{{ nfs_exports }}"
+
+- name: INSTALLATION DU FICHIER D'EXPORT
+  template:
+    src: nfs/exports.j2
+    dest: /etc/exports
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload nfs
+
+- name: VÉRIFICATION QUE LE SERVICE nfs EST FONCTIONNEL
+  service:
+    name: nfs-kernel-server
+    enabled: true
+    state: started
+  when: nfs_exports|length
