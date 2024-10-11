@@ -13,6 +13,7 @@ background:
   brightness: 50 # 0, 50, 75... see https://tailwindcss.com/docs/backdrop-brightness
   opacity: 80 # 0-100
 
+useEqualHeights: true
 layout:
   Menu:
     tab: Allfabox.fr

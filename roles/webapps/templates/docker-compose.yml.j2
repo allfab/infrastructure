@@ -17,19 +17,19 @@ services:
     networks:
       - webapps
 
-  homer:
-    container_name: homer
-    image: b4bz/homer:latest
-    restart: unless-stopped
-    ports:
-      - 8080:8080
-    volumes:
-      - ./homer/walkxcode-theme:/www/assets
-    environment:
-      - TZ=Europe/Paris
-      - INIT_ASSETS=0
-    networks:
-      - webapps
+  # homer:
+    # container_name: homer
+    # image: b4bz/homer:latest
+    # restart: unless-stopped
+    # ports:
+      # - 8080:8080
+    # volumes:
+      # - ./homer/walkxcode-theme:/www/assets
+    # environment:
+      # - TZ=Europe/Paris
+      # - INIT_ASSETS=0
+    # networks:
+      # - webapps
 
   homepage:
     container_name: homepage

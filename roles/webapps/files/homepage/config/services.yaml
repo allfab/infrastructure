@@ -12,26 +12,46 @@
         description: OVH Manager
         icon: ovh.svg
         ping: https://www.ovh.com/auth/
-    - Kimsufi:
-        href: https://www.kimsufi.com/fr/manager/#/login
-        description: Kimsufi
-        icon: /icons/kimsufi.svg
-        ping: https://www.kimsufi.com/fr/manager/#/login
+    # - Kimsufi:
+    #     href: https://www.kimsufi.com/fr/manager/#/login
+    #     description: Kimsufi
+    #     icon: /icons/kimsufi.svg
+    #     ping: https://www.kimsufi.com/fr/manager/#/login
     - Hotspot:
         href: https://hotspot.allfabox.fr/
         description: Hotspot
         icon: /icons/hotspot-wifi.svg
         ping: https://hotspot.allfabox.fr/
-    - Unifi OS:
+    - Unifi OS (local):
         href: https://unifi.allfabox.fr
-        description: Unifi Dream Router (UDR)
+        description: Unifi Dream Router
         icon: unifi.svg
         ping: https://192.168.1.1
+    - Unifi OS:
+        href: https://unifi.allfabox.fr
+        description: Unifi Dream Router
+        icon: unifi.svg
+        ping: https://account.ui.com
     - Headscale Admin:
         href: https://headscale.allfabox.fr/manager
         description: Interface d'administration d'Headscale
         icon: tailscale.svg
         ping: http://192.168.10.10:8880
+
+- Google:
+    - Gmail:
+        href: https://mail.google.com/mail/?authuser=0
+        description: Messagerie
+        icon: gmail.svg
+    - Photos:
+        href: https://photos.google.com/
+        description: Photos
+        icon: google-photos.svg
+    - Keep:
+        href: https://keep.google.com/
+        description: Notez tout ce qui vous passe par la tête
+        icon: google-keep.svg
+    
 
 - Services :
     - Morpheus:
@@ -76,23 +96,6 @@
         #     url: https://192.168.10.10:9443
         #     env: 2
         #     key: ptr_yLDZHfOTwO6t6azadnP3dmqb5vULfvombLzv1KkJS7U=
-- Google:
-    # - Google:
-    #     href: https://www.google.fr/
-    #     description: Recherche
-    #     icon: google.svg
-    - Gmail:
-        href: https://mail.google.com/mail/?authuser=0
-        description: Messagerie
-        icon: gmail.svg
-    - Photos:
-        href: https://photos.google.com/
-        description: Photos
-        icon: google-photos.svg
-    - Keep:
-        href: https://keep.google.com/
-        description: Notez tout ce qui vous passe par la tête
-        icon: google-keep.svg
 
 - Smarthome:
     - Home-Assistant:
