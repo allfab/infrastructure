@@ -5,72 +5,87 @@
 title: Tableau de bord
 startUrl: https://allfabox.fr
 language: fr
-
+theme: dark
+color: slate
 background:
   image: /images/lucas-k-wQLAGv4_OYs-unsplash.jpg
   blur: sm # sm, "", md, xl... see https://tailwindcss.com/docs/backdrop-blur
   saturate: 50 # 0, 50, 100... see https://tailwindcss.com/docs/backdrop-saturate
   brightness: 50 # 0, 50, 75... see https://tailwindcss.com/docs/backdrop-brightness
   opacity: 80 # 0-100
+quicklaunch:
+  searchDescriptions: true
+  hideInternetSearch: true
+  showSearchSuggestions: true
+  hideVisitURL: true
+  provider: google # google, duckduckgo, bing, baidu, brave or custom
+# fiveColumns: true
 
-useEqualHeights: true
+providers:
+  openweathermap: {{HOMEPAGE_VAR_OPENWEATHERMAP_APIKEY}}
+showStats: true
+
 layout:
-  Menu:
-    tab: Allfabox.fr
+  Accueil:
+    tab: Home
     style: row
     columns: 6
-  Google:
-    tab: Allfabox.fr
-    style: row
-    columns: 3
-  Services:
-    tab: Allfabox.fr
-    style: row
-    columns: 4
+    icon: mdi-home-#ffffff
+    useEqualHeights: true
+  Hyperviseurs:
+    tab: Home
+    icon: mdi-monitor-dashboard-#ffffff
+    useEqualHeights: true
+  Management:
+    tab: Home
+    icon: mdi-monitor-dashboard-#ffffff
+    useEqualHeights: true
+  Infrastructure réseau:
+    tab: Home
+    icon: mdi-network-#ffffff
+    useEqualHeights: true
+  Utilitaires réseau:
+    tab: Home
+    icon: mdi-network-pos-#ffffff
+    useEqualHeights: true
   Smarthome:
-    tab: Allfabox.fr
-    style: row
-    columns: 4
+    tab: Home
+    icon: mdi-home-automation-#ffffff
+    useEqualHeights: true
   Médias:
-    tab: Allfabox.fr
-    style: row
-    columns: 6 
+    tab: Home
+    icon: mdi-multimedia-#ffffff
+    useEqualHeights: true
   Webapps:
-    tab: Allfabox.fr
-    style: row
-    columns: 4
+    tab: Home
+    icon: mdi-web-box-#ffffff
+    useEqualHeights: true
   Monitoring:
-    tab: Allfabox.fr
-    style: row
-    columns: 4
-  SIG:
-    tab: Allfabox.fr
-    style: row
-    columns: 4
+    tab: Home
+    icon: mdi-message-alert-#ffffff
+    useEqualHeights: true
+  Webmapping:
+    tab: Home
+    icon: mdi-map-#ffffff
+    useEqualHeights: true
+
   Outils:
-    tab: SRVIGEO20
+    tab: IG&O
     style: row
     columns: 6
   GEO:
-    tab: SRVIGEO20
+    tab: IG&O
     style: row
     columns: 3
   Intranet:
-    tab: SRVIGEO20
+    tab: IG&O
     style: row
     columns: 3
   Métiers:
-    tab: SRVIGEO20
+    tab: IG&O
     style: row
     columns: 2
 
   Services (localhost):
     tab: LOCALHOST
     columns: 2
-
-
-showStats: true
-
-providers:
-  openweathermap: openweathermapapikey
-  weatherapi: weatherapiapikey
