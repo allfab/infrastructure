@@ -62,7 +62,7 @@
 - Management:
     - Portainer:
         href: https://portainer.allfabox.fr
-        description: Gestion des conteneurs Docker - Frontend
+        description: Frontend
         icon: sh-portainer
         siteMonitor: https://portainer.allfabox.fr
         widget:
@@ -72,7 +72,7 @@
             key: "{{HOMEPAGE_VAR_PORTAINER_TOKEN}}"
     - Portainer:
         href: https://portainer.allfabox.fr
-        description: Gestion des conteneurs Docker - Mediaserver
+        description: Mediaserver
         icon: sh-portainer
         siteMonitor: https://portainer.allfabox.fr
         widget:
@@ -94,17 +94,12 @@
         href: https://unifi.allfabox.fr
         description: Unifi Dream Router
         icon: sh-ubiquiti-unifi
-        siteMonitor: https://192.168.1.1    
-    - Unifi OS (distant):
-        href: https://account.ui.com
-        description: Unifi Dream Router
-        icon: sh-ubiquiti-unifi
-        siteMonitor: https://account.ui.com
-    - Headscale:
-        href: https://headscale.allfabox.fr/manager
-        description: VPN Manager
-        icon: sh-headscale
-        siteMonitor: http://192.168.10.10:8880
+        siteMonitor: https://192.168.1.1
+        widget:
+            type: unifi
+            url: https://unifi.allfabox.fr
+            username: {{HOMEPAGE_VAR_UNIFI_USER}}
+            password: {{HOMEPAGE_VAR_UNIFI_PASSWORD}}
     - Pi-Hole:
         href: https://pihole.allfabox.fr
         description: DNS 
@@ -113,8 +108,13 @@
         widget:
             type: pihole
             url: http://192.168.0.253
-            version: 6
-            key: yourpiholeapikey
+            version: 5
+            key: {{HOMEPAGE_VAR_PIHOLE_TOKEN}}
+    - Unifi OS (distant):
+        href: https://account.ui.com
+        description: Unifi Dream Router
+        icon: sh-ubiquiti-unifi
+        siteMonitor: https://account.ui.com
 
 - Utilitaires réseau:
     - Freebox:
@@ -127,6 +127,11 @@
         description: OVH Manager
         icon: ovh.svg
         siteMonitor: https://www.ovh.com/auth
+    - Headscale:
+        href: https://headscale.allfabox.fr/manager
+        description: VPN Manager
+        icon: sh-headscale
+        siteMonitor: http://192.168.10.10:8880
     - Hotspot:
         href: https://hotspot.allfabox.fr
         description: Unifi
@@ -277,3 +282,4 @@
         #     url: http://localhost:9000
         #     env: 2
         #     key: xxxxxxxxxxxxxxxxxxxxxxxxx
+
