@@ -46,11 +46,11 @@ lxc_to_deploy:
     nesting: 1
     keyctl: 1
     fuse: 1
-    memory: 1024
+    memory: 512
     nameserver: 192.168.0.253
     ip: 192.168.10.10
     gw: 192.168.10.1
-    unprivileged: false
+    unprivileged: true
     description: |
       <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
 
@@ -67,6 +67,7 @@ lxc_to_deploy:
     tags:
       - docker
       - prod
+    zfs_mountpoint: true
 
   - name: elephant
     vmid: 120
@@ -79,7 +80,7 @@ lxc_to_deploy:
     nameserver: 192.168.0.253
     ip: 192.168.10.20
     gw: 192.168.10.1
-    unprivileged: false
+    unprivileged: true
     onboot: true
     description: |
       <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
@@ -92,7 +93,8 @@ lxc_to_deploy:
     tags:
     - postgresql
     - prod
-  
+    zfs_mountpoint: true
+
   - name: smarthome
     vmid: 130
     cores: 2
@@ -104,7 +106,7 @@ lxc_to_deploy:
     nameserver: 192.168.0.253
     ip: 192.168.10.30
     gw: 192.168.10.1
-    unprivileged: false
+    unprivileged: true
     description: |
       <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
 
@@ -120,14 +122,15 @@ lxc_to_deploy:
     tags:
       - smarthome
       - prod
+    zfs_mountpoint: true
 
   - name: jellyfin
     vmid: 140
     cores: 2
-    disk: "local-zfs:32"
+    disk: "local-zfs:16"
     nesting: 1
     keyctl: 1
-    fuse: 1
+    fuse: 0
     memory: 2048
     nameserver: 192.168.0.253
     ip: 192.168.10.40
@@ -144,6 +147,7 @@ lxc_to_deploy:
     tags:
       - jellies
       - prod
+    zfs_mountpoint: true
 
   - name: mediaserver
     vmid: 141
@@ -170,7 +174,8 @@ lxc_to_deploy:
     tags:
       - mediaserver
       - prod
-    
+    zfs_mountpoint: true
+
   - name: nextcloud
     vmid: 142
     cores: 2
@@ -195,7 +200,8 @@ lxc_to_deploy:
     tags:
       - nextcloud
       - prod
-    
+    zfs_mountpoint: true
+
   - name: immich
     vmid: 143
     cores: 4
@@ -220,7 +226,8 @@ lxc_to_deploy:
     tags:
       - immich
       - prod
-    
+    zfs_mountpoint: true
+
   - name: webapps
     vmid: 150
     cores: 2
@@ -246,6 +253,7 @@ lxc_to_deploy:
     tags:
       - webapps
       - prod
+    zfs_mountpoint: true
 
   - name: monitoring
     vmid: 160
@@ -258,7 +266,7 @@ lxc_to_deploy:
     nameserver: 192.168.0.253
     ip: 192.168.10.60
     gw: 192.168.10.1
-    unprivileged: false
+    unprivileged: true
     description: |
       <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
 
@@ -269,6 +277,7 @@ lxc_to_deploy:
     tags:
       - monitoring
       - prod
+    zfs_mountpoint: true
   
   - name: communication
     vmid: 170
@@ -281,7 +290,7 @@ lxc_to_deploy:
     nameserver: 192.168.0.253
     ip: 192.168.10.70
     gw: 192.168.10.1
-    unprivileged: false
+    unprivileged: true
     description: |
       <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
 
@@ -294,9 +303,28 @@ lxc_to_deploy:
     tags:
       - monitoring
       - prod
-    
+    zfs_mountpoint: true
+
 zfs:
   dataset:
+    frontend:
+      parent:
+        create: true
+        name: rpool/docker
+        extra:
+          mountpoint: /opt/docker
+          compression: lz4
+          atime: off
+          xattr: sa
+          recordsize: 128k
+          quota: 20G
+      child:
+        create: true
+        name: rpool/docker/frontend-stack
+        mountpoint:
+          host: /opt/docker/frontend-stack
+          lxc: /opt/docker/frontend-stack
+        mount: true
     elephant:
       parent:
         create: true
@@ -315,6 +343,74 @@ zfs:
           host: /var/lib/postgresql/16/main
           lxc: /var/lib/postgresql/16/main
         mount: true
+    smarthome:
+      parent:
+        create: true
+        name: rpool/docker
+        extra:
+          mountpoint: /opt/docker
+          compression: lz4
+          atime: off
+          xattr: sa
+          recordsize: 128k
+          quota: 20G
+      child:
+        create: true
+        name: rpool/docker/smarthome-stack
+        mountpoint:
+          host: /opt/docker/smarthome-stack
+          lxc: /opt/docker/smarthome-stack
+        mount: true
+    jellyfin:
+      parent:
+        create: true
+        name: rpool/jellyfin
+        extra:
+          mountpoint:
+            host: /var/lib/jellyfin
+            lxc: /var/lib/jellyfin
+          compression: lz4
+          atime: off
+          xattr: sa
+          recordsize: 128k
+          quota: 10G
+        mount: true
+    mediaserver:
+      parent:
+        create: true
+        name: rpool/docker
+        extra:
+          mountpoint: /opt/docker
+          compression: lz4
+          atime: off
+          xattr: sa
+          recordsize: 128k
+          quota: 20G
+      child:
+        create: true
+        name: rpool/docker/mediaserver-stack
+        mountpoint:
+          host: /opt/docker/mediaserver-stack
+          lxc: /opt/docker/mediaserver-stack
+        mount: true
+    nextcloud:
+      parent:
+        create: true
+        name: rpool/docker
+        extra:
+          mountpoint: /opt/docker
+          compression: lz4
+          atime: off
+          xattr: sa
+          recordsize: 128k
+          quota: 20G
+      child:
+        create: true
+        name: rpool/docker/nextcloud-stack
+        mountpoint:
+          host: /opt/docker/nextcloud-stack
+          lxc: /opt/docker/nextcloud-stack
+        mount: true
     nextcloud_data:
       parent:
         create: true
@@ -332,6 +428,78 @@ zfs:
         mountpoint:
           host: /mnt/tank/documents
           lxc: /mnt/documents
+        mount: true
+    immich:
+      parent:
+        create: true
+        name: rpool/docker
+        extra:
+          mountpoint: /opt/docker
+          compression: lz4
+          atime: off
+          xattr: sa
+          recordsize: 128k
+          quota: 20G
+      child:
+        create: true
+        name: rpool/docker/immich-stack
+        mountpoint:
+          host: /opt/docker/immich-stack
+          lxc: /opt/docker/immich-stack
+        mount: true
+    webapps:
+      parent:
+        create: true
+        name: rpool/docker
+        extra:
+          mountpoint: /opt/docker
+          compression: lz4
+          atime: off
+          xattr: sa
+          recordsize: 128k
+          quota: 20G
+      child:
+        create: true
+        name: rpool/docker/webapps-stack
+        mountpoint:
+          host: /opt/docker/webapps-stack
+          lxc: /opt/docker/webapps-stack
+        mount: true
+    monitoring:
+      parent:
+        create: true
+        name: rpool/docker
+        extra:
+          mountpoint: /opt/docker
+          compression: lz4
+          atime: off
+          xattr: sa
+          recordsize: 128k
+          quota: 20G
+      child:
+        create: true
+        name: rpool/docker/monitoring-stack
+        mountpoint:
+          host: /opt/docker/monitoring-stack
+          lxc: /opt/docker/monitoring-stack
+        mount: true
+    communication:
+      parent:
+        create: true
+        name: rpool/docker
+        extra:
+          mountpoint: /opt/docker
+          compression: lz4
+          atime: off
+          xattr: sa
+          recordsize: 128k
+          quota: 20G
+      child:
+        create: true
+        name: rpool/docker/communication-stack
+        mountpoint:
+          host: /opt/docker/communication-stack
+          lxc: /opt/docker/communication-stack
         mount: true
 
 ### Disks
@@ -376,14 +544,27 @@ freebox_mount:
     opts: "rw,uid={{ secret.users.me.uid }},gid={{ secret.users.me.gid }},credentials={{ secret.users.me.home }}/.freebox-credentials,iocharset=utf8,file_mode=0777,dir_mode=0777"
 
 nfs_exports: 
+  - local_path: /mnt/storage/media
+    authorized_network:
+      - server: jellyfin
+        ip: 192.168.10.0/24
+        options: rw,sync,no_root_squash,no_subtree_check,fsid=0
+  - local_path: /mnt/storage/photos
+    authorized_network:
+      - ip: 192.168.10.0/24
+        options: rw,sync,no_root_squash,no_subtree_check,fsid=0
   - local_path: /mnt/storage
     authorized_network:
       - ip: 192.168.10.0/24
         options: rw,sync,no_root_squash,no_subtree_check,fsid=0
+  - local_path: /opt/docker
+    authorized_network: 
+      - ip: 192.168.10.0/24
+        options: rw,sync,no_subtree_check
   - local_path: /mnt/iso
     authorized_network: 
       - ip: 192.168.10.0/24
-        options: rw,sync,no_root_squash,no_subtree_check,fsid=1
+        options: rw,sync,no_root_squash,no_subtree_check,fsid=0
 
 snapraid_runner: false
 snapraid_data_disks:
