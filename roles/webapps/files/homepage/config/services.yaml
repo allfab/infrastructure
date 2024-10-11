@@ -62,8 +62,8 @@
         # widget:
         #     type: proxmox
         #     url: https://morpheus.allfabox.fr
-        #     username: root@pam
-        #     password: "#Rh8ycle_0684%"
+        #     username: homepage@pam
+        #     password: "password"
         #     node: morpheus
     - Neo:
         href: https://neo.allfabox.fr
@@ -73,8 +73,8 @@
         # widget:
         #     type: proxmox
         #     url: https://neo.allfabox.fr
-        #     username: root@pam
-        #     password: "#Rh8ycle_0684%"
+        #     username: homepage@pam
+        #     password: "password"
         #     node: pve
     - Portainer:
         href: https://portainer.allfabox.fr
