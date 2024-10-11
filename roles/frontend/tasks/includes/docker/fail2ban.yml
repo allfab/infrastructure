@@ -10,6 +10,7 @@
     - /opt/docker/frontend-stack/fail2ban/action.d
     - /opt/docker/frontend-stack/fail2ban/db
     - /opt/docker/frontend-stack/fail2ban/jail.d
+    - /opt/docker/frontend-stack/fail2ban/filter.d
 
 - name: INSTALLATION DU FICHIER DE CONFIGURATION PRINCIPAL POUR fail2ban
   template:
