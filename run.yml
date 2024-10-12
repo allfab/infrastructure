@@ -143,7 +143,7 @@
     - config/users
     - role: config/bash-aliases
       become: true
-    - install/motd
+    # - install/motd
     - role: geerlingguy.docker
       become: true
     - role: frontend
