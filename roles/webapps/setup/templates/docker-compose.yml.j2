@@ -67,7 +67,6 @@ services:
       - no-new-privileges:true
     volumes:
       - ./vaultwarden:/data
-      - /var/log/vaultwarden.log:/data/vaultwarden.log
     environment:
       - DATABASE_URL=postgresql://{{ secret.users.me.name }}:{{ secret.users.me.password }}@192.168.10.20:5432/vaultwarden
       - SIGNUPS_ALLOWED=false
@@ -110,7 +109,7 @@ services:
     image: cyfershepard/jellystat:latest
     restart: unless-stopped
     ports:
-      - 3000:3000
+      - 3001:3000
     volumes:
       - ./jellystat:/app/backend/backup-data
     environment:

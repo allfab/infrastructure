@@ -1,15 +1,25 @@
 ---
 - name: CHARGEMENT DES VARIABLES
   include_vars: defaults/main.yml
- 
+
+- name: CRÉATION DU RÉPERTOIRE D'INSTALLATION/CONFIGURATION POUR LA STACK webapps
+  become: true
+  file:
+    path: "/opt/{{ item }}"
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.name }}"
+    group: "{{ secret.users.me.gid }}"
+  loop:
+    - docker
+    - docker/webapps-stack
+
 - name: ON S'ASSURE QU'UN FICHIER docker-compose.yml EXISTE
-  remote_user: "{{ secret.users.me.name }}"
   stat:
     path: /opt/docker/webapps-stack/docker-compose.yml
   register: webapps_stack_docker_compose
 
 - name: SUPPRESSION DE LA STACK webapps SI ELLE EXISTE
-  remote_user: "{{ secret.users.me.name }}"
   shell:
     chdir: /opt/docker/webapps-stack
     cmd: docker compose down
@@ -25,6 +35,7 @@
     validate: docker compose -f %s config
 
 - name: INSTALLATION DU FICHIER DES VARIABLES D'ENVIRONNEMENT DOCKER
+  become: true
   template:
     src: env.j2
     dest: /opt/docker/webapps-stack/.env
@@ -33,30 +44,30 @@
     group: "{{ secret.users.me.gid }}"
 
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR filebrowser
-  include_tasks: includes/docker/filebrowser.yml
+  include_tasks: docker/containers/filebrowser.yml
 
-- name: INSTALLATION/CONFIGURATION DU CONTENEUR homer
-  include_tasks: includes/docker/homer.yml
+# - name: INSTALLATION/CONFIGURATION DU CONTENEUR homer
+#   include_tasks: docker/containers/homer.yml
 
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR homepage
-  include_tasks: includes/docker/homepage.yml
+  include_tasks: docker/containers/homepage.yml
 
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR vaultwarden
-  include_tasks: includes/docker/vaultwarden.yml
+  include_tasks: docker/containers/vaultwarden.yml
 
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR memos
-  include_tasks: includes/docker/memos.yml
+  include_tasks: docker/containers/memos.yml
 
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR jellystat
-  include_tasks: includes/docker/jellystat.yml
+  include_tasks: docker/containers/jellystat.yml
 
 - name: DÉMARRAGE DE LA STACK webapps
-  remote_user: "{{ secret.users.me.name }}"
   shell:
     chdir: /opt/docker/webapps-stack
     cmd: docker compose up -d
 
 - name: CHANGEMENT DES DROITS UTILISATEUR SUR L'ENSEMBLE DU DOSSIER /opt/docker/webapps-stack
+  become: true
   file:
     dest: /opt/docker/webapps-stack
     owner: "{{ secret.users.me.uid }}"

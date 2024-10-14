@@ -10,9 +10,10 @@
     owner: "{{ secret.users.me.uid }}"
     group: "{{ secret.users.me.gid }}"
 
-- name: VAULTWARDEN - CRÉATION DU FICHIER DE LOG
-  file:
-    path: /var/log/vaultwarden.log
-    mode: "0644"
-    owner: root
-    group: root
+# - name: VAULTWARDEN - CRÉATION DU FICHIER DE LOG
+#   become: true
+#   file:
+#     path: /var/log/vaultwarden.log
+#     mode: "0644"
+#     owner: root
+#     group: root
