@@ -1,0 +1,7 @@
+force_install: true
+figurine_install_login_script: true
+figurine_font: "3d.flf"
+figurine_arch: amd64
+figurine_gh_url: https://github.com/arsham/figurine/releases/download
+figurine_download_directory: "/tmp/figurine"
+figurine_motd: "{{ ansible_hostname }}"

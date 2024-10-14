@@ -1,0 +1,45 @@
+---
+- name: MEDIASERVER - CRÉATION DU DATASET ZFS parent
+  community.general.zfs:
+    name: "{{ zfs.dataset.mediaserver.parent.name }}"
+    state: present
+    extra_zfs_properties:
+      mountpoint: "{{ zfs.dataset.mediaserver.parent.extra.mountpoint }}"
+      compression: "{{ zfs.dataset.mediaserver.parent.extra.compression }}"
+      atime: "{{ zfs.dataset.mediaserver.parent.extra.atime }}"
+      xattr: "{{ zfs.dataset.mediaserver.parent.extra.xattr }}"
+      recordsize: "{{ zfs.dataset.mediaserver.parent.extra.recordsize }}"
+      quota: "{{ zfs.dataset.mediaserver.parent.extra.quota }}"
+  when: zfs.dataset.mediaserver.parent.create == true
+
+- name: MEDIASERVER - CRÉATION DU DATASET ZFS enfant - POINT DE MONTAGE HOST<->LXC
+  community.general.zfs:
+    name: "{{ zfs.dataset.mediaserver.child.name }}"
+    state: present
+    extra_zfs_properties:
+      mountpoint: "{{ zfs.dataset.mediaserver.child.mountpoint.host }}"
+  when: zfs.dataset.mediaserver.child.create == true
+
+- name: MEDIASERVER - CONFIGURATION DU POINT DE MONTAGE HOST<->LXC
+  command: pct set 141 -mp0 "{{ zfs.dataset.mediaserver.child.mountpoint.host }}",mp="{{ zfs.dataset.mediaserver.child.mountpoint.lxc }}"
+  when: zfs.dataset.mediaserver.child.create
+  
+- name: MEDIASERVER - CHANGEMENT DES DROITS UTILISATEUR SUR LE POINT DE MONTAGE
+  file:
+    dest: "{{ zfs.dataset.mediaserver.child.mountpoint.host }}"
+    owner: 101000
+    group: 101000
+    mode: 0777
+    recurse: true
+
+- name: MEDIASERVER - REDÉMARRAGE DU CONTENEUR LXC
+  community.general.proxmox:
+    node: morpheus
+    api_host: 192.168.10.5
+    api_user: root@pam
+    api_password: "{{ secret.proxmox.morpheus.api.password }}"
+    api_token_id: "{{ secret.proxmox.morpheus.api.token_id }}"
+    api_token_secret: "{{ secret.proxmox.morpheus.api.token_secret }}"
+    vmid: 141
+    state: "restarted"
+    timeout: 90

@@ -1,0 +1,276 @@
+# For configuration options and examples, please see:
+# https://gethomepage.dev/latest/configs/services
+
+- Accueil:
+    - Gmail:
+        href: https://mail.google.com/mail/?authuser=0
+        description: Messagerie
+        icon: sh-gmail
+    - Photos:
+        href: https://photos.google.com/
+        description: Photos
+        icon: sh-google-photos
+    - Immich:
+        href: https://immich.allfabox.fr
+        description: Mes photos
+        icon: sh-immich
+        siteMonitor: http://192.168.10.43:2283
+    - Keep:
+        href: https://keep.google.com/
+        description: Notez tout ce qui vous passe par la tête
+        icon: sh-google-keep
+    - Memos:
+        href: https://notes.allfabox.fr
+        description: Prise de notes
+        icon: sh-memos
+        siteMonitor: http://192.168.10.50:5230
+
+- Hyperviseurs:
+    - Morpheus:
+        href: https://morpheus.allfabox.fr
+        description: Proxmox
+        icon: proxmox.svg
+        siteMonitor: https://morpheus.allfabox.fr
+        widget:
+            type: proxmox
+            url: https://192.168.10.5:8006
+            username: {{HOMEPAGE_VAR_PROXMOX_USER}}
+            password: {{HOMEPAGE_VAR_PROXMOX_PASSWORD}}
+            node: morpheus
+    - Neo:
+        href: https://neo.allfabox.fr
+        description: Proxmox
+        icon: proxmox.svg
+        siteMonitor: https://neo.allfabox.fr
+        widget:
+            type: proxmox
+            url: https://192.168.10.6:8006
+            username: {{HOMEPAGE_VAR_PROXMOX_USER}}
+            password: {{HOMEPAGE_VAR_PROXMOX_PASSWORD}}
+            node: neo
+    - PBS:
+        href: https://neo-pbs.allfabox.fr
+        description: Proxmox
+        icon: sh-proxmox
+        siteMonitor: https://neo-pbs.allfabox.fr
+        widget:
+            type: proxmoxbackupserver
+            url: https://192.168.10.6:8007
+            username: {{HOMEPAGE_VAR_PROXMOX_BACKUP_USER}}
+            password: {{HOMEPAGE_VAR_PROXMOX_BACKUP_PASSWORD}}
+
+- Management:
+    - Portainer:
+        href: https://portainer.allfabox.fr
+        description: Frontend
+        icon: sh-portainer
+        siteMonitor: https://portainer.allfabox.fr
+        widget:
+            type: portainer
+            url: https://portainer.allfabox.fr
+            env: 1
+            key: "{{HOMEPAGE_VAR_PORTAINER_TOKEN}}"
+    - Pi-Hole:
+        href: https://pihole.allfabox.fr
+        description: DNS 
+        icon: sh-pi-hole
+        siteMonitor: http://192.168.0.253
+        widget:
+            type: pihole
+            url: http://192.168.0.253
+            version: 5
+            key: {{HOMEPAGE_VAR_PIHOLE_TOKEN}}
+    - Traefik:
+        href: https://traefik.allfabox.fr
+        description: Reverse-Proxy
+        icon: sh-traefik
+        siteMonitor: https://traefik.allfabox.fr
+        widget:
+            type: traefik
+            url: http://192.168.10.10:8080
+
+- Infrastructure réseau:
+    - Unifi OS (local):
+        href: https://unifi.allfabox.fr
+        description: Unifi Dream Router
+        icon: sh-ubiquiti-unifi
+        siteMonitor: https://192.168.1.1
+        widget:
+            type: unifi
+            url: https://unifi.allfabox.fr
+            username: {{HOMEPAGE_VAR_UNIFI_USER}}
+            password: {{HOMEPAGE_VAR_UNIFI_PASSWORD}}
+    - Headscale:
+        href: https://headscale.allfabox.fr/manager
+        description: VPN Manager
+        icon: sh-headscale
+        siteMonitor: http://192.168.10.10:5000/manager
+    - Unifi OS (distant):
+        href: https://account.ui.com
+        description: Unifi Dream Router
+        icon: sh-ubiquiti-unifi
+        siteMonitor: https://account.ui.com
+
+- Utilitaires réseau:
+    - Freebox:
+        href: https://freebox.allfabox.fr
+        description: Freebox OS
+        icon: /icons/freebox.svg
+        siteMonitor: http://192.168.0.254
+    - OVH Manager:
+        href: https://www.ovh.com/auth
+        description: OVH Manager
+        icon: ovh.svg
+        siteMonitor: https://www.ovh.com/auth
+    
+    - Hotspot:
+        href: https://hotspot.allfabox.fr
+        description: Unifi
+        icon: /icons/hotspot-wifi.svg
+        siteMonitor: https://hotspot.allfabox.fr
+
+- Smarthome:
+    - Home-Assistant:
+        href: https://domotik.allfabox.fr
+        description: Home Assistant
+        icon: sh-home-assistant
+        siteMonitor: http://192.168.10.30:8123
+    - Nodered:
+        href: https://nodered.allfabox.fr
+        description: Nodered
+        icon: sh-node-red
+        siteMonitor: http://192.168.10.30:1880
+    - Zigbee2MQTT:
+        href: https://zigbee2mqtt.allfabox.fr
+        description: Zigbee2MQTT
+        icon: sh-zigbee2mqtt
+        siteMonitor: http://192.168.10.30:8080
+    - ESPHome:
+        href: https://esphome.allfabox.fr
+        description: ESPHome
+        icon: esphome.svg
+        siteMonitor: http://192.168.10.30:6052
+
+- Médias:
+    - Jellyfin:
+        href: https://jellyfin.allfabox.fr
+        description: Mon Netflix perso
+        icon: sh-jellyfin
+        siteMonitor: http://192.168.10.40:8096
+    - Navidrome:
+        href: https://navidrome.allfabox.fr
+        description: Mon Spotify perso
+        icon: sh-navidrome
+        siteMonitor: http://192.168.10.41:4533
+    - Immich:
+        href: https://immich.allfabox.fr
+        description: Mes photos
+        icon: sh-immich
+        siteMonitor: http://192.168.10.43:2283
+    - Calibre-web:
+        href: https://calibre-web.allfabox.fr
+        description: Ma bibliothèque numérique
+        icon: sh-calibre-web
+        siteMonitor: http://192.168.10.41:8083
+
+- Webapps:
+    - Filebrowser:
+        href: https://filebrowser.allfabox.fr
+        description: Filebrowser
+        icon: sh-file-browser
+        siteMonitor: http://192.168.10.50:4080
+    - Nextcloud:
+        href: https://nextcloud.allfabox.fr
+        description: Nextcloud
+        icon: sh-nextcloud
+        siteMonitor: https://192.168.10.42:8643
+    - Vaultwarden:
+        href: https://vaultwarden.allfabox.fr
+        description: Coffre-fort numérique
+        icon: sh-vaultwarden
+        siteMonitor: http://192.168.10.50:8680
+    - Jellystat:
+        href: https://jellystat.allfabox.fr
+        description: Statistiques Jellyfin
+        icon: sh-jellystat
+        siteMonitor: http://192.168.10.60:3000
+
+- Monitoring:
+    - NTFY:
+        href: https://ntfy.allfabox.fr
+        description: Les notifications push simplifiées
+        icon: sh-ntfy
+        siteMonitor: http://192.168.10.70:2080
+    - Uptime Kuma:
+        href: https://uptime.allfabox.fr
+        description: Outil de surveillance auto-hébergé
+        icon: sh-uptime-kuma
+        siteMonitor: http://192.168.10.60:3001
+    - Healthchecks:
+        href: https://healthchecks.allfabox.fr
+        description: Surveillance des tâches Cron
+        icon: sh-healthchecks
+        siteMonitor: http://192.168.10.60:8000
+    - dozzle:
+        href: https://dozzle.allfabox.fr
+        description: Journalisation et surveillance en temps réel pour Docker
+        icon: sh-dozzle
+        siteMonitor: http://192.168.10.60:8080
+
+- Webmapping:
+    - Qfieldcloud:
+        href: https://qfieldcloud.allfabox.fr
+        description: Stockage de projet QGIS en ligne
+        icon: /icons/qfieldcloud.svg
+        siteMonitor: http://192.168.10.80:8011
+    - Geoserver:
+        href: https://geoserver.allfabox.fr
+        description: Partage de données géospatiales
+        icon: /icons/geoserver.png
+        siteMonitor: http://192.168.10.80:8080
+
+- Outils:
+    - Nodered:
+        href: http://10.10.22.100:1880
+        description: Nodered
+        icon: node-red.svg
+        siteMonitor: http://10.10.22.100:1880
+    - IT-Tools:
+        href: http://10.10.22.100:8088
+        description: Outils pratiques pour les développeurs
+        icon: it-tools.svg
+        siteMonitor: http://10.10.22.100:8088
+    - Stirling-PDF:
+        href: http://10.10.22.100:6080
+        description: Outils PDF puissants
+        icon: stirling-pdf.svg
+        siteMonitor: http://10.10.22.100:6080
+    - Excalidraw:
+        href: http://10.10.22.100:5000
+        description: Tableau blanc virtuel
+        icon: excalidraw.svg
+        siteMonitor: http://10.10.22.100:5000
+    - Mini-IO:
+        href: http://10.10.22.100:9010
+        description: Magasin d'objets
+        icon: minio.svg
+        siteMonitor: http://10.10.22.100:9010/
+    - Wiki-JS:
+        href: http://10.10.22.100:3000
+        description: Base documentaire
+        icon: /icons/wikijs-butterfly.svg
+        siteMonitor: http://10.10.22.100:3000
+
+
+- Services (localhost):
+    - Portainer:
+        href: http://localhost:9000
+        description: Gestion des conteneurs Docker
+        icon: portainer.svg
+        siteMonitor: http://localhost:9000
+        # widget:
+        #     type: portainer
+        #     url: http://localhost:9000
+        #     env: 2
+        #     key: xxxxxxxxxxxxxxxxxxxxxxxxx
+

@@ -1,0 +1,45 @@
+---
+- name: FRONTEND - CRÉATION DU DATASET ZFS parent
+  community.general.zfs:
+    name: "{{ zfs.dataset.frontend.parent.name }}"
+    state: present
+    extra_zfs_properties:
+      mountpoint: "{{ zfs.dataset.frontend.parent.extra.mountpoint }}"
+      compression: "{{ zfs.dataset.frontend.parent.extra.compression }}"
+      atime: "{{ zfs.dataset.frontend.parent.extra.atime }}"
+      xattr: "{{ zfs.dataset.frontend.parent.extra.xattr }}"
+      recordsize: "{{ zfs.dataset.frontend.parent.extra.recordsize }}"
+      quota: "{{ zfs.dataset.frontend.parent.extra.quota }}"
+  when: zfs.dataset.frontend.parent.create == true
+
+- name: FRONTEND - CRÉATION DU DATASET ZFS enfant - POINT DE MONTAGE HOST<->LXC
+  community.general.zfs:
+    name: "{{ zfs.dataset.frontend.child.name }}"
+    state: present
+    extra_zfs_properties:
+      mountpoint: "{{ zfs.dataset.frontend.child.mountpoint.host }}"
+  when: zfs.dataset.frontend.child.create == true
+
+- name: FRONTEND - CONFIGURATION DU POINT DE MONTAGE HOST<->LXC
+  command: pct set 110 -mp0 "{{ zfs.dataset.frontend.child.mountpoint.host }}",mp="{{ zfs.dataset.frontend.child.mountpoint.lxc }}"
+  when: zfs.dataset.frontend.child.create
+  
+- name: FRONTEND - CHANGEMENT DES DROITS UTILISATEUR SUR LE POINT DE MONTAGE
+  file:
+    dest: "{{ zfs.dataset.frontend.child.mountpoint.host }}"
+    owner: 101000
+    group: 101000
+    mode: 0777
+    recurse: true
+
+- name: FRONTEND - REDÉMARRAGE DU CONTENEUR LXC
+  community.general.proxmox:
+    node: morpheus
+    api_host: 192.168.10.5
+    api_user: root@pam
+    api_password: "{{ secret.proxmox.morpheus.api.password }}"
+    api_token_id: "{{ secret.proxmox.morpheus.api.token_id }}"
+    api_token_secret: "{{ secret.proxmox.morpheus.api.token_secret }}"
+    vmid: 110
+    state: "restarted"
+    timeout: 90
