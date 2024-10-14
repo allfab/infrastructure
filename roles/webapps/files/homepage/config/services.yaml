@@ -33,7 +33,7 @@
         siteMonitor: https://morpheus.allfabox.fr
         widget:
             type: proxmox
-            url: https://morpheus.allfabox.fr
+            url: https://192.168.10.5:8006
             username: {{HOMEPAGE_VAR_PROXMOX_USER}}
             password: {{HOMEPAGE_VAR_PROXMOX_PASSWORD}}
             node: morpheus
@@ -44,7 +44,7 @@
         siteMonitor: https://neo.allfabox.fr
         widget:
             type: proxmox
-            url: https://morpheus.allfabox.fr
+            url: https://192.168.10.6:8006
             username: {{HOMEPAGE_VAR_PROXMOX_USER}}
             password: {{HOMEPAGE_VAR_PROXMOX_PASSWORD}}
             node: neo
@@ -55,7 +55,7 @@
         siteMonitor: https://neo-pbs.allfabox.fr
         widget:
             type: proxmoxbackupserver
-            url: https://neo-pbs.allfabox.fr
+            url: https://192.168.10.6:8007
             username: {{HOMEPAGE_VAR_PROXMOX_BACKUP_USER}}
             password: {{HOMEPAGE_VAR_PROXMOX_BACKUP_PASSWORD}}
 
@@ -70,16 +70,16 @@
             url: https://portainer.allfabox.fr
             env: 1
             key: "{{HOMEPAGE_VAR_PORTAINER_TOKEN}}"
-    - Portainer:
-        href: https://portainer.allfabox.fr
-        description: Mediaserver
-        icon: sh-portainer
-        siteMonitor: https://portainer.allfabox.fr
+    - Pi-Hole:
+        href: https://pihole.allfabox.fr
+        description: DNS 
+        icon: sh-pi-hole
+        siteMonitor: http://192.168.0.253
         widget:
-            type: portainer
-            url: https://portainer.allfabox.fr
-            env: 2
-            key: "{{HOMEPAGE_VAR_PORTAINER_TOKEN}}"
+            type: pihole
+            url: http://192.168.0.253
+            version: 5
+            key: {{HOMEPAGE_VAR_PIHOLE_TOKEN}}
     - Traefik:
         href: https://traefik.allfabox.fr
         description: Reverse-Proxy
@@ -100,16 +100,11 @@
             url: https://unifi.allfabox.fr
             username: {{HOMEPAGE_VAR_UNIFI_USER}}
             password: {{HOMEPAGE_VAR_UNIFI_PASSWORD}}
-    - Pi-Hole:
-        href: https://pihole.allfabox.fr
-        description: DNS 
-        icon: sh-pi-hole
-        siteMonitor: http://192.168.0.253
-        widget:
-            type: pihole
-            url: http://192.168.0.253
-            version: 5
-            key: {{HOMEPAGE_VAR_PIHOLE_TOKEN}}
+    - Headscale:
+        href: https://headscale.allfabox.fr/manager
+        description: VPN Manager
+        icon: sh-headscale
+        siteMonitor: http://192.168.10.10:5000/manager
     - Unifi OS (distant):
         href: https://account.ui.com
         description: Unifi Dream Router
@@ -127,11 +122,7 @@
         description: OVH Manager
         icon: ovh.svg
         siteMonitor: https://www.ovh.com/auth
-    - Headscale:
-        href: https://headscale.allfabox.fr/manager
-        description: VPN Manager
-        icon: sh-headscale
-        siteMonitor: http://192.168.10.10:8880
+    
     - Hotspot:
         href: https://hotspot.allfabox.fr
         description: Unifi
@@ -209,7 +200,7 @@
         href: https://ntfy.allfabox.fr
         description: Les notifications push simplifiées
         icon: sh-ntfy
-        siteMonitor: http://192.168.10.60:8680
+        siteMonitor: http://192.168.10.70:2080
     - Uptime Kuma:
         href: https://uptime.allfabox.fr
         description: Outil de surveillance auto-hébergé
