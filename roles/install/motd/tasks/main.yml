@@ -41,13 +41,7 @@
   set_fact:
     arch: "{{ arch_lut[ansible_architecture] | default(ansible_architecture) }}"
 
-# - name: TÉLÉCHARGEMENT DE LA VERSION SOUHAITÉE
-#   get_url:
-#     url: "https://github.com/arsham/figurine/releases/download/{{ figurine_version }}/figurine_linux_{{ arch }}_{{ figurine_version }}.tar.gz"
-#     dest: /tmp
-#   when: force_install == True
-
-- name: TÉLÉCHARGEMENT DE LA VERSION SOUHAITÉE ET EXTRACTION DE L'EXECUTABLE figurine VERS LE RÉPERTOIRE D'INSTALLATION
+- name: TÉLÉCHARGEMENT DE LA VERSION SOUHAITÉE SUIVANT L'ARCHITECTURE DE LA MACHINE ET EXTRACTION DE L'EXECUTABLE figurine VERS LE RÉPERTOIRE D'INSTALLATION
   unarchive:    
     src: "https://github.com/arsham/figurine/releases/download/{{ figurine_version }}/figurine_linux_{{ arch }}_{{ figurine_version }}.tar.gz"
     dest: /usr/local/bin
@@ -55,9 +49,51 @@
     remote_src: true
   become: true
 
+# FASTFETCH
+- name: VÉRIFICATION DE LA PRÉSENCE DE fastfetch
+  stat:
+    path: /usr/bin/fastfetch
+  register: fastfetch_binary_exists
+
+- name: DÉFINITION DE LA VARIABLE fastfetch_is_installed
+  set_fact:
+    fastfetch_is_installed: "{{ fastfetch_binary_exists.stat.exists }}"
+
+- name: VÉRIFICATION DE LA VERSION DE fastfetch
+  shell: "/usr/bin/fastfetch -v | awk '{ print $2 }'"
+  register: fastfetch_installed_version_registered
+  when: fastfetch_is_installed == True
+
+- name: OBTENTION DE LA DERNIÈRE VERSION
+  uri:
+    url: https://api.github.com/repos/fastfetch-cli/fastfetch/releases/latest
+    url_username: "{{ secret.github.api.user | default (omit) }}"
+    url_password: "{{ secret.github.api.token | default (omit) }}"
+    return_content: true
+    force_basic_auth: "{{ secret.github.api.auth | default (omit) }}"
+  register: fastfetch_latest_release
+  # when: force_install == True
+
+- name: DÉFINITION DE LA VERSION SI CE N'EST PAS LE CAS
+  set_fact:
+    fastfetch_version: "{{ fastfetch_latest_release.json.tag_name }}"
+  # when: fastfetch_version is undefined and force_install == True
+
+- name: TÉLÉCHARGEMENT DE LA VERSION SOUHAITÉE SUIVANT L'ARCHITECTURE DE LA MACHINE
+  get_url:
+    url: "https://github.com/fastfetch-cli/fastfetch/releases/download/{{ fastfetch_version }}/fastfetch-linux-{{ arch }}.deb"
+    dest: /tmp
+#   when: force_install == True
+
+- name: INSATLLATION DU PAQUET fastfetch
+  become: true
+  ansible.builtin.apt:
+    deb: /tmp/fastfetch-linux-{{ arch }}.deb
+
 - name: CONFIGURATION DU MOTD - MESSAGE OF THE DAY
+  become: true
   template:
     src: figurine.sh.j2
     dest: /etc/profile.d/figurine.sh
   when: figurine_install_login_script
-  become: true
+  
