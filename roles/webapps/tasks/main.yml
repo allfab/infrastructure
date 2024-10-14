@@ -47,6 +47,9 @@
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR memos
   include_tasks: includes/docker/memos.yml
 
+- name: INSTALLATION/CONFIGURATION DU CONTENEUR jellystat
+  include_tasks: includes/docker/jellystat.yml
+
 - name: DÉMARRAGE DE LA STACK webapps
   remote_user: "{{ secret.users.me.name }}"
   shell:

@@ -8,3 +8,7 @@ portainer:
   agent:
     secret:
       key: "{{ secret.portainer.agent.secret.key }}"
+
+jellystat:
+  jwt:
+    secret: "{{ secret.jellystat.jwt.secret }}"
