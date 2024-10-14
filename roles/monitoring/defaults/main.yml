@@ -9,10 +9,6 @@ portainer:
     secret:
       key: "{{ secret.portainer.agent.secret.key }}"
 
-jellystat:
-  jwt:
-    secret: "{{ secret.jellystat.jwt.secret }}"
-
 healthchecks:
   secret:
     key: "{{ secret.healthchecks.secret.key }}"

@@ -42,24 +42,7 @@ services:
       - SECRET_KEY=${HEALTHCHECKS_SECRET_KEY}
       # - SITE_LOGO_URL=
 
-  jellystat:
-    container_name: jellystat
-    image: cyfershepard/jellystat:latest
-    restart: unless-stopped
-    ports:
-      - 3000:3000
-    volumes:
-      - ./jellystat:/app/backend/backup-data
-    environment:
-      - POSTGRES_DB=jfstat
-      - POSTGRES_USER={{ secret.users.me.name }}
-      - POSTGRES_PASSWORD={{ secret.users.me.password }}
-      - POSTGRES_IP=192.168.10.20
-      - POSTGRES_PORT=5432
-      - JWT_SECRET="{{ jellystat.jwt.secret }}"
-      - TZ=Europe/Paris
-    networks:
-      - monitoring
+  
 
 # docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 monitoring
 networks:
