@@ -1,0 +1,70 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/latest/configs/bookmarks
+
+- GEO:
+    - Générateur:
+        - href: http://geoservices.business-geografic.com/aws/app/home
+          description: GEO Générateur
+          icon: /icons/geo-logo.png
+    - Cartothèque:
+        - href: https://geo.vienne-condrieu-agglomeration.fr/index.html
+          description: Portail d'accès aux application GEO
+          icon: /icons/geo-carto-logo.png
+    - GEO Ressources:
+        - href: https://geo-ressources.vienne-condrieu-agglomeration.fr/
+          description: Portail des ressources du service IG&O
+          icon: /icons/geo-ressources-logo.png
+    - Geoserver:
+        - href: https://geo-ressources.vienne-condrieu-agglomeration.fr/geoserver/web/
+          description: Partage de données géospatiales
+          icon: /icons/geoserver.png
+    - GEO Solutions:
+        - href: https://geoservices.business-geografic.com/solutions/
+          description: Gestion des solutions GEO
+          icon: /icons/geo-logo.png
+    - GEO Setup:
+        - href: https://geoservices.business-geografic.com/solutions/
+          description: Gestion de GEO Cadastre/Zonages
+          icon: /icons/geo-solutions.png
+
+- Intranet:
+    - Webmail:
+        - href: https://outlook.office.com/mail/
+          description: Outlook 365
+          icon: /icons/outlook-office-365.png
+    - Auth:
+        - href: https://intranet.vienne-condrieu-agglomeration.fr:8443/auth/
+          description: Authentification réseau
+          icon: https://api.dicebear.com/6.x/identicon/svg?seed=netAsk
+    - Civil - Congés:
+        - href: https://ciril.vienne-condrieu-agglomeration.fr/
+          description: Gestion des congés
+          icon: https://api.dicebear.com/6.x/identicon/svg?seed=Pepper
+    - Nextcloud:
+        - href: https://nextcloud.vienne-condrieu-agglomeration.fr/
+          description: Partage de fichiers
+          icon: nextcloud.svg
+    - GLPI:
+        - href: https://glpi.vienne-condrieu-agglomeration.fr/
+          description: Assistance informatique
+          icon: /icons/glpi.png
+    - 3CX:
+        - href: https://phone.vienne-condrieu-agglomeration.fr:5001/webclient/
+          description: Solution de communication pro
+          icon: /icons/3CX.png
+    - Traceur:
+        - href: https://10.10.22.80/
+          description: Gestion du traceur
+          icon: /icons/hp-logo.svg
+
+
+- Métiers:
+    - GoValid:
+        - href: https://api.dicebear.com/6.x/identicon/svg?seed=GoValid
+          description: Plateforme collaborative pour la qualité et la transformation des relevés topographiques
+          icon: https://api.dicebear.com/6.x/identicon/svg?seed=GoValid
+    - GNAU-DIA:
+        - href: 
+          description: Guichet Unique des Autorisations d'Urbanisme & DIA
+          icon: https://api.dicebear.com/6.x/identicon/svg?seed=GNAU

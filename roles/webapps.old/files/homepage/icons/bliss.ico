@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="https://identity.allfabox.fr/" />
+  <meta property="csp-nonce" content="dpIAIgadWCkv49e6OY0pyoqcMEVgBdme" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="description" content="Authelia login portal for your apps" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="icon" href="./favicon.ico" />
+  <title>Login - Authelia</title>
+  <script type="module" crossorigin src="./static/js/index.R_EEPxQb.js"></script>
+  <link rel="stylesheet" crossorigin href="./static/css/index.CUtFyfWw.css">
+</head>
+
+<body
+    data-basepath=""
+    data-duoselfenrollment="false"
+    data-logooverride="false"
+    data-privacypolicyaccept=""
+    data-privacypolicyurl=""
+    data-rememberme="true"
+    data-resetpassword="true"
+    data-resetpasswordcustomurl=""
+    data-theme="auto"
+>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root"></div>
+</body>
+</html>

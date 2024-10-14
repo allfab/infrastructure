@@ -1,0 +1,20 @@
+---
+- name: CHARGEMENT DES VARIABLES PAR DÉFAUT
+  include_vars: defaults/main.yml
+
+- name: HOMER - CRÉATION DU RÉPERTOIRE D'INSTALLATION/CONFIGURATION
+  file:
+    path: /opt/docker/webapps-stack/homer
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+
+- name: HOMER - INSTALLATION DES DIFFÉRENTS FICHIERS DE CONFIGURATION
+  ansible.builtin.unarchive:
+    src: homer/walkxcode-theme.zip
+    dest: /opt/docker/webapps-stack/homer
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+    

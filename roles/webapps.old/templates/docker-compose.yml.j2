@@ -1,0 +1,135 @@
+---
+services:
+  portainer-agent:
+    container_name: portainer-agent
+    image: portainer/agent:latest
+    restart: always
+    ports:
+      - 9001:9001
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes 
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - AGENT_SECRET="${AGENT_SECRET}"
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - webapps
+
+  # homer:
+    # container_name: homer
+    # image: b4bz/homer:latest
+    # restart: unless-stopped
+    # ports:
+      # - 8080:8080
+    # volumes:
+      # - ./homer/walkxcode-theme:/www/assets
+    # environment:
+      # - TZ=Europe/Paris
+      # - INIT_ASSETS=0
+    # networks:
+      # - webapps
+
+  homepage:
+    container_name: homepage
+    image: ghcr.io/gethomepage/homepage:latest
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    volumes:
+      - ./homepage/config:/app/config
+      - ./homepage/images:/app/public/images
+      - ./homepage/icons:/app/public/icons
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - HOMEPAGE_VAR_PROXMOX_USER=${HOMEPAGE_VAR_PROXMOX_USER}
+      - HOMEPAGE_VAR_PROXMOX_PASSWORD=${HOMEPAGE_VAR_PROXMOX_PASSWORD}
+      - HOMEPAGE_VAR_PROXMOX_BACKUP_USER=${HOMEPAGE_VAR_PROXMOX_BACKUP_USER}
+      - HOMEPAGE_VAR_PROXMOX_BACKUP_PASSWORD=${HOMEPAGE_VAR_PROXMOX_BACKUP_PASSWORD}
+      - HOMEPAGE_VAR_PORTAINER_TOKEN=${HOMEPAGE_VAR_PORTAINER_TOKEN}
+      - HOMEPAGE_VAR_OPENWEATHERMAP_APIKEY=${HOMEPAGE_VAR_OPENWEATHERMAP_APIKEY}
+      - HOMEPAGE_VAR_PIHOLE_TOKEN=${HOMEPAGE_VAR_PIHOLE_TOKEN}
+      - HOMEPAGE_VAR_UNIFI_USER=${HOMEPAGE_VAR_UNIFI_USER}
+      - HOMEPAGE_VAR_UNIFI_PASSWORD=${HOMEPAGE_VAR_UNIFI_PASSWORD}
+    networks:
+      - webapps
+
+  vaultwarden:
+    container_name: vaultwarden
+    image: vaultwarden/server:latest
+    restart: unless-stopped
+    ports:
+      - 8680:80
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      - ./vaultwarden:/data
+      - /var/log/vaultwarden.log:/data/vaultwarden.log
+    environment:
+      - DATABASE_URL=postgresql://{{ secret.users.me.name }}:{{ secret.users.me.password }}@192.168.10.20:5432/vaultwarden
+      - SIGNUPS_ALLOWED=false
+      - INVITATIONS_ALLOWED=false
+      - LOG_FILE=data/vaultwarden.log
+      - LOG_LEVEL=warn
+      - EXTENDED_LOGGING=true
+    networks:
+      - webapps
+
+  filebrowser:
+    container_name: filebrowser
+    image: filebrowser/filebrowser:latest 
+    restart: unless-stopped
+    ports:
+      - 4080:80
+    volumes:
+      - /mnt:/srv
+      - ./filebrowser/filebrowser.db:/database/filebrowser.db
+      - ./filebrowser/.filebrowser.json:/.filebrowser.json
+    environment:
+      - PUID=1000
+      - PGID=1000
+    networks:
+      - webapps
+
+  memos:
+    container_name: memos
+    image: neosmemo/memos:stable
+    restart: unless-stopped
+    ports:
+      - 5230:5230
+    volumes:
+      - ./memos:/var/opt/memos
+    networks:
+      - webapps
+
+  jellystat:
+    container_name: jellystat
+    image: cyfershepard/jellystat:latest
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    volumes:
+      - ./jellystat:/app/backend/backup-data
+    environment:
+      - POSTGRES_DB=jfstat
+      - POSTGRES_USER={{ secret.users.me.name }}
+      - POSTGRES_PASSWORD={{ secret.users.me.password }}
+      - POSTGRES_IP=192.168.10.20
+      - POSTGRES_PORT=5432
+      - JWT_SECRET="{{ jellystat.jwt.secret }}"
+      - TZ=Europe/Paris
+    networks:
+      - webapps
+
+# docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 webapps
+networks:
+  webapps:
+    name: webapps
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "172.18.0.0/16"
+          gateway: "172.18.0.1"
