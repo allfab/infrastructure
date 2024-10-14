@@ -283,6 +283,36 @@
       become: true
 
 - hosts: webapps
+  tags: deployment
+  gather_facts: no
+  vars_files:
+    - vars/vault.yml
+  roles:
+    - role: webapps/deployment
+
+- hosts: webapps
+  tags: setup
+  vars_files:
+    - vars/vault.yml
+  pre_tasks:
+  - name: MISE À JOUR SYSTÈME
+    become: true
+    apt:
+      update_cache: true
+      upgrade: true
+      cache_valid_time: 14400
+  roles:
+    - role: grog.package
+      become: true
+    - role: config/bash-aliases
+      become: true
+    - install/motd
+    - role: geerlingguy.docker
+      become: true
+    - role: webapps/setup
+
+
+- hosts: webapps_old
   tags: setup
   vars_files:
     - vars/vault.yml
