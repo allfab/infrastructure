@@ -50,6 +50,7 @@ services:
       - ./tinymediamanager/config:/data
       - /mnt/media/videos/movies:/media/movies
       - /mnt/media/videos/tvshows:/media/tv_shows
+      - /mnt/media/videos/kids:/media/kids
     environment:
       - USER_ID=1000
       - GROUP_ID=1000
