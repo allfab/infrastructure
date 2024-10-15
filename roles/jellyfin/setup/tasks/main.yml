@@ -1,6 +1,18 @@
 ---
 - name: CHARGEMENT DES VARIABLES
   include_vars: defaults/main.yml
+
+- name: CRÉATION DU RÉPERTOIRE D'INSTALLATION/CONFIGURATION POUR LA STACK jellyfin
+  become: true
+  file:
+    path: "/opt/{{ item }}"
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.name }}"
+    group: "{{ secret.users.me.gid }}"
+  loop:
+    - docker
+    - docker/jellyfin-stack
  
 - name: ON S'ASSURE QU'UN FICHIER docker-compose.yml EXISTE
   remote_user: "{{ secret.users.me.name }}"
@@ -33,10 +45,10 @@
     group: "{{ secret.users.me.gid }}"
 
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR jellyfin
-  include_tasks: includes/docker/jellyfin.yml
+  include_tasks: docker/containers/jellyfin.yml
 
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR jellyfin
-  include_tasks: includes/docker/tinymediamanager.yml
+  include_tasks: docker/containers/tinymediamanager.yml
 
 - name: DÉMARRAGE DE LA STACK jellyfin
   remote_user: "{{ secret.users.me.name }}"

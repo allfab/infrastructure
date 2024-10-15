@@ -1,0 +1,31 @@
+---
+ssh:
+  port: "{{ secret.ssh.port }}"
+
+proxmox:
+  lxc:
+    - name: jellyfin
+      vmid: 140
+      cores: 4
+      disk: "local-zfs:32"
+      nesting: 1
+      keyctl: 0
+      fuse: 1
+      memory: 4096
+      nameserver: 192.168.0.253
+      ip: 192.168.10.40
+      gw: 192.168.10.1
+      unprivileged: false
+      swap: 4096
+      description: |
+        <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
+
+        # Jellyfin LXC
+
+        <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a><br />
+        <a href="https://jellyfin.org/" target="_blank"><img src="https://img.shields.io/badge/Jellyfin-526CFE?style=for-the-badge&logo=Jellyfin&logoColor=white" /></a>
+        <a href="https://www.tinymediamanager.org/" target="_blank"><img src="https://img.shields.io/badge/tinymediamanager-ff7e00?style=for-the-badge&logo=TinyMediaManager&logoColor=white" /></a>
+        </div>
+      tags:
+        - jellies
+        - prod

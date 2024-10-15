@@ -12,7 +12,7 @@
 
 - name: JELLYFIN - CRÉATION DES RÉPERTOIRES DE CONFIGURATION
   file:
-    path:  "/opt/docker/jellyfin-stack/immich/{{ item }}"
+    path:  "/opt/docker/jellyfin-stack/jellyfin/{{ item }}"
     state: directory
     mode: "{{ docker.compose.directory_mask }}"
     owner: "{{ secret.users.me.uid }}"

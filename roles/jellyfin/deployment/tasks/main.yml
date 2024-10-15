@@ -1,0 +1,11 @@
+---
+- name: CHARGEMENT DES VARIABLES
+  include_vars: defaults/main.yml
+
+### Infrastructure
+- name: DÉPLOIEMENT DU CONTENEUR LXC webapps
+  include_tasks: deployment.yml
+
+### Amorçage des conteneurs (SSH)
+- name: AMORÇAGE DU CONTENEUR LXC webapps
+  include_tasks: bootstrap.yml
