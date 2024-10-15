@@ -23,12 +23,14 @@ fail2ban-client reload
 
 # Statut d'une prison
 docker exec -it fail2ban fail2ban-client status <jail name>
+docker exec -it fail2ban fail2ban-client status traefik
 
 # Débannir une adresse IP
 docker exec -it fail2ban fail2ban-client set <jail name> unbanip <IP>
 docker exec -it fail2ban fail2ban-client set traefik unbanip 92.184.107.122
 fail2ban-client set traefik unbanip 92.184.107.94
 fail2ban-client set proxmox unbanip 192.168.10.10
+
 
 # Log Jail
 fail2ban-regex systemd-journal /etc/fail2ban/filter.d/proxmox.conf
