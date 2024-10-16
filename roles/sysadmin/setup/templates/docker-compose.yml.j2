@@ -1,0 +1,115 @@
+---
+services:
+  portainer-agent:
+    container_name: portainer-agent
+    image: portainer/agent:latest
+    restart: always
+    ports:
+      - 9001:9001
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes 
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - AGENT_SECRET="${AGENT_SECRET}"
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - monitoring
+
+  healthchecks:
+    container_name: healthchecks
+    image: lscr.io/linuxserver/healthchecks:latest
+    restart: unless-stopped
+    network_mode: host
+    # ports:
+    #  - 8000:8000
+    volumes:
+      - ./healthchecks/config:/config
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/Paris
+      - SITE_ROOT=https://healthchecks.allfabox.fr
+      - SITE_NAME=Allfabox Monitoring
+      - SUPERUSER_EMAIL=${HEALTHCHECKS_SUPERUSER_EMAIL}
+      - SUPERUSER_PASSWORD=${HEALTHCHECKS_SUPERUSER_PASSWORD}
+      - ALLOWED_HOSTS=healthchecks.allfabox.fr,192.168.10.60
+      - APPRISE_ENABLED=False
+      - CSRF_TRUSTED_ORIGINS=healthchecks.allfabox.fr
+      - DEBUG=True
+      - INTEGRATIONS_ALLOW_PRIVATE_IPS=False
+      - SECRET_KEY=${HEALTHCHECKS_SECRET_KEY}
+      # - SITE_LOGO_URL=
+
+  uptime-kuma:
+    container_name: uptime-kuma
+    image: louislam/uptime-kuma:1
+    restart: always
+    ports:
+      - 3001:3001
+    volumes:
+      - ./uptime-kuma/data:/app/data
+    networks:
+      - monitoring
+
+  nexterm:
+    container_name: nexterm
+    image: germannewsmaker/nexterm:1.0.1-OPEN-PREVIEW
+    restart: always
+    ports:
+      - 6989:6989
+    volumes:
+      - ./nexterm:/app/data
+    environment:
+      - TZ=Europe/Paris
+    networks:
+      - sysadmin
+  
+  dozzle:
+    container_name: dozzle
+    image: amir20/dozzle:latest    
+    ports:
+      - 8080:8080
+    volumes:
+      - ./dozzle:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+        - DOZZLE_HOSTNAME=mywebsite.xyz
+        - DOZZLE_ENABLE_ACTIONS=true
+        # - DOZZLE_REMOTE_AGENT=192.168.10.10:7007,192.168.10.20:7007,192.168.10.30:7007,192.168.10.40:7007,192.168.10.41:7007,,192.168.10.42:7007,192.168.10.43:7007,192.168.10.50:7007,192.168.10.60:7007,192.168.10.70:7007,192.168.10.80:7007
+        - DOZZLE_AUTH_PROVIDER=simple
+        - DOZZLE_AUTH_TTL=2h
+        # docker run amir20/dozzle generate admin --password password --email test@email.net --name "John Doe" > users.yml
+    networks:
+      - sysadmin
+
+  # dozzle-agent:
+  #   container_name: dozzle-agent
+  #   image: amir20/dozzle:latest
+  #   ports:
+  #     - 7007:7007
+  #   command: agent
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro
+  #   environment:
+  #     - DOZZLE_HOSTNAME=frontend-dozzle-agent  
+
+  it-tools:
+    container_name: it-tools
+    image: corentinth/it-tools:latest
+    restart: unless-stopped
+    ports:
+        - 9080:80
+    networks:
+      - sysadmin
+
+# docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 monitoring
+networks:
+  monitoring:
+    name: monitoring
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "172.18.0.0/16"
+          gateway: "172.18.0.1"

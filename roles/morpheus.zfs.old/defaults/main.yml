@@ -1,3 +1,0 @@
----
-ssh:
-  port: "{{ secret.ssh.port }}"

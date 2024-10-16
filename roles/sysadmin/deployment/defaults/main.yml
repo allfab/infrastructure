@@ -1,0 +1,34 @@
+---
+ssh:
+  port: "{{ secret.ssh.port }}"
+
+proxmox:
+  lxc:
+    - name: sysadmin
+      vmid: 160
+      cores: 2
+      disk: "local-zfs:16"
+      nesting: 1
+      keyctl: 0
+      fuse: 1
+      memory: 1024
+      nameserver: 192.168.0.253
+      ip: 192.168.10.60
+      gw: 192.168.10.1
+      unprivileged: false
+      description: |
+        <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
+
+        # Sysadmin LXC
+
+        <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a>
+        <a href="https://healthchecks.io/" target="_blank"><img src="https://img.shields.io/badge/healthchecks-22bc66?style=for-the-badge&logo=healthchecks&logoColor=white" /></a>
+        <a href="https://uptime.kuma.pet/" target="_blank"><img src="https://img.shields.io/badge/UptimeKuma-46b474?style=for-the-badge&logo=uptime-kuma&logoColor=white" /></a>
+        <a href="https://dozzle.dev/" target="_blank"><img src="https://img.shields.io/badge/dozzle-f2d584?style=for-the-badge&logo=dozzle&logoColor=white" /></a>
+        <a href="https://it-tools.tech/" target="_blank"><img src="https://img.shields.io/badge/it-tools-286b6c?style=for-the-badge&logo=it-tools&logoColor=white" /></a>
+        </div>
+      tags:
+        - sysadmin
+        - prod
+
+        

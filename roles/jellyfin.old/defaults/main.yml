@@ -1,7 +1,0 @@
----
-jellyfin:
-  apt:
-    repo_url: https://repo.jellyfin.org/
-    key:
-      url: https://repo.jellyfin.org/jellyfin_team.gpg.key
-      dest: /etc/apt/keyrings/jellyfin_team.gpg.key
