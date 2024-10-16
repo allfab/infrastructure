@@ -33,7 +33,7 @@ services:
       - ./jellyfin/config:/config
       - ./jellyfin/cache:/cache
       - /mnt/media/videos:/media
-      - /dev/shm/transcodes:/dev/shm/transcodes
+      - /tmp:/cache/transcodes
     environment:
       - JELLYFIN_PublishedServerUrl=http://jellyfin.allfabox.fr
     extra_hosts:

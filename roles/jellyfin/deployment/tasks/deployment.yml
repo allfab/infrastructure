@@ -43,10 +43,34 @@
   shell: pct set 140 --startup order=8
   delegate_to: 192.168.10.5
 
+- name: VÉRIFICATION DE LA PRÉSENCE DU RELAIS iGPU DANS LE FICHIER DE CONFIGURATION Jellyfin /etc/pve/lxc/140.conf
+  lineinfile:
+    path: "/etc/pve/lxc/140.conf"
+    regexp: "^lxc.cgroup2.devices.allow: c 226:0 rwm"
+    state: absent
+  check_mode: yes
+  changed_when: false
+  register: igpu_exists_140
+  delegate_to: 192.168.10.5
+
+- name: AJOUT DU RELAIS iGPU DANS LE FICHIER DE CONFIGURATION Jellyfin /etc/pve/lxc/140.conf
+  lineinfile:
+    dest: "/etc/pve/lxc/140.conf"
+    insertafter: EOF
+    line: |
+      lxc.cgroup2.devices.allow: c 226:0 rwm
+      lxc.cgroup2.devices.allow: c 226:128 rwm
+      lxc.mount.entry: /dev/dri/card0 dev/dri/card0 none bind,optional,create=file
+      lxc.mount.entry: /dev/dri/renderD128 dev/dri/renderD128 none bind,optional,create=file
+    unsafe_writes: yes
+  when: not igpu_exists_140.found
+  delegate_to: 192.168.10.5
+
 - name: AJOUT DES POINTS DE MONTAGE SUR LE CONTENEUR LXC
   command: "{{ item }}"
   with_items:
     - "pct set 140 -mp0 /mnt/storage/media/videos,mp=/mnt/media/videos"
+    - "pct set 140 -mp1 /mnt/storage/media/videos,mp=/mnt/media/videos"
   delegate_to: 192.168.10.5
 
 - name: DÉMARRAGE DU CONTENEUR LXC
