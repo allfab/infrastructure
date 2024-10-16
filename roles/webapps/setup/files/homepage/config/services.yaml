@@ -64,12 +64,12 @@
         href: https://portainer.allfabox.fr
         description: Frontend
         icon: sh-portainer
-        siteMonitor: https://portainer.allfabox.fr
+        siteMonitor: http://192.168.10.10:9000
         widget:
             type: portainer
-            url: https://portainer.allfabox.fr
+            url: http://192.168.10.10:9000
             env: 1
-            key: "{{HOMEPAGE_VAR_PORTAINER_TOKEN}}"
+            key: {{HOMEPAGE_VAR_PORTAINER_TOKEN}}
     - Pi-Hole:
         href: https://pihole.allfabox.fr
         description: DNS 
@@ -84,7 +84,7 @@
         href: https://traefik.allfabox.fr
         description: Reverse-Proxy
         icon: sh-traefik
-        siteMonitor: https://traefik.allfabox.fr
+        siteMonitor: https://192.168.1.1
         widget:
             type: traefik
             url: http://192.168.10.10:8080
