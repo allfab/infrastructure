@@ -1,0 +1,49 @@
+http:
+  routers:
+    healthchecks:
+      entryPoints:
+        - websecure
+      rule: 'Host(`healthchecks.allfabox.fr`)'
+      service: healthchecks
+    dozzle:
+      entryPoints:
+        - websecure
+      rule: 'Host(`dozzle.allfabox.fr`)'
+      service: dozzle
+    uptime-kuma:
+      entryPoints:
+        - websecure
+      rule: 'Host(`uptimekuma.allfabox.fr`)'
+      service: uptime-kuma
+    nexterm:
+      entryPoints:
+        - websecure
+      rule: 'Host(`nexterm.allfabox.fr`)'
+      service: nexterm
+    it-tools:
+      entryPoints:
+        - websecure
+      rule: 'Host(`ittools.allfabox.fr`)'
+      service: it-tools
+    
+  services:
+    healthchecks:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.60:8000
+    dozzle:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.60:8080
+    uptime-kuma:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.60:3001
+    nexterm:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.60:6989
+    it-tools:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.60:9080
