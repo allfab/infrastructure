@@ -74,7 +74,13 @@ webapps-setup:
 webapps_old:
   ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit webapps --tags setup
 
-monitoring:
+sysadmin-deployment:
+  ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit sysadmin --tags deployment
+
+sysadmin-setup:
+  ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit sysadmin --tags setup
+
+monitoring_old:
   ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit monitoring --tags setup
 
 communication:
