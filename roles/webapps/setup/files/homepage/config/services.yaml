@@ -52,7 +52,7 @@
         href: https://neo-pbs.allfabox.fr
         description: Proxmox
         icon: sh-proxmox
-        siteMonitor: https://neo-pbs.allfabox.fr
+        siteMonitor: https://192.168.10.6:8007
         widget:
             type: proxmoxbackupserver
             url: https://192.168.10.6:8007
@@ -84,7 +84,7 @@
         href: https://traefik.allfabox.fr
         description: Reverse-Proxy
         icon: sh-traefik
-        siteMonitor: https://192.168.1.1
+        siteMonitor: http://192.168.10.10:8080
         widget:
             type: traefik
             url: http://192.168.10.10:8080
@@ -193,7 +193,7 @@
         href: https://jellystat.allfabox.fr
         description: Statistiques Jellyfin
         icon: sh-jellystat
-        siteMonitor: http://192.168.10.60:3000
+        siteMonitor: http://192.168.10.50:3001
 
 - Monitoring:
     - NTFY:

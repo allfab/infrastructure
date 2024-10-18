@@ -14,6 +14,6 @@
   copy:
     src: filebrowser/.filebrowser.json
     dest: /opt/docker/webapps-stack/filebrowser/.filebrowser.json
-    mode: "{{ docker.compose.directory_mask }}"
+    mode: "{{ docker.compose.file_mask }}"
     owner: "{{ secret.users.me.uid }}"
     group: "{{ secret.users.me.gid }}"
