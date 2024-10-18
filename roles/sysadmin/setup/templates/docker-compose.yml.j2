@@ -51,7 +51,7 @@ services:
       - ./dozzle:/data
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
-        - DOZZLE_HOSTNAME=Allfabox.fr - Sysadmin
+        - DOZZLE_HOSTNAME=Sysadmin
         - DOZZLE_ENABLE_ACTIONS=true
         # - DOZZLE_REMOTE_AGENT=192.168.10.10:7007,192.168.10.20:7007,192.168.10.30:7007,192.168.10.40:7007,192.168.10.41:7007,192.168.10.42:7007,192.168.10.43:7007,192.168.10.50:7007,192.168.10.60:7007,192.168.10.70:7007,192.168.10.80:7007
         - DOZZLE_AUTH_PROVIDER=simple
@@ -105,7 +105,7 @@ services:
   #   volumes:
   #     - /var/run/docker.sock:/var/run/docker.sock:ro
   #   environment:
-  #     - DOZZLE_HOSTNAME=frontend-dozzle-agent
+  #     - DOZZLE_HOSTNAME=Frontend
 
 # docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 sysadmin
 networks:

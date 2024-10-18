@@ -47,6 +47,9 @@
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR healthchecks
   include_tasks: docker/containers/healthchecks.yml
 
+- name: INSTALLATION/CONFIGURATION DU CONTENEUR dozzle
+  include_tasks: docker/containers/dozzle.yml
+
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR uptime-kuma
   include_tasks: docker/containers/uptime-kuma.yml
 
