@@ -39,10 +39,6 @@
   loop: "{{ proxmox.lxc }}"
   delegate_to: 192.168.10.5
   
-- name: DÉFINITION DE L'ORDRE DE DÉMARRAGE DU CONTENEUR LXC
-  shell: pct set 140 --startup order=8
-  delegate_to: 192.168.10.5
-
 - name: VÉRIFICATION DE LA PRÉSENCE DU RELAIS iGPU DANS LE FICHIER DE CONFIGURATION Jellyfin /etc/pve/lxc/140.conf
   lineinfile:
     path: "/etc/pve/lxc/140.conf"
@@ -71,6 +67,10 @@
   with_items:
     - "pct set 140 -mp0 /mnt/storage/media/videos,mp=/mnt/media/videos"
     - "pct set 140 -mp1 /mnt/storage/media/videos,mp=/mnt/media/videos"
+  delegate_to: 192.168.10.5
+
+- name: DÉFINITION DE L'ORDRE DE DÉMARRAGE DU CONTENEUR LXC
+  shell: pct set 140 --startup order=4
   delegate_to: 192.168.10.5
 
 - name: DÉMARRAGE DU CONTENEUR LXC
