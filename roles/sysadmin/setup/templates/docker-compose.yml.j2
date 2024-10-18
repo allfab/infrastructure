@@ -15,7 +15,7 @@ services:
     security_opt:
       - no-new-privileges:true
     networks:
-      - monitoring
+      - sysadmin
 
   healthchecks:
     container_name: healthchecks
@@ -42,30 +42,6 @@ services:
       - SECRET_KEY=${HEALTHCHECKS_SECRET_KEY}
       # - SITE_LOGO_URL=
 
-  uptime-kuma:
-    container_name: uptime-kuma
-    image: louislam/uptime-kuma:1
-    restart: always
-    ports:
-      - 3001:3001
-    volumes:
-      - ./uptime-kuma/data:/app/data
-    networks:
-      - monitoring
-
-  nexterm:
-    container_name: nexterm
-    image: germannewsmaker/nexterm:1.0.1-OPEN-PREVIEW
-    restart: always
-    ports:
-      - 6989:6989
-    volumes:
-      - ./nexterm:/app/data
-    environment:
-      - TZ=Europe/Paris
-    networks:
-      - sysadmin
-  
   dozzle:
     container_name: dozzle
     image: amir20/dozzle:latest    
@@ -75,12 +51,45 @@ services:
       - ./dozzle:/data
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
-        - DOZZLE_HOSTNAME=mywebsite.xyz
+        - DOZZLE_HOSTNAME=Allfabox.fr
         - DOZZLE_ENABLE_ACTIONS=true
-        # - DOZZLE_REMOTE_AGENT=192.168.10.10:7007,192.168.10.20:7007,192.168.10.30:7007,192.168.10.40:7007,192.168.10.41:7007,,192.168.10.42:7007,192.168.10.43:7007,192.168.10.50:7007,192.168.10.60:7007,192.168.10.70:7007,192.168.10.80:7007
+        # - DOZZLE_REMOTE_AGENT=192.168.10.10:7007,192.168.10.20:7007,192.168.10.30:7007,192.168.10.40:7007,192.168.10.41:7007,192.168.10.42:7007,192.168.10.43:7007,192.168.10.50:7007,192.168.10.60:7007,192.168.10.70:7007,192.168.10.80:7007
         - DOZZLE_AUTH_PROVIDER=simple
         - DOZZLE_AUTH_TTL=2h
         # docker run amir20/dozzle generate admin --password password --email test@email.net --name "John Doe" > users.yml
+    networks:
+      - sysadmin
+
+  uptime-kuma:
+    container_name: uptime-kuma
+    image: louislam/uptime-kuma:1
+    restart: always
+    ports:
+      - 3001:3001
+    volumes:
+      - ./uptime-kuma/data:/app/data
+    networks:
+      - sysadmin
+
+  nexterm:
+    container_name: nexterm
+    image: germannewsmaker/nexterm:1.0.1-OPEN-PREVIEW
+    restart: always
+    ports:
+      - 6989:6989
+    volumes:
+      - ./nexterm/data:/app/data
+    environment:
+      - TZ=Europe/Paris
+    networks:
+      - sysadmin
+
+  it-tools:
+    container_name: it-tools
+    image: corentinth/it-tools:latest
+    restart: unless-stopped
+    ports:
+      - 9080:80
     networks:
       - sysadmin
 
@@ -93,21 +102,12 @@ services:
   #   volumes:
   #     - /var/run/docker.sock:/var/run/docker.sock:ro
   #   environment:
-  #     - DOZZLE_HOSTNAME=frontend-dozzle-agent  
+  #     - DOZZLE_HOSTNAME=frontend-dozzle-agent
 
-  it-tools:
-    container_name: it-tools
-    image: corentinth/it-tools:latest
-    restart: unless-stopped
-    ports:
-        - 9080:80
-    networks:
-      - sysadmin
-
-# docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 monitoring
+# docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 sysadmin
 networks:
-  monitoring:
-    name: monitoring
+  sysadmin:
+    name: sysadmin
     driver: bridge
     ipam:
       config:

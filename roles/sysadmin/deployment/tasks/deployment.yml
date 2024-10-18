@@ -40,14 +40,7 @@
   delegate_to: 192.168.10.5
   
 - name: DÉFINITION DE L'ORDRE DE DÉMARRAGE DU CONTENEUR LXC
-  shell: pct set 150 --startup order=8
-  delegate_to: 192.168.10.5
-
-- name: AJOUT DES POINTS DE MONTAGE SUR LE CONTENEUR LXC
-  command: "{{ item }}"
-  with_items:
-    - "pct set 150 -mp0 /mnt/storage,mp=/mnt/storage"
-    - "pct set 150 -mp1 /mnt/freebox,mp=/mnt/freebox"
+  shell: pct set 160 --startup order=9
   delegate_to: 192.168.10.5
 
 - name: DÉMARRAGE DU CONTENEUR LXC
@@ -58,7 +51,7 @@
     api_password: "{{ secret.proxmox.morpheus.api.password }}"
     api_token_id: "{{ secret.proxmox.morpheus.api.token_id }}"
     api_token_secret: "{{ secret.proxmox.morpheus.api.token_secret }}"
-    vmid: 150
+    vmid: 160
     state: "started"
     timeout: 90
   delegate_to: 192.168.10.5
