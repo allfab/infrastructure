@@ -1,0 +1,21 @@
+---
+- name: CHARGEMENT DES VARIABLES PAR DÉFAUT
+  include_vars: defaults/main.yml
+
+- name: DOZZLE - CRÉATION DU RÉPERTOIRE D'INSTALLATION/CONFIGURATION
+  file:
+    path: "/opt/docker/sysadmin-stack/{{ item }}"
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+  loop:
+    - dozzle
+
+- name: DOZZLE - COPIE DU FICHIER DE CONFIGURATION DES UTILISATEURS
+  template:
+    src: dozzle/users.yml.j2
+    dest: /opt/docker/sysadmin-stack/dozzle/
+    mode: "{{ docker.compose.file_mask }}"
+    owner: "{{ secret.users.me.name }}"
+    group: "{{ secret.users.me.gid }}"
