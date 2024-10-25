@@ -1,0 +1,13 @@
+http:
+  routers:
+    pihole:
+      entryPoints:
+        - websecure
+      rule: 'Host(`pihole.allfabox.fr`) && (PathPrefix(`/admin/`)) || (PathPrefix(`/admin`))'
+      service: pihole
+  
+  services:
+    pihole:
+      loadBalancer:
+        servers:
+          - url: http://192.168.0.253/admin
