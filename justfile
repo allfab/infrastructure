@@ -41,10 +41,14 @@ neo-lnxlink:
 morpheus-destroy-infra:
   ansible-playbook -i hosts.ini run.yml --limit morpheus --tags "destroy-infra, morpheus-destroy-infra"
 
-# frontend:
-#   ansible-playbook -i hosts.ini run.yml --limit frontend --tags setup
 
-frontend:
+frontend-deployment:
+  ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit webapps --tags deployment
+
+frontend-setup:
+  ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit webapps --tags setup
+
+frontend_old:
   ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit frontend --tags setup
 
 elephant:
