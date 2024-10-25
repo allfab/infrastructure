@@ -1,0 +1,57 @@
+---
+- name: CHARGEMENT DES VARIABLES
+  include_vars: defaults/main.yml
+
+- name: CRÉATION DES CONTENEUR LXC
+  proxmox:
+    proxmox_default_behavior: no_defaults
+    node: morpheus
+    api_host: 192.168.10.5
+    api_user: root@pam
+    api_password: "{{ secret.proxmox.morpheus.api.password }}"
+    api_token_id: "{{ secret.proxmox.morpheus.api.token_id }}"
+    api_token_secret: "{{ secret.proxmox.morpheus.api.token_secret }}"
+    vmid: "{{ item.vmid }}"
+    cores: "{{ item.cores }}"
+    cpus: "1"
+    cpuunits: "1000"
+    description: |
+      {{ item.description }}
+    disk: "{{ item.disk }}"
+    features:
+      - fuse={{ item.fuse | default ('0') }}
+      - keyctl={{ item.keyctl | default ('0') }}
+      - nesting={{ item.nesting | default ('1') }}
+    hostname: "{{ item.name }}"
+    memory: "{{ item.memory }}"
+    nameserver: "{{ item.nameserver | default ('192.168.0.253') }}"
+    netif: "{'net0':'name=eth0,ip={{ item.ip }}/24,gw={{ item.gw }},bridge={{ item.bridge | default ('vmbr0') }},firewall={{ item.firewall | default ('1') }}'}"
+    onboot: "{{ item.onboot | default ('true') }}"
+    ostemplate: "{{ item.ostemplate | default ('iso-morpheus:vztmpl/debian-12-standard_12.7-1_amd64.tar.zst') }}"
+    password: "{{ secret.users.lxc.ssh.password }}"
+    pubkey: "{{ secret.users.me.ssh.pubkey }}"
+    storage: local-zfs
+    swap: "{{ item.swap | default ('512') }}"
+    tags: "{{ item.tags }}"
+    timezone: "{{ timezone }}"
+    unprivileged: "{{ item.unprivileged | default ('true') }}"
+    state: present
+  loop: "{{ proxmox.lxc }}"
+  delegate_to: 192.168.10.5
+  
+- name: DÉFINITION DE L'ORDRE DE DÉMARRAGE DU CONTENEUR LXC
+  shell: pct set 110 --startup order=8
+  delegate_to: 192.168.10.5
+
+- name: DÉMARRAGE DU CONTENEUR LXC
+  community.general.proxmox:
+    node: morpheus
+    api_host: 192.168.10.5
+    api_user: root@pam
+    api_password: "{{ secret.proxmox.morpheus.api.password }}"
+    api_token_id: "{{ secret.proxmox.morpheus.api.token_id }}"
+    api_token_secret: "{{ secret.proxmox.morpheus.api.token_secret }}"
+    vmid: 110
+    state: "started"
+    timeout: 90
+  delegate_to: 192.168.10.5

@@ -1,0 +1,35 @@
+---
+ssh:
+  port: "{{ secret.ssh.port }}"
+
+proxmox:
+  lxc:
+    - name: frontend
+      vmid: 110
+      cores: 2
+      disk: "local-zfs:16"
+      nesting: 1
+      keyctl: 1
+      fuse: 1
+      memory: 1024
+      swap: 1024
+      nameserver: 192.168.0.253
+      ip: 192.168.10.10
+      gw: 192.168.10.1
+      unprivileged: false
+      description: |
+        <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
+
+        # Frontend LXC
+
+        <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a>
+        <a href="https://www.docker.com/" target="_blank"><img src="https://img.shields.io/badge/Docker-526CFE?style=for-the-badge&logo=Docker&logoColor=white" /></a><br />
+        <a href="https://www.authelia.com/" target="_blank"><img src="https://img.shields.io/badge/Authelia-4f2872?style=for-the-badge&logo=Authelia&logoColor=white" /></a>
+        <a href="https://www.portainer.io/" target="_blank"><img src="https://img.shields.io/badge/Portainer-0ba5ec?style=for-the-badge&logo=Portainer&logoColor=white" /></a>
+        <a href="https://traefik.io/" target="_blank"><img src="https://img.shields.io/badge/Traefik-000000?style=for-the-badge&logo=Traefik&logoColor=white" /></a><br />
+        <a href="https://headscale.net/" target="_blank"><img src="https://img.shields.io/badge/headscale-facbdb?style=for-the-badge&logo=headscale&logoColor=white" /></a>
+        <a href="https://tailscale.com/" target="_blank"><img src="https://img.shields.io/badge/tailscale-815500?style=for-the-badge&logo=tailscale&logoColor=white" /></a>
+        </div>
+      tags:
+        - frontend
+        - prod
