@@ -71,7 +71,7 @@
             env: 1
             key: {{HOMEPAGE_VAR_PORTAINER_TOKEN}}
     - Pi-Hole:
-        href: https://pihole.allfabox.fr
+        href: https://pihole.allfabox.fr/admin
         description: DNS 
         icon: sh-pi-hole
         siteMonitor: http://192.168.0.253
