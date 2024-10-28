@@ -3,7 +3,7 @@ http:
     pihole:
       entryPoints:
         - websecure
-      rule: 'Host(`pihole.allfabox.fr`) && (PathPrefix(`/admin/`)) || (PathPrefix(`/admin`))'
+      rule: 'Host(`pihole.allfabox.fr`)'
       service: pihole
   
   services:
