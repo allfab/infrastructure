@@ -24,7 +24,7 @@
           description: Gestion des solutions GEO
           icon: /icons/geo-logo.png
     - GEO Setup:
-        - href: https://geoservices.business-geografic.com/solutions/
+        - href: https://geoservices.business-geografic.com/cadastre/setup
           description: Gestion de GEO Cadastre/Zonages
           icon: /icons/geo-solutions.png
 
