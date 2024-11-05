@@ -1,0 +1,33 @@
+---
+- name: CHARGEMENT DES VARIABLES
+  include_vars: defaults/main.yml
+
+- name: INSTALLATION DES PAQUETS 7zip
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - python3-psycopg2
+
+- name: GARMIN-IGN-BDTOPO-MAP - CRÉATION DU SCHEMA bdtopo DANS LA BDD ign
+  community.postgresql.postgresql_schema:
+    db: ign
+    name: bdtopo
+    login_host: "192.168.10.20"
+    login_user: "{{ secret.users.me.name }}"
+    login_password: "{{ secret.users.me.password }}"
+    port: 5432
+    comment: "Schéma contenant la BDTOPO version {{ ign.bdtopo.version }}"
+
+- name: GARMIN-IGN-BDTOPO-MAP - EXÉCUTION DE LA REQUÊTE SQL EN UTILISANT l'ENCODAGE CLIENT UTF-8
+  community.postgresql.postgresql_script:
+    db: ign
+    search_path: bdtopo
+    login_host: "192.168.10.20"
+    login_user: "{{ secret.users.me.name }}"
+    login_password: "{{ secret.users.me.password }}"
+    port: 5432
+    path: "{{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/{{ item }}"
+    encoding: UTF-8
+  with_items:
+    - ADMINISTRATIF/commune.sql

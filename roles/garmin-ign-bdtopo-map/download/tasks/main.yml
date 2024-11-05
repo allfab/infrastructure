@@ -1,0 +1,71 @@
+---
+- name: CHARGEMENT DES VARIABLES
+  include_vars: defaults/main.yml
+
+- name: INSTALLATION DES PAQUETS 7zip
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - p7zip
+    - p7zip-full
+
+- name: "ON S'ASSURE QUE LE DOSSIER {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }} EXISTE"
+  ansible.builtin.file:
+    path: "{{ ign.bdtopo.directory}}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}"
+    state: directory
+    mode: 0755
+    owner: postgres
+    group: postgres
+
+- name: GARMIN-IGN-BDTOPO-MAP - ON S'ASSURE QUE LES FICHIERS N'EXISTENT PAS DÉJÀ
+  stat:
+    path: "{{ ign.bdtopo.directory}}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/{{ item.name }}"
+  register: files_stat_results
+  with_items: "{{ ign.bdtopo.download.file }}"
+  ignore_errors: True
+
+- name: GARMIN-IGN-BDTOPO-MAP - TÉLÉCHARGEMENT DE LA BDTOPO AU FORMAT SQL (PostgreSQL) SI LES FICHIERS N'EXISTENT PAS
+  ansible.builtin.get_url:
+    url: "{{ item.item.url }}"
+    dest: "{{ ign.bdtopo.directory}}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}"
+    mode: 0755
+    owner: postgres
+    group: postgres
+  with_items: "{{ files_stat_results.results }}"
+  when: item.stat.exists == False
+
+- name: GARMIN-IGN-BDTOPO-MAP - ON TESTE SI LES DOSSIERS ONT DÉJÀ ÉTÉ EXTRAITS
+  stat:
+    path: "{{ ign.bdtopo.directory}}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/{{ item }}"
+  register: themes_stat_results
+  with_items:
+    - ADMINISTRATIF
+    - BATI
+    - HYDROGRAPHIE
+    - LIEUX_NOMMES
+    - OCCUPATION_DU_SOL
+    - SERVICES_ET_ACTIVITES
+    - TRANSPORT
+    - ZONES_REGLEMENTEES
+  ignore_errors: True
+
+- name: "GARMIN-IGN-BDTOPO-MAP - EXTRACTION DES DONNÉES SQL PAR THÈMATIQUE"
+  ansible.builtin.shell: "7z e {{ ign.bdtopo.directory}}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/BDTOPO_3-4_TOUSTHEMES_SQL_WGS84G_FRA_2024-09-15.7z.001 -r -aoa -o{{ ign.bdtopo.directory}}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/{{ item.item }} {{ item.item }} && rm -Rf {{ ign.bdtopo.directory}}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/{{ item.item }}/{{ item.item }}"
+  with_items: "{{ themes_stat_results.results }}"
+  when: item.stat.exists == False
+
+- name: GARMIN-IGN-BDTOPO-MAP - SUPPRESSIONS DES FICHIERS SQL VOLUMINEUX INUTILES
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
+  with_items: 
+    - "{{ ign.bdtopo.directory}}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/BATI/batiment_rnb_lien_bdtopo.sql"
+
+- name: "GARMIN-IGN-BDTOPO-MAP - CHANGEMENT DES DROITS UTILISATEUR SUR L'ENSEMBLE DU DOSSIER {{ ign.bdtopo.directory}}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}"
+  file:
+    dest: "{{ ign.bdtopo.directory}}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}"
+    mode: 0755
+    owner: postgres
+    group: postgres
+    recurse: true

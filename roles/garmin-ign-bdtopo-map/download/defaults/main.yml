@@ -1,0 +1,30 @@
+---
+# grog.package
+package_list:
+  - name: p7zip
+  - name: p7zip-full
+
+ign:
+  bdtopo:
+    directory: "/home/postgres/ign/bdtopo"
+    edition: "2024-09-15"
+    version: "v2024.09"
+    territory: "france"
+    download:
+      file:
+        - name: BDTOPO_3-4_TOUSTHEMES_SQL_WGS84G_FRA_2024-09-15.7z.001
+          url: https://data.geopf.fr/telechargement/download/BDTOPO/BDTOPO_3-4_TOUSTHEMES_SQL_WGS84G_FRA_2024-09-15/BDTOPO_3-4_TOUSTHEMES_SQL_WGS84G_FRA_2024-09-15.7z.001
+        - name: BDTOPO_3-4_TOUSTHEMES_SQL_WGS84G_FRA_2024-09-15.7z.002
+          url: https://data.geopf.fr/telechargement/download/BDTOPO/BDTOPO_3-4_TOUSTHEMES_SQL_WGS84G_FRA_2024-09-15/BDTOPO_3-4_TOUSTHEMES_SQL_WGS84G_FRA_2024-09-15.7z.002
+        - name: BDTOPO_3-4_TOUSTHEMES_SQL_WGS84G_FRA_2024-09-15.7z.003
+          url: https://data.geopf.fr/telechargement/download/BDTOPO/BDTOPO_3-4_TOUSTHEMES_SQL_WGS84G_FRA_2024-09-15/BDTOPO_3-4_TOUSTHEMES_SQL_WGS84G_FRA_2024-09-15.7z.003
+        - name: BDTOPO_3-4_TOUSTHEMES_SQL_WGS84G_FRA_2024-09-15.7z.004
+          url: https://data.geopf.fr/telechargement/download/BDTOPO/BDTOPO_3-4_TOUSTHEMES_SQL_WGS84G_FRA_2024-09-15/BDTOPO_3-4_TOUSTHEMES_SQL_WGS84G_FRA_2024-09-15.7z.004
+        - name: BDTOPO_3-4_TOUSTHEMES_SQL_WGS84G_FRA_2024-09-15.7z.005
+          url: https://data.geopf.fr/telechargement/download/BDTOPO/BDTOPO_3-4_TOUSTHEMES_SQL_WGS84G_FRA_2024-09-15/BDTOPO_3-4_TOUSTHEMES_SQL_WGS84G_FRA_2024-09-15.7z.005
+        - name: BDTOPO_3-4_TOUSTHEMES_SQL_WGS84G_FRA_2024-09-15.7z.006
+          url: https://data.geopf.fr/telechargement/download/BDTOPO/BDTOPO_3-4_TOUSTHEMES_SQL_WGS84G_FRA_2024-09-15/BDTOPO_3-4_TOUSTHEMES_SQL_WGS84G_FRA_2024-09-15.7z.006
+        - name: BDTOPO_3-4_TOUSTHEMES_SQL_WGS84G_FRA_2024-09-15.7z.007
+          url: https://data.geopf.fr/telechargement/download/BDTOPO/BDTOPO_3-4_TOUSTHEMES_SQL_WGS84G_FRA_2024-09-15/BDTOPO_3-4_TOUSTHEMES_SQL_WGS84G_FRA_2024-09-15.7z.007
+        - name: BDTOPO_3-4_TOUSTHEMES_SQL_WGS84G_FRA_2024-09-15.7z.008
+          url: https://data.geopf.fr/telechargement/download/BDTOPO/BDTOPO_3-4_TOUSTHEMES_SQL_WGS84G_FRA_2024-09-15/BDTOPO_3-4_TOUSTHEMES_SQL_WGS84G_FRA_2024-09-15.7z.008

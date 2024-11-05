@@ -1,0 +1,7 @@
+---
+ign:
+  bdtopo:
+    directory: "/home/postgres/ign/bdtopo"
+    edition: "2024-09-15"
+    version: "v2024.09"
+    territory: "france"
