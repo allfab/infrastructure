@@ -90,6 +90,9 @@ monitoring_old:
 communication:
   ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit communication --tags setup
 
+morpheus-garmin:
+  ansible-playbook -i hosts.ini run.yml --limit morpheus --tags garmin-ign-bdtopo-map
+
 vps-frontend:
   ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab-vps-hetzner --limit hetzner --tags setup
 

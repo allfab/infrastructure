@@ -456,6 +456,14 @@
     - role: vps/frontend
       become: true
 
+- hosts: morpheus
+  tags: garmin-ign-bdtopo-map
+  vars_files:
+    - vars/vault.yml
+  roles:
+    # - role: garmin-ign-bdtopo-map/download
+    - role: garmin-ign-bdtopo-map/initdb
+
 # - hosts: morpheus
 #   tags: destroy-infra
 #   vars_files:
