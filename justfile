@@ -93,6 +93,9 @@ communication:
 morpheus-garmin:
   ansible-playbook -i hosts.ini run.yml --limit morpheus --tags garmin-ign-bdtopo-map
 
+elephant-garmin:
+  ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit elephant --tags garmin-ign-bdtopo-map
+
 vps-frontend:
   ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab-vps-hetzner --limit hetzner --tags setup
 
