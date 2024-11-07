@@ -1,0 +1,30 @@
+---
+- name: CHARGEMENT DES VARIABLES PAR DÉFAUT
+  include_vars: defaults/main.yml
+
+- name: UTILISATEUR postgres
+  include_tasks: includes/user.yml
+
+- name: INSTALLATION DE PostgreSQL
+  include_tasks: includes/setup.yml
+
+- name: INITIALISATION DE PostgreSQL
+  include_tasks: includes/initialize.yml
+
+- name: CONFIGURATION DE PostgreSQL
+  include_tasks: includes/configure.yml
+
+- name: RÔLE(S) DE PostgreSQL
+  include_tasks: includes/roles.yml
+
+- name: CRÉATION DES MODÈLES DE BASES DE DONNÉES PostgreSQL
+  include_tasks: includes/templates.yml
+
+- name: AJOUT DES EXTENSIONS PostgreSQL
+  include_tasks: includes/extensions.yml
+
+- name: CRÉATION DES BASES DE DONNÉES PostgreSQL
+  include_tasks: includes/databases.yml
+
+- name: PGTune PostgreSQL
+  include_tasks: includes/pgtune.yml

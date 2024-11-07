@@ -1,0 +1,51 @@
+---
+# https://pgtune.leopard.in.ua/?dbVersion=16&osType=linux&dbType=mixed&cpuNum=4&totalMemory=32&totalMemoryUnit=GB&connectionNum=20&hdType=ssd
+- name: PGTune calcule la configuration pour PostgreSQL en fonction des performances maximales pour une configuration matérielle donnée
+  lineinfile:
+    dest: "{{ postgresql.directories.config }}/postgresql.conf"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    mode: 0644
+    state: present
+  with_items: 
+    - regexp: "max_connections = 100"
+      line: "max_connections = 50"
+    - regexp: "shared_buffers = 128MB"
+      line: "shared_buffers = 4GB"
+    - regexp: "#effective_cache_size = 4GB"
+      line: "effective_cache_size = 12GB"
+    - regexp: "#maintenance_work_mem = 64MB"
+      line: "maintenance_work_mem = 1GB"
+    - regexp: "#checkpoint_completion_target = 0.9"
+      line: "checkpoint_completion_target = 0.9"
+    - regexp: "#wal_buffers = -1"
+      line: "wal_buffers = 16MB"
+    - regexp: "#default_statistics_target = 100"
+      line: "default_statistics_target = 500"
+    - regexp: "#random_page_cost = 4.0"
+      line: "random_page_cost = 1.1"
+    - regexp: "#effective_io_concurrency = 1"
+      line: "effective_io_concurrency = 200"
+    - regexp: "#work_mem = 4MB"
+      line: "work_mem = 52428kB"
+    - regexp: "huge_pages = off"
+      line: "huge_pages = off"
+    - regexp: "min_wal_size = 80MB"
+      line: "min_wal_size = 1GB"
+    - regexp: "max_wal_size = 1GB"
+      line: "max_wal_size = 4GB"
+    - regexp: "#max_worker_processes = 8"
+      line: "max_worker_processes = 4"
+    - regexp: "#max_parallel_workers_per_gather = 2"
+      line: "max_parallel_workers_per_gather = 2"
+    - regexp: "#max_parallel_workers = 8"
+      line: "max_parallel_workers = 4"
+    - regexp: "#max_parallel_maintenance_workers = 2"
+      line: "max_parallel_maintenance_workers = 2"
+  become: true
+
+- name: "REDÉMARRAGE DE PostgreSQL"
+  service:
+    name: postgresql
+    state: restarted
+  become: true

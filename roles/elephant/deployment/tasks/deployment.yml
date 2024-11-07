@@ -1,0 +1,63 @@
+---
+- name: CHARGEMENT DES VARIABLES
+  include_vars: defaults/main.yml
+
+- name: CRÉATION DES CONTENEUR LXC
+  proxmox:
+    proxmox_default_behavior: no_defaults
+    node: morpheus
+    api_host: 192.168.10.5
+    api_user: root@pam
+    api_password: "{{ secret.proxmox.morpheus.api.password }}"
+    api_token_id: "{{ secret.proxmox.morpheus.api.token_id }}"
+    api_token_secret: "{{ secret.proxmox.morpheus.api.token_secret }}"
+    vmid: "{{ proxmox.lxc.vmid }}"
+    cores: "{{ proxmox.lxc.cores }}"
+    cpus: "1"
+    cpuunits: "1000"
+    description: |
+      {{ proxmox.lxc.description }}
+    disk: "{{ proxmox.lxc.disk }}"
+    features:
+      - fuse={{ proxmox.lxc.fuse | default ('0') }}
+      - keyctl={{ proxmox.lxc.keyctl | default ('0') }}
+      - nesting={{ proxmox.lxc.nesting | default ('1') }}
+    hostname: "{{ proxmox.lxc.name }}"
+    memory: "{{ proxmox.lxc.memory }}"
+    nameserver: "{{ proxmox.lxc.nameserver | default ('192.168.0.253') }}"
+    netif: "{'net0':'name=eth0,ip={{ proxmox.lxc.ip }}/24,gw={{ proxmox.lxc.gw }},bridge={{ proxmox.lxc.bridge | default ('vmbr0') }},firewall={{ proxmox.lxc.firewall | default ('1') }}'}"
+    onboot: "{{ proxmox.lxc.onboot | default ('true') }}"
+    ostemplate: "{{ proxmox.lxc.ostemplate | default ('iso-morpheus:vztmpl/debian-12-standard_12.7-1_amd64.tar.zst') }}"
+    password: "{{ secret.users.lxc.ssh.password }}"
+    pubkey: "{{ secret.users.me.ssh.pubkey }}"
+    storage: local-zfs
+    swap: "{{ proxmox.lxc.swap | default ('512') }}"
+    tags: "{{ proxmox.lxc.tags }}"
+    timezone: "{{ timezone }}"
+    unprivileged: "{{ proxmox.lxc.unprivileged | default ('true') }}"
+    state: present
+  delegate_to: 192.168.10.5
+  
+- name: DÉFINITION DE L'ORDRE DE DÉMARRAGE DU CONTENEUR LXC
+  shell: "pct set {{ proxmox.lxc.vmid }} --startup order=2"
+  delegate_to: 192.168.10.5
+
+- name: AJOUT DES POINTS DE MONTAGE SUR LE CONTENEUR LXC
+  command: "{{ item }}"
+  with_items:
+    - "pct set {{ proxmox.lxc.vmid }} -mp0 /home/postgres,mp=/home/postgres"
+  delegate_to: 192.168.10.5
+
+- name: DÉMARRAGE DU CONTENEUR LXC
+  community.general.proxmox:
+    node: morpheus
+    api_host: 192.168.10.5
+    api_user: root@pam
+    api_password: "{{ secret.proxmox.morpheus.api.password }}"
+    api_token_id: "{{ secret.proxmox.morpheus.api.token_id }}"
+    api_token_secret: "{{ secret.proxmox.morpheus.api.token_secret }}"
+    vmid: "{{ proxmox.lxc.vmid }}"
+    state: "started"
+    timeout: 90
+  with_items: "{{ proxmox.lxc }}"
+  delegate_to: 192.168.10.5

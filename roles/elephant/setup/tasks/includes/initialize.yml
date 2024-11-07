@@ -1,0 +1,10 @@
+---
+- name: VÉRIFICATION DE L'INITIALISATION DU CLUSTER PostgreSQL
+  stat:
+    path: "{{ postgresql.directories.datadir }}"
+  register: postgresql_directory_data
+
+- name: VÉRIFICATION DE L'INITIALISATION DU CLUSTER PostgreSQL
+  stat:
+    path: "{{ postgresql.directories.log }}"
+  register: postgresql_directory_log

@@ -1,0 +1,32 @@
+---
+ssh:
+  port: "{{ secret.ssh.port }}"
+
+proxmox:
+  lxc:
+    name: elephant
+    vmid: 120
+    cores: 4
+    disk: "local-zfs:128"
+    nesting: 1
+    keyctl: 0
+    fuse: 0
+    memory: 16384
+    swap: 1024
+    nameserver: 192.168.0.253
+    ip: 192.168.10.20
+    gw: 192.168.10.1
+    unprivileged: false
+    onboot: true
+    description: |
+      <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
+
+      # PostgreSQL LXC
+
+      <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a><br />
+      <a href="https://www.postgresql.org/" target="_blank"><img src="https://img.shields.io/badge/Postgresql-526CFE?style=for-the-badge&logo=Postgresql&logoColor=white" /></a>
+      </div>
+    tags:
+    - postgresql
+    - prod
+    

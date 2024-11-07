@@ -1,0 +1,192 @@
+---
+# defaults file for roles/postgresql
+postgresql_version: 16
+
+postgresql:
+  apt:
+    repo_url: https://apt.postgresql.org/pub/repos/apt
+    key:
+      url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+      dest: /etc/apt/keyrings/pgdg.asc
+
+  packages:
+    - "postgresql-{{ postgresql_version }}"
+    - "postgresql-client-{{ postgresql_version }}"
+    - "postgresql-contrib-{{ postgresql_version }}"
+    - "postgresql-server-dev-{{ postgresql_version }}"
+    - "postgresql-{{ postgresql_version }}-postgis-3"
+    - "postgresql-{{ postgresql_version }}-pgrouting"
+    - "postgresql-doc-{{ postgresql_version }}"
+    - libpq-dev
+
+  user: 
+    name: postgres
+    uid: 996
+    group: postgres
+    gid: 996
+    comment: "Administrateur PostgreSQL"
+
+  directories:
+    home: /var/lib/postgresql
+    datadir: "/var/lib/postgresql/{{ postgresql_version }}/main"
+    bin: "/usr/lib/postgresql/{{ postgresql_version }}/bin"
+    lib: "/usr/lib/postgresql/{{ postgresql_version }}/lib"
+    config: "/etc/postgresql/{{ postgresql_version }}/main"
+    log: /var/log/postgresql
+    man: "/usr/share/postgresql/{{ postgresql_version }}/man"
+
+  locales:
+    - "fr_FR.UTF-8"
+
+  auth:
+    method: "scram-sha-256"
+
+  unix:
+    socket:
+      directories:
+        - /var/run/postgresql
+
+  roles:
+    - name: "{{ secret.users.me.name }}"
+      password: "{{ secret.users.me.password }}"
+      encrypted: true
+      role_attr_flags: CREATEDB,CREATEROLE,REPLICATION,SUPERUSER
+
+  templates:
+    - name: _template_postgis_v3.4.2
+      owner: "{{ secret.users.me.name }}"
+      lc_collate: "fr_FR.UTF-8"
+      lc_ctype: "fr_FR.UTF-8"
+      encoding: "UTF-8"
+      template: template0
+    - name: _template
+      owner: "{{ secret.users.me.name }}"
+      lc_collate: "fr_FR.UTF-8"
+      lc_ctype: "fr_FR.UTF-8"
+      encoding: "UTF-8"
+      template: template0
+
+  privileges:
+    - db: _template_postgis_v3.4.2
+      obj_type: table
+      obj_name: spatial_ref_sys
+      new_owner: "{{ secret.users.me.name }}"
+    - db: _template_postgis_v3.4.2
+      obj_type: view
+      obj_name: geography_columns
+      new_owner: "{{ secret.users.me.name }}"
+    - db: _template_postgis_v3.4.2
+      obj_type: view
+      obj_name: geometry_columns
+      new_owner: "{{ secret.users.me.name }}"
+  
+  template_extensions:
+    - name: plpgsql
+      db: _template_postgis_v3.4.2
+      schema: pg_catalog
+    - name: postgis
+      db: _template_postgis_v3.4.2
+      schema: public
+    - name: pgrouting
+      db: _template_postgis_v3.4.2
+      schema: public
+    - name: dblink
+      db: _template_postgis_v3.4.2
+      schema: public
+    - name: intarray
+      db: _template_postgis_v3.4.2
+      schema: public
+    - name: tablefunc
+      db: _template_postgis_v3.4.2
+      schema: public
+    - name: ltree
+      db: _template_postgis_v3.4.2
+      schema: public
+    - name: uuid-ossp
+      db: _template_postgis_v3.4.2
+      schema: public
+    - name: unaccent
+      db: _template_postgis_v3.4.2
+      schema: public
+    - name: postgres_fdw
+      db: _template_postgis_v3.4.2
+      schema: public
+    - name: plpython3u
+      db: _template_postgis_v3.4.2
+      schema: pg_catalog
+
+    - name: plpgsql
+      db: _template
+      schema: pg_catalog
+    - name: dblink
+      db: _template
+      schema: public
+    - name: intarray
+      db: _template
+      schema: public
+    - name: tablefunc
+      db: _template
+      schema: public
+    - name: ltree
+      db: _template
+      schema: public
+    - name: uuid-ossp
+      db: _template
+      schema: public
+    - name: unaccent
+      db: _template
+      schema: public
+    - name: postgres_fdw
+      db: _template
+      schema: public
+    - name: plpython3u
+      db: _template
+      schema: pg_catalog
+
+  databases:
+    - name: homeassistant
+      owner: "{{ secret.users.me.name }}"
+      lc_collate: "fr_FR.UTF-8"
+      lc_ctype: "fr_FR.UTF-8"
+      encoding: "UTF-8"
+      template: _template
+    - name: vaultwarden
+      owner: "{{ secret.users.me.name }}"
+      lc_collate: "fr_FR.UTF-8"
+      lc_ctype: "fr_FR.UTF-8"
+      encoding: "UTF-8"
+      template: _template
+    # - name: nextcloud
+    #   owner: "{{ secret.users.me.name }}"
+    #   lc_collate: "fr_FR.UTF-8"
+    #   lc_ctype: "fr_FR.UTF-8"
+    #   encoding: "UTF-8"
+    #   template: _template
+    - name: jfstat
+      owner: "{{ secret.users.me.name }}"
+      lc_collate: "fr_FR.UTF-8"
+      lc_ctype: "fr_FR.UTF-8"
+      encoding: "UTF-8"
+      template: _template
+    - name: ign
+      owner: "{{ secret.users.me.name }}"
+      lc_collate: "fr_FR.UTF-8"
+      lc_ctype: "fr_FR.UTF-8"
+      encoding: "UTF-8"
+      template: _template_postgis_v3.4.2
+    - name: chasseo
+      owner: "{{ secret.users.me.name }}"
+      lc_collate: "fr_FR.UTF-8"
+      lc_ctype: "fr_FR.UTF-8"
+      encoding: "UTF-8"
+      template: _template_postgis_v3.4.2
+
+  hba:
+    entries:
+      - {type: host, database: all, user: "{{ secret.users.me.name }}", address: '192.168.10.0/24', auth_method: 'scram-sha-256'}
+      - {type: host, database: all, user: "{{ secret.users.me.name }}", address: '192.168.20.0/24', auth_method: 'scram-sha-256'}
+
+  python:
+    library: 
+      - "python3-psycopg2"
+      - "postgresql-plpython3-{{ postgresql_version }}"

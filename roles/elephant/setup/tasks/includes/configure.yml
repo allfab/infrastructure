@@ -1,0 +1,38 @@
+---
+# tasks file for roles/postgresql/includes/configuration.yml
+- name: CONFIGURATION GLOBALE DU SERVICE PostgreSQL - postgresql.conf
+  lineinfile:
+    dest: "{{ postgresql.directories.config }}/postgresql.conf"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    mode: 0644
+    state: present
+  with_items: 
+    - regexp: "^#listen_addresses = 'localhost'"
+      line: "listen_addresses = '*'"
+    - regexp: "#huge_pages = try"
+      line: "huge_pages = off"
+    - regexp: "#password_encryption = scram-sha-256"
+      line: "password_encryption = scram-sha-256"
+    # - regexp: "max_connections = 100"
+    #   line: "max_connections = 10"
+    # - regexp: "#superuser_reserved_connections = 3"
+    #   line: "superuser_reserved_connections = 2"
+  become: true
+
+- name: CONFIGURATION DE L'AUTHENTIFICATION BASÉE SUR L'HÔTE (si les entrées sont configurées)
+  template:
+    src: pg_hba.conf.j2
+    dest: "{{ postgresql.directories.config }}/pg_hba.conf"
+    owner: "{{ postgresql.user.name }}"
+    group: "{{ postgresql.user.group }}"
+    mode: 0600
+  notify: restart postgresql
+  when: postgresql.hba.entries | length > 0
+  become: true
+
+- name: "REDÉMARRAGE DE PostgreSQL"
+  service:
+    name: postgresql
+    state: restarted
+  become: true

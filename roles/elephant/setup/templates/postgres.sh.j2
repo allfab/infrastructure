@@ -1,0 +1,4 @@
+export PGDATA={{ postgresql.directories.datadir }}
+export PATH=$PATH:{{ postgresql.directories.bin }}
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:{{ postgresql.directories.lib }}
+export MANPATH=$MANPATH:{{ postgresql.directories.man }}

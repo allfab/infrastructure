@@ -1,0 +1,17 @@
+---
+# tasks file for roles/postgresql/includes/templates.yml
+- name: CRÉATION DE LA BASE DE DONNÉES Postgis
+  postgresql_db:
+    name: "{{ item.name }}"
+    lc_collate: "{{ item.lc_collate | default('fr_FR.UTF-8') }}"
+    lc_ctype: "{{ item.lc_ctype | default('fr_FR.UTF-8') }}"
+    encoding: "{{ item.encoding | default('UTF-8') }}"
+    template: "{{ item.template | default('template0') }}"
+    owner: "{{ item.owner | default(postgresql.user.name) }}"
+    state: "{{ item.state | default('present') }}"
+  with_items: "{{ postgresql.templates }}"
+  become: true
+  become_user: "{{ postgresql.user.name }}"
+  # See: https://github.com/ansible/ansible/issues/16048#issuecomment-229012509
+  vars:
+    ansible_ssh_pipelining: true

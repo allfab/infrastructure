@@ -1,0 +1,46 @@
+---
+# tasks file for roles/postgresql/includes/install.yml
+- name: AJOUT DE LA CLÉ DE SIGNATURE PostgreSQL AU GESTIONNAIRE DE PAQUETS 'APT'
+  get_url:
+    url: "{{ postgresql.apt.key.url }}"
+    dest: "{{ postgresql.apt.key.dest }}"
+    mode: 0644
+    force: false
+  become: true
+
+- name: AJOUT DU DÉPÔT PostgreSQL DE LA COMMUNAUTÉ
+  apt_repository:
+    repo: "deb [signed-by={{ postgresql.apt.key.dest }}] {{ postgresql.apt.repo_url }} {{ ansible_distribution_release }}-pgdg main"
+    state: present
+    filename: pgdg.list
+    update_cache: true
+  become: true
+
+- name: CONFIGURATION DES PARAMÈTRES RÉGIONAUX
+  locale_gen:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ postgresql.locales }}"
+  register: locale_gen_result
+  become: true
+
+- name: INSTALLATION DES LIBRAIRIES PYTHON REQUISES
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ postgresql.python.library}}"
+  become: true
+
+- name: INSTALLATION DES PAQUETS PostgreSQL
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ postgresql.packages }}"
+  become: true
+
+- name: "REDÉMARRAGE DE PostgreSQL APRÈS LA GÉNÉRATION DE NOUVEAUX PARAMÈTRES RÉGIONAUX {{ postgresql.locales }}"
+  service:
+    name: postgresql
+    state: restarted
+  when: locale_gen_result.changed
+  become: true
