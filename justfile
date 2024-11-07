@@ -41,7 +41,6 @@ neo-lnxlink:
 morpheus-destroy-infra:
   ansible-playbook -i hosts.ini run.yml --limit morpheus --tags "destroy-infra, morpheus-destroy-infra"
 
-
 frontend-deployment:
   ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit webapps --tags deployment
 
@@ -51,7 +50,13 @@ frontend-setup:
 frontend_old:
   ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit frontend --tags setup
 
-elephant:
+elephant-deployment:
+  ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit elephant --tags deployment
+
+elephant-setup:
+  ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit elephant --tags setup
+
+elephant_old:
   ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit elephant --tags setup
 
 smarthome:
@@ -89,9 +94,6 @@ monitoring_old:
 
 communication:
   ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit communication --tags setup
-
-morpheus-garmin:
-  ansible-playbook -i hosts.ini run.yml --limit morpheus --tags garmin-ign-bdtopo-map
 
 elephant-garmin:
   ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit elephant --tags garmin-ign-bdtopo-map

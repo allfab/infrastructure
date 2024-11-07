@@ -179,24 +179,51 @@
 #       become: true
 
 - hosts: elephant
+  tags: deployment
+  gather_facts: no
+  vars_files:
+    - vars/vault.yml
+  roles:
+    - role: elephant/deployment
+
+- hosts: elephant
   tags: setup
   vars_files:
     - vars/vault.yml
   pre_tasks:
-    - name: MISE À JOUR SYSTÈME
-      become: true
-      apt:
-        update_cache: true
-        upgrade: true
-        cache_valid_time: 14400
+  - name: MISE À JOUR SYSTÈME
+    become: true
+    apt:
+      update_cache: true
+      upgrade: true
+      cache_valid_time: 14400
   roles:
-    - role: grog.package
-      become: true
-    - config/users
-    - role: config/bash-aliases
-      become: true
-    - install/motd
-    - install/postgresql
+    # - role: grog.package
+    #   become: true
+    # - role: config/bash-aliases
+    #   become: true
+    # - install/motd
+    - role: elephant/setup
+
+# - hosts: elephant
+#   tags: setup
+#   vars_files:
+#     - vars/vault.yml
+#   pre_tasks:
+#     - name: MISE À JOUR SYSTÈME
+#       become: true
+#       apt:
+#         update_cache: true
+#         upgrade: true
+#         cache_valid_time: 14400
+#   roles:
+#     - role: grog.package
+#       become: true
+#     - config/users
+#     - role: config/bash-aliases
+#       become: true
+#     - install/motd
+#     - install/postgresql
 
 - hosts: smarthome
   tags: setup
@@ -455,14 +482,6 @@
     - install/motd
     - role: vps/frontend
       become: true
-
-- hosts: morpheus
-  tags: garmin-ign-bdtopo-map
-  vars_files:
-    - vars/vault.yml
-  roles:
-    # - role: garmin-ign-bdtopo-map/download
-    - role: garmin-ign-bdtopo-map/initdb
 
 - hosts: elephant
   tags: garmin-ign-bdtopo-map
