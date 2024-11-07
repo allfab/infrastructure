@@ -2,7 +2,7 @@
 - name: CHARGEMENT DES VARIABLES
   include_vars: defaults/main.yml
 
-- name: INSTALLATION DES PAQUETS 7zip
+- name: INSTALLATION DES PAQUETS psycopg2
   package:
     name: "{{ item }}"
     state: present
@@ -13,21 +13,131 @@
   community.postgresql.postgresql_schema:
     db: ign
     name: bdtopo
-    login_host: "192.168.10.20"
     login_user: "{{ secret.users.me.name }}"
     login_password: "{{ secret.users.me.password }}"
-    port: 5432
     comment: "Schéma contenant la BDTOPO version {{ ign.bdtopo.version }}"
 
-- name: GARMIN-IGN-BDTOPO-MAP - EXÉCUTION DE LA REQUÊTE SQL EN UTILISANT l'ENCODAGE CLIENT UTF-8
-  community.postgresql.postgresql_script:
-    db: ign
-    search_path: bdtopo
-    login_host: "192.168.10.20"
-    login_user: "{{ secret.users.me.name }}"
-    login_password: "{{ secret.users.me.password }}"
-    port: 5432
-    path: "{{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/{{ item }}"
-    encoding: UTF-8
+# - name: GARMIN-IGN-BDTOPO-MAP - IMPORT SIMULTANÉ DES DONNÉES - THÈME ADMINISTRATIF
+#   shell: "{{ item }}"
+#   become: True
+#   become_user: postgres
+#   with_items:
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/ADMINISTRATIF/collectivite_territoriale.sql"
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/ADMINISTRATIF/commune.sql"
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/ADMINISTRATIF/departement.sql"
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/ADMINISTRATIF/epci.sql"
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/ADMINISTRATIF/region.sql"
+
+# - name: GARMIN-IGN-BDTOPO-MAP - IMPORT SIMULTANÉ DES DONNÉES - THÈME BATI
+#   shell: "{{ item }}"
+#   become: True
+#   become_user: postgres
+#   with_items:
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/BATI/batiment.sql"
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/BATI/cimetiere.sql"
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/BATI/construction_lineaire.sql"
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/BATI/construction_ponctuelle.sql"
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/BATI/construction_surfacique.sql"
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/BATI/ligne_orographique.sql"
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/BATI/pylone.sql"
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/BATI/reservoir.sql"
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/BATI/terrain_de_sport.sql"
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/BATI/toponymie_bati.sql"
+
+# - name: GARMIN-IGN-BDTOPO-MAP - IMPORT SIMULTANÉ DES DONNÉES - THÈME HYDROGRAPHIE
+#   shell: "{{ item }}"
+#   become: True
+#   become_user: postgres
+#   with_items:
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/HYDROGRAPHIE/cours_d_eau.sql"
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/HYDROGRAPHIE/detail_hydrographique.sql"
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/HYDROGRAPHIE/limite_terre_mer.sql"
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/HYDROGRAPHIE/noeud_hydrographique.sql"
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/HYDROGRAPHIE/plan_d_eau.sql"
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/HYDROGRAPHIE/surface_hydrographique.sql"
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/HYDROGRAPHIE/toponymie_hydrographie.sql"
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/HYDROGRAPHIE/troncon_hydrographique.sql"
+
+# - name: GARMIN-IGN-BDTOPO-MAP - IMPORT SIMULTANÉ DES DONNÉES - THÈME LIEUX_NOMMES
+#   shell: "{{ item }}"
+#   become: True
+#   become_user: postgres
+#   with_items:
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/LIEUX_NOMMES/detail_orographique.sql"
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/LIEUX_NOMMES/lieu_dit_non_habite.sql"
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/LIEUX_NOMMES/toponymie_lieux_nommes.sql"
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/LIEUX_NOMMES/zone_d_habitation.sql"
+
+# - name: GARMIN-IGN-BDTOPO-MAP - IMPORT SIMULTANÉ DES DONNÉES - THÈME OCCUPATION_DU_SOL
+#   shell: "{{ item }}"
+#   become: True
+#   become_user: postgres
+#   with_items:
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/OCCUPATION_DU_SOL/haie.sql"
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/OCCUPATION_DU_SOL/zone_d_estran.sql"
+#     - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/OCCUPATION_DU_SOL/zone_de_vegetation.sql"
+
+- name: GARMIN-IGN-BDTOPO-MAP - IMPORT SIMULTANÉ DES DONNÉES - THÈME SERVICES_ET_ACTIVITES
+  shell: "{{ item }}"
+  become: True
+  become_user: postgres
   with_items:
-    - ADMINISTRATIF/commune.sql
+    - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/SERVICES_ET_ACTIVITES/canalisation.sql"
+    - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/SERVICES_ET_ACTIVITES/erp.sql"
+    - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/SERVICES_ET_ACTIVITES/ligne_electrique.sql"
+    - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/SERVICES_ET_ACTIVITES/poste_de_transformation.sql"
+    - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/SERVICES_ET_ACTIVITES/toponymie_services_et_activites.sql"
+    - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/SERVICES_ET_ACTIVITES/zone_d_activite_ou_d_interet.sql"
+
+- name: GARMIN-IGN-BDTOPO-MAP - IMPORT SIMULTANÉ DES DONNÉES - THÈME TRANSPORT
+  shell: "{{ item }}"
+  become: True
+  become_user: postgres
+  with_items:
+    - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/TRANSPORT/aerodrome.sql"
+    - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/TRANSPORT/equipement_de_transport.sql"
+    - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/TRANSPORT/itineraire_autre.sql"
+    - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/TRANSPORT/non_communication.sql"
+    - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/TRANSPORT/piste_d_aerodrome.sql"
+    - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/TRANSPORT/point_d_acces.sql"
+    - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/TRANSPORT/point_de_repere.sql"
+    - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/TRANSPORT/point_du_reseau.sql"
+    - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/TRANSPORT/route_numerotee_ou_nommee.sql"
+    - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/TRANSPORT/section_de_points_de_repere.sql"
+    - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/TRANSPORT/toponymie_transport.sql"
+    - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/TRANSPORT/transport_par_cable.sql"
+    - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/TRANSPORT/troncon_de_route.sql"
+    - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/TRANSPORT/troncon_de_voie_ferree.sql"
+    - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/TRANSPORT/voie_ferree_nommee.sql"
+
+- name: GARMIN-IGN-BDTOPO-MAP - IMPORT SIMULTANÉ DES DONNÉES - THÈME ZONES_REGLEMENTEES
+  shell: "{{ item }}"
+  become: True
+  become_user: postgres
+  with_items:
+    - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/ZONES_REGLEMENTEES/foret_publique.sql"
+    - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/ZONES_REGLEMENTEES/parc_ou_reserve.sql"
+    - "psql postgres://{{ secret.users.me.name }}:{{ secret.users.me.password }}@localhost/ign?options=--search_path%3Dbdtopo%2Cpublic -f {{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/ZONES_REGLEMENTEES/toponymie_zones_reglementees.sql"
+  
+
+# - name: GARMIN-IGN-BDTOPO-MAP - IMPORT SIMULTANÉ DES DONNÉES - THÈME ADMINISTRATIF
+#   copy:
+#     dest: "{{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/import-administratif.sql"
+#     content: |
+#       SET search_path TO bdtopo, public ;
+#       \i ADMINISTRATIF/collectivite_territoriale.sql
+#       \i ADMINISTRATIF/commune.sql
+#       \i ADMINISTRATIF/departement.sql
+#       \i ADMINISTRATIF/epci.sql
+#       \i ADMINISTRATIF/region.sql
+
+# - name: GARMIN-IGN-BDTOPO-MAP - EXÉCUTION DE LA REQUÊTE SQL EN UTILISANT l'ENCODAGE CLIENT UTF-8
+#   community.postgresql.postgresql_script:
+#     db: ign
+#     search_path: "bdtopo, public"
+#     login_user: "{{ secret.users.me.name }}"
+#     login_password: "{{ secret.users.me.password }}"
+#     path: "{{ ign.bdtopo.directory }}/{{ ign.bdtopo.version }}/{{ ign.bdtopo.territory }}/{{ item }}"
+#     encoding: UTF-8
+#   with_items:
+#     - ADMINISTRATIF/commune.sql
