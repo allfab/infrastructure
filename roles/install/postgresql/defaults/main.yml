@@ -176,6 +176,12 @@ postgresql:
       lc_ctype: "fr_FR.UTF-8"
       encoding: "UTF-8"
       template: _template_postgis_v3.4.2
+    - name: chasseo
+      owner: "{{ secret.users.me.name }}"
+      lc_collate: "fr_FR.UTF-8"
+      lc_ctype: "fr_FR.UTF-8"
+      encoding: "UTF-8"
+      template: _template_postgis_v3.4.2
 
   hba:
     entries:
