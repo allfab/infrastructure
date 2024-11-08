@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS france_sud.administratif_zone_d_habitation;
 CREATE TABLE france_sud.administratif_zone_d_habitation AS
-SELECT ST_ChaikinSmoothing(ST_Force2D(ST_TRANSFORM(geometrie, 4326)), 3, false) AS the_geom,
+SELECT ST_ChaikinSmoothing(ST_Force2D(ST_TRANSFORM(geometrie, 4326)), 3, false)::geometry(MULTIPOLYGON, 4326) AS the_geom,
 	toponyme AS "NAME",
 	'0x03' AS "MP_TYPE",
 	'4' AS "EndLevel",

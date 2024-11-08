@@ -198,12 +198,12 @@
       upgrade: true
       cache_valid_time: 14400
   roles:
-    # - role: grog.package
-    #   become: true
-    # - role: config/bash-aliases
-    #   become: true
-    # - install/motd
-    - role: elephant/setup
+    - role: grog.package
+      become: true
+    - role: config/bash-aliases
+      become: true
+    - install/motd
+    # - role: elephant/setup
 
 # - hosts: elephant
 #   tags: setup

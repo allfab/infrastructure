@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS france_sud.administratif_commune;
 CREATE TABLE france_sud.administratif_commune AS
-SELECT ST_Force2D(ST_TRANSFORM(geometrie, 4326))::geometry(multipolygon, 4326) AS the_geom,
+SELECT ST_Force2D(ST_TRANSFORM(geometrie, 4326))::geometry(MULTIPOLYGON, 4326) AS the_geom,
 	nom_officiel AS "NAME",
 	'0x54' AS "MP_TYPE",
 	'France~[0x1d]FRA' AS "Country",

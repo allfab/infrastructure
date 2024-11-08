@@ -5,6 +5,7 @@ package_list:
   - name: ca-certificates
   - name: curl
   - name: duf
+  - name: gdal-bin
   - name: openssh-client
   - name: openssh-server
   - name: python3-psycopg2
