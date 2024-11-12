@@ -203,7 +203,8 @@
     - role: config/bash-aliases
       become: true
     - install/motd
-    # - role: elephant/setup
+    - install/zellij
+    - role: elephant/setup
 
 # - hosts: elephant
 #   tags: setup
