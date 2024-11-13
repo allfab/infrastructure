@@ -110,6 +110,9 @@ homeassistant:
       - name: content-card-linky
         url: https://raw.githubusercontent.com/MyElectricalData/content-card-linky/main/dist/content-card-linky.js
         type: module
+      - name: content-card-linky-editor
+        url: https://raw.githubusercontent.com/MyElectricalData/content-card-linky/main/dist/content-card-linky-editor.js
+        type: module
       - name: lovelace-gazpar-card
         url: https://raw.githubusercontent.com/ssenart/lovelace-gazpar-card/main/dist/gazpar-card.js
         type: module

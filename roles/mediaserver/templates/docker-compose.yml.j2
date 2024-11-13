@@ -16,6 +16,19 @@ services:
       - no-new-privileges:true
     networks:
       - mediaserver
+
+  dozzle-agent:
+    container_name: dozzle-agent
+    image: amir20/dozzle:latest
+    ports:
+      - 7007:7007
+    command: agent
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - DOZZLE_HOSTNAME=Mediaserver
+    networks:
+      - mediaserver
   
   navidrome:
     container_name: navidrome

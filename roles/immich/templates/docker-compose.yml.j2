@@ -18,6 +18,19 @@ services:
     networks:
       - immich
 
+  dozzle-agent:
+    container_name: dozzle-agent
+    image: amir20/dozzle:latest
+    ports:
+      - 7007:7007
+    command: agent
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - DOZZLE_HOSTNAME=Immich
+    networks:
+      - immich
+
   immich-server:
     container_name: immich_server
     image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION}
