@@ -121,8 +121,7 @@
         href: https://www.ovh.com/auth
         description: OVH Manager
         icon: ovh.svg
-        siteMonitor: https://www.ovh.com/auth
-    
+        siteMonitor: https://www.ovh.com/auth    
     - Hotspot:
         href: https://hotspot.allfabox.fr
         description: Unifi
@@ -211,7 +210,7 @@
         description: Surveillance des tâches Cron
         icon: sh-healthchecks
         siteMonitor: http://192.168.10.60:8000
-    - dozzle:
+    - Dozzle:
         href: https://dozzle.allfabox.fr
         description: Journalisation et surveillance en temps réel pour Docker
         icon: sh-dozzle

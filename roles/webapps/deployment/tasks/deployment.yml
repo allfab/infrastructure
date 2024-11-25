@@ -2,7 +2,7 @@
 - name: CHARGEMENT DES VARIABLES
   include_vars: defaults/main.yml
 
-- name: CRÉATION DES CONTENEUR LXC
+- name: CRÉATION DU CONTENEUR LXC
   proxmox:
     proxmox_default_behavior: no_defaults
     node: morpheus
@@ -11,43 +11,42 @@
     api_password: "{{ secret.proxmox.morpheus.api.password }}"
     api_token_id: "{{ secret.proxmox.morpheus.api.token_id }}"
     api_token_secret: "{{ secret.proxmox.morpheus.api.token_secret }}"
-    vmid: "{{ item.vmid }}"
-    cores: "{{ item.cores }}"
+    vmid: "{{ proxmox.lxc.vmid }}"
+    cores: "{{ proxmox.lxc.cores }}"
     cpus: "1"
     cpuunits: "1000"
     description: |
-      {{ item.description }}
-    disk: "{{ item.disk }}"
+      {{ proxmox.lxc.description }}
+    disk: "{{ proxmox.lxc.disk }}"
     features:
-      - fuse={{ item.fuse | default ('0') }}
-      - keyctl={{ item.keyctl | default ('0') }}
-      - nesting={{ item.nesting | default ('1') }}
-    hostname: "{{ item.name }}"
-    memory: "{{ item.memory }}"
-    nameserver: "{{ item.nameserver | default ('192.168.0.253') }}"
-    netif: "{'net0':'name=eth0,ip={{ item.ip }}/24,gw={{ item.gw }},bridge={{ item.bridge | default ('vmbr0') }},firewall={{ item.firewall | default ('1') }}'}"
-    onboot: "{{ item.onboot | default ('true') }}"
-    ostemplate: "{{ item.ostemplate | default ('iso-morpheus:vztmpl/debian-12-standard_12.7-1_amd64.tar.zst') }}"
+      - fuse={{ proxmox.lxc.fuse | default ('0') }}
+      - keyctl={{ proxmox.lxc.keyctl | default ('0') }}
+      - nesting={{ proxmox.lxc.nesting | default ('1') }}
+    hostname: "{{ proxmox.lxc.name }}"
+    memory: "{{ proxmox.lxc.memory }}"
+    nameserver: "{{ proxmox.lxc.nameserver | default ('192.168.0.253') }}"
+    netif: "{'net0':'name=eth0,ip={{ proxmox.lxc.ip }}/24,gw={{ proxmox.lxc.gw }},bridge={{ proxmox.lxc.bridge | default ('vmbr0') }},firewall={{ proxmox.lxc.firewall | default ('1') }}'}"
+    onboot: "{{ proxmox.lxc.onboot | default ('true') }}"
+    ostemplate: "{{ proxmox.lxc.ostemplate | default ('iso-morpheus:vztmpl/debian-12-standard_12.7-1_amd64.tar.zst') }}"
     password: "{{ secret.users.lxc.ssh.password }}"
     pubkey: "{{ secret.users.me.ssh.pubkey }}"
     storage: local-zfs
-    swap: "{{ item.swap | default ('512') }}"
-    tags: "{{ item.tags }}"
+    swap: "{{ proxmox.lxc.swap | default ('512') }}"
+    tags: "{{ proxmox.lxc.tags }}"
     timezone: "{{ timezone }}"
-    unprivileged: "{{ item.unprivileged | default ('true') }}"
+    unprivileged: "{{ proxmox.lxc.unprivileged | default ('true') }}"
     state: present
-  loop: "{{ proxmox.lxc }}"
   delegate_to: 192.168.10.5
   
 - name: DÉFINITION DE L'ORDRE DE DÉMARRAGE DU CONTENEUR LXC
-  shell: pct set 150 --startup order=8
+  shell: "pct set {{ proxmox.lxc.vmid }} --startup order=8"
   delegate_to: 192.168.10.5
 
 - name: AJOUT DES POINTS DE MONTAGE SUR LE CONTENEUR LXC
   command: "{{ item }}"
   with_items:
-    - "pct set 150 -mp0 /mnt/storage,mp=/mnt/storage"
-    - "pct set 150 -mp1 /mnt/freebox,mp=/mnt/freebox"
+    - "pct set {{ proxmox.lxc.vmid }} -mp0 /mnt/storage,mp=/mnt/storage"
+    - "pct set {{ proxmox.lxc.vmid }} -mp1 /mnt/freebox,mp=/mnt/freebox"
   delegate_to: 192.168.10.5
 
 - name: DÉMARRAGE DU CONTENEUR LXC
@@ -58,7 +57,7 @@
     api_password: "{{ secret.proxmox.morpheus.api.password }}"
     api_token_id: "{{ secret.proxmox.morpheus.api.token_id }}"
     api_token_secret: "{{ secret.proxmox.morpheus.api.token_secret }}"
-    vmid: 150
+    vmid: "{{ proxmox.lxc.vmid }}"
     state: "started"
     timeout: 90
   delegate_to: 192.168.10.5

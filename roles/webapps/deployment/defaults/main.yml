@@ -4,30 +4,30 @@ ssh:
 
 proxmox:
   lxc:
-    - name: webapps
-      vmid: 150
-      cores: 2
-      disk: "local-zfs:16"
-      nesting: 1
-      keyctl: 0
-      fuse: 1
-      memory: 1024
-      nameserver: 192.168.0.253
-      ip: 192.168.10.50
-      gw: 192.168.10.1
-      unprivileged: false
-      description: |
-        <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
+    name: webapps
+    vmid: 150
+    cores: 2
+    disk: "local-zfs:16"
+    nesting: 1
+    keyctl: 0
+    fuse: 1
+    memory: 1024
+    nameserver: 192.168.0.253
+    ip: 192.168.10.50
+    gw: 192.168.10.1
+    unprivileged: false
+    description: |
+      <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
 
-        # Webapps LXC
+      # Webapps LXC
 
-        <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a><br />
-        <a href="https://github.com/gethomepage/homepage/" target="_blank"><img src="https://img.shields.io/badge/homepage-1b98d4?style=for-the-badge&logo=homepage&logoColor=white" /></a>
-        <a href="https://github.com/dani-garcia/vaultwarden/" target="_blank"><img src="https://img.shields.io/badge/vaultwarden-105ddd?style=for-the-badge&logo=vaultwarden&logoColor=white" /></a><br />
-        <a href="https://filebrowser.org/" target="_blank"><img src="https://img.shields.io/badge/filebrowser-44b2e6?style=for-the-badge&logo=filebrowser&logoColor=white" /></a>
-        <a href="https://www.usememos.com/" target="_blank"><img src="https://img.shields.io/badge/memos-3c3c46?style=for-the-badge&logo=memos&logoColor=white" /></a>
-        <a href="https://github.com/CyferShepard/Jellystat" target="_blank"><img src="https://img.shields.io/badge/jellystat-9a35ad?style=for-the-badge&logo=jellystat&logoColor=white" /></a>
-        </div>
-      tags:
-        - webapps
-        - prod
+      <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a><br />
+      <a href="https://github.com/gethomepage/homepage/" target="_blank"><img src="https://img.shields.io/badge/homepage-1b98d4?style=for-the-badge&logo=homepage&logoColor=white" /></a>
+      <a href="https://github.com/dani-garcia/vaultwarden/" target="_blank"><img src="https://img.shields.io/badge/vaultwarden-105ddd?style=for-the-badge&logo=vaultwarden&logoColor=white" /></a><br />
+      <a href="https://filebrowser.org/" target="_blank"><img src="https://img.shields.io/badge/filebrowser-44b2e6?style=for-the-badge&logo=filebrowser&logoColor=white" /></a>
+      <a href="https://www.usememos.com/" target="_blank"><img src="https://img.shields.io/badge/memos-3c3c46?style=for-the-badge&logo=memos&logoColor=white" /></a>
+      <a href="https://github.com/CyferShepard/Jellystat" target="_blank"><img src="https://img.shields.io/badge/jellystat-9a35ad?style=for-the-badge&logo=jellystat&logoColor=white" /></a>
+      </div>
+    tags:
+      - webapps
+      - prod

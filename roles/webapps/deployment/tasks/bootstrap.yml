@@ -1,14 +1,14 @@
 ---
 - name: AMORÇAGE - AJOUT DU GROUPE UTILISATEUR PRINCIPAL
-  ansible.builtin.command: lxc-attach 150 -- /bin/bash -c "groupadd -f -g {{ secret.users.me.gid }} {{ secret.users.me.name }}"
+  ansible.builtin.command: lxc-attach "{{ proxmox.lxc.vmid }}" -- /bin/bash -c "groupadd -f -g {{ secret.users.me.gid }} {{ secret.users.me.name }}"
   delegate_to: 192.168.10.5
 
 - name: AMORÇAGE - AJOUT DE L'UTILISATEUR PRINCIPAL
-  ansible.builtin.command: lxc-attach 150 -- /bin/bash -c "id -u {{ secret.users.me.name }} &>/dev/null || useradd --create-home --shell /bin/bash --uid {{ secret.users.me.uid }} --gid {{ secret.users.me.gid }} --groups sudo --comment '{{ secret.users.me.comment }}' {{ secret.users.me.name }}"
+  ansible.builtin.command: lxc-attach "{{ proxmox.lxc.vmid }}" -- /bin/bash -c "id -u {{ secret.users.me.name }} &>/dev/null || useradd --create-home --shell /bin/bash --uid {{ secret.users.me.uid }} --gid {{ secret.users.me.gid }} --groups sudo --comment '{{ secret.users.me.comment }}' {{ secret.users.me.name }}"
   delegate_to: 192.168.10.5
 
 - name: AMORÇAGE - AJOUT DU MOT DE PASSE DE L'UTILISATEUR PRINCIPAL
-  ansible.builtin.command: lxc-attach 150 -- /bin/bash -c "printf '{{ secret.users.me.password }}\n{{ secret.users.me.password }}\n' | passwd {{ secret.users.me.name }}"
+  ansible.builtin.command: lxc-attach "{{ proxmox.lxc.vmid }}" -- /bin/bash -c "printf '{{ secret.users.me.password }}\n{{ secret.users.me.password }}\n' | passwd {{ secret.users.me.name }}"
   delegate_to: 192.168.10.5
 
 - name: AMORÇAGE - COPIE DE LA CONFIGURATION ssh SUR LA MACHINE HÔTE
@@ -21,40 +21,47 @@
   delegate_to: 192.168.10.5
 
 - name: AMORÇAGE - INSTALLATION DE LA CONFIGURATION ssh SUR LE CONTENEUR LXC
-  ansible.builtin.command: pct push 150 /tmp/sshd_config /etc/ssh/sshd_config
+  ansible.builtin.command: pct push "{{ proxmox.lxc.vmid }}" /tmp/sshd_config /etc/ssh/sshd_config
   delegate_to: 192.168.10.5
 
-- name: AMORÇAGE - COPIE DE LA CLÉ ssh SUR LA MACHINE HÔTE
-  copy:
-    src: ssh/authorized_keys
-    dest: /tmp/authorized_keys
-    owner: root
-    group: root
-    mode: 0600
+# - name: AMORÇAGE - COPIE DE LA CLÉ ssh SUR LA MACHINE HÔTE
+#   copy:
+#     src: ssh/authorized_keys
+#     dest: /tmp/authorized_keys
+#     owner: root
+#     group: root
+#     mode: 0600
+#   delegate_to: 192.168.10.5
+
+- name: AMORÇAGE - AJOUT DE LA CLÉ ssh SUR LA MACHINE HÔTE
+  authorized_key:
+    user: "{{ secret.users.me.name }}"
+    state: present
+    key: "{{ secret.users.me.ssh.pubkey }}"
   delegate_to: 192.168.10.5
 
-- name: AMORÇAGE - CRÉATION DU RÉPERTOIRE DE CONFIGURATION ssh POUR L'UTILISATEUR PRINCIPAL
-  ansible.builtin.command: lxc-attach 150 -- /bin/bash -c "mkdir -p /home/{{ secret.users.me.name }}/.ssh"
-  delegate_to: 192.168.10.5
+# - name: AMORÇAGE - CRÉATION DU RÉPERTOIRE DE CONFIGURATION ssh POUR L'UTILISATEUR PRINCIPAL
+#   ansible.builtin.command: lxc-attach "{{ proxmox.lxc.vmid }}" -- /bin/bash -c "mkdir -p /home/{{ secret.users.me.name }}/.ssh"
+#   delegate_to: 192.168.10.5
 
 - name: AMORÇAGE - PERMISSIONS DU RÉPERTOIRE DE CONFIGURATION ssh POUR L'UTILISATEUR PRINCIPAL
-  ansible.builtin.command: lxc-attach 150 -- /bin/bash -c "chmod -Rf 0600 /home/{{ secret.users.me.name }}/.ssh"
+  ansible.builtin.command: lxc-attach "{{ proxmox.lxc.vmid }}" -- /bin/bash -c "chmod -Rf 0600 /home/{{ secret.users.me.name }}/.ssh"
   delegate_to: 192.168.10.5
 
-- name: AMORÇAGE - INSTALLATION DE LA CLÉ ssh SUR LES CONTENEURS LXC
-  ansible.builtin.command: "pct push 150 /tmp/authorized_keys /home/{{ secret.users.me.name }}/.ssh/authorized_keys"
-  delegate_to: 192.168.10.5
+# - name: AMORÇAGE - INSTALLATION DE LA CLÉ ssh SUR LES CONTENEURS LXC
+#   ansible.builtin.command: "pct push {{ proxmox.lxc.vmid }} /tmp/authorized_keys /home/{{ secret.users.me.name }}/.ssh/authorized_keys"
+#   delegate_to: 192.168.10.5
 
 - name: AMORÇAGE - CHANGEMENT DES PERMISSIONS DU RÉPERTOIRE .ssh DU FICHIER authorized_keys (CHMOD)
-  ansible.builtin.command: lxc-attach 150 -- /bin/bash -c "chmod -Rf 700 /home/{{ secret.users.me.name }}/.ssh"
+  ansible.builtin.command: lxc-attach "{{ proxmox.lxc.vmid }}" -- /bin/bash -c "chmod -Rf 700 /home/{{ secret.users.me.name }}/.ssh"
   delegate_to: 192.168.10.5
 
 - name: AMORÇAGE - CHANGEMENT DES PERMISSIONS DU RÉPERTOIRE .ssh DU FICHIER authorized_keys (CHOWN)
-  ansible.builtin.command: lxc-attach 150 -- /bin/bash -c "chown -Rf {{ secret.users.me.uid }}:{{ secret.users.me.gid }} /home/{{ secret.users.me.name }}/.ssh"
+  ansible.builtin.command: lxc-attach "{{ proxmox.lxc.vmid }}" -- /bin/bash -c "chown -Rf {{ secret.users.me.uid }}:{{ secret.users.me.gid }} /home/{{ secret.users.me.name }}/.ssh"
   delegate_to: 192.168.10.5
 
 - name: AMORÇAGE - INSTALLATION DE sudo
-  ansible.builtin.command: lxc-attach 150 -- /bin/bash -c "apt install sudo"
+  ansible.builtin.command: lxc-attach "{{ proxmox.lxc.vmid }}" -- /bin/bash -c "apt install sudo"
   delegate_to: 192.168.10.5
 
 - name: AMORÇAGE - COPIE DU FICHIER sudoers POUR L'UTILISATEUR PRINCIPAL
@@ -67,7 +74,7 @@
   delegate_to: 192.168.10.5
 
 - name: AMORÇAGE - AJOUT DU FICHIER sudoers POUR L'UTILISATEUR PRINCIPAL
-  ansible.builtin.command: "pct push 150 /tmp/sudoer /etc/sudoers.d/{{ secret.users.me.name }}"
+  ansible.builtin.command: "pct push {{ proxmox.lxc.vmid }} /tmp/sudoer /etc/sudoers.d/{{ secret.users.me.name }}"
   delegate_to: 192.168.10.5
 
 - name: AMORÇAGE - REDÉMARRAGE DU CONTENEUR LXC
@@ -78,7 +85,7 @@
     api_password: "{{ secret.proxmox.morpheus.api.password }}"
     api_token_id: "{{ secret.proxmox.morpheus.api.token_id }}"
     api_token_secret: "{{ secret.proxmox.morpheus.api.token_secret }}"
-    vmid: 150
+    vmid: "{{ proxmox.lxc.vmid }}"
     state: "restarted"
     timeout: 90
   delegate_to: 192.168.10.5
