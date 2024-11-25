@@ -24,6 +24,16 @@
   ansible.builtin.command: pct push "{{ proxmox.lxc.vmid }}" /tmp/sshd_config /etc/ssh/sshd_config
   delegate_to: 192.168.10.5
 
+- name: AMORÇAGE - CRÉATION DU FICHIER authorized_keys AVEC LA CLÉ ssh SUR LA MACHINE HÔTE
+  copy:
+    dest: /tmp/authorized_keys
+    content: |
+      "{{ secret.users.me.ssh.pubkey }}"
+    owner: root
+    group: root
+    mode: 0600
+  delegate_to: 192.168.10.5
+
 # - name: AMORÇAGE - COPIE DE LA CLÉ ssh SUR LA MACHINE HÔTE
 #   copy:
 #     src: ssh/authorized_keys
@@ -33,24 +43,35 @@
 #     mode: 0600
 #   delegate_to: 192.168.10.5
 
-- name: AMORÇAGE - AJOUT DE LA CLÉ ssh SUR LA MACHINE HÔTE
-  authorized_key:
-    user: "{{ secret.users.me.name }}"
-    state: present
-    key: "{{ secret.users.me.ssh.pubkey }}"
-  delegate_to: 192.168.10.5
-
-# - name: AMORÇAGE - CRÉATION DU RÉPERTOIRE DE CONFIGURATION ssh POUR L'UTILISATEUR PRINCIPAL
-#   ansible.builtin.command: lxc-attach "{{ proxmox.lxc.vmid }}" -- /bin/bash -c "mkdir -p /home/{{ secret.users.me.name }}/.ssh"
+# - name: AMORÇAGE - AJOUT DE LA CLÉ ssh SUR LA MACHINE HÔTE
+#   authorized_key:
+#     user: "{{ secret.users.me.name }}"
+#     state: present
+#     key: "{{ secret.users.me.ssh.pubkey }}"
 #   delegate_to: 192.168.10.5
+
+# - name: RÉCUPÉRATION DES DONNÉES DE LA CLÉ PUBLIQUE DEPUIS MORPHEUS
+#   ansible.builtin.command: cat ~/.ssh/authorized_key
+#   delegate_to: 192.168.10.5
+#   register: authorized_key_data
+
+# - name: "Add public key from backups_host"
+#   ansible.posix.authorized_key:
+#     user: "{{ secret.users.me.name }}"
+#     state: present
+#     key: "{{ authorized_key_data.stdout }}"
+
+- name: AMORÇAGE - CRÉATION DU RÉPERTOIRE DE CONFIGURATION ssh POUR L'UTILISATEUR PRINCIPAL
+  ansible.builtin.command: lxc-attach "{{ proxmox.lxc.vmid }}" -- /bin/bash -c "mkdir -p /home/{{ secret.users.me.name }}/.ssh"
+  delegate_to: 192.168.10.5
 
 - name: AMORÇAGE - PERMISSIONS DU RÉPERTOIRE DE CONFIGURATION ssh POUR L'UTILISATEUR PRINCIPAL
   ansible.builtin.command: lxc-attach "{{ proxmox.lxc.vmid }}" -- /bin/bash -c "chmod -Rf 0600 /home/{{ secret.users.me.name }}/.ssh"
   delegate_to: 192.168.10.5
 
-# - name: AMORÇAGE - INSTALLATION DE LA CLÉ ssh SUR LES CONTENEURS LXC
-#   ansible.builtin.command: "pct push {{ proxmox.lxc.vmid }} /tmp/authorized_keys /home/{{ secret.users.me.name }}/.ssh/authorized_keys"
-#   delegate_to: 192.168.10.5
+- name: AMORÇAGE - INSTALLATION DE LA CLÉ ssh SUR LES CONTENEURS LXC
+  ansible.builtin.command: "pct push {{ proxmox.lxc.vmid }} /tmp/authorized_keys /home/{{ secret.users.me.name }}/.ssh/authorized_keys"
+  delegate_to: 192.168.10.5
 
 - name: AMORÇAGE - CHANGEMENT DES PERMISSIONS DU RÉPERTOIRE .ssh DU FICHIER authorized_keys (CHMOD)
   ansible.builtin.command: lxc-attach "{{ proxmox.lxc.vmid }}" -- /bin/bash -c "chmod -Rf 700 /home/{{ secret.users.me.name }}/.ssh"
