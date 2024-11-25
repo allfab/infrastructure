@@ -2,7 +2,7 @@
 - name: CHARGEMENT DES VARIABLES
   include_vars: defaults/main.yml
 
-- name: CRÉATION DES CONTENEUR LXC
+- name: CRÉATION DU CONTENEUR LXC
   proxmox:
     proxmox_default_behavior: no_defaults
     node: morpheus
@@ -59,5 +59,4 @@
     vmid: "{{ proxmox.lxc.vmid }}"
     state: "started"
     timeout: 90
-  with_items: "{{ proxmox.lxc }}"
   delegate_to: 192.168.10.5
