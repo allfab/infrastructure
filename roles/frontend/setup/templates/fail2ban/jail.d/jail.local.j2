@@ -1,11 +1,21 @@
 [DEFAULT]
 ignoreip = {{ secret.fail2ban.default.ignoreip }}
-
 bantime.increment = true
+bantime.rndtime = 30m
+bantime.maxtime = 60d
+bantime.factor = 2
+bantime.formula = ban.Time * math.exp(float(ban.Count+1)*banFactor)/math.exp(1*banFactor)
+bantime.overalljails = true
+#bantime.increment = true
+#bantime.rndtime = 2048
+#bantime.multipliers = 1 5 30 60 300 720 1440 2880
 
-bantime.rndtime = 2048
-
-bantime.multipliers = 1 5 30 60 300 720 1440 2880
+[recidive]
+enabled = true
+bantime = 9w
+findtime = 3d
+logpath = /data/fail2ban.log
+action  = recidive
 
 [traefik]
 enabled = true

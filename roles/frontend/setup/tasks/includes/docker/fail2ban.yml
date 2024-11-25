@@ -24,6 +24,7 @@
     - {src: 'fail2ban/jail.d/jail.local.j2', dest: 'fail2ban/jail.d/jail.local'}
     - {src: 'fail2ban/filter.d/traefik.conf.j2', dest: 'fail2ban/filter.d/traefik.conf'}
     - {src: 'fail2ban/action.d/traefik.conf.j2', dest: 'fail2ban/action.d/traefik.conf'}
+    - {src: 'fail2ban/action.d/recidive.conf.j2', dest: 'fail2ban/action.d/recidive.conf'}
     - {src: 'fail2ban/scripts/send-ntfy-notification.sh.j2', dest: 'fail2ban/action.d/send-ntfy-notification.sh'}
 
 
