@@ -1,0 +1,12 @@
+---
+exclude_paths:
+  - collections/
+
+skip_list:
+  - no-relative-paths
+  - literal-compare
+  - command-instead-of-shell
+  - risky-shell-pipe
+  - no-changed-when
+  - git-latest
+  - risky-file-permissions
