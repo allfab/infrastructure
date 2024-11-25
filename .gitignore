@@ -1,0 +1,6 @@
+.vault-password
+galaxy/*
+_temp/*
+set-ansible-wsl-windows-environment.sh
+authorized_keys
+allfab.pub
