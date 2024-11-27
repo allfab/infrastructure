@@ -50,7 +50,7 @@
             node: neo
     - PBS:
         href: https://neo-pbs.allfabox.fr
-        description: Proxmox
+        description: Proxmox Backup Server
         icon: sh-proxmox
         siteMonitor: https://192.168.10.6:8007
         widget:
