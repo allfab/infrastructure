@@ -111,6 +111,8 @@ sudo tailscale login --login-server https://headscale.allfabox.fr
 sudo tailscale up --login-server https://headscale.allfabox.fr --authkey xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 tailscale up --login-server https://headscale.allfabox.fr --authkey xxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+sudo tailscale set --operator=$USER
 ```
 
 ## Nodes
