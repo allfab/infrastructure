@@ -1,5 +1,12 @@
 ---
 # tasks file for roles/postgresql/includes/install.yml
+- name: ON S'ASSURE QUE LE RÉPERTOIRE DE DÉPÔT DES CLÉS EXISTE
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: 0755
+  become: true
+  
 - name: AJOUT DE LA CLÉ DE SIGNATURE PostgreSQL AU GESTIONNAIRE DE PAQUETS 'APT'
   get_url:
     url: "{{ postgresql.apt.key.url }}"
