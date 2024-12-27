@@ -69,12 +69,14 @@ curl -X 'POST' 'http://192.168.10.10:3011/api/sendText' -H 'accept: application/
 # HEADSCALE - TAILSCALE
 
 ## Docker
-
+### USERS
+```bash
 docker compose exec headscale headscale users create allfab
 docker compose exec headscale headscale preauthkeys create -e 10m -u allfab
+```
 
 Afin que le conteneur docker `tailscale` s'authentifie bien avec `headscale`, il est nécessaire d'ajouter la configuration `hostname` au fichier compose et que ce `hostname` corresponde bien à un utilisateur sur headscale. C'est pourquou on retrouve :
-``` yaml
+```yaml
 tailscale:
     container_name: tailscale
     image: tailscale/tailscale:latest
