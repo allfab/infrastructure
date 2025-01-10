@@ -47,6 +47,7 @@
   with_items:
     - "pct set {{ proxmox.lxc.vmid }} -mp0 /mnt/storage,mp=/mnt/storage"
     - "pct set {{ proxmox.lxc.vmid }} -mp1 /mnt/freebox,mp=/mnt/freebox"
+    - "pct set {{ proxmox.lxc.vmid }} -mp2 /mnt/tank/pgbackweb,mp=/mnt/tank/pgbackweb"
   delegate_to: 192.168.10.5
 
 - name: DÉMARRAGE DU CONTENEUR LXC
