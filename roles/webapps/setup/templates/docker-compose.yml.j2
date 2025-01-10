@@ -117,6 +117,25 @@ services:
     networks:
       - webapps
 
+  linkace:
+    container_name: linkace
+    image: linkace/linkace:simple
+    restart: unless-stopped
+    ports:
+      - 8080:80
+    volumes:
+      - ./linkace/config/.env:/app/.env
+      - ./linkace/logs:/app/storage/logs
+    environment:
+      - APP_KEY=${APP_KEY}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+    networks:
+      - webapps
+
   jellystat:
     container_name: jellystat
     image: cyfershepard/jellystat:latest

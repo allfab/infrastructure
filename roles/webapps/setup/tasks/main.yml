@@ -58,6 +58,9 @@
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR memos
   include_tasks: docker/containers/memos.yml
 
+- name: INSTALLATION/CONFIGURATION DU CONTENEUR linkace
+  include_tasks: docker/containers/linkace.yml
+
 - name: INSTALLATION/CONFIGURATION DU CONTENEUR jellystat
   include_tasks: docker/containers/jellystat.yml
 

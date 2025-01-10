@@ -1,0 +1,23 @@
+---
+- name: CHARGEMENT DES VARIABLES PAR DÉFAUT
+  include_vars: defaults/main.yml
+
+- name: LINKACE - CRÉATION DU RÉPERTOIRE D'INSTALLATION/CONFIGURATION
+  file:
+    path: "/opt/docker/webapps-stack/{{ item }}"
+    state: directory
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
+  loop:
+    - linkace
+    - linkace/config
+    - linkace/logs
+
+- name: LINKACE - INSTALLATION DES FICHIERS DE CONFIGURATION
+  copy:
+    src: linkace/config/.env
+    dest: /opt/docker/webapps-stack/linkace/config/.env
+    mode: "{{ docker.compose.directory_mask }}"
+    owner: "{{ secret.users.me.uid }}"
+    group: "{{ secret.users.me.gid }}"
