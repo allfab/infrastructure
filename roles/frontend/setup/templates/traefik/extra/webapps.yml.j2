@@ -25,6 +25,20 @@ http:
         - websecure
       rule: 'Host(`jellystat.allfabox.fr`)'
       service: jellystat
+    linkace:
+      entryPoints:
+        - websecure
+      rule: 'Host(`linkace.allfabox.fr`)'
+      service: linkace
+      middlewares:
+        - authelia
+    pgbackweb:
+      entryPoints:
+        - websecure
+      rule: 'Host(`pgbackweb.allfabox.fr`)'
+      service: pgbackweb
+      middlewares:
+        - authelia
   
   services:
     homepage:
@@ -47,3 +61,11 @@ http:
       loadBalancer:
         servers:
           - url: http://192.168.10.50:3001
+    linkace:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.50:8080
+    pgbackweb:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.50:8085
