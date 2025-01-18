@@ -95,6 +95,9 @@ monitoring_old:
 communication:
   ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit communication --tags setup
 
+webgis:
+  ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit webgis --tags setup
+
 elephant-garmin:
   ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit elephant --tags garmin-ign-bdtopo-map
 
