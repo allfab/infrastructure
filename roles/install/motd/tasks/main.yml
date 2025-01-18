@@ -79,17 +79,33 @@
     fastfetch_version: "{{ fastfetch_latest_release.json.tag_name }}"
   # when: fastfetch_version is undefined and force_install == True
 
-- name: TÉLÉCHARGEMENT DE LA VERSION SOUHAITÉE SUIVANT L'ARCHITECTURE DE LA MACHINE
+- name: TÉLÉCHARGEMENT DE LA VERSION SOUHAITÉE SUIVANT L'ARCHITECTURE DE LA MACHINE (Debian)
   get_url:
     url: "https://github.com/fastfetch-cli/fastfetch/releases/download/{{ fastfetch_version }}/fastfetch-linux-{{ arch }}.deb"
     dest: /tmp
-#   when: force_install == True
+  when: ansible_facts['os_family'] == "Debian"
+  
 
-- name: INSATLLATION DU PAQUET fastfetch
+- name: TÉLÉCHARGEMENT DE LA VERSION SOUHAITÉE SUIVANT L'ARCHITECTURE DE LA MACHINE (RedHat)
+  get_url:
+    url: "https://github.com/fastfetch-cli/fastfetch/releases/download/{{ fastfetch_version }}/fastfetch-linux-{{ arch }}.rpm"
+    dest: /tmp
+  when: ansible_facts['os_family'] == "RedHat"
+
+- name: INSTALLATION DU PAQUET fastfetch (Debian)
   become: true
   ansible.builtin.apt:
     deb: /tmp/fastfetch-linux-{{ arch }}.deb
+  when: ansible_facts['os_family'] == "Debian"
 
+- name: INSTALLATION DU PAQUET fastfetch (RedHat)
+  become: true
+  ansible.builtin.dnf:
+    name: /tmp/fastfetch-linux-{{ arch }}.rpm
+    state: present
+    disable_gpg_check: true
+  when: ansible_facts['os_family'] == "RedHat"
+  
 - name: CONFIGURATION DU MOTD - MESSAGE OF THE DAY
   become: true
   template:
