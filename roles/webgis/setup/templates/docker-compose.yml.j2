@@ -1,0 +1,42 @@
+---
+services:
+  portainer-agent:
+    container_name: portainer-agent
+    image: portainer/agent:latest
+    restart: always
+    ports:
+      - 9001:9001
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes 
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - AGENT_SECRET="${AGENT_SECRET}"
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - webgis
+
+  dozzle-agent:
+    container_name: dozzle-agent
+    image: amir20/dozzle:latest
+    restart: unless-stopped
+    ports:
+      - 7007:7007
+    command: agent
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - DOZZLE_HOSTNAME=Webgis
+    networks:
+      - webgis
+
+# docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 webgis
+networks:
+  webgis:
+    name: webgis
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "172.18.0.0/16"
+          gateway: "172.18.0.1"

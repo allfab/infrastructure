@@ -1,0 +1,42 @@
+---
+ssh:
+  port: "{{ secret.ssh.port }}"
+
+proxmox:
+  lxc:
+    name: webgis
+    vmid: 181
+    cores: 2
+    cpus: "1"
+    cpuunits: "1000"
+    disk: "local-zfs:32"
+    nesting: 1
+    keyctl: 1
+    fuse: 1
+    memory: 8192
+    nameserver: 192.168.0.253
+    ip: 192.168.10.81
+    gw: 192.168.10.1
+    unprivileged: false
+    onboot: true
+    startup: "order=11"
+    ostemplate: "iso-morpheus:vztmpl/rockylinux-9-default_20240912_amd64.tar.xz"
+    password: "{{ secret.users.lxc.ssh.password }}"
+    pubkey: "{{ secret.users.me.ssh.pubkey }}"
+    storage: "local-zfs"
+    # storage_template: "local"
+    swap: "1024"
+    tags:
+      - geo
+      - prod
+    timezone: "Europe/Paris"
+    description: |
+      <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
+
+      # Webgis LXC
+
+      <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a><br />
+      </div>
+    tags:
+      - webgis
+      - prod

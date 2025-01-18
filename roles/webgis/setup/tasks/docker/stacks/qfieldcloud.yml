@@ -1,0 +1,12 @@
+---
+- name: CHARGEMENT DES VARIABLES PAR DÉFAUT
+  include_vars: defaults/main.yml
+
+- name: QFIELDCLOUD - RECUPÉRATION DU DÉPÔT git ET CRÉATION DU RÉPERTOIRE D'INSTALLATION/CONFIGURATION
+  ansible.builtin.git:
+    repo: https://github.com/opengisch/QFieldCloud.git
+    dest: /opt/docker/qfieldcloud-stack
+    clone: true
+    version: master
+    track_submodules: true
+    update: true
