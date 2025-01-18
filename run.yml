@@ -431,23 +431,31 @@
 
 - hosts: webgis
   tags: setup
+  gather_facts: yes
   vars_files:
     - vars/vault.yml
-  pre_tasks:
-  - name: MISE À JOUR SYSTÈME
-    become: true
-    apt:
-      update_cache: true
-      upgrade: true
-      cache_valid_time: 14400
+  # pre_tasks:
+  #   - name: INSTALLATION DU DÉPÔT epel
+  #     become: true
+  #     dnf:
+  #       name: epel-release
+  #       state: present
+  #   - name: MISE À JOUR SYSTÈME
+  #     become: true
+  #     dnf:
+  #       name: "*"
+  #       state: latest
+    # - name: Display all facts
+    #   debug:
+    #     var: ansible_facts
   roles:
-    - role: grog.package
-      become: true
-    - role: config/bash-aliases
-      become: true
-    - install/motd
-    - role: geerlingguy.docker
-      become: true
+    # - role: grog.package
+    #   become: true
+    # - role: config/bash-aliases
+    #   become: true
+    # - install/motd
+    # - role: geerlingguy.docker
+    #   become: true
     - role: webgis/setup
 
 # - hosts: monitoring

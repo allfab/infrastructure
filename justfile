@@ -89,14 +89,17 @@ sysadmin-deployment:
 sysadmin-setup:
   ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit sysadmin --tags setup
 
+webgis-deployment:
+  ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit webgis --tags deployment
+
+webgis-setup:
+  ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit webgis --tags setup
+
 monitoring_old:
   ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit monitoring --tags setup
 
 communication:
   ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit communication --tags setup
-
-webgis:
-  ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit webgis --tags setup
 
 elephant-garmin:
   ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit elephant --tags garmin-ign-bdtopo-map
