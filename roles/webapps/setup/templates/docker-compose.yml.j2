@@ -155,6 +155,20 @@ services:
     networks:
       - webapps
 
+  pgbackweb: 
+    container_name: pgbackweb
+    image: eduardolat/pgbackweb:latest
+    ports:
+      - 8085:8085
+    volumes:
+      - /mnt/tank/pgbackweb:/backups
+    environment:
+      PBW_ENCRYPTION_KEY: ${PBW_ENCRYPTION_KEY}
+      PBW_POSTGRES_CONN_STRING: ${PBW_POSTGRES_CONN_STRING}
+      TZ: "Europe/Paris"
+    networks:
+      - webapps
+
 # docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 webapps
 networks:
   webapps:
