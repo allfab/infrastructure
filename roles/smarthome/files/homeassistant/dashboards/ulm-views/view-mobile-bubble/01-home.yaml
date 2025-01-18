@@ -1,0 +1,1599 @@
+type: grid
+cards:
+  ##########################
+  #     <WELCOME CARD>     #
+  ##########################
+  - type: custom:bubble-card
+    card_type: separator
+    card_layout: large
+    icon: mdi:home-outline
+    sub_button:
+      - show_background: false
+        tap_action:
+          action: none
+      - icon: mdi:cog
+        tap_action:
+          action: navigate
+          navigation_path: /config/dashboard
+    styles: >
+      /* Showing formatted date and time in a separator without using any entity */
+      /* From patreon.com/Clooos */
+      .bubble-line {
+        background: var(--primary-text-color);
+        opacity: 0.1;
+      }
+
+      .bubble-sub-button-1 {
+        font-size: 22px !important;
+        flex-direction: row;
+      }
+
+      ${(() => {
+        const now = new Date();
+        const locale = hass.locale;
+        const timeString = now.toLocaleTimeString(locale.language, {
+          hour: 'numeric', minute: 'numeric', hour12: locale?.time_format === '12'
+        });
+
+        const formattedTime = timeString.replace(/([APM]{2})$/, '<span style="font-size: 12px; margin: 6px 4px 0">$1</span>');
+
+        card.querySelector('.bubble-sub-button-1').innerHTML = formattedTime;
+        card.querySelector('.bubble-name').innerText = now.toLocaleDateString(locale.language, {
+          weekday: 'long', day: 'numeric', month: 'long'
+        }).replace(/^./, str => str.toUpperCase());
+      })()}
+  ##########################
+  #     </WELCOME CARD>    #
+  ##########################
+
+  ##########################
+  #       <WEATHER>        #
+  ##########################
+  - type: custom:bubble-card
+    card_type: button
+    button_type: state
+    entity: weather.openweathermap
+    name: Météo
+    show_state: true
+    card_layout: large-2-rows
+    sub_button:
+      - name: Home temperature
+        icon: mdi:home-thermometer-outline
+        entity: sensor.xiaomi_aqara_tph_sensor_livingroom_tv_temperature
+        show_state: true
+        show_icon: true
+        show_background: false
+      - name: Outside temperature
+        entity: sensor.xiaomi_aqara_tph_sensor_terrasse_temperature
+        show_state: true
+        show_background: false
+      - name: Today
+        entity: sensor.home_realfeel_temperature_max_0d
+        show_name: true
+        show_state: true
+        tap_action:
+          action: more-info
+        show_background: false
+      - name: Tomorrow
+        entity: sensor.home_realfeel_temperature_max_1d
+        show_name: true
+        show_state: true
+        show_background: false
+        show_attribute: false
+    styles: |-
+      ha-card {
+          --bubble-main-background-color: rgba(0,255,255,0.5) !important;
+        }
+  ##########################
+  #       </WEATHER>       #
+  ##########################
+  - type: custom:bubble-card
+    card_type: separator
+    entity: light.rdc_lampadaire_krosby
+    name: Maison
+    icon: mdi:home
+    sub_button: []
+    styles: |-
+      .bubble-line {
+        background: var(--primary-text-color);
+        opacity: 0.1;
+      }
+    card_layout: large
+
+  ##########################
+  #      <OCCUPATION>      #
+  ##########################
+  - type: custom:bubble-card
+    card_type: button
+    button_type: state
+    entity: person.fabien_allamanche
+    card_layout: large
+    styles: "/* Below code is for badges */\n  /* From patreon.com/Clooos */\n\n  .bubble-icon-container::after {\n    border-radius: 100%;\n  }\n\n  .bubble-icon-container {\n    overflow: visible !important;\n  }\n\n  .bubble-entity-picture {\n    border-radius: var(--bubble-icon-border-radius, var(--bubble-border-radius, 50%));\n  }\n\n  .badge {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    position: absolute;\n    z-index: 1;\n    background: var(--accent-color);\n    color: var(--primary-text-color);\n    font-size: 12px;\n    height: 20px;\n    width: 20px;\n    border-radius: 50%;\n    --mdc-icon-size: 12px;\n    box-sizing: border-box;\n  }\n\n  .badge.text {\n    border-radius: 10px;\n    padding: 0 4px;\n    width: auto;\n    min-width: 20px;\n  }\n\n  .badge.position-1 {\n    top: -4px;\n    right: -4px;\n  }\n\n  .badge.position-2 {\n    bottom: -4px;\n    right: -4px;\n  }\n\n  .badge.position-3 {\n    bottom: -4px;\n    left: -4px;\n  }\n\n  .badge.position-4 {\n    top: -4px;\n    left: -4px;\n  }\n\n  ${(() => {\n    // Up to 4 badges at the same time in each configs\n    \n    const containersConfig = [\n    \n      {\n        // Example for the main icon\n        containerSelector: '.bubble-icon-container',\n        badgesConfig: [\n        \n          // Show home icon when Fabien is home\n          { \n            entity: 'person.fabien_allamanche', \n            icon: 'mdi:home', \n            color: 'rgb(80, 110, 172)', // Default accent color if this line is removed\n            condition: (state) => state === 'home', // Use '!==' for 'not'\n          },\n\t\t  \n\t\t  // Show away icon when Fabien is not home\n          { \n            entity: 'person.fabien_allamanche', \n            icon: 'mdi:home-minus', \n            color: 'rgb(128, 201, 148)', // Default accent color if this line is removed\n            condition: (state) => state === 'not_home', // Use '!==' for 'not'\n          },\n          \n          // Show battery percentage when below 20%\n          {\n            entity: 'sensor.nothing_phone_2a_battery_level',\n            text: (state) => `${state}%`,\n            color: 'var(--error-color)',\n            condition: (state) => state < 20,\n          },\n\n          // Add more badges if needed...\n        ],\n      },\n      \n      {\n        // Example for sub-button(s) (can be empty or removed if not used)\n        containerSelector: '.bubble-sub-button-1',\n        badgesConfig: [\n          // Add badges for this container if necessary\n        ],\n      },\n\n      // Add more configs if needed...\n    ];\n\n    card.badges ||= {};\n    containersConfig.forEach(({ containerSelector, badgesConfig }) => {\n      const container = card.querySelector(containerSelector);\n      if (!container) return;\n      card.badges[containerSelector] ||= [];\n      badgesConfig.forEach((badgeConfig) => {\n        const state = hass.states[badgeConfig.entity]?.state;\n        const existingBadge = card.badges[containerSelector].find(b => \n          b.entity === badgeConfig.entity && b.condition.toString() === badgeConfig.condition.toString()\n        );\n        if (badgeConfig.condition(state)) {\n          if (existingBadge) {\n            if (badgeConfig.text) {\n              existingBadge.element.textContent = typeof badgeConfig.text === 'function' ? badgeConfig.text(state) : badgeConfig.text;\n            }\n          } else {\n            const el = document.createElement(\"div\");\n            el.className = `badge position-${card.badges[containerSelector].length + 1} ${badgeConfig.text ? 'text' : ''}`;\n            if (badgeConfig.color) el.style.backgroundColor = badgeConfig.color;\n            if (badgeConfig.text) {\n              el.textContent = typeof badgeConfig.text === 'function' ? badgeConfig.text(state) : badgeConfig.text;\n            } else if (badgeConfig.icon) {\n              const icon = document.createElement(\"ha-icon\");\n              icon.icon = badgeConfig.icon;\n              el.appendChild(icon);\n            }\n            container.appendChild(el);\n            card.badges[containerSelector].push({ \n              entity: badgeConfig.entity, \n              condition: badgeConfig.condition, \n              element: el \n            });\n          }\n        } else if (existingBadge) {\n          container.removeChild(existingBadge.element);\n          card.badges[containerSelector] = card.badges[containerSelector].filter(b => b !== existingBadge);\n        }\n      });\n    });\n  })()}"
+    columns: 2
+  - type: custom:bubble-card
+    card_type: button
+    button_type: state
+    entity: person.blandine_vincent
+    card_layout: large
+    styles: "/* Below code is for badges */\n  /* From patreon.com/Clooos */\n\n  .bubble-icon-container::after {\n    border-radius: 100%;\n  }\n\n  .bubble-icon-container {\n    overflow: visible !important;\n  }\n\n  .bubble-entity-picture {\n    border-radius: var(--bubble-icon-border-radius, var(--bubble-border-radius, 50%));\n  }\n\n  .badge {\n    display: flex;\n    align-items: center;\n    justify-content: center;\n    position: absolute;\n    z-index: 1;\n    background: var(--accent-color);\n    color: var(--primary-text-color);\n    font-size: 12px;\n    height: 20px;\n    width: 20px;\n    border-radius: 50%;\n    --mdc-icon-size: 12px;\n    box-sizing: border-box;\n  }\n\n  .badge.text {\n    border-radius: 10px;\n    padding: 0 4px;\n    width: auto;\n    min-width: 20px;\n  }\n\n  .badge.position-1 {\n    top: -4px;\n    right: -4px;\n  }\n\n  .badge.position-2 {\n    bottom: -4px;\n    right: -4px;\n  }\n\n  .badge.position-3 {\n    bottom: -4px;\n    left: -4px;\n  }\n\n  .badge.position-4 {\n    top: -4px;\n    left: -4px;\n  }\n\n  ${(() => {\n    // Up to 4 badges at the same time in each configs\n    \n    const containersConfig = [\n    \n      {\n        // Example for the main icon\n        containerSelector: '.bubble-icon-container',\n        badgesConfig: [\n        \n          // Show home icon when Fabien is home\n          { \n            entity: 'person.blandine_vincent', \n            icon: 'mdi:home', \n            color: 'rgb(80, 110, 172)', // Default accent color if this line is removed\n            condition: (state) => state === 'home', // Use '!==' for 'not'\n          },\n\t\t  \n\t\t  // Show away icon when Fabien is not home\n          { \n            entity: 'person.blandine_vincent', \n            icon: 'mdi:home-minus', \n            color: 'rgb(128, 201, 148)', // Default accent color if this line is removed\n            condition: (state) => state === 'not_home', // Use '!==' for 'not'\n          },\n          \n          // Show battery percentage when below 20%\n          {\n            entity: 'sensor.oneplus_nord2t_battery_level',\n            text: (state) => `${state}%`,\n            color: 'var(--error-color)',\n            condition: (state) => state < 20,\n          },\n\n          // Add more badges if needed...\n        ],\n      },\n      \n      {\n        // Example for sub-button(s) (can be empty or removed if not used)\n        containerSelector: '.bubble-sub-button-1',\n        badgesConfig: [\n          // Add badges for this container if necessary\n        ],\n      },\n\n      // Add more configs if needed...\n    ];\n\n    card.badges ||= {};\n    containersConfig.forEach(({ containerSelector, badgesConfig }) => {\n      const container = card.querySelector(containerSelector);\n      if (!container) return;\n      card.badges[containerSelector] ||= [];\n      badgesConfig.forEach((badgeConfig) => {\n        const state = hass.states[badgeConfig.entity]?.state;\n        const existingBadge = card.badges[containerSelector].find(b => \n          b.entity === badgeConfig.entity && b.condition.toString() === badgeConfig.condition.toString()\n        );\n        if (badgeConfig.condition(state)) {\n          if (existingBadge) {\n            if (badgeConfig.text) {\n              existingBadge.element.textContent = typeof badgeConfig.text === 'function' ? badgeConfig.text(state) : badgeConfig.text;\n            }\n          } else {\n            const el = document.createElement(\"div\");\n            el.className = `badge position-${card.badges[containerSelector].length + 1} ${badgeConfig.text ? 'text' : ''}`;\n            if (badgeConfig.color) el.style.backgroundColor = badgeConfig.color;\n            if (badgeConfig.text) {\n              el.textContent = typeof badgeConfig.text === 'function' ? badgeConfig.text(state) : badgeConfig.text;\n            } else if (badgeConfig.icon) {\n              const icon = document.createElement(\"ha-icon\");\n              icon.icon = badgeConfig.icon;\n              el.appendChild(icon);\n            }\n            container.appendChild(el);\n            card.badges[containerSelector].push({ \n              entity: badgeConfig.entity, \n              condition: badgeConfig.condition, \n              element: el \n            });\n          }\n        } else if (existingBadge) {\n          container.removeChild(existingBadge.element);\n          card.badges[containerSelector] = card.badges[containerSelector].filter(b => b !== existingBadge);\n        }\n      });\n    });\n  })()}"
+    columns: 2
+  ##########################
+  #      </OCCUPATION>     #
+  ##########################
+  
+  - type: custom:bubble-card
+    card_type: separator
+    entity: light.rdc_lampadaire_krosby
+    name: Capteurs/Détecteurs
+    icon: mdi:motion
+    sub_button:
+      - icon: mdi:menu
+        light_background: false
+        state_background: false
+        show_icon: true
+        show_name: false
+        tap_action:
+          navigation_path: "#popup-home"
+          action: navigate
+    styles: |-
+      .bubble-line {
+        background: var(--primary-text-color);
+        opacity: 0.1;
+      }
+    card_layout: large
+  - type: custom:bubble-card
+    card_type: button
+    entity: binary_sensor.xiaomi_aqara_doorwindow_sensor_portal_contact
+    name: ""
+    icon: ""
+    show_state: true
+    show_last_changed: true
+    card_layout: large
+    columns: 2
+    styles: >-
+      .bubble-icon {
+        color: ${hass.states['binary_sensor.xiaomi_aqara_doorwindow_sensor_portal_contact'].state === 'on' ? 'rgba(65, 105, 225, 1)' : 'white'} !important;
+      }
+
+      ha-card {
+        #--bubble-icon-background-color: rgba(65, 105, 225, 0.25) !important;
+        --bubble-icon-background-color: ${hass.states['binary_sensor.xiaomi_aqara_doorwindow_sensor_garage_contact'].state === 'on' ? 'rgba(65, 105, 225, 0.5)' : '#1D1D1D'} !important;
+      }
+
+      ${icon.setAttribute("icon",
+      hass.states['binary_sensor.xiaomi_aqara_doorwindow_sensor_portal_contact'].state
+      === 'on' ? 'mdi:gate-alert' : 'mdi:gate')}
+
+      .bubble-icon-container::after {
+          border-radius: 100%;
+        }
+
+        .bubble-icon-container {
+          overflow: visible !important;
+        }
+
+        .bubble-entity-picture {
+          border-radius: var(--bubble-icon-border-radius, var(--bubble-border-radius, 50%));
+        }
+
+        .badge {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: absolute;
+          z-index: 1;
+          background: var(--accent-color);
+          color: var(--primary-text-color);
+          font-size: 12px;
+          height: 20px;
+          width: 20px;
+          border-radius: 50%;
+          --mdc-icon-size: 12px;
+          box-sizing: border-box;
+        }
+
+        .badge.text {
+          border-radius: 10px;
+          padding: 0 4px;
+          width: auto;
+          min-width: 20px;
+        }
+
+        .badge.position-1 {
+          top: -4px;
+          right: -4px;
+        }
+
+        .badge.position-2 {
+          bottom: -4px;
+          right: -4px;
+        }
+
+        .badge.position-3 {
+          bottom: -4px;
+          left: -4px;
+        }
+
+        .badge.position-4 {
+          top: -4px;
+          left: -4px;
+        }
+
+        ${(() => {
+          // Up to 4 badges at the same time in each configs
+          
+          const containersConfig = [
+          
+            {
+              // Example for the main icon
+              containerSelector: '.bubble-icon-container',
+              badgesConfig: [
+              
+                // Show home icon when Quentin is home
+                { 
+                  entity: 'binary_sensor.xiaomi_aqara_doorwindow_sensor_portal_contact', 
+                  icon: 'mdi:exclamation-thick', 
+                  color: 'rgb(220, 20, 60)', // Default accent color if this line is removed
+                  condition: (state) => state === 'on', // Use '!==' for 'not'
+                },
+              ],
+            },
+            
+            {
+              // Example for sub-button(s) (can be empty or removed if not used)
+              containerSelector: '.bubble-sub-button-1',
+              badgesConfig: [
+                // Add badges for this container if necessary
+              ],
+            },
+
+            // Add more configs if needed...
+          ];
+
+          card.badges ||= {};
+          containersConfig.forEach(({ containerSelector, badgesConfig }) => {
+            const container = card.querySelector(containerSelector);
+            if (!container) return;
+            card.badges[containerSelector] ||= [];
+            badgesConfig.forEach((badgeConfig) => {
+              const state = hass.states[badgeConfig.entity]?.state;
+              const existingBadge = card.badges[containerSelector].find(b => 
+                b.entity === badgeConfig.entity && b.condition.toString() === badgeConfig.condition.toString()
+              );
+              if (badgeConfig.condition(state)) {
+                if (existingBadge) {
+                  if (badgeConfig.text) {
+                    existingBadge.element.textContent = typeof badgeConfig.text === 'function' ? badgeConfig.text(state) : badgeConfig.text;
+                  }
+                } else {
+                  const el = document.createElement("div");
+                  el.className = `badge position-${card.badges[containerSelector].length + 1} ${badgeConfig.text ? 'text' : ''}`;
+                  if (badgeConfig.color) el.style.backgroundColor = badgeConfig.color;
+                  if (badgeConfig.text) {
+                    el.textContent = typeof badgeConfig.text === 'function' ? badgeConfig.text(state) : badgeConfig.text;
+                  } else if (badgeConfig.icon) {
+                    const icon = document.createElement("ha-icon");
+                    icon.icon = badgeConfig.icon;
+                    el.appendChild(icon);
+                  }
+                  container.appendChild(el);
+                  card.badges[containerSelector].push({ 
+                    entity: badgeConfig.entity, 
+                    condition: badgeConfig.condition, 
+                    element: el 
+                  });
+                }
+              } else if (existingBadge) {
+                container.removeChild(existingBadge.element);
+                card.badges[containerSelector] = card.badges[containerSelector].filter(b => b !== existingBadge);
+              }
+            });
+          });
+        })()}
+    sub_button: []
+    button_type: state
+  - type: custom:bubble-card
+    card_type: button
+    button_type: state
+    entity: binary_sensor.xiaomi_aqara_doorwindow_sensor_garage_contact
+    card_layout: large
+    columns: 2
+    styles: >-
+      .bubble-icon {
+        color: ${hass.states['binary_sensor.xiaomi_aqara_doorwindow_sensor_garage_contact'].state === 'on' ? 'rgba(65, 105, 225, 1)' : 'white'} !important;
+      }
+
+      ha-card {
+        #--bubble-icon-background-color: rgba(65, 105, 225, 0.25) !important;
+        --bubble-icon-background-color: ${hass.states['binary_sensor.xiaomi_aqara_doorwindow_sensor_garage_contact'].state === 'on' ? 'rgba(65, 105, 225, 0.5)' : '#1D1D1D'} !important;
+      }
+
+      ${icon.setAttribute("icon",
+      hass.states['binary_sensor.xiaomi_aqara_doorwindow_sensor_garage_contact'].state
+      === 'on' ? 'mdi:garage-alert-variant' : 'mdi:garage-variant')}
+
+      .bubble-icon-container::after {
+          border-radius: 100%;
+        }
+
+        .bubble-icon-container {
+          overflow: visible !important;
+        }
+
+        .bubble-entity-picture {
+          border-radius: var(--bubble-icon-border-radius, var(--bubble-border-radius, 50%));
+        }
+
+        .badge {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: absolute;
+          z-index: 1;
+          background: var(--accent-color);
+          color: var(--primary-text-color);
+          font-size: 12px;
+          height: 20px;
+          width: 20px;
+          border-radius: 50%;
+          --mdc-icon-size: 12px;
+          box-sizing: border-box;
+        }
+
+        .badge.text {
+          border-radius: 10px;
+          padding: 0 4px;
+          width: auto;
+          min-width: 20px;
+        }
+
+        .badge.position-1 {
+          top: -4px;
+          right: -4px;
+        }
+
+        .badge.position-2 {
+          bottom: -4px;
+          right: -4px;
+        }
+
+        .badge.position-3 {
+          bottom: -4px;
+          left: -4px;
+        }
+
+        .badge.position-4 {
+          top: -4px;
+          left: -4px;
+        }
+
+        ${(() => {
+          // Up to 4 badges at the same time in each configs
+          
+          const containersConfig = [
+          
+            {
+              // Example for the main icon
+              containerSelector: '.bubble-icon-container',
+              badgesConfig: [
+              
+                // Show home icon when Quentin is home
+                { 
+                  entity: 'binary_sensor.xiaomi_aqara_doorwindow_sensor_garage_contact', 
+                  icon: 'mdi:exclamation-thick', 
+                  color: 'rgb(220, 20, 60)', // Default accent color if this line is removed
+                  condition: (state) => state === 'on', // Use '!==' for 'not'
+                },
+              ],
+            },
+            
+            {
+              // Example for sub-button(s) (can be empty or removed if not used)
+              containerSelector: '.bubble-sub-button-1',
+              badgesConfig: [
+                // Add badges for this container if necessary
+              ],
+            },
+
+            // Add more configs if needed...
+          ];
+
+          card.badges ||= {};
+          containersConfig.forEach(({ containerSelector, badgesConfig }) => {
+            const container = card.querySelector(containerSelector);
+            if (!container) return;
+            card.badges[containerSelector] ||= [];
+            badgesConfig.forEach((badgeConfig) => {
+              const state = hass.states[badgeConfig.entity]?.state;
+              const existingBadge = card.badges[containerSelector].find(b => 
+                b.entity === badgeConfig.entity && b.condition.toString() === badgeConfig.condition.toString()
+              );
+              if (badgeConfig.condition(state)) {
+                if (existingBadge) {
+                  if (badgeConfig.text) {
+                    existingBadge.element.textContent = typeof badgeConfig.text === 'function' ? badgeConfig.text(state) : badgeConfig.text;
+                  }
+                } else {
+                  const el = document.createElement("div");
+                  el.className = `badge position-${card.badges[containerSelector].length + 1} ${badgeConfig.text ? 'text' : ''}`;
+                  if (badgeConfig.color) el.style.backgroundColor = badgeConfig.color;
+                  if (badgeConfig.text) {
+                    el.textContent = typeof badgeConfig.text === 'function' ? badgeConfig.text(state) : badgeConfig.text;
+                  } else if (badgeConfig.icon) {
+                    const icon = document.createElement("ha-icon");
+                    icon.icon = badgeConfig.icon;
+                    el.appendChild(icon);
+                  }
+                  container.appendChild(el);
+                  card.badges[containerSelector].push({ 
+                    entity: badgeConfig.entity, 
+                    condition: badgeConfig.condition, 
+                    element: el 
+                  });
+                }
+              } else if (existingBadge) {
+                container.removeChild(existingBadge.element);
+                card.badges[containerSelector] = card.badges[containerSelector].filter(b => b !== existingBadge);
+              }
+            });
+          });
+        })()}
+  - type: vertical-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: pop-up
+        hash: "#popup-home"
+        button_type: name
+        name: Capteurs/Détecteurs
+        icon: mdi:motion
+        show_name: true
+        show_icon: true
+        scrolling_effect: true
+      - type: custom:bubble-card
+        card_type: separator
+        name: Capteurs d'ouverture/fermeture
+        card_layout: large
+        styles: |-
+          .bubble-line {
+            background: var(--primary-text-color);
+            opacity: 0.1;
+          }
+        icon: mdi:motion
+      - type: horizontal-stack
+        cards:
+          - type: custom:bubble-card
+            card_type: button
+            button_type: state
+            entity: binary_sensor.xiaomi_aqara_doorwindow_sensor_portal_contact
+            styles: >-
+              .bubble-icon {
+                color: ${hass.states['binary_sensor.xiaomi_aqara_doorwindow_sensor_portal_contact'].state === 'on' ? 'rgba(65, 105, 225, 1)' : 'white'} !important;
+              }
+
+              ha-card {
+                #--bubble-icon-background-color: rgba(65, 105, 225, 0.25) !important;
+                --bubble-icon-background-color: ${hass.states['binary_sensor.xiaomi_aqara_doorwindow_sensor_garage_contact'].state === 'on' ? 'rgba(65, 105, 225, 0.5)' : '#1D1D1D'} !important;
+              }
+
+              ${icon.setAttribute("icon",
+              hass.states['binary_sensor.xiaomi_aqara_doorwindow_sensor_portal_contact'].state
+              === 'on' ? 'mdi:gate-alert' : 'mdi:gate')}
+
+              .bubble-icon-container::after {
+                  border-radius: 100%;
+                }
+
+                .bubble-icon-container {
+                  overflow: visible !important;
+                }
+
+                .bubble-entity-picture {
+                  border-radius: var(--bubble-icon-border-radius, var(--bubble-border-radius, 50%));
+                }
+
+                .badge {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  position: absolute;
+                  z-index: 1;
+                  background: var(--accent-color);
+                  color: var(--primary-text-color);
+                  font-size: 12px;
+                  height: 20px;
+                  width: 20px;
+                  border-radius: 50%;
+                  --mdc-icon-size: 12px;
+                  box-sizing: border-box;
+                }
+
+                .badge.text {
+                  border-radius: 10px;
+                  padding: 0 4px;
+                  width: auto;
+                  min-width: 20px;
+                }
+
+                .badge.position-1 {
+                  top: -4px;
+                  right: -4px;
+                }
+
+                .badge.position-2 {
+                  bottom: -4px;
+                  right: -4px;
+                }
+
+                .badge.position-3 {
+                  bottom: -4px;
+                  left: -4px;
+                }
+
+                .badge.position-4 {
+                  top: -4px;
+                  left: -4px;
+                }
+
+                ${(() => {
+                  // Up to 4 badges at the same time in each configs
+                  
+                  const containersConfig = [
+                  
+                    {
+                      // Example for the main icon
+                      containerSelector: '.bubble-icon-container',
+                      badgesConfig: [
+                      
+                        // Show home icon when Quentin is home
+                        { 
+                          entity: 'binary_sensor.xiaomi_aqara_doorwindow_sensor_portal_contact', 
+                          icon: 'mdi:exclamation-thick', 
+                          color: 'rgb(220, 20, 60)', // Default accent color if this line is removed
+                          condition: (state) => state === 'on', // Use '!==' for 'not'
+                        },
+                      ],
+                    },
+                    
+                    {
+                      // Example for sub-button(s) (can be empty or removed if not used)
+                      containerSelector: '.bubble-sub-button-1',
+                      badgesConfig: [
+                        // Add badges for this container if necessary
+                      ],
+                    },
+
+                    // Add more configs if needed...
+                  ];
+
+                  card.badges ||= {};
+                  containersConfig.forEach(({ containerSelector, badgesConfig }) => {
+                    const container = card.querySelector(containerSelector);
+                    if (!container) return;
+                    card.badges[containerSelector] ||= [];
+                    badgesConfig.forEach((badgeConfig) => {
+                      const state = hass.states[badgeConfig.entity]?.state;
+                      const existingBadge = card.badges[containerSelector].find(b => 
+                        b.entity === badgeConfig.entity && b.condition.toString() === badgeConfig.condition.toString()
+                      );
+                      if (badgeConfig.condition(state)) {
+                        if (existingBadge) {
+                          if (badgeConfig.text) {
+                            existingBadge.element.textContent = typeof badgeConfig.text === 'function' ? badgeConfig.text(state) : badgeConfig.text;
+                          }
+                        } else {
+                          const el = document.createElement("div");
+                          el.className = `badge position-${card.badges[containerSelector].length + 1} ${badgeConfig.text ? 'text' : ''}`;
+                          if (badgeConfig.color) el.style.backgroundColor = badgeConfig.color;
+                          if (badgeConfig.text) {
+                            el.textContent = typeof badgeConfig.text === 'function' ? badgeConfig.text(state) : badgeConfig.text;
+                          } else if (badgeConfig.icon) {
+                            const icon = document.createElement("ha-icon");
+                            icon.icon = badgeConfig.icon;
+                            el.appendChild(icon);
+                          }
+                          container.appendChild(el);
+                          card.badges[containerSelector].push({ 
+                            entity: badgeConfig.entity, 
+                            condition: badgeConfig.condition, 
+                            element: el 
+                          });
+                        }
+                      } else if (existingBadge) {
+                        container.removeChild(existingBadge.element);
+                        card.badges[containerSelector] = card.badges[containerSelector].filter(b => b !== existingBadge);
+                      }
+                    });
+                  });
+                })()}
+          - type: custom:bubble-card
+            card_type: button
+            button_type: state
+            entity: binary_sensor.xiaomi_aqara_doorwindow_sensor_garage_contact
+            styles: >-
+              .bubble-icon {
+                color: ${hass.states['binary_sensor.xiaomi_aqara_doorwindow_sensor_garage_contact'].state === 'on' ? 'rgba(65, 105, 225, 1)' : 'white'} !important;
+              }
+
+              ha-card {
+                #--bubble-icon-background-color: rgba(65, 105, 225, 0.25) !important;
+                --bubble-icon-background-color: ${hass.states['binary_sensor.xiaomi_aqara_doorwindow_sensor_garage_contact'].state === 'on' ? 'rgba(65, 105, 225, 0.5)' : '#1D1D1D'} !important;
+              }
+
+              ${icon.setAttribute("icon",
+              hass.states['binary_sensor.xiaomi_aqara_doorwindow_sensor_garage_contact'].state
+              === 'on' ? 'mdi:garage-alert-variant' : 'mdi:garage-variant')}
+
+              .bubble-icon-container::after {
+                  border-radius: 100%;
+                }
+
+                .bubble-icon-container {
+                  overflow: visible !important;
+                }
+
+                .bubble-entity-picture {
+                  border-radius: var(--bubble-icon-border-radius, var(--bubble-border-radius, 50%));
+                }
+
+                .badge {
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  position: absolute;
+                  z-index: 1;
+                  background: var(--accent-color);
+                  color: var(--primary-text-color);
+                  font-size: 12px;
+                  height: 20px;
+                  width: 20px;
+                  border-radius: 50%;
+                  --mdc-icon-size: 12px;
+                  box-sizing: border-box;
+                }
+
+                .badge.text {
+                  border-radius: 10px;
+                  padding: 0 4px;
+                  width: auto;
+                  min-width: 20px;
+                }
+
+                .badge.position-1 {
+                  top: -4px;
+                  right: -4px;
+                }
+
+                .badge.position-2 {
+                  bottom: -4px;
+                  right: -4px;
+                }
+
+                .badge.position-3 {
+                  bottom: -4px;
+                  left: -4px;
+                }
+
+                .badge.position-4 {
+                  top: -4px;
+                  left: -4px;
+                }
+
+                ${(() => {
+                  // Up to 4 badges at the same time in each configs
+                  
+                  const containersConfig = [
+                  
+                    {
+                      // Example for the main icon
+                      containerSelector: '.bubble-icon-container',
+                      badgesConfig: [
+                      
+                        // Show home icon when Quentin is home
+                        { 
+                          entity: 'binary_sensor.xiaomi_aqara_doorwindow_sensor_garage_contact', 
+                          icon: 'mdi:exclamation-thick', 
+                          color: 'rgb(220, 20, 60)', // Default accent color if this line is removed
+                          condition: (state) => state === 'on', // Use '!==' for 'not'
+                        },
+                      ],
+                    },
+                    
+                    {
+                      // Example for sub-button(s) (can be empty or removed if not used)
+                      containerSelector: '.bubble-sub-button-1',
+                      badgesConfig: [
+                        // Add badges for this container if necessary
+                      ],
+                    },
+
+                    // Add more configs if needed...
+                  ];
+
+                  card.badges ||= {};
+                  containersConfig.forEach(({ containerSelector, badgesConfig }) => {
+                    const container = card.querySelector(containerSelector);
+                    if (!container) return;
+                    card.badges[containerSelector] ||= [];
+                    badgesConfig.forEach((badgeConfig) => {
+                      const state = hass.states[badgeConfig.entity]?.state;
+                      const existingBadge = card.badges[containerSelector].find(b => 
+                        b.entity === badgeConfig.entity && b.condition.toString() === badgeConfig.condition.toString()
+                      );
+                      if (badgeConfig.condition(state)) {
+                        if (existingBadge) {
+                          if (badgeConfig.text) {
+                            existingBadge.element.textContent = typeof badgeConfig.text === 'function' ? badgeConfig.text(state) : badgeConfig.text;
+                          }
+                        } else {
+                          const el = document.createElement("div");
+                          el.className = `badge position-${card.badges[containerSelector].length + 1} ${badgeConfig.text ? 'text' : ''}`;
+                          if (badgeConfig.color) el.style.backgroundColor = badgeConfig.color;
+                          if (badgeConfig.text) {
+                            el.textContent = typeof badgeConfig.text === 'function' ? badgeConfig.text(state) : badgeConfig.text;
+                          } else if (badgeConfig.icon) {
+                            const icon = document.createElement("ha-icon");
+                            icon.icon = badgeConfig.icon;
+                            el.appendChild(icon);
+                          }
+                          container.appendChild(el);
+                          card.badges[containerSelector].push({ 
+                            entity: badgeConfig.entity, 
+                            condition: badgeConfig.condition, 
+                            element: el 
+                          });
+                        }
+                      } else if (existingBadge) {
+                        container.removeChild(existingBadge.element);
+                        card.badges[containerSelector] = card.badges[containerSelector].filter(b => b !== existingBadge);
+                      }
+                    });
+                  });
+                })()}
+      - type: custom:bubble-card
+        card_type: separator
+        button_type: name
+        name: Détecteurs de fumée
+        icon: mdi:smoke
+        card_layout: large
+        styles: |-
+          .bubble-line {
+            background: var(--primary-text-color);
+            opacity: 0.1;
+          }
+      - type: horizontal-stack
+        cards:
+          - type: horizontal-stack
+            cards:
+              - type: custom:bubble-card
+                card_type: button
+                button_type: state
+                entity: binary_sensor.xiaomi_aqara_rdc_smart_smoke_detector_smoke
+                styles: |-
+                  .bubble-icon {
+                    color: ${hass.states['binary_sensor.xiaomi_aqara_rdc_smart_smoke_detector_smoke'].state === 'on' ? 'rgba(65, 105, 225, 1)' : 'white'} !important;
+                  }
+                  ha-card {
+                    #--bubble-icon-background-color: rgba(65, 105, 225, 0.25) !important;
+                    --bubble-icon-background-color: ${hass.states['binary_sensor.xiaomi_aqara_rdc_smart_smoke_detector_smoke'].state === 'on' ? 'rgba(65, 105, 225, 0.5)' : '#1D1D1D'} !important;
+                  }
+
+                  .bubble-icon-container::after {
+                      border-radius: 100%;
+                    }
+
+                    .bubble-icon-container {
+                      overflow: visible !important;
+                    }
+
+                    .bubble-entity-picture {
+                      border-radius: var(--bubble-icon-border-radius, var(--bubble-border-radius, 50%));
+                    }
+
+                    .badge {
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      position: absolute;
+                      z-index: 1;
+                      background: var(--accent-color);
+                      color: var(--primary-text-color);
+                      font-size: 12px;
+                      height: 20px;
+                      width: 20px;
+                      border-radius: 50%;
+                      --mdc-icon-size: 12px;
+                      box-sizing: border-box;
+                    }
+
+                    .badge.text {
+                      border-radius: 10px;
+                      padding: 0 4px;
+                      width: auto;
+                      min-width: 20px;
+                    }
+
+                    .badge.position-1 {
+                      top: -4px;
+                      right: -4px;
+                    }
+
+                    .badge.position-2 {
+                      bottom: -4px;
+                      right: -4px;
+                    }
+
+                    .badge.position-3 {
+                      bottom: -4px;
+                      left: -4px;
+                    }
+
+                    .badge.position-4 {
+                      top: -4px;
+                      left: -4px;
+                    }
+
+                    ${(() => {
+                      // Up to 4 badges at the same time in each configs
+                      
+                      const containersConfig = [
+                      
+                        {
+                          // Example for the main icon
+                          containerSelector: '.bubble-icon-container',
+                          badgesConfig: [
+                          
+                            // Show home icon when Quentin is home
+                            { 
+                              entity: 'binary_sensor.xiaomi_aqara_doorwindow_sensor_garage_contact', 
+                              icon: 'mdi:fire', 
+                              color: 'rgb(220, 20, 60)', // Default accent color if this line is removed
+                              condition: (state) => state === 'on', // Use '!==' for 'not'
+                            },
+                          ],
+                        },
+                        
+                        {
+                          // Example for sub-button(s) (can be empty or removed if not used)
+                          containerSelector: '.bubble-sub-button-1',
+                          badgesConfig: [
+                            // Add badges for this container if necessary
+                          ],
+                        },
+
+                        // Add more configs if needed...
+                      ];
+
+                      card.badges ||= {};
+                      containersConfig.forEach(({ containerSelector, badgesConfig }) => {
+                        const container = card.querySelector(containerSelector);
+                        if (!container) return;
+                        card.badges[containerSelector] ||= [];
+                        badgesConfig.forEach((badgeConfig) => {
+                          const state = hass.states[badgeConfig.entity]?.state;
+                          const existingBadge = card.badges[containerSelector].find(b => 
+                            b.entity === badgeConfig.entity && b.condition.toString() === badgeConfig.condition.toString()
+                          );
+                          if (badgeConfig.condition(state)) {
+                            if (existingBadge) {
+                              if (badgeConfig.text) {
+                                existingBadge.element.textContent = typeof badgeConfig.text === 'function' ? badgeConfig.text(state) : badgeConfig.text;
+                              }
+                            } else {
+                              const el = document.createElement("div");
+                              el.className = `badge position-${card.badges[containerSelector].length + 1} ${badgeConfig.text ? 'text' : ''}`;
+                              if (badgeConfig.color) el.style.backgroundColor = badgeConfig.color;
+                              if (badgeConfig.text) {
+                                el.textContent = typeof badgeConfig.text === 'function' ? badgeConfig.text(state) : badgeConfig.text;
+                              } else if (badgeConfig.icon) {
+                                const icon = document.createElement("ha-icon");
+                                icon.icon = badgeConfig.icon;
+                                el.appendChild(icon);
+                              }
+                              container.appendChild(el);
+                              card.badges[containerSelector].push({ 
+                                entity: badgeConfig.entity, 
+                                condition: badgeConfig.condition, 
+                                element: el 
+                              });
+                            }
+                          } else if (existingBadge) {
+                            container.removeChild(existingBadge.element);
+                            card.badges[containerSelector] = card.badges[containerSelector].filter(b => b !== existingBadge);
+                          }
+                        });
+                      });
+                    })()}
+              - type: custom:bubble-card
+                card_type: button
+                button_type: state
+                entity: binary_sensor.heiman_firstfloor_smart_smoke_detector_smoke
+      - type: custom:bubble-card
+        card_type: separator
+        styles: |-
+          .bubble-line {
+            background: var(--primary-text-color);
+            opacity: 0.1;
+          }
+        name: Détecteurs de fuite
+        icon: mdi:home-flood
+      - type: horizontal-stack
+        cards:
+          - type: custom:bubble-card
+            card_type: button
+            button_type: state
+            entity: >-
+              binary_sensor.xiaomi_aqara_water_leak_t1_rdc_technical_sheath_water_leak
+            card_layout: normal
+  - type: custom:bubble-card
+    card_type: separator
+    entity: light.rdc_lampadaire_krosby
+    name: Volets roulants
+    icon: mdi:roller-shade
+    sub_button:
+      - entity: cover.somfy_tahoma_roller_shutter_rdc
+        show_name: false
+        name: RDC
+        icon: mdi:home-floor-0
+        tap_action:
+          action: toggle
+      - entity: cover.nodon_roller_shutter_switch_sin4rs20_etage
+        name: 1er
+        icon: mdi:home-floor-1
+        state_background: true
+        show_state: false
+        show_attribute: false
+        show_last_changed: false
+        tap_action:
+          action: toggle
+      - icon: mdi:menu
+        light_background: false
+        state_background: false
+        show_icon: true
+        show_name: false
+        tap_action:
+          action: navigate
+          navigation_path: "#popup-rollershade"
+    styles: |-
+      .bubble-line {
+        background: var(--primary-text-color);
+        opacity: 0.1;
+      }
+      .bubble-sub-button-1 {
+        # color: ${hass.states['cover.somfy_tahoma_roller_shutter_rdc'].state === 'closed' ? 'black' : 'white'} !important;
+        background-color: ${hass.states['cover.somfy_tahoma_roller_shutter_rdc'].state === 'open' ? 'purple' : '#1D1D1D'} !important;
+      }
+      .bubble-sub-button-2 {
+        # color: ${hass.states['cover.nodon_roller_shutter_switch_sin4rs20_etage'].state === 'closed' ? 'black' : 'white'} !important;
+        background-color: ${hass.states['cover.nodon_roller_shutter_switch_sin4rs20_etage'].state === 'open' ? 'purple' : '#1D1D1D'} !important;
+      }
+    card_layout: large
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: button
+        button_type: slider
+        entity: cover.somfy_tahoma_roller_shutter_rdc
+        name: Rez de chaussée
+        styles: |-
+          .bubble-range-fill { 
+            background: rgba(128, 0, 128, 1) !important;
+            opacity: 1 !important;
+          }
+          .bubble-icon {
+            color: white !important;
+          }
+          ha-card {
+            --bubble-main-background-color: rgba(128,0,128,0.25) !important;
+          }
+        icon: mdi:window-shutter-open
+        show_name: true
+        show_last_changed: true
+        show_state: true
+      - type: custom:bubble-card
+        card_type: button
+        button_type: slider
+        name: 1er étage
+        entity: cover.nodon_roller_shutter_switch_sin4rs20_etage
+        card_layout: normal
+        styles: ".bubble-range-fill { \n\tbackground: rgba(128, 0, 128, 1) !important;\n\topacity: 1 !important;\n}\n.bubble-icon {\n  color: white !important;\n}\nha-card {\n  --bubble-main-background-color: rgba(128,0,128,0.25) !important;\n}"
+        sub_button: []
+        icon: mdi:window-shutter-open
+        show_last_changed: true
+        show_state: true
+  - type: vertical-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: pop-up
+        hash: "#popup-rollershade"
+        button_type: slider
+        name: Volets roulants
+        icon: mdi:roller-shade
+      - type: custom:bubble-card
+        card_type: separator
+        name: Rez de chaussée
+        icon: mdi:home-floor-0
+        styles: |-
+          .bubble-line {
+            background: var(--primary-text-color);
+            opacity: 0.1;
+          }
+      - type: horizontal-stack
+        cards:
+          - type: custom:bubble-card
+            card_type: button
+            entity: cover.somfy_tahoma_roller_shutter_rdc_livingroom_stairs
+            show_state: true
+            show_last_changed: false
+            scrolling_effect: true
+          - type: custom:bubble-card
+            card_type: button
+            entity: cover.somfy_tahoma_roller_shutter_rdc_livingroom_tv
+            icon_open: mdi:window-shutter-open
+            icon_close: mdi:window-shutter
+            button_type: slider
+            show_state: true
+      - type: horizontal-stack
+        cards:
+          - type: custom:bubble-card
+            card_type: button
+            entity: cover.somfy_tahoma_roller_shutter_rdc_bedroom_parents
+            icon_open: mdi:window-shutter-open
+            icon_close: mdi:window-shutter
+            button_type: slider
+            show_last_changed: false
+            show_attribute: false
+            show_state: true
+          - type: custom:bubble-card
+            card_type: button
+            entity: cover.somfy_tahoma_roller_shutter_rdc_bedroom_emilie
+            icon_open: mdi:window-shutter-open
+            icon_close: mdi:window-shutter
+            button_type: slider
+            show_state: true
+      - type: horizontal-stack
+        cards:
+          - type: custom:bubble-card
+            card_type: button
+            button_type: slider
+            entity: cover.somfy_tahoma_roller_shutter_rdc_garage_big
+            show_state: true
+          - type: custom:bubble-card
+            card_type: button
+            button_type: slider
+            entity: cover.somfy_tahoma_roller_shutter_rdc_garage_small
+            show_state: true
+      - type: custom:bubble-card
+        card_type: separator
+        name: 1er étage
+        icon: mdi:home-floor-1
+        styles: |-
+          .bubble-line {
+            background: var(--primary-text-color);
+            opacity: 0.1;
+          }
+      - type: custom:bubble-card
+        card_type: button
+        button_type: slider
+        entity: cover.nodon_roller_shutter_switch_sin4rs20_landing_room
+        styles: |-
+          .bubble-range-fill { 
+              background: purple !important;
+              opacity: 1 !important;
+            }
+          .bubble-icon {
+              color: white !important;
+            }
+      - type: horizontal-stack
+        cards:
+          - type: custom:bubble-card
+            card_type: button
+            button_type: slider
+            entity: cover.nodon_roller_shutter_switch_sin4rs20_bedroom_north
+            styles: |-
+              .bubble-range-fill { 
+                  background: purple !important;
+                  opacity: 1 !important;
+                }
+              .bubble-icon {
+                  color: white !important;
+                }
+          - type: custom:bubble-card
+            card_type: button
+            button_type: slider
+            entity: cover.nodon_roller_shutter_switch_sin4rs20_bedroom_south
+            styles: |-
+              .bubble-range-fill { 
+                  background: purple !important;
+                  opacity: 1 !important;
+                }
+              .bubble-icon {
+                  color: white !important;
+                }
+  - type: custom:bubble-card
+    card_type: separator
+    name: Pièces
+    icon: mdi:home-group
+    card_layout: large
+    styles: |-
+      .bubble-line {
+        background: var(--primary-text-color);
+        opacity: 0.1;
+      }
+    sub_button: []
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: button
+        name: Hall d'entrée
+        icon: mdi:coat-rack
+        styles: |-
+          ha-card {
+            --bubble-button-main-background-color: rgba(47, 79, 79, 0.25) !important;
+          }
+          .bubble-icon-container {
+            background-color: rgba(47, 79, 79, 1) !important;
+            cursor: default !important;
+          }
+          .bubble-icon, .bubble-button-background {
+            color: white !important;
+          }
+        card_layout: large
+        button_type: name
+        show_name: true
+        show_state: false
+        tap_action:
+          navigation_path: "#bubble-popup-hallway"
+        button_action:
+          tap_action: {}
+        sub_button:
+          - entity: light.ikea_tradfri_bulb_krosby_hallway
+          - icon: mdi:menu
+            tap_action:
+              action: navigate
+              navigation_path: "#bubble-popup-hallway"
+      - type: custom:bubble-card
+        card_type: button
+        name: Séjour
+        icon: mdi:fireplace
+        sub_button:
+          - entity: light.rdc_lampadaire_krosby
+            icon: mdi:lightbulb-multiple
+            tap_action:
+              action: toggle
+          - icon: mdi:menu
+            light_background: false
+            state_background: false
+            show_icon: true
+            show_name: false
+            tap_action:
+              action: navigate
+              navigation_path: "#bubble-popup-livingroom"
+        styles: |-
+          ha-card {
+            --bubble-button-main-background-color: rgba(47, 79, 79, 0.25) !important;
+          }
+          .bubble-icon-container {
+            background-color: rgba(47, 79, 79, 1) !important;
+            cursor: default !important;
+          }
+          .bubble-icon, .bubble-button-background {
+            color: white !important;
+          }
+        card_layout: large
+        button_type: name
+        show_name: true
+        show_state: false
+        entity: light.rdc_lampadaire_krosby
+        tap_action: {}
+        button_action:
+          tap_action: {}
+  - type: vertical-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: pop-up
+        hash: "#bubble-popup-livingroom"
+        button_type: name
+        force_icon: false
+        show_state: true
+        show_attribute: false
+        show_last_changed: true
+        auto_close: "15000"
+        slide_to_close_distance: "400"
+        close_on_click: false
+        background_update: false
+        name: Séjour
+        close_by_clicking_outside: false
+        hide_backdrop: false
+        show_header: true
+        icon: mdi:fireplace
+        show_icon: true
+        styles: ""
+        sub_button:
+          - entity: sensor.xiaomi_aqara_tph_sensor_livingroom_tv_temperature
+            show_background: false
+            show_icon: true
+            show_name: false
+            show_state: true
+            state_background: false
+          - entity: sensor.xiaomi_aqara_tph_sensor_livingroom_tv_humidity
+            show_state: true
+            show_icon: true
+            state_background: false
+            show_background: false
+            show_name: false
+          - entity: light.rdc_lampadaire_krosby
+            icon: mdi:lightbulb-multiple
+            show_arrow: true
+            show_attribute: false
+            show_last_changed: false
+            tap_action:
+              action: toggle
+      - type: custom:bubble-card
+        card_type: separator
+        name: Lampes
+        card_layout: large
+        styles: |-
+          .bubble-line {
+            background: var(--primary-text-color);
+            opacity: 0.1;
+          }
+        icon: mdi:lightbulb-multiple
+      - type: custom:bubble-card
+        card_type: button
+        entity: light.ikea_tradfri_bulb_krosby_hallway
+        name: Halle d'entrée - Krosby
+        button_type: slider
+      - type: custom:bubble-card
+        card_type: button
+        entity: light.ikea_tradfri_bulb_krosby_livingroom
+        name: Salon - Krosby
+        button_type: slider
+      - type: custom:bubble-card
+        card_type: separator
+        name: Prise(s)
+        icon: mdi:power-socket-fr
+      - type: custom:bubble-card
+        card_type: button
+        show_state: true
+        show_last_changed: true
+        show_attribute: true
+        attribute: consumption
+        entity: switch.xiaomi_aqara_smartplug_livingroom_tv
+        name: Multimédia (TV/Sonos Beam/Console...)
+      - type: custom:bubble-card
+        card_type: separator
+        name: Températures
+        icon: mdi:home-thermometer
+        styles: |-
+          .bubble-line {
+            background: var(--primary-text-color);
+            opacity: 0.1;
+          }
+        card_layout: large
+      - type: custom:mini-graph-card
+        name: Températures intérieures
+        icon: mdi:temperature-celsius
+        entities:
+          - name: Salon
+            entity: sensor.xiaomi_aqara_tph_sensor_livingroom_tv_temperature
+            color: Wheat
+          - name: Pièce palière
+            entity: sensor.xiaomi_aqara_tph_sensor_firstfloor_landingroom_temperature
+            color: Orange
+          - name: Salle de bains
+            entity: sensor.sonoff_th_sensor_bathroom_temperature
+            color: Navy
+        hours_to_show: 48
+        points_per_hour: 0.5
+        show:
+          labels: true
+          labels_secondary: true
+  - type: vertical-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: pop-up
+        hash: "#bubble-popup-hallway"
+        button_type: name
+        force_icon: false
+        show_state: true
+        show_attribute: false
+        show_last_changed: true
+        auto_close: "15000"
+        slide_to_close_distance: "400"
+        close_on_click: false
+        background_update: false
+        name: Hall d'entrée
+        close_by_clicking_outside: false
+        hide_backdrop: false
+        show_header: true
+        icon: mdi:coat-rack
+        show_icon: true
+        styles: ""
+        sub_button:
+          - icon: mdi:floor-lamp-torchiere
+            show_arrow: true
+            show_attribute: false
+            show_last_changed: false
+            tap_action:
+              action: toggle
+            entity: light.ikea_tradfri_bulb_krosby_hallway
+      - type: custom:bubble-card
+        card_type: separator
+        name: Lampes
+        card_layout: large
+        styles: |-
+          .bubble-line {
+            background: var(--primary-text-color);
+            opacity: 0.1;
+          }
+        icon: mdi:lightbulb-multiple
+      - type: custom:bubble-card
+        card_type: button
+        button_type: slider
+        entity: light.ikea_tradfri_bulb_krosby_hallway
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: button
+        name: Chambre parentale
+        icon: mdi:bed-king
+        styles: |-
+          ha-card {
+            --bubble-button-main-background-color: rgba(138, 43, 226, 0.25) !important;
+          }
+          .bubble-icon-container {
+            background-color: rgba(138, 43, 226, 1) !important;
+            cursor: default !important;
+          }
+          .bubble-icon, .bubble-button-background {
+            color: white !important;
+          }
+        card_layout: large
+        button_type: name
+        show_name: true
+        show_state: false
+        tap_action:
+          navigation_path: "#bubble-popup-hallway"
+        button_action:
+          tap_action: {}
+        sub_button:
+          - entity: light.lifx_bedroom_right_nightstand
+          - icon: mdi:menu
+            tap_action:
+              action: navigate
+              navigation_path: "#bubble-popup-hallway"
+      - type: custom:bubble-card
+        card_type: button
+        name: Chambre d'Émilie
+        icon: mdi:teddy-bear
+        sub_button:
+          - icon: mdi:menu
+            light_background: false
+            state_background: false
+            show_icon: true
+            show_name: false
+            tap_action:
+              action: navigate
+              navigation_path: "#bubble-popup-livingroom"
+        styles: |-
+          ha-card {
+            --bubble-button-main-background-color: rgba(138, 43, 226, 0.25) !important;
+          }
+          .bubble-icon-container {
+            background-color: rgba(138, 43, 226, 1) !important;
+            cursor: default !important;
+          }
+          .bubble-icon, .bubble-button-background {
+            color: white !important;
+          }
+        card_layout: large
+        button_type: name
+        show_name: true
+        show_state: false
+        tap_action: {}
+        button_action:
+          tap_action: {}
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: button
+        name: Salle de bains
+        icon: mdi:shower-head
+        styles: |-
+          ha-card {
+            --bubble-button-main-background-color: rgba(30, 144, 255, 0.25) !important;
+          }
+          .bubble-icon-container {
+            background-color: rgba(30, 144, 255, 1) !important;
+            cursor: default !important;
+          }
+          .bubble-icon, .bubble-button-background {
+            color: white !important;
+          }
+        card_layout: large
+        button_type: name
+        show_name: true
+        show_state: false
+        tap_action:
+          navigation_path: "#bubble-popup-hallway"
+        button_action:
+          tap_action: {}
+        sub_button:
+          - entity: sensor.sonoff_th_sensor_bathroom_temperature
+            show_icon: false
+            state_background: false
+            show_background: true
+            show_state: true
+          - icon: mdi:menu
+            tap_action:
+              action: navigate
+              navigation_path: "#bubble-popup-hallway"
+        show_icon: true
+      - type: custom:bubble-card
+        card_type: button
+        name: WC
+        icon: mdi:paper-roll
+        sub_button:
+          - entity: light.xiaomi_aqara_smartledbulb_toilet
+          - icon: mdi:menu
+            light_background: false
+            state_background: false
+            show_icon: true
+            show_name: false
+            tap_action:
+              action: navigate
+              navigation_path: "#bubble-popup-livingroom"
+        styles: |-
+          ha-card {
+            --bubble-button-main-background-color: rgba(30, 144, 255, 0.25) !important;
+          }
+          .bubble-icon-container {
+            background-color: rgba(30, 144, 255, 1) !important;
+            cursor: default !important;
+          }
+          .bubble-icon, .bubble-button-background {
+            color: white !important;
+          }
+        card_layout: large
+        button_type: name
+        show_name: true
+        show_state: false
+        tap_action: {}
+        button_action:
+          tap_action: {}
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: button
+        name: Buanderie
+        icon: mdi:washing-machine
+        styles: |-
+          ha-card {
+            --bubble-button-main-background-color: rgba(176, 196, 222, 0.25) !important;
+          }
+          .bubble-icon-container {
+            background-color: rgba(176, 196, 222, 1) !important;
+            cursor: default !important;
+          }
+          .bubble-icon, .bubble-button-background {
+            color: white !important;
+          }
+        card_layout: large
+        button_type: name
+        show_name: true
+        show_state: false
+        tap_action:
+          navigation_path: "#bubble-popup-hallway"
+        button_action:
+          tap_action: {}
+        sub_button:
+          - entity: switch.loratap_bulb_socket_lamp_adapter_garage
+          - icon: mdi:menu
+            tap_action:
+              action: navigate
+              navigation_path: "#bubble-popup-hallway"
+      - type: custom:bubble-card
+        card_type: button
+        name: Cour
+        icon: mdi:car
+        sub_button:
+          - entity: switch.sonoff_smart_switch_module_garage
+            show_name: false
+            show_state: false
+            show_last_changed: false
+          - icon: mdi:menu
+            light_background: false
+            state_background: false
+            show_icon: true
+            show_name: false
+            tap_action:
+              action: navigate
+              navigation_path: "#bubble-popup-livingroom"
+        styles: |-
+          ha-card {
+            --bubble-button-main-background-color: rgba(176, 196, 222, 0.25) !important;
+          }
+          .bubble-icon-container {
+            background-color: rgba(176, 196, 222, 1) !important;
+            cursor: default !important;
+          }
+          .bubble-icon, .bubble-button-background {
+            color: white !important;
+          }
+        card_layout: large
+        button_type: name
+        show_name: true
+        show_state: false
+        tap_action: {}
+        button_action:
+          tap_action: {}
+  - type: horizontal-stack
+    cards:
+      - type: custom:bubble-card
+        card_type: button
+        name: Terrasse
+        icon: mdi:flower-tulip
+        styles: |-
+          ha-card {
+            --bubble-button-main-background-color: rgba(34, 139, 34, 0.25) !important;
+          }
+          .bubble-icon-container {
+            background-color: rgba(34, 139, 34, 1) !important;
+            cursor: default !important;
+          }
+          .bubble-icon, .bubble-button-background {
+            color: white !important;
+          }
+        card_layout: large
+        button_type: name
+        show_name: true
+        show_state: false
+        tap_action:
+          navigation_path: "#bubble-popup-hallway"
+        button_action:
+          tap_action: {}
+        sub_button:
+          - entity: sensor.xiaomi_aqara_tph_sensor_terrasse_temperature
+            state_background: false
+            show_state: true
+            show_icon: false
+          - icon: mdi:menu
+            tap_action:
+              action: navigate
+              navigation_path: "#bubble-popup-hallway"
+      - type: custom:bubble-card
+        card_type: button
+        name: Piscine
+        icon: mdi:pool
+        sub_button:
+          - entity: sensor.owon_temperature_sensor_swimmingpool_temperature
+            state_background: false
+            show_state: true
+            icon: mdi:pool-thermometer
+            show_icon: false
+          - icon: mdi:menu
+            light_background: false
+            state_background: false
+            show_icon: true
+            show_name: false
+            tap_action:
+              action: navigate
+              navigation_path: "#bubble-popup-livingroom"
+        styles: |-
+          ha-card {
+            --bubble-button-main-background-color: rgba(72, 209, 204, 0.25) !important;
+          }
+          .bubble-icon-container {
+            background-color: rgba(72, 209, 204, 1) !important;
+            cursor: default !important;
+          }
+          .bubble-icon, .bubble-button-background {
+            color: white !important;
+          }
+        card_layout: large
+        button_type: name
+        show_name: true
+        show_state: false
+        tap_action: {}
+        button_action:
+          tap_action: {}
