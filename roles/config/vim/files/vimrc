@@ -1,0 +1,9 @@
+" ~/.vimrc
+colorscheme desert
+set textwidth=79
+set scrolloff=15
+set autoindent
+set tabstop=2
+set shiftwidth=2
+set expandtab
+set modeline modelines=2

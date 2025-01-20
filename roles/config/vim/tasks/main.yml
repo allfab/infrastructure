@@ -1,0 +1,17 @@
+---
+- name: "CONFIGURATION DE vim POUR L'UTILISATEUR {{ secret.users.me.name }}"
+  ansible.builtin.copy:
+    src: vimrc
+    dest: /home/{{ secret.users.me.name }}/.vimrc
+    owner: "{{ secret.users.me.name }}"
+    group: "{{ secret.users.me.group }}"
+    mode: 0644
+
+- name: INSTALLATION DU FICHIER .vimrc POUR LES FUTURS UTILISATEURS
+  ansible.builtin.copy:
+    src: vimrc
+    dest: /etc/skel/.vimrc
+    owner: root
+    group: root
+    mode: 0644
+  become: true
