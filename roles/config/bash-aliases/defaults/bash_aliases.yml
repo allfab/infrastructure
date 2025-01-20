@@ -6,3 +6,15 @@ bash_aliases:
   - { alias: "c", command: "clear" }
   - { alias: "grep", command: "grep --color=auto" }
   - { alias: "mkdir", command: "mkdir -pv" }
+  - { alias: "rm", command: "rm -i" }
+  - { alias: "cp", command: "cp -i" }
+  - { alias: "mv", command: "mv -i" }
+  - { alias: "..", command: "cd .." }
+  - { alias: "...", command: "cd ../.." }
+  - { alias: "vi", command: "vim" }
+  - { alias: "dcup", command: "docker compose up" }
+  - { alias: "dcdown", command: "docker compose down" }
+  - { alias: "dcpull", command: "docker compose pull" }
+
+
+

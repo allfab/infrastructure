@@ -20,3 +20,4 @@
     owner: root
     regexp: "^alias {{ item.alias }}="
   with_items: "{{ bash_aliases }}"
+  become: true
