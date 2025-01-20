@@ -4,10 +4,11 @@ package_list:
   - name: bash-completion
   - name: ca-certificates
   - name: curl
+  - name: duf
   - name: git
   - name: htop
   - name: openssh-clients
   - name: openssh-server
   - name: sudo
-  - name: vim
+  - name: vim-enhanced
   - name: wget
