@@ -439,7 +439,6 @@
       ansible.builtin.dnf:
         name: epel-release
         state: present
-    - name: 
     - name: ACTIVATION DU DÉPÔT CRB
       community.general.dnf_config_manager:
         name: crb
