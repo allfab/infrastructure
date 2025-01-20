@@ -1,0 +1,26 @@
+---
+- name: "CONFIGURATION DU bashrc POUR L'UTILISATEUR {{ secret.users.me.name }}"
+  ansible.builtin.copy:
+    src: bashrc-user
+    dest: /home/{{ secret.users.me.name }}/.bashrc
+    owner: "{{ secret.users.me.name }}"
+    group: "{{ secret.users.me.group }}"
+    mode: 0644
+
+- name: CONFIGURATION DU bashrc POUR L'UTILISATEUR root
+  ansible.builtin.copy:
+    src: bashrc-root
+    dest: /root/.bashrc
+    owner: root
+    group: root
+    mode: 0644
+  become: true
+
+- name: INSTALLATION DU FICHIER .bashrc POUR LES FUTURS UTILISATEURS
+  ansible.builtin.copy:
+    src: bashrc-user
+    dest: /etc/skel/.bashrc
+    owner: root
+    group: root
+    mode: 0644
+  become: true

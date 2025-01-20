@@ -1,0 +1,25 @@
+# /root/.bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+  . /etc/bashrc
+fi
+ 
+# LANG
+LANG=en_US.utf8
+export LANG
+
+# Alias
+# Cf. config/bash-aliases Ansible Role
+
+# PS1
+RED='\[\033[0;33m\]'
+REDBOLD='\[\033[1;33m\]'
+WHITE='\[\033[1;37m\]'
+NC='\[\033[0m\]'
+PS1="$RED[$REDBOLD\u$NC@$REDBOLD\h$NC:$WHITE\W$RED] #$NC "
+
+# Vim
+EDITOR=vim
+VISUAL=$EDITOR
+export EDITOR VISUAL

@@ -1,0 +1,23 @@
+# ~/.bashrc
+
+# Source global definitions 
+if [ -f /etc/bashrc ]; then
+  . /etc/bashrc
+fi
+ 
+# Alias
+# Cf. config/bash-aliases Ansible Role
+
+# PS1
+GREEN='\[\033[0;32m\]'
+GREENBOLD='\[\033[1;32m\]'
+BLUE='\[\033[0;34m\]'
+BLUEBOLD='\[\033[1;34m\]'
+WHITE='\[\033[1;37m\]'
+NC='\[\033[0;m\]'
+PS1="$GREEN[$GREENBOLD\u$NC@$GREENBOLD\h$NC:$WHITE\W$GREEN] \$ $NC"
+
+# Vim
+EDITOR=vim
+VISUAL=$EDITOR
+export EDITOR VISUAL
