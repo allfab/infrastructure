@@ -13,10 +13,10 @@ else
 fi
 
 echo "INSTALLATION DES RÔLES Ansible"
-ansible-galaxy role install -r requirements.yml --force
+ansible-galaxy role install --force -r requirements.yml --force
 
 echo "INSTALLATION DES COLLECTIONS Ansible"
-ansible-galaxy collection install -r requirements.yml
+ansible-galaxy collection install --force -r requirements.yml
 
 echo "INSTALLATION DU HOOK GIT DE PRÉ-COMMIT Ansible Vault"
 ./git-init.sh

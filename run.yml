@@ -439,10 +439,12 @@
       ansible.builtin.dnf:
         name: epel-release
         state: present
+      become: true
     - name: ACTIVATION DU DÉPÔT CRB
       community.general.dnf_config_manager:
         name: crb
         state: enabled
+      become: true
     - name: MISE À JOUR SYSTÈME
       become: true
       dnf:
@@ -461,6 +463,46 @@
     - role: geerlingguy.docker
       become: true
     - role: webgis/setup
+
+- hosts: forge
+  tags: deployment
+  gather_facts: no
+  vars_files:
+    - vars/vault.yml
+  roles:
+    - role: forge/deployment
+
+- hosts: forge
+  tags: setup
+  gather_facts: yes
+  vars_files:
+    - vars/vault.yml
+  pre_tasks:
+    - name: INSTALLATION DU DÉPÔT Extra Packages for Enterprise Linux (EPEL)
+      ansible.builtin.dnf:
+        name: epel-release
+        state: present
+      become: true
+    - name: ACTIVATION DU DÉPÔT CRB
+      community.general.dnf_config_manager:
+        name: crb
+        state: enabled
+      become: true
+    - name: MISE À JOUR SYSTÈME
+      become: true
+      dnf:
+        name: "*"
+        state: latest
+  roles:
+    - role: grog.package
+      become: true
+    - role: config/bash-aliases
+    - config/bashrc
+    - config/vim
+    - install/motd
+    - role: geerlingguy.docker
+      become: true
+    - role: forge/setup
 
 # - hosts: monitoring
 #   tags: setup

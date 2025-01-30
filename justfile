@@ -95,6 +95,12 @@ webgis-deployment:
 webgis-setup:
   ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit webgis --tags setup
 
+forge-deployment:
+  ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit forge --tags deployment
+
+forge-setup:
+  ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit forge --tags setup
+
 monitoring_old:
   ansible-playbook -i hosts.ini run.yml --user allfab --private-key ~/.ssh/allfab --limit monitoring --tags setup
 
