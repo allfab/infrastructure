@@ -1,0 +1,103 @@
+---
+services:
+  portainer-agent:
+    container_name: portainer-agent
+    image: portainer/agent:latest
+    restart: always
+    ports:
+      - 9001:9001
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes 
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - AGENT_SECRET="${AGENT_SECRET}"
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - forge
+
+  dozzle-agent:
+    container_name: dozzle-agent
+    image: amir20/dozzle:latest
+    restart: unless-stopped
+    ports:
+      - 7007:7007
+    command: agent
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - DOZZLE_HOSTNAME=Forge
+    networks:
+      - forge
+
+  forgejo:
+    container_name: forgejo
+    image: codeberg.org/forgejo/forgejo:10
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+      - 6587:22    
+    volumes:
+      - ./forgejo:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - FORGEJO__database__DB_TYPE=${FORGEJO__database__DB_TYPE}
+      - FORGEJO__database__HOST=${FORGEJO__database__HOST}
+      - FORGEJO__database__NAME=${FORGEJO__database__NAME}
+      - FORGEJO__database__USER=${FORGEJO__database__USER}
+      - FORGEJO__database__PASSWD=${FORGEJO__database__PASSWD}
+    networks:
+      - forge
+
+  woodpecker-server:
+    container_name: woodpecker-server
+    image: woodpeckerci/woodpecker-server:latest
+    restart: unless-stopped
+    ports:
+      - 8000:8000
+    volumes:
+      - ./woodpecker/server:/var/lib/woodpecker/
+    environment:
+      - WOODPECKER_OPEN=true
+      - WOODPECKER_HOST=https://woodpecker.allfabox.fr
+      - WOODPECKER_FORGEJO=true
+      - WOODPECKER_FORGEJO_URL=https://forgejo.allfabox.fr
+      - WOODPECKER_FORGEJO_CLIENT=${WOODPECKER_FORGEJO_CLIENT}
+      - WOODPECKER_FORGEJO_SECRET=${WOODPECKER_FORGEJO_SECRET}
+      # - WOODPECKER_GITHUB=true
+      # - WOODPECKER_GITHUB_CLIENT=${WOODPECKER_GITHUB_CLIENT}
+      # - WOODPECKER_GITHUB_SECRET=${WOODPECKER_GITHUB_SECRET}
+      # - WOODPECKER_AGENT_SECRET=${WOODPECKER_AGENT_SECRET}
+      # - WOODPECKER_LOG_LEVEL=debug
+    networks:
+      - forge
+
+  woodpecker-agent:
+    container_name: woodpecker-agent
+    image: woodpeckerci/woodpecker-agent:latest
+    command: agent
+    restart: always
+    depends_on:
+      - woodpecker-server
+    volumes:
+      - ./woodpecker/agent:/etc/woodpecker
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WOODPECKER_SERVER=woodpecker-server:9000
+      - WOODPECKER_AGENT_SECRET=${WOODPECKER_AGENT_SECRET}
+    networks:
+      - forge
+
+# docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 forge
+networks:
+  forge:
+    name: forge
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "172.18.0.0/16"
+          gateway: "172.18.0.1"

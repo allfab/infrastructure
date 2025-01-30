@@ -1,0 +1,20 @@
+---
+docker:
+  compose:
+    file_mask: "664"
+    directory_mask: "775"
+
+portainer:
+  agent:
+    secret:
+      key: "{{ secret.portainer.agent.secret.key }}"
+
+woodpecker:
+  agent:
+    secret: "{{ secret.woodpecker.agent.secret }}"
+  forgejo:
+    client: "{{ secret.woodpecker.forgejo.client }}"
+    secret: "{{ secret.woodpecker.forgejo.secret }}"
+  github:
+    client: "{{ secret.woodpecker.github.client }}"
+    secret: "{{ secret.woodpecker.github.secret }}"

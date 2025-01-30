@@ -1,0 +1,6 @@
+---
+- name: CHARGEMENT DES VARIABLES
+  include_vars: defaults/main.yml
+
+- name: INSTALLATION/CONFIGURATION DE LA STACK forge
+  include_tasks: docker/forge.yml

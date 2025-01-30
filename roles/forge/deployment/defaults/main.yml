@@ -1,0 +1,46 @@
+---
+linux:
+  os_family: RedHat
+  
+ssh:
+  port: "{{ secret.ssh.port }}"
+
+proxmox:
+  lxc:
+    name: forge
+    vmid: 151
+    cores: 2
+    cpus: "1"
+    cpuunits: "1000"
+    disk: "local-zfs:32"
+    nesting: 1
+    keyctl: 1
+    fuse: 1
+    memory: 1024
+    nameserver: 192.168.0.253
+    ip: 192.168.10.51
+    gw: 192.168.10.1
+    unprivileged: false
+    onboot: true
+    startup: "order=12"
+    ostemplate: "iso-morpheus:vztmpl/rockylinux-9-default_20240912_amd64.tar.xz"
+    password: "{{ secret.users.lxc.ssh.password }}"
+    pubkey: "{{ secret.users.me.ssh.pubkey }}"
+    # storage: "local-zfs"
+    swap: "1024"
+    tags:
+      - forge
+      - prod
+    timezone: "Europe/Paris"
+    description: |
+      <div align="center"><a href="https://perfecthomelab.allfabox.fr/" target="_blank" rel="noopener noreferrer"><img src="https://raw.githubusercontent.com/allfab/perfect-homelab/main/docs/assets/images/overview/logo-perfect-homelab-proxmox-thumbnail.png"/></a>
+
+      # Forge LXC
+
+      <a href="https://perfecthomelab.allfabox.fr/" target="_blank"><img src="https://img.shields.io/badge/Perfect_Homelab-526CFE?style=for-the-badge&logo=MaterialForMkDocs&logoColor=white" /></a><br />
+      <a href="https://forgejo.org/" target="_blank"><img src="https://img.shields.io/badge/forgejo-c2410c?style=for-the-badge&logo=git&logoColor=white" /></a><br />
+      <a href="https://woodpecker-ci.org/" target="_blank"><img src="https://img.shields.io/badge/Woodpecker-ci-369943?style=for-the-badge&logo=gitea&logoColor=white" /></a>
+      </div>
+    tags:
+      - forge
+      - prod
