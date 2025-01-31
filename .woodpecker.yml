@@ -1,0 +1,26 @@
+---
+clone:
+  - name: git
+    image: alpine/git
+    commands:
+      - mkdir -p /home/allfab && cd /home/allfab
+      - git clone https://github.com/allfab/infrastructure
+      - git remote add forgejo VAULT_FORGEJO_GIT_REPO
+      - git push forgejo main
+
+steps:
+    - name: ntfy
+      image: codeberg.org/l-x/woodpecker-ntfy
+      when:
+        - event: push
+      settings:
+          url:
+            from_secret: VAULT_NTFY_URL
+          title: Commit by ${CI_COMMIT_AUTHOR} on ${CI_COMMIT_BRANCH}
+          priority: high
+          # actions: "view, Open portal, https://home.nest.com/, clear=true; http, Turn down, https://api.nest.com/, body='{\"temperature\": 65}'"
+          click:
+            from_secret: VAULT_FORGEJO_URL
+          icon: https://woodpecker-ci.org/img/logo.svg
+          tags: robot,${CI_REPO_NAME}
+          message: ${CI_COMMIT_MESSAGE}
