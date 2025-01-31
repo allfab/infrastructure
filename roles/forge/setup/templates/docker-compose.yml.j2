@@ -53,19 +53,19 @@ services:
     networks:
       - forge
 
-  woodpecker-server:
-    container_name: woodpecker-server
+  woodpecker-server-forgejo:
+    container_name: woodpecker-server-forgejo
     image: woodpeckerci/woodpecker-server:v3
     restart: unless-stopped
     ports:
-      - 8000:8000
-      - 9000:9000
+      - 8002:8000
+      - 9002:9000
     volumes:
-      - ./woodpecker/server:/var/lib/woodpecker/
+      - ./woodpecker/server/forgejo:/var/lib/woodpecker/
     environment:
       - WOODPECKER_OPEN=true
-      - WOODPECKER_HOST=https://woodpecker.allfabox.fr
-      - WOODPECKER_AGENT_SECRET=${WOODPECKER_AGENT_SECRET}
+      - WOODPECKER_HOST=https://forgejo.ci.allfabox.fr
+      - WOODPECKER_AGENT_SECRET=${WOODPECKER_AGENT_SECRET_FORGEJO}
       - WOODPECKER_GRPC_ADDR=:9000
       - WOODPECKER_PLUGINS_PRIVILEGED=woodpeckerci/plugin-docker-buildx
       # FORGEJO
@@ -73,27 +73,63 @@ services:
       - WOODPECKER_FORGEJO_URL=https://forgejo.allfabox.fr
       - WOODPECKER_FORGEJO_CLIENT=${WOODPECKER_FORGEJO_CLIENT}
       - WOODPECKER_FORGEJO_SECRET=${WOODPECKER_FORGEJO_SECRET}
-      # - WOODPECKER_GITHUB=true
-      # - WOODPECKER_GITHUB_CLIENT=${WOODPECKER_GITHUB_CLIENT}
-      # - WOODPECKER_GITHUB_SECRET=${WOODPECKER_GITHUB_SECRET}
       # - WOODPECKER_LOG_LEVEL=debug
     networks:
       - forge
   
-  woodpecker-agent:
-    container_name: woodpecker-agent
+  woodpecker-agent-forgejo:
+    container_name: woodpecker-agent-forgejo
     image: woodpeckerci/woodpecker-agent:v3
     depends_on:
-      woodpecker-server:
+      woodpecker-server-forgejo:
         condition: service_healthy
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
-      - WOODPECKER_SERVER=192.168.10.51:9000
-      - WOODPECKER_AGENT_SECRET=${WOODPECKER_AGENT_SECRET}
+      - WOODPECKER_SERVER=192.168.10.51:9002
+      - WOODPECKER_AGENT_SECRET=${WOODPECKER_AGENT_SECRET_FORGEJO}
       - WOODPECKER_MAX_WORKFLOWS=2
       - WOODPECKER_PLUGINS_PRIVILEGED=woodpeckerci/plugin-docker-buildx
-     networks:
+    networks:
+      - forge
+
+  woodpecker-server-github:
+    container_name: woodpecker-server-github
+    image: woodpeckerci/woodpecker-server:v3
+    restart: unless-stopped
+    ports:
+      - 8003:8000
+      - 9003:9000
+    volumes:
+      - ./woodpecker/server/github:/var/lib/woodpecker/
+    environment:
+      - WOODPECKER_OPEN=true
+      - WOODPECKER_HOST=https://github.ci.allfabox.fr
+      - WOODPECKER_AGENT_SECRET=${WOODPECKER_AGENT_SECRET_GITHUB}
+      - WOODPECKER_GRPC_ADDR=:9000
+      - WOODPECKER_PLUGINS_PRIVILEGED=woodpeckerci/plugin-docker-buildx
+      # GITHUB
+      - WOODPECKER_GITHUB=true
+      - WOODPECKER_GITHUB_CLIENT=${WOODPECKER_GITHUB_CLIENT}
+      - WOODPECKER_GITHUB_SECRET=${WOODPECKER_GITHUB_SECRET}
+      # - WOODPECKER_LOG_LEVEL=debug
+    networks:
+      - forge
+  
+  woodpecker-agent-github:
+    container_name: woodpecker-agent-github
+    image: woodpeckerci/woodpecker-agent:v3
+    depends_on:
+      woodpecker-server-github:
+        condition: service_healthy
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - WOODPECKER_SERVER=192.168.10.51:9003
+      - WOODPECKER_AGENT_SECRET=${WOODPECKER_AGENT_SECRET_GITHUB}
+      - WOODPECKER_MAX_WORKFLOWS=2
+      - WOODPECKER_PLUGINS_PRIVILEGED=woodpeckerci/plugin-docker-buildx
+    networks:
       - forge
 
 # docker network create --driver=bridge --subnet=172.18.0.0/16 --gateway=172.18.0.1 forge

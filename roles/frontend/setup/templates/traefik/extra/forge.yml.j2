@@ -1,0 +1,31 @@
+http:
+  routers:
+    forgejo:
+      entryPoints:
+        - websecure
+      rule: 'Host(`forgejo.allfabox.fr`)'
+      service: forgejo
+    woodpecker-forgejo:
+      entryPoints:
+        - websecure
+      rule: 'Host(`forgejo.ci.allfabox.fr`)'
+      service: woodpecker-forgejo
+    woodpecker-github:
+      entryPoints:
+        - websecure
+      rule: 'Host(`github.ci.allfabox.fr`)'
+      service: woodpecker-github
+
+  services:
+    forgejo:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.51:3000
+    woodpecker-forgejo:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.51:8002
+    woodpecker-github:
+      loadBalancer:
+        servers:
+          - url: http://192.168.10.51:8003

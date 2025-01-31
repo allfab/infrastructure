@@ -11,7 +11,10 @@ portainer:
 
 woodpecker:
   agent:
-    secret: "{{ secret.woodpecker.agent.secret }}"
+    forgejo:
+      secret: "{{ secret.woodpecker.agent.forgejo.secret }}"
+    github:
+      secret: "{{ secret.woodpecker.agent.github.secret }}"
   forgejo:
     client: "{{ secret.woodpecker.forgejo.client }}"
     secret: "{{ secret.woodpecker.forgejo.secret }}"

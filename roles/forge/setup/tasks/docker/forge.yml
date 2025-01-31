@@ -16,6 +16,8 @@
     - docker/forge-stack/forgejo
     - docker/forge-stack/woodpecker
     - docker/forge-stack/woodpecker/server
+    - docker/forge-stack/woodpecker/server/forgejo
+    - docker/forge-stack/woodpecker/server/github
     - docker/forge-stack/woodpecker/agent
 
 - name: ON S'ASSURE QU'UN FICHIER docker-compose.yml EXISTE
