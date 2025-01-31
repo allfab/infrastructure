@@ -5,11 +5,12 @@ clone:
     commands:
       - mkdir -p /home/allfab && cd /home/allfab
       - git clone https://github.com/allfab/infrastructure
-      - git remote add forgejo https://forgejo.allfabox.fr/allfab/infrastructure.git
-      - git push forgejo main
-    # environment:
-    #   VAULT_FORGEJO_INFRA_GIT_REPO:
-    #     from_secret: VAULT_FORGEJO_INFRA_GIT_REPO
+      - echo "The secret is $VAULT_FORGEJO_INFRA_GIT_REPO"
+      # - git remote add forgejo $VAULT_FORGEJO_INFRA_GIT_REPO
+      # - git push forgejo main
+    environment:
+      VAULT_FORGEJO_INFRA_GIT_REPO:
+        from_secret: VAULT_FORGEJO_INFRA_GIT_REPO
 
 steps:
     - name: ntfy
