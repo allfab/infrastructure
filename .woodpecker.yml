@@ -10,7 +10,6 @@ clone:
       - git remote add forgejo VAULT_FORGEJO_INFRA_GIT_REPO
       - git push forgejo main
 
-
 steps:
     - name: ntfy
       image: codeberg.org/l-x/woodpecker-ntfy
