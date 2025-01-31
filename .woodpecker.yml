@@ -2,8 +2,6 @@
 clone:
   git:
     image: woodpeckerci/plugin-git
-    when:
-      - event: push
     commands:
       - mkdir -p /home/allfab && cd /home/allfab
       - git clone https://github.com/allfab/infrastructure
