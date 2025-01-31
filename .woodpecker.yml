@@ -4,7 +4,7 @@ clone:
     image: woodpeckerci/plugin-git
     commands:
       - mkdir -p /home/allfab && cd /home/allfab
-      # - git clone https://github.com/allfab/infrastructure
+      - git clone https://github.com/allfab/infrastructure
       # - git remote add forgejo VAULT_FORGEJO_INFRA_GIT_REPO
       # - git push forgejo main
 
