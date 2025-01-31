@@ -27,6 +27,7 @@ docker exec -it fail2ban fail2ban-client status <jail name>
 # Débannir une adresse IP
 docker exec -it fail2ban fail2ban-client set <jail name> unbanip <IP>
 docker exec -it fail2ban fail2ban-client set traefik unbanip 92.184.104.95
+docker exec -it fail2ban fail2ban-client set traefik unbanip 192.168.10.10
 docker exec -it fail2ban fail2ban-client set pam-generic unbanip 192.168.10.10
 fail2ban-client set traefik unbanip 92.184.104.95
 fail2ban-client set pam-generic unbanip 192.168.10.10
