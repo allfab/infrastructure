@@ -59,15 +59,16 @@ services:
     restart: unless-stopped
     ports:
       - 8002:8000
-      - 9002:9000
+      - 9002:9002
     volumes:
       - ./woodpecker/server/forgejo:/var/lib/woodpecker/
     environment:
       - WOODPECKER_OPEN=true
       - WOODPECKER_HOST=https://forgejo.ci.allfabox.fr
       - WOODPECKER_AGENT_SECRET=${WOODPECKER_AGENT_SECRET_FORGEJO}
-      - WOODPECKER_GRPC_ADDR=:9000
-      - WOODPECKER_PLUGINS_PRIVILEGED=woodpeckerci/plugin-docker-buildx
+      - WOODPECKER_GRPC_ADDR=:9002
+      - WOODPECKER_ADMIN="{{ secret.users.me.name }}"
+      - WOODPECKER_PLUGINS_PRIVILEGED=woodpeckerci/plugin-docker-buildx:latest
       # FORGEJO
       - WOODPECKER_FORGEJO=true
       - WOODPECKER_FORGEJO_URL=https://forgejo.allfabox.fr
@@ -80,16 +81,21 @@ services:
   woodpecker-agent-forgejo:
     container_name: woodpecker-agent-forgejo
     image: woodpeckerci/woodpecker-agent:v3
+    restart: unless-stopped
+    ports:
+      - 4302:3000
     depends_on:
       woodpecker-server-forgejo:
         condition: service_healthy
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/localtime:/etc/localtime:ro
     environment:
       - WOODPECKER_SERVER=192.168.10.51:9002
       - WOODPECKER_AGENT_SECRET=${WOODPECKER_AGENT_SECRET_FORGEJO}
       - WOODPECKER_MAX_WORKFLOWS=2
-      - WOODPECKER_PLUGINS_PRIVILEGED=woodpeckerci/plugin-docker-buildx
+      - WOODPECKER_GRPC_SECURE=false
+      - WOODPECKER_PLUGINS_PRIVILEGED=woodpeckerci/plugin-docker-buildx:latest
     networks:
       - forge
 
@@ -99,15 +105,16 @@ services:
     restart: unless-stopped
     ports:
       - 8003:8000
-      - 9003:9000
+      - 9003:9003
     volumes:
       - ./woodpecker/server/github:/var/lib/woodpecker/
     environment:
       - WOODPECKER_OPEN=true
       - WOODPECKER_HOST=https://github.ci.allfabox.fr
       - WOODPECKER_AGENT_SECRET=${WOODPECKER_AGENT_SECRET_GITHUB}
-      - WOODPECKER_GRPC_ADDR=:9000
-      - WOODPECKER_PLUGINS_PRIVILEGED=woodpeckerci/plugin-docker-buildx
+      - WOODPECKER_GRPC_ADDR=:9003
+      - WOODPECKER_ADMIN="{{ secret.users.me.name }}"
+      - WOODPECKER_PLUGINS_PRIVILEGED=woodpeckerci/plugin-docker-buildx:latest
       # GITHUB
       - WOODPECKER_GITHUB=true
       - WOODPECKER_GITHUB_CLIENT=${WOODPECKER_GITHUB_CLIENT}
@@ -119,16 +126,21 @@ services:
   woodpecker-agent-github:
     container_name: woodpecker-agent-github
     image: woodpeckerci/woodpecker-agent:v3
+    restart: unless-stopped
+    ports:
+      - 4303:3000
     depends_on:
       woodpecker-server-github:
         condition: service_healthy
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/localtime:/etc/localtime:ro
     environment:
       - WOODPECKER_SERVER=192.168.10.51:9003
       - WOODPECKER_AGENT_SECRET=${WOODPECKER_AGENT_SECRET_GITHUB}
       - WOODPECKER_MAX_WORKFLOWS=2
-      - WOODPECKER_PLUGINS_PRIVILEGED=woodpeckerci/plugin-docker-buildx
+      - WOODPECKER_GRPC_SECURE=false
+      - WOODPECKER_PLUGINS_PRIVILEGED=woodpeckerci/plugin-docker-buildx:latest
     networks:
       - forge
 
